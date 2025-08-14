@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[TOC]\n一、AI绘画学习 1.简单介绍 1.1原理 原理：将原图先增加噪声然后通过深度学习去除噪声并风格化重绘\n通过深度学习，领会不同图片或者某一类风格图片的特征\nAI绘画=AI图像生成\n1.2配置 配置：需要本地部署，独立显卡\n">
+<title></title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/'>
+
+<link rel="stylesheet" href="/scss/style.min.946cca6c6259ef94ac55abfae7c7bf3291ea3ed5eea17ef77500b257217c6710.css"><meta property='og:title' content="">
+<meta property='og:description' content="[TOC]\n一、AI绘画学习 1.简单介绍 1.1原理 原理：将原图先增加噪声然后通过深度学习去除噪声并风格化重绘\n通过深度学习，领会不同图片或者某一类风格图片的特征\nAI绘画=AI图像生成\n1.2配置 配置：需要本地部署，独立显卡\n">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/'>
+<meta property='og:site_name' content='Amarantos-Arrebol'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' />
+<meta name="twitter:title" content="">
+<meta name="twitter:description" content="[TOC]\n一、AI绘画学习 1.简单介绍 1.1原理 原理：将原图先增加噪声然后通过深度学习去除噪声并风格化重绘\n通过深度学习，领会不同图片或者某一类风格图片的特征\nAI绘画=AI图像生成\n1.2配置 配置：需要本地部署，独立显卡\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Amarantos-Arrebol</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人生活和学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友情链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#01-基础指令">01 基础指令</a></li>
+    <li><a href="#02linux权限">02Linux权限</a></li>
+    <li><a href="#03yum理解">03yum理解</a></li>
+    <li><a href="#04makemakefile">04make/makefile</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/"></a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>[TOC]</p>
+<h1 id="linux作业">Linux作业
+</h1><h2 id="01-基础指令">01 基础指令
+</h2><p><strong>题目1：</strong></p>
+<p><img src="C:%5cUsers%5c24859%5cAppData%5cLocal%5cTemp%5c1728658785669.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72865878566"
+	
+	
+></p>
+<blockquote>
+<p>A 全称Linux extended file system, extfs,即Linux扩展文件系统，ext2为第二代</p>
+<p>D XFS一种高性能的日志文件系统，2000年5月，Silicon Graphics以GNU通用公共许可证发布这套系统的源代码，之后被移植到Linux 内核上。XFS 特别擅长处理大文件，同时提供平滑的数据传输</p>
+<p>E UFS是UNIX文件系统的简称，它来源于4.3Tahoe发行版中提供的BSD Fat Fast File System（FFS）系统，属于FFS的演化版本</p></blockquote>
+<p>==ABCD==</p>
+<p><strong>题目2:</strong></p>
+<p><img src="C:%5cUsers%5c24859%5cAppData%5cLocal%5cTemp%5c1728659034645.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72865903464"
+	
+	
+></p>
+<blockquote>
+<p>uname -r 	查看linux内核版本信息</p>
+<p>vmstat  	报告关于内核线程、虚拟内存、磁盘、陷阱和 CPU 活动的统计信息</p>
+<p>sar			主要帮助我们掌握系统资源的使用情况，特别是内存和CPU的使用情况</p>
+<p>stat		用于显示文件的状态信息</p></blockquote>
+<p>==A uname -f==</p>
+<p><strong>题目3:</strong></p>
+<p><img src="C:%5cUsers%5c24859%5cAppData%5cLocal%5cTemp%5c1728659632703.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72865963270"
+	
+	
+></p>
+<blockquote>
+<p>​    A	cat  打印文件内容到终端显示</p>
+<p>​    B	more	分页显示文件内容，但是通常向上翻页不好使</p>
+<p>​    C	less	分页显示文件内容，可以灵活上下移动光标和翻页</p>
+<p>​    D	menu	没有这个指令（至少centos7上默认没有这个命令）</p></blockquote>
+<p>==C==</p>
+<p><strong>题目4:</strong></p>
+<p><img src="C:%5cUsers%5c24859%5cAppData%5cLocal%5cTemp%5c1728659676562.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72865967656"
+	
+	
+></p>
+<blockquote>
+<p>​    A	-m	在创建目录的同时设置权限</p>
+<p>​    B	-d	没有这个选项</p>
+<p>​    C	-f	没有这个选项</p>
+<p>​    D	-p	在创建多层级目录的时候若上级目录不存在则创建</p></blockquote>
+<p>==D==</p>
+<p><strong>题目5:</strong></p>
+<p><img src="C:%5cUsers%5c24859%5cAppData%5cLocal%5cTemp%5c1728659716211.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72865971621"
+	
+	
+></p>
+<blockquote>
+<p>grep:Linux系统中grep命令是一种强大的文本搜索工具，它能使用正则表达式搜索文本，</p>
+<p>并把匹配的行打印出来。grep全称是Global Regular Expr  ession Print，表示全局正则表达式版本，它的使用权限是所有用户。</p>
+<p>grep选项中，-E选项可以用来扩展选项为正则表达式；</p>
+<pre><code>  \$表示匹配文件末尾，字符需要在$之前表示以字符结尾  a$表示以a结尾
+</code></pre>
+<p>​	^表示匹配文件起始，字符需要在 ^之后表示以字符起始  ^a表示以a起始</p></blockquote>
+<p>==D==</p>
+<p><strong>题目6:</strong></p>
+<p><img src="C:%5cUsers%5c24859%5cAppData%5cLocal%5cTemp%5c1728659892826.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72865989282"
+	
+	
+></p>
+<blockquote>
+<p>​    A	top 		查看cpu资源使用状态</p>
+<p>​    B	netstat		查看网络连接状态</p>
+<p>​    C	free		查看内存资源状态</p>
+<p>​    D	df			查看磁盘分区资源状态</p></blockquote>
+<p>==A==</p>
+<p><strong>题目7:</strong></p>
+<p><img src="C:%5cUsers%5c24859%5cAppData%5cLocal%5cTemp%5c1728660757093.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72866075709"
+	
+	
+></p>
+<blockquote>
+<p>A	rm *.c *通配符，表示匹配任意字符任意次</p>
+<p>B	find . -name &ldquo;*.c&rdquo; -maxdepth 1 | xargs rm</p>
+<p>​    find . -name &ldquo;*.c&rdquo; -maxdepth 1 找到当前目录下.*结尾的文件，目录深度为1</p>
+<p>​    xargs是一个强有力的命令，它能够捕获一个命令的输出，然后传递给另外一个命令，用于很多不支持|管道来传递参数的命令</p>
+<p>​	相当于将前边命令的执行结果，也就是查找到的文件名，传递给后边的rm指令进行删除</p>
+<p>C	find . -name &ldquo;*.c&rdquo; | xargs rm 没有进行深度控制，删除的不仅是当前目录下的文件，会将子目录下的文件也删除</p>
+<p>D	以上都不正确</p></blockquote>
+<p>==AB==</p>
+<h2 id="02linux权限">02Linux权限
+</h2><p><img src="/assets/1731833324024.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183332402"
+	
+	
+></p>
+<p>C</p>
+<p><img src="/assets/1731833341671.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183334167"
+	
+	
+></p>
+<p><img src="/assets/1731833357256.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183335725"
+	
+	
+></p>
+<p>C</p>
+<p><img src="/assets/1731833368190.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183336819"
+	
+	
+></p>
+<p><img src="/assets/1731833385968.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183338596"
+	
+	
+></p>
+<p><img src="/assets/1731833396296.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183339629"
+	
+	
+></p>
+<p><img src="/assets/1731833406864.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183340686"
+	
+	
+></p>
+<p><img src="/assets/1731833415967.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183341596"
+	
+	
+></p>
+<h2 id="03yum理解">03yum理解
+</h2><p><img src="/assets/1731833208398.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183320839"
+	
+	
+></p>
+<p><img src="/assets/1731832908530.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183290853"
+	
+	
+></p>
+<p>ABC</p>
+<p><img src="/assets/1731833235829.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73183323582"
+	
+	
+></p>
+<h2 id="04makemakefile">04make/makefile
+</h2><p><img src="/assets/1732787630646.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278763064"
+	
+	
+></p>
+<p>C</p>
+<p><img src="/assets/1732787642625.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278764262"
+	
+	
+></p>
+<p><img src="/assets/1732787658757.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278765875"
+	
+	
+></p>
+<p>A</p>
+<p><img src="/assets/1732787670843.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278767084"
+	
+	
+></p>
+<p><img src="/assets/1732787733778.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278773377"
+	
+	
+></p>
+<p>A</p>
+<p><img src="/assets/1732787745276.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278774527"
+	
+	
+></p>
+<p><img src="/assets/1732787758516.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278775851"
+	
+	
+></p>
+<p>ABC</p>
+<p><img src="/assets/1732787784925.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278778492"
+	
+	
+></p>
+<p><img src="/assets/1732787795707.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278779570"
+	
+	
+></p>
+<p>BD</p>
+<p><img src="/assets/1732787817853.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="73278781785"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 Amarantos-Arrebol
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

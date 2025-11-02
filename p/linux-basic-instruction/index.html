@@ -1,0 +1,4006 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="认识 Linux 系统与常用命令的基础操作">
+<title>【Linux】01初始Linux&#43;基础指令</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【Linux】01初始Linux+基础指令">
+<meta property='og:description' content="认识 Linux 系统与常用命令的基础操作">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta name="twitter:title" content="【Linux】01初始Linux+基础指令">
+<meta name="twitter:description" content="认识 Linux 系统与常用命令的基础操作"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一linux初识">一、Linux初识</a>
+      <ul>
+        <li><a href="#1历史">1、历史</a>
+          <ul>
+            <li><a href="#11-计算机的历史">1.1 计算机的历史</a></li>
+            <li><a href="#12-操作系统的历史">1.2 操作系统的历史</a></li>
+          </ul>
+        </li>
+        <li><a href="#2引入linux">2、引入Linux</a>
+          <ul>
+            <li><a href="#21-linux特点">2.1 Linux特点</a></li>
+            <li><a href="#22应用场景">2.2应用场景</a></li>
+            <li><a href="#23版本">2.3版本</a></li>
+            <li><a href="#24-安装问题">2.4 安装问题</a></li>
+          </ul>
+        </li>
+        <li><a href="#3xshell基本操作">3、XShell基本操作</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#a-怎么登录xshell">a. 怎么登录？xshell</a></li>
+                <li><a href="#b-进入全屏">b. 进入全屏</a></li>
+                <li><a href="#c-新建用户--云服务器的其它办法">c. 新建用户 &ndash; 云服务器的其它办法</a></li>
+                <li><a href="#d-查看-linux-主机-ip">d. 查看 Linux 主机 ip</a></li>
+                <li><a href="#e-使用-xshell-登陆主机">e. 使用 XShell 登陆主机</a></li>
+                <li><a href="#f-xshell-下的复制粘贴">f. XShell 下的复制粘贴</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#4穿插linux用户管理见一见linux能干什么">4、(穿插)Linux用户管理，见一见Linux能干什么</a></li>
+      </ul>
+    </li>
+    <li><a href="#二linux基础指令">二、Linux基础指令</a>
+      <ul>
+        <li><a href="#1指令">1、指令</a>
+          <ul>
+            <li><a href="#11-快速67个指令">1.1 快速6~7个指令</a></li>
+            <li><a href="#12-详细学习一个一个的指令">1.2 详细学习一个一个的指令</a>
+              <ul>
+                <li><a href="#1-ls指令"><strong>1. ls</strong>指令</a></li>
+                <li><a href="#2-pwd指令">2. pwd指令</a></li>
+                <li><a href="#3-cd指令">3. cd指令</a></li>
+                <li><a href="#4-touch指令">4. touch指令</a></li>
+                <li><a href="#5-mkdir指令">5. mkdir指令</a></li>
+                <li><a href="#6-rmdir指令--rm指令">6. rmdir指令 &amp;&amp; rm指令</a></li>
+                <li><a href="#7-man指令"><strong>7. man指令</strong></a></li>
+                <li><a href="#8--cp指令-拷贝">8.  cp指令-拷贝</a></li>
+                <li><a href="#9-mv指令-剪切重命名">9. mv指令-剪切/重命名</a></li>
+                <li><a href="#10-查看文件的内容">10. 查看文件的内容</a></li>
+                <li><a href="#11-时间相关的指令">11. 时间相关的指令</a></li>
+                <li><a href="#12-find命令重要">12. find命令【重要】</a></li>
+                <li><a href="#13-grep指令-行文本进行过滤">13. grep指令-行文本进行过滤</a></li>
+                <li><a href="#14打包压缩">14.打包压缩</a></li>
+                <li><a href="#15-tar指令">15. tar指令</a></li>
+                <li><a href="#16bc指令">16.bc指令</a></li>
+                <li><a href="#17-uname指令">17. uname指令</a></li>
+                <li><a href="#18-重要热键">18. 重要热键</a></li>
+                <li><a href="#19关机">19.关机</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#2基础知识">2、基础知识</a>
+          <ul>
+            <li><a href="#21-命令行">2.1 命令行</a></li>
+            <li><a href="#22-文件不等于文件的内容">2.2 文件不等于文件的内容</a></li>
+            <li><a href="#23-隐藏文件">2.3 隐藏文件</a></li>
+            <li><a href="#24-普通文件和目录文件">2.4 普通文件和目录文件</a>
+              <ul>
+                <li><a href="#1-目录在电脑里面相当于文件夹">1. 目录在电脑里面相当于文件夹</a></li>
+                <li><a href="#2linux中以d开头的叫目录以-开头的叫普通文件">2.Linux中以<code>d</code>开头的叫目录，以<code>-</code>开头的叫普通文件</a></li>
+                <li><a href="#3根目录">3.根目录</a></li>
+                <li><a href="#4在任何一个目录中都有和">4、在任何一个目录中都有<code>.</code>和<code>..</code></a></li>
+              </ul>
+            </li>
+            <li><a href="#25-tree命令">2.5 tree命令</a></li>
+            <li><a href="#26-cp指令">2.6 cp指令</a>
+              <ul>
+                <li><a href="#261向文件中写入数据">2.6.1向文件中写入数据</a></li>
+                <li><a href="#262向文件中读取数据">2.6.2向文件中读取数据</a></li>
+                <li><a href="#263-终端文件">2.6.3 终端文件</a></li>
+              </ul>
+            </li>
+            <li><a href="#27-指令是什么">2.7 指令是什么</a>
+              <ul>
+                <li><a href="#271-指令本质上就是程序">2.7.1 指令本质上就是程序</a></li>
+                <li><a href="#272-which命令">2.7.2 which命令</a></li>
+                <li><a href="#273-alias-对指定的命令和选项组合起别名">2.7.3 alias 对指定的命令和选项组合起别名</a></li>
+              </ul>
+            </li>
+            <li><a href="#28-日志的介绍">2.8 日志的介绍</a></li>
+            <li><a href="#29-时间戳">2.9 时间戳</a></li>
+          </ul>
+        </li>
+        <li><a href="#3shell命令以及运行原理">3、shell命令以及运行原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#三linux权限">三、Linux权限</a>
+      <ul>
+        <li><a href="#1-什么是权限">1. 什么是权限</a></li>
+        <li><a href="#2认识人人切换">2.认识人，人切换</a>
+          <ul>
+            <li><a href="#21用户">2.1用户</a></li>
+            <li><a href="#22切换用户的方式">2.2切换用户的方式</a></li>
+            <li><a href="#23如何在不切换身份的情况下执行更高权限命令呢场景">2.3如何在不切换身份的情况下，执行更高权限命令呢？(场景)</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-文件属性文件的权限属性linux角色划分">3. 文件属性，文件的权限属性，Linux角色划分</a>
+          <ul>
+            <li><a href="#31-文件属性">3.1 文件属性</a></li>
+            <li><a href="#33linux中的角色划分">3.3Linux中的角色划分</a></li>
+            <li><a href="#32-文件权限属性">3.2 文件权限属性</a></li>
+          </ul>
+        </li>
+        <li><a href="#4操作有权限vs无权限">4.操作：有权限VS无权限</a>
+          <ul>
+            <li><a href="#如何修改权限"><strong>如何修改权限？</strong></a></li>
+            <li><a href="#使用八进制增加权限"><strong>使用八进制增加权限</strong></a></li>
+            <li><a href="#修改角色"><strong>修改角色</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#5关于权限的三个问题">5.关于权限的三个问题</a>
+          <ul>
+            <li><a href="#1目录权限">1.目录权限</a></li>
+            <li><a href="#2-缺省权限">2. 缺省权限</a></li>
+            <li><a href="#3沾滞位">3.沾滞位</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#0笔记">0.笔记</a>
+      <ul>
+        <li><a href="#1xshell安装和卸载">1.xshell安装和卸载</a>
+          <ul>
+            <li><a href="#11安装">1.1安装</a></li>
+            <li><a href="#12卸载">1.2卸载</a></li>
+          </ul>
+        </li>
+        <li><a href="#2xshell免密码登录">2.xshell免密码登录</a></li>
+        <li><a href="#3-改主题">3. 改主题</a></li>
+        <li><a href="#4-新建用户及用新建的用户登录">4. 新建用户及用新建的用户登录</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#a新建用户及删除">a.新建用户及删除</a></li>
+                <li><a href="#b怎么登录该用户呢">b.怎么登录该用户呢？</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#5-在xshell查看公网ip">5. 在xshell查看公网IP</a></li>
+        <li><a href="#6登录的状态下切换linux机器">6.登录的状态下，切换Linux机器</a></li>
+        <li><a href="#7linux下安装应用">7.Linux下安装应用</a></li>
+        <li><a href="#8伪造10万行代码">8.伪造10万行代码</a></li>
+        <li><a href="#9向自己新打开的另一台linux机器中写入">9.向自己新打开的另一台Linux机器中写入</a></li>
+        <li><a href="#10-linux下的退出">10. Linux下的退出</a></li>
+        <li><a href="#11xshell看linux版本">11.xshell看Linux版本</a></li>
+        <li><a href="#12看linux的内核版本">12.看Linux的内核版本</a></li>
+        <li><a href="#13nano的使用">13.nano的使用</a></li>
+        <li><a href="#14了解bash脚本">14.了解bash脚本</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/linux-basic-instruction/">
+                <img src="/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png"
+                        srcset="/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png 800w, /p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_a76c8c5ca0be0093.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】01初始Linux&#43;基础指令" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" style="background-color: #77ACF1; color: #fff;">
+                Linux
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/linux-basic-instruction/">【Linux】01初始Linux&#43;基础指令</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            认识 Linux 系统与常用命令的基础操作
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="一linux初识">一、Linux初识
+</h1><h2 id="1历史">1、历史
+</h2><h3 id="11-计算机的历史">1.1 计算机的历史
+</h3><ul>
+<li>
+<p>时代背景</p>
+<ul>
+<li>1946年2月14号 &ndash; 埃尼阿克</li>
+<li>计算机导弹的弹轨迹的（军工） &mdash;&gt;   民用领域 &mdash; &gt; 诞生大量的企业（IBM、苹果、Intel等）</li>
+</ul>
+<p>​                                                      &lt;&mdash;&mdash;&mdash;&mdash;&ndash;把赚的钱投入到&mdash;&mdash;&mdash;-【硅谷模式】</p>
+</li>
+<li>
+<p>计算机发展</p>
+<ul>
+<li>硬件方面（早期计算机体积大，价格贵）
+<ul>
+<li>大型计算机。IBM</li>
+<li>小型化，桌面化发展。苹果，微软，intel等  &mdash;-&gt;智能手机 &mdash;-&gt;现在</li>
+</ul>
+</li>
+<li>软件方面
+<ul>
+<li>操作系统</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="12-操作系统的历史">1.2 操作系统的历史
+</h3><ul>
+<li>
+<p>诞生的背景</p>
+<p>随着计算机越来越复杂，在上面并行跑的任务越来越多</p>
+<p>所以必须让操作系统可以<code>自动化</code>地处理各种各样的任务</p>
+<ul>
+<li>
+<p>同时计算机不仅仅可以做计算任务，还可以做数据保存等更复杂的任务</p>
+<p>这个时候就必须要求有新的一套系统，能把文件进行保存</p>
+</li>
+<li>
+<p>计算机在发展的过程中，各种任务都在跑，都要消耗内存</p>
+<p>所以必须把内存管理起来</p>
+</li>
+<li>
+<p>后来也必须外接各种硬件设备，比如话筒，键盘，显示器，鼠标，摄像头，外设等</p>
+</li>
+</ul>
+</li>
+<li>
+<p>操作系统的发展</p>
+<ul>
+<li>Unix
+<ul>
+<li>Ken Thompson用汇编语言编写Unix</li>
+<li>Dennis Ritchie 发明了C语言</li>
+<li>他们两使用C语言重构Unix</li>
+</ul>
+</li>
+<li>macOS  ，windows+intel</li>
+</ul>
+</li>
+<li>
+<p>计算机+操作系统 进入校园</p>
+<ul>
+<li>1991年，Linus Torvalds参加GUN计划，贡献Linux的Kernel内核</li>
+<li>Linux的含义：Linux Is Not Unix</li>
+</ul>
+</li>
+</ul>
+<h2 id="2引入linux">2、引入Linux
+</h2><h3 id="21-linux特点">2.1 Linux特点
+</h3><ol>
+<li>
+<p>开源</p>
+<p>源代码是公开的，<a class="link" href="http://kernel.org"  target="_blank" rel="noopener"
+    >获取Linux源码</a></p>
+<ul>
+<li>
+<p>评价一款操作系统好：稳定的，安全的，高效的</p>
+</li>
+<li>
+<p>开源vs闭源</p>
+<ul>
+<li>
+<p>开源&ndash;&gt;被更多人看到&ndash;&gt;问题就能被更多人发现&ndash;&gt;解决问题，并且人和人之间没有利益冲突</p>
+<p>因此，开源的项目 稳定性，安全性，高效性都更高一些</p>
+</li>
+<li>
+<p>闭源</p>
+<p>解决问题效率低，解决方案不一定优质</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>命令行+图形界面</p>
+</li>
+</ol>
+<h3 id="22应用场景">2.2应用场景
+</h3><ol>
+<li>
+<p>企业</p>
+</li>
+<li>
+<p>嵌入式</p>
+</li>
+<li>
+<p>计算或存储平台</p>
+</li>
+<li>
+<p>设备手机，平板，智能电视</p>
+</li>
+<li>
+<p>车载系统</p>
+</li>
+</ol>
+<h3 id="23版本">2.3版本
+</h3><ul>
+<li>
+<p>技术线</p>
+<ul>
+<li>
+<p>Linux内核的版本 2.6.32     5.10.xx         3.10.xx</p>
+<p>主版本号.次版本号.修正次数</p>
+<p>次版本号为偶数：稳定发布版           次版本为奇数：测试版</p>
+</li>
+</ul>
+</li>
+<li>
+<p>商业产品线</p>
+<ul>
+<li>ubuntu，centos，debian，redhat，fedora等</li>
+</ul>
+</li>
+</ul>
+<h3 id="24-安装问题">2.4 安装问题
+</h3><ol>
+<li>
+<p>双系统（不推荐）</p>
+</li>
+<li>
+<p>安装虚拟机</p>
+</li>
+<li>
+<p>云服务器</p>
+<p>推荐 <code>云服务器</code> 或者 <code>轻量级应用服务器</code></p>
+<p>centos7.6/ 7.8/7.9</p>
+</li>
+</ol>
+<p>安装云服务器的细节</p>
+<ol>
+<li>记住你的公网IP</li>
+<li>地方：就近原则      root重置密码</li>
+</ol>
+<h2 id="3xshell基本操作">3、XShell基本操作
+</h2><p>XShell是一款可以远程登录云服务器的软件</p>
+<h4 id="a-怎么登录xshell">a. 怎么登录？xshell
+</h4><p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1727434380961.png"
+	width="969"
+	height="271"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1727434380961_hu_a0bbf53310e8ca06.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1727434380961_hu_9768c03fcddf32f4.png 1024w"
+	loading="lazy"
+	
+		alt="72743438096"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="357"
+		data-flex-basis="858px"
+	
+></p>
+<p>==ssh root@你的公网IP==，然后会弹出对话框点接受，然后输密码</p>
+<p>输入uname -r 能看到对应的Linux版本号，就装好了</p>
+<h4 id="b-进入全屏">b. 进入全屏
+</h4><p>alt+enter全屏，重复该快捷键退出全屏</p>
+<h4 id="c-新建用户--云服务器的其它办法">c. 新建用户 &ndash; 云服务器的其它办法
+</h4><p>Linux是一款多用户操作系统</p>
+<p>[root@bite-alicloud ~]# adduser zhangsan    新建一个用户</p>
+<p>[root@bite-alicloud ~]# passwd zhangsan      给新建的用户设置密码(不会显示)</p>
+<p>[root@bite-alicloud ~]# userdel -r zhangsan   删除用户</p>
+<h4 id="d-查看-linux-主机-ip">d. 查看 Linux 主机 ip
+</h4><p>在终端下敲 <code>ifconfig</code> 指令, 查看到 ip 地址.</p>
+<h4 id="e-使用-xshell-登陆主机">e. 使用 XShell 登陆主机
+</h4><p>在 XShell 终端下敲 <code>ssh [ip]</code></p>
+<h4 id="f-xshell-下的复制粘贴">f. XShell 下的复制粘贴
+</h4><p>复制: ctrl + insert (有些同学的 insert 需要配合 fn 来按)</p>
+<p>粘贴: shift + insert</p>
+<h2 id="4穿插linux用户管理见一见linux能干什么">4、(穿插)Linux用户管理，见一见Linux能干什么
+</h2><ol>
+<li>
+<p>LInux可以用指令完成各种任务</p>
+<p>查进程、文本过滤、写C/C++代码&hellip;</p>
+</li>
+<li>
+<p>可以在windows当中，用我们自己写的程序，以Linux作为服务器，把我们的数据</p>
+<p>直接推送给Linux</p>
+</li>
+<li>
+<p>用window的cmd也可以远程登录Liunx</p>
+<p>输入<code>ssh root@你的公网IP</code>回车，要输密码</p>
+</li>
+<li>
+<p>手机下一个登录终端的软件就也可以登Linux</p>
+</li>
+</ol>
+<p>logout退出登录</p>
+<h1 id="二linux基础指令">二、Linux基础指令
+</h1><h2 id="1指令">1、指令
+</h2><h3 id="11-快速67个指令">1.1 快速6~7个指令
+</h3><ul>
+<li>
+<p><code>pwd </code></p>
+<p>直接查看当前用户在==首次登录==时，在Linux系统，==默认所处的路径==</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728572552351.png"
+	width="571"
+	height="83"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728572552351_hu_80806d4a2e0f45b5.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728572552351_hu_4a60aa0121cec87b.png 1024w"
+	loading="lazy"
+	
+		alt="72857255235"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="687"
+		data-flex-basis="1651px"
+	
+></p>
+</li>
+<li>
+<p><code>whoami</code></p>
+<p>==查看当前Linux所使用的用户是谁==（账号名称）</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728572672125.png"
+	width="598"
+	height="75"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728572672125_hu_dfb8d549afe60388.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728572672125_hu_25267aa4ec5b2e6e.png 1024w"
+	loading="lazy"
+	
+		alt="72857267212"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="797"
+		data-flex-basis="1913px"
+	
+></p>
+</li>
+<li>
+<p><code>mkdir 加目录/文件夹名称</code></p>
+<p>==mkdir 创建一个目录/文件夹==，例如：创建一个目录/文件夹名字叫114</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573237998.png"
+	width="641"
+	height="44"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573237998_hu_3f81dcc4183b1dc.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573237998_hu_417b587deda9f1ce.png 1024w"
+	loading="lazy"
+	
+		alt="72857323799"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1456"
+		data-flex-basis="3496px"
+	
+></p>
+</li>
+<li>
+<p><code>ls</code></p>
+<p>==ls 显示当前路径下，文件名称==</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573320098.png"
+	width="516"
+	height="78"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573320098_hu_7cc1b20cb9c43ded.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573320098_hu_b31d129ef701c159.png 1024w"
+	loading="lazy"
+	
+		alt="72857332009"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="661"
+		data-flex-basis="1587px"
+	
+></p>
+</li>
+<li>
+<p><code>rm -rf 加目录/文件夹名</code></p>
+<p>==删除文件夹==   rm就是remove的意思，r是递归的首字母，f是force强制的首字母</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573582968.png"
+	width="681"
+	height="49"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573582968_hu_6a5f05767daa1cc2.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573582968_hu_90830d73edd59235.png 1024w"
+	loading="lazy"
+	
+		alt="72857358296"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1389"
+		data-flex-basis="3335px"
+	
+></p>
+</li>
+<li>
+<p><code>cd 目录名</code></p>
+<p>==cd 进入一个目录里面==</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573730944.png"
+	width="659"
+	height="91"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573730944_hu_d33a056a019aac14.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728573730944_hu_410acd9b1b47adb2.png 1024w"
+	loading="lazy"
+	
+		alt="72857373094"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="724"
+		data-flex-basis="1738px"
+	
+></p>
+</li>
+<li>
+<p><code>touch 文件名.文件后缀名</code></p>
+<p>==touch新建一个文件==</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574147997.png"
+	width="782"
+	height="42"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574147997_hu_aaf4e2df9bcb4b30.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574147997_hu_c35d35268d3ecb80.png 1024w"
+	loading="lazy"
+	
+		alt="72857414799"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1861"
+		data-flex-basis="4468px"
+	
+></p>
+</li>
+<li>
+<p><code>rm 文件名.文件后缀名</code></p>
+<p>==rm 删除文件==，rm就是remove的意思</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574329953.png"
+	width="739"
+	height="44"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574329953_hu_b13efbdceeda9d18.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574329953_hu_8bff6ac7f55408a5.png 1024w"
+	loading="lazy"
+	
+		alt="72857432995"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1679"
+		data-flex-basis="4030px"
+	
+></p>
+<p>按下回车后，会问我们是否要移除文件，输入y或者n</p>
+<p>以输入y为例：</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574402292.png"
+	width="821"
+	height="42"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574402292_hu_2b4f73fd6da273cf.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728574402292_hu_ec6ad08e62334804.png 1024w"
+	loading="lazy"
+	
+		alt="72857440229"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1954"
+		data-flex-basis="4691px"
+	
+></p>
+</li>
+<li>
+<p>==mv改文件名==</p>
+<p>mv test.c code.c</p>
+<p>表示将文件名test.c改为code.c</p>
+</li>
+</ul>
+<h3 id="12-详细学习一个一个的指令">1.2 详细学习一个一个的指令
+</h3><h4 id="1-ls指令"><strong>1. ls</strong>指令
+</h4><blockquote>
+<p>ls 显示当前路径下，文件名称。pwd 查看当前路径</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728577057976.png"
+	width="583"
+	height="114"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728577057976_hu_c3ca17667001f98b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728577057976_hu_a022c26da8f33681.png 1024w"
+	loading="lazy"
+	
+		alt="72857705797"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="511"
+		data-flex-basis="1227px"
+	
+></p>
+<p>当前路径下，默认是空的，我们可以使用touch创建一个文件</p>
+<p>还可以使用 mkdir 创建一个目录/文件</p>
+</blockquote>
+<p>ls 可以理解成list的意思，默认显示当前路径下的所有普通文件和子目录</p>
+<ul>
+<li>
+<p>普通文件</p>
+</li>
+<li>
+<p>目录文件</p>
+<p>ls 查看文件的文件名，文件名不是文件的内容，是文件的属性</p>
+</li>
+</ul>
+<p><strong>ls -l</strong> 显示当前目录下，更详细的文件属性信息</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728578824212.png"
+	width="964"
+	height="199"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728578824212_hu_b69f1b9658d0965d.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728578824212_hu_eb786656fbc016b4.png 1024w"
+	loading="lazy"
+	
+		alt="72857882421"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="484"
+		data-flex-basis="1162px"
+	
+></p>
+<p><strong>ls -a</strong> 显示隐藏文件</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728580375930.png"
+	width="702"
+	height="84"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728580375930_hu_5fd83fc361f6f402.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728580375930_hu_39b3f78164a65b52.png 1024w"
+	loading="lazy"
+	
+		alt="72858037593"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="835"
+		data-flex-basis="2005px"
+	
+></p>
+<p>==Linux中的选项是可以组合传入的，也可以分开传入==</p>
+<p><strong>ls -l -a</strong> 效果和 <strong>ls -la</strong> 还有 <strong>ls -al</strong> 相同</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728580505207.png"
+	width="961"
+	height="281"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728580505207_hu_c45f953f10ee436f.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728580505207_hu_23d7e74bae74aca2.png 1024w"
+	loading="lazy"
+	
+		alt="72858050520"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="341"
+		data-flex-basis="820px"
+	
+></p>
+<p>a可以理解成all的意思</p>
+<blockquote>
+<p>Linux中，以点<code>.</code>开头的目录/文件就是隐藏文件</p>
+<p>默认我们直接ls 或ls -l 是无法显示隐藏文件的，但如果我们带上a也就是 ls -al 就可以显示隐藏文件了</p>
+<p>我们自己也可以创建隐藏目录/文件，只要文件名以点<code>.</code>开头就行了。</p>
+<p>例如 touch .readme.txt  和 mkdir .youcanseeme</p>
+</blockquote>
+<p><strong>ls /</strong> 查看根目录下的文件</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728641020873.png"
+	width="605"
+	height="51"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728641020873_hu_2d38bc98bd0d2c48.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728641020873_hu_966f94ac95778579.png 1024w"
+	loading="lazy"
+	
+		alt="72864102087"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1186"
+		data-flex-basis="2847px"
+	
+></p>
+<p><strong>ls /root</strong> 指定查看root目录下的文件</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648356665.png"
+	width="644"
+	height="89"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648356665_hu_9d30582d29ddcb71.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648356665_hu_6701679c1f6aae95.png 1024w"
+	loading="lazy"
+	
+		alt="72864835666"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="723"
+		data-flex-basis="1736px"
+	
+></p>
+<p><strong>ls -ld /root</strong> 查root这个目录本身，而不是进入到这个目录，把这个目录里面的内容查出来</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648385653.png"
+	width="924"
+	height="82"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648385653_hu_e7659ef466884bf6.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648385653_hu_fa2da1f85d8f8170.png 1024w"
+	loading="lazy"
+	
+		alt="72864838565"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1126"
+		data-flex-basis="2704px"
+	
+></p>
+<p>**ls -ld ** 查看目录本身</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648777846.png"
+	width="866"
+	height="83"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648777846_hu_60c4c9e23f48dcfb.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728648777846_hu_70fef8f008dfd022.png 1024w"
+	loading="lazy"
+	
+		alt="72864877784"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1043"
+		data-flex-basis="2504px"
+	
+></p>
+<h4 id="2-pwd指令">2. pwd指令
+</h4><p>可以理解成 process work directory，表示当前用户所处的路径</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728581945888.png"
+	width="587"
+	height="78"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728581945888_hu_11a9c385dc0901bb.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728581945888_hu_7c8f651eb055cd5c.png 1024w"
+	loading="lazy"
+	
+		alt="72858194588"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="752"
+		data-flex-basis="1806px"
+	
+></p>
+<p>在windows中也是以路径的方式来标识的</p>
+<p><img src="/assets/1728581811801.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72858181180"
+	
+	
+></p>
+<ul>
+<li>
+<p>windows中反斜杠<code>\</code>  ， Linux中的斜杠<code>/</code>叫路径分隔符</p>
+<ul>
+<li>两个路径分隔符之间的，一定是一个目录/文件夹</li>
+<li>末端文件也可能是一个目录或者是普通文件</li>
+</ul>
+</li>
+<li>
+<p>最开始的<code>/</code>或<code>\</code>叫根目录</p>
+</li>
+</ul>
+<p><strong>特定用户的家目录</strong></p>
+<p>root用户下：</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728649109679.png"
+	width="610"
+	height="157"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728649109679_hu_84ab80ca4f6ab662.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728649109679_hu_ce70e767e484813c.png 1024w"
+	loading="lazy"
+	
+		alt="72864910967"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="388"
+		data-flex-basis="932px"
+	
+></p>
+<p>普通用户下：</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728649232358.png"
+	width="593"
+	height="141"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728649232358_hu_eee1a31e880b0cab.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728649232358_hu_abac7c1c45088a19.png 1024w"
+	loading="lazy"
+	
+		alt="72864923235"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="420"
+		data-flex-basis="1009px"
+	
+></p>
+<p>Linux是一款多用户操作系统，可以创建多个用户，我们新建的用户都在home目录下</p>
+<blockquote>
+<p>home目录：保存用户私有信息的目录，默认登录的时候，所处的路径</p>
+</blockquote>
+<p>我们可以查看有多少普通用户<code>ls /home</code></p>
+<h4 id="3-cd指令">3. cd指令
+</h4><p><strong>cd /</strong> 切换到根目录</p>
+<p>cd /root/114 切换到114目录下</p>
+<p><strong>cd..</strong> 回退到上一级</p>
+<p><strong>cd ~</strong> 直接进入指定用户的所对应的家目录</p>
+<blockquote>
+<p>root用户的家目录就是/root</p>
+<p>普通用户的家目录就是/home/用户名</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1740709659930.png"
+	width="718"
+	height="142"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1740709659930_hu_d4d9b6603415cb3e.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1740709659930_hu_eb28aa72b50f387c.png 1024w"
+	loading="lazy"
+	
+		alt="74070965993"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="505"
+		data-flex-basis="1213px"
+	
+></p>
+</blockquote>
+<p><strong>cd -</strong> 切换到最近的一次路径</p>
+<h4 id="4-touch指令">4. touch指令
+</h4><p>touch最常用的两个功能：更改时间，创建文件</p>
+<p><code>touch 一个文件名</code>后，这个文件的时间就改变了，也就是时间更新了</p>
+<blockquote>
+<p><code>stat 文件名</code>可以查看一个文件的详细信息</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728652783791.png"
+	width="1492"
+	height="359"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728652783791_hu_71d6c7a04c3c9244.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728652783791_hu_65a7416c99b907bb.png 1024w"
+	loading="lazy"
+	
+		alt="72865278379"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="415"
+		data-flex-basis="997px"
+	
+></p>
+<p>ACM时间</p>
+<p>Access（访问时间）、Modify（修改时间）和 Change（改变时间）。</p>
+</blockquote>
+<p><strong>touch code(1..100).c 创建100个文件，code1.c code2.c  &hellip;. code100.c</strong></p>
+<h4 id="5-mkdir指令">5. mkdir指令
+</h4><p>mkdir可以理解成make directory</p>
+<p>mkdir默认只能创建一个空目录/文件夹，不支持一次创建一个路径</p>
+<p><strong>创建一个路径的方法：</strong></p>
+<p>方法一：mkdir创建一个文件，然后cd进去，再mkdir</p>
+<p>方法二：<code>mkdir -p a/b/c/d</code>表示创建一个路径a/b/c/d</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728655131898.png"
+	width="830"
+	height="47"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728655131898_hu_46eec6142b0852e1.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728655131898_hu_945b7ecc54843773.png 1024w"
+	loading="lazy"
+	
+		alt="72865513189"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1765"
+		data-flex-basis="4238px"
+	
+></p>
+<h4 id="6-rmdir指令--rm指令">6. rmdir指令 &amp;&amp; rm指令
+</h4><p><code>rmdir 指定目录</code> 删除指定的空目录</p>
+<p><strong>那我们应该如何删除不为空的目录呢？</strong></p>
+<p>Linux中的目录结构是多叉树结构，并且Linux中所有的目录结构是递归式定义的</p>
+<p>所以我们删除的指令要带上r，r就是递归的意思 。<code>rm -r</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657349190.png"
+	width="817"
+	height="329"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657349190_hu_7140a52d6e62bf9d.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657349190_hu_9c68141e4672ef14.png 1024w"
+	loading="lazy"
+	
+		alt="72865734919"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="248"
+		data-flex-basis="595px"
+	
+></p>
+<p>但是在root用户下，我们删除目录它会一直问我们是否要删除</p>
+<p>如果我们希望强制删除，就还要带上f，f就是force强制的意思</p>
+<p><code>rm -rf</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657507499.png"
+	width="678"
+	height="37"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657507499_hu_2b5f6ec243fab5b9.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657507499_hu_20047e68d3cbbffe.png 1024w"
+	loading="lazy"
+	
+		alt="72865750749"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1832"
+		data-flex-basis="4397px"
+	
+></p>
+<p><strong>如何删除指定的文件呢？</strong></p>
+<p><code>rm 文件名</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657751144.png"
+	width="847"
+	height="84"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657751144_hu_9c6fd7d597e84af7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657751144_hu_fbe657f102a9cb2d.png 1024w"
+	loading="lazy"
+	
+		alt="72865775114"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1008"
+		data-flex-basis="2420px"
+	
+></p>
+<p>我们发现它也要问我们是否删除，所以我们同样可以加上f选项来强制删除该文件</p>
+<p><code>rm -f 文件名</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657949394.png"
+	width="787"
+	height="49"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657949394_hu_1fd97dc257971cd6.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728657949394_hu_767f5fed22dc557a.png 1024w"
+	loading="lazy"
+	
+		alt="72865794939"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1606"
+		data-flex-basis="3854px"
+	
+></p>
+<p><code>rm -rf /</code></p>
+<p>删除整个系统，可以在云服务器上重装</p>
+<p><code>rm * -rf</code> 删除当前目录下的所有</p>
+<p><code>rm test{1..100}.o</code>删除多个文件时</p>
+<h4 id="7-man指令"><strong>7. man指令</strong>
+</h4><p><code>man ls</code>查 ls 指令的使用，q 退出</p>
+<p><code>man pwd</code>  <code>man touch</code>  <code>man rm</code> <code>man printf</code>等</p>
+<p>printf是linux的指令</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730025526543.png"
+	width="1475"
+	height="82"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730025526543_hu_bd7b98766071b1.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730025526543_hu_6580f7adf286ef61.png 1024w"
+	loading="lazy"
+	
+		alt="73002552654"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1798"
+		data-flex-basis="4317px"
+	
+></p>
+<p><code>man 3 printf</code>man指令还可以查C语言相关的接口</p>
+<blockquote>
+<p>q退出</p>
+<p>上下键翻页</p>
+<p>/return val 回车，定位到函数返回值的说明</p>
+</blockquote>
+<p><code>man 2 fork</code>查系统调用的接口</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729411553217.png"
+	width="1948"
+	height="471"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729411553217_hu_4fd201c20eead488.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729411553217_hu_d05365bc578d23a8.png 1024w"
+	loading="lazy"
+	
+		alt="72941155321"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="413"
+		data-flex-basis="992px"
+	
+></p>
+<blockquote>
+<p>man依次按照这9个章节来查，哪一个先查的，就不往后查了</p>
+<p>其中1号为默认手册，查的是可执行程序或命令行的命令</p>
+<p>2号手册查的是系统调用（由内核提供的函数）</p>
+<p>3号手册是查函数调用，一般提供的程序的库</p>
+</blockquote>
+<p>安装man</p>
+<blockquote>
+<p>yum install -y man-pages</p>
+</blockquote>
+<h4 id="8--cp指令-拷贝">8.  cp指令-拷贝
+</h4><ol>
+<li>
+<p>拷贝文件 <code>cp src dst</code></p>
+<p><code>cp 要拷贝的文件 拷贝到哪里</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730429170221.png"
+	width="1025"
+	height="121"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730429170221_hu_1f5e4e1a913a5d7f.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730429170221_hu_27f8a4554fab9b41.png 1024w"
+	loading="lazy"
+	
+		alt="73042917022"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="847"
+		data-flex-basis="2033px"
+	
+></p>
+</li>
+<li>
+<p>拷贝目录<code>cp -rf src_dir dst_dir</code></p>
+<p>==如果要拷贝目录，目录是递归的，所以要使用 r== ，同时要拷贝的目录及其子文件，有可能在目标路径下已经存在了，所以我们加上 f 强制删除</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730430159084.png"
+	width="832"
+	height="44"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730430159084_hu_c44d2b4543541fff.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730430159084_hu_5fd90201557e519d.png 1024w"
+	loading="lazy"
+	
+		alt="73043015908"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1890"
+		data-flex-basis="4538px"
+	
+></p>
+</li>
+<li>
+<p>拷贝到的路径指定了新的名称<code>cp src dst_dir/新的名称</code></p>
+<p>如果拷贝到的路径如果指定了新的名称，那么就会创建</p>
+</li>
+</ol>
+<h4 id="9-mv指令-剪切重命名">9. mv指令-剪切/重命名
+</h4><p><code>mv src dst_dir</code>移动文件</p>
+<p>mv指令可以用来移动文件，或给文件重命名。mv就是move</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指令举例</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437026208.png"
+	width="896"
+	height="42"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437026208_hu_79e7925c6b48e8ce.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437026208_hu_af27a59b5a8979e1.png 1024w"
+	loading="lazy"
+	
+		alt="73043702620"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2133"
+		data-flex-basis="5120px"
+	
+></td>
+          <td>将log.txt移动到上级目录</td>
+      </tr>
+      <tr>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437540020.png"
+	width="910"
+	height="47"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437540020_hu_3018eec6fe35211f.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437540020_hu_684e4bc66cc4d19b.png 1024w"
+	loading="lazy"
+	
+		alt="73043754002"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1936"
+		data-flex-basis="4646px"
+	
+></td>
+          <td>将test.c重命名为code.c</td>
+      </tr>
+      <tr>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437711528.png"
+	width="1035"
+	height="54"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437711528_hu_ab979b8b672b591b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730437711528_hu_ee45cd9e653b76d8.png 1024w"
+	loading="lazy"
+	
+		alt="73043771152"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1916"
+		data-flex-basis="4600px"
+	
+></td>
+          <td>把code.c移动到上级目录，并改名为myyyycode.c</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="10-查看文件的内容">10. 查看文件的内容
+</h4><h5 id="cat指令-查看小文件">cat指令-查看小文件
+</h5><p>打印文件的内容 <code>cat 文件名.文件后缀</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730453439346.png"
+	width="728"
+	height="82"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730453439346_hu_db0638f0230fd41d.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730453439346_hu_5c69782943129747.png 1024w"
+	loading="lazy"
+	
+		alt="73045343934"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="887"
+		data-flex-basis="2130px"
+	
+></p>
+<p><code>cat -n 文件名.后缀</code>打印时带上行号</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730453601644.png"
+	width="771"
+	height="124"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730453601644_hu_a8a36fbad454e4fc.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730453601644_hu_383c21897899d2b1.png 1024w"
+	loading="lazy"
+	
+		alt="73045360164"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="621"
+		data-flex-basis="1492px"
+	
+></p>
+<p><code>cat -n -s 文件名.后缀名</code> ==-s 表示不输出多行空行==（合并空行），</p>
+<p>如果文件内容中有连续的多个空行，那么就会把它压缩成一行</p>
+<h5 id="tac指令"><strong>tac指令</strong>
+</h5><p><code>tac -n 文件名.文件后缀</code> 将文本内容反向输出</p>
+<p><strong>总结</strong></p>
+<p>cat正向打印，tac反向打印</p>
+<p><strong>作用</strong></p>
+<p>将Linux当中的一些小文件/.c/.cpp/.conf 打印出来，方便用户查看</p>
+<h5 id="more指令-查看大文件">more指令-查看大文件
+</h5><p>cat指令比较适合查看较小的文件，原因是如果一个文件里的内容很多，使用cat就会刷屏。</p>
+<p>more指令<code>more 选项 文件.后缀</code>打印满屏幕后，就不再继续往下显示，如果想看下一行就回车</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456537216.png"
+	width="903"
+	height="45"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456537216_hu_b808538b4e45484f.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456537216_hu_480ec29e51791a5c.png 1024w"
+	loading="lazy"
+	
+		alt="73045653721"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2006"
+		data-flex-basis="4816px"
+	
+></p>
+<p>**缺点：**more命令无法上下翻页，只能回车往下翻</p>
+<h5 id="less指令---推荐可以用来查日志">less指令 - 【推荐】可以用来查日志
+</h5><p><code>less 选项 文件.后缀</code></p>
+<p>less指令可以使用上下光标实现上翻和下翻</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456916341.png"
+	width="889"
+	height="45"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456916341_hu_8e4989a32b1f8ca2.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456916341_hu_55baf6a5d57a3bb4.png 1024w"
+	loading="lazy"
+	
+		alt="73045691634"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1975"
+		data-flex-basis="4741px"
+	
+></p>
+<p><strong>总结</strong></p>
+<p>less指令可以查看文本，上下翻，q退出，==/ 搜索==，n查看下一个匹配项</p>
+<h5 id="head指令-查看指定行数的内容">head指令-查看指定行数的内容
+</h5><p><code>head -n 文件名.后缀名</code>显示文件指定行数的内容，从开头开始</p>
+<p>默认显示前10行，可以自己指定数字来代替n</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730464055840.png"
+	width="767"
+	height="44"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730464055840_hu_9bf1d8de8c4a41bc.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730464055840_hu_75525707bc8a597f.png 1024w"
+	loading="lazy"
+	
+		alt="73046405584"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1743"
+		data-flex-basis="4183px"
+	
+></p>
+<h5 id="tail指令">tail指令
+</h5><p><code>tail -n 文件名.后缀名</code>显示文件尾部指定行的内容</p>
+<p>默认显示后10行数据</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730464383501.png"
+	width="786"
+	height="48"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730464383501_hu_8d1d9654e9ff3f6f.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730464383501_hu_429f2896bdf40b65.png 1024w"
+	loading="lazy"
+	
+		alt="73046438350"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1637"
+		data-flex-basis="3930px"
+	
+></p>
+<h5 id="如何查看大文件任意区间的文本内容">如何查看大文件任意区间的文本内容
+</h5><p>例如取行数在[2000,2020]之间的内容</p>
+<p>**方式一：**通过临时文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">head -2020 log.txt &gt; temp  拿到前2020行的内容，放到临时文件
+</span></span><span class="line"><span class="cl">tail -21 temp 取临时文件的后20行数据
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>**方式二：**利用管道</p>
+<p>使用管道，==前一个指令的结果通过管道给另一个指令作为输入==</p>
+<p>先取该文件的前2020行，把它作为输入，交给tail取后20行</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730466098043.png"
+	width="1013"
+	height="51"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730466098043_hu_ad4b3b3c9a173b60.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730466098043_hu_98cd967693e1a27.png 1024w"
+	loading="lazy"
+	
+		alt="73046609804"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1986"
+		data-flex-basis="4767px"
+	
+></p>
+<p>还可以将得到的内容逆向打印 ，还可以统计字符数<code>wc</code>(word count) ，l 是line</p>
+<p>表示按行统计</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">head -2020 log.txt | tail -21 | tac | wc -l
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="wc单词计数">wc单词计数
+</h5><p>在 Linux 中，<code>wc</code> 是 &ldquo;word count&rdquo;（单词计数）的缩写，是一个用于统计文本内容的命令行工具。它可以统计文件（或输入流）中的行数、单词数、字节数等信息</p>
+<p><code>wc</code> 命令的常用选项：</p>
+<ul>
+<li><code>-l</code>：仅统计行数（line count）</li>
+<li><code>-w</code>：仅统计单词数（word count）</li>
+<li><code>-c</code>：仅统计字节数（byte count）</li>
+<li>如果不指定选项，默认会同时输出 <strong>行数、单词数、字节数</strong> 和文件名（如果输入是文件）。</li>
+</ul>
+<h4 id="11-时间相关的指令">11. 时间相关的指令
+</h4><h5 id="date">date
+</h5><p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730466970018.png"
+	width="621"
+	height="83"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730466970018_hu_77817e88b1010429.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730466970018_hu_79a338c91c7d6b9e.png 1024w"
+	loading="lazy"
+	
+		alt="73046697001"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="748"
+		data-flex-basis="1795px"
+	
+></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>需求</th>
+          <th>指令</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>如果我们只想查看年</td>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467004667.png"
+	width="683"
+	height="72"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467004667_hu_3068cfdb564c4f7a.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467004667_hu_6d2f5702907519d8.png 1024w"
+	loading="lazy"
+	
+		alt="73046700466"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="948"
+		data-flex-basis="2276px"
+	
+></td>
+      </tr>
+      <tr>
+          <td>可以查看年和月，中间的<code>-</code>也可用其它符号</td>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467059844.png"
+	width="690"
+	height="79"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467059844_hu_3f614a09b37bf992.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467059844_hu_91fa1cbc74f83d46.png 1024w"
+	loading="lazy"
+	
+		alt="73046705984"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="873"
+		data-flex-basis="2096px"
+	
+></td>
+      </tr>
+      <tr>
+          <td>查看年月日</td>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467099099.png"
+	width="754"
+	height="80"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467099099_hu_26b08fc4e0c9c9ec.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467099099_hu_2e1b66f4df0ed7b8.png 1024w"
+	loading="lazy"
+	
+		alt="73046709909"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="942"
+		data-flex-basis="2262px"
+	
+></td>
+      </tr>
+      <tr>
+          <td>查看年月日时分秒</td>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467213734.png"
+	width="936"
+	height="84"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467213734_hu_9c8b59b166e4d4e6.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467213734_hu_258631608f811d6.png 1024w"
+	loading="lazy"
+	
+		alt="73046721373"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1114"
+		data-flex-basis="2674px"
+	
+></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>如果想在年月日后是==空格==然后时分秒，可以==使用反斜杠转义字符==再加空格</p>
+<blockquote>
+<p>除了月和日是小写，其它都是大写</p>
+</blockquote>
+<p>后面会学的</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1733045289369.png"
+	width="740"
+	height="157"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1733045289369_hu_48befd1830fb6440.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1733045289369_hu_3b4d32513fe84fd8.png 1024w"
+	loading="lazy"
+	
+		alt="73304528936"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="471"
+		data-flex-basis="1131px"
+	
+></p>
+<h5 id="时间戳"><strong>时间戳</strong>
+</h5><p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1733045363931.png"
+	width="586"
+	height="74"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1733045363931_hu_71f84e11bfb2a64c.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1733045363931_hu_a3773babbc89b8e1.png 1024w"
+	loading="lazy"
+	
+		alt="73304536393"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="791"
+		data-flex-basis="1900px"
+	
+></p>
+<p>1970-1-1凌晨12:00累计到现在的秒数</p>
+<h5 id="cal指令">Cal指令
+</h5><p><code>cal</code>显示日历</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730565640833.png"
+	width="742"
+	height="323"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730565640833_hu_9028dcff819bf703.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730565640833_hu_44c8f0ea903a2dab.png 1024w"
+	loading="lazy"
+	
+		alt="73056564083"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="229"
+		data-flex-basis="551px"
+	
+></p>
+<p><code>cal -3</code>显示前一个月，当前月和下一个月</p>
+<p><code>cal -y 年份</code>显示指定年份的日历</p>
+<p><code>cal -j</code>显示在当年中的第几天</p>
+<h4 id="12-find命令重要">12. find命令【重要】
+</h4><h5 id="find查文件"><strong>find查文件</strong>
+</h5><p><code>find 目录 -name 文件</code>在指定目录找名为XX的文件</p>
+<p><code>find 目录 -name '*.c'</code>表示找以<code>.c</code>结尾的文件</p>
+<p><code> find ~ -name '*.txt'</code>在当前目录下找以<code>.txt</code>结尾的文件</p>
+<blockquote>
+<p>-name表示按名字查</p>
+<p>*叫通配符</p>
+</blockquote>
+<p><strong>find也可以查指令</strong></p>
+<p><code>find /usr/bin/ -name ls</code></p>
+<p><code>find /usr/bin/ -name pwd</code></p>
+<h5 id="which和find指令的区别"><strong>which和find指令的区别</strong>
+</h5><ul>
+<li>
+<p>find系统目录树直接查找，可以查任意文件（可以按照文件名，权限，文件大小等）</p>
+<p>所以可能会比较慢</p>
+</li>
+<li>
+<p>which只能用来查可执行程序，相当于限定在<code>/usr/bin/</code>路径下</p>
+<blockquote>
+<p>which命令相当于 <code>find /usr/bin -name XXX</code></p>
+</blockquote>
+</li>
+</ul>
+<h5 id="whereis指令"><strong>whereis指令</strong>
+</h5><p>whereis指令不仅可以查到指令的路径，还会将普通文件的路径查出来</p>
+<h4 id="13-grep指令-行文本进行过滤">13. grep指令-行文本进行过滤
+</h4><p><strong>grep 按照指定的模式对行文本进行过滤</strong></p>
+<p><code>grep '999' log.txt</code>将log.txt中包含999的显示</p>
+<p><code>grep &quot;main&quot; ./*</code>同时grep指令也支持通配符，表示在当前路径下找</p>
+<p><strong>常用的选项</strong></p>
+<ul>
+<li>
+<p>-n显示行号</p>
+<p><code>grep -n &quot;main&quot; *.c</code>将文件中包含main的，后缀为.c的显示，并带上行号</p>
+</li>
+<li>
+<p>-v反向匹配</p>
+<p><code>grep -v &quot;main&quot; oper_tty.c</code>将oper_tty.c中包含main的不显示</p>
+</li>
+<li>
+<p>-i 忽略大小写</p>
+<p><code>grep -i &quot;main&quot; oper_tty.c</code>将oper_tty中包含main的无论大小写都显示（i是ignore的简写）</p>
+</li>
+</ul>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730595941118.png"
+	width="828"
+	height="207"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730595941118_hu_d719b8718a97b087.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730595941118_hu_9111d452ce06b408.png 1024w"
+	loading="lazy"
+	
+		alt="73059594111"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="400"
+		data-flex-basis="960px"
+	
+></p>
+<p><strong>grep还可以查进程</strong></p>
+<p>例如：<code>ps ajx | grep corond</code>查名字中含有corond的进程</p>
+<h4 id="14打包压缩">14.打包压缩
+</h4><blockquote>
+<p>安装</p>
+<p>yum install -y zip</p>
+<p>apt install -y zip</p>
+</blockquote>
+<h5 id="141-打包压缩是什么">14.1 打包压缩是什么
+</h5><p>​	使用特定的算法，文件进行合并或者压缩，减少体积，</p>
+<p>​	打包压缩作为一个整体</p>
+<h5 id="142-为什么要打包压缩">14.2 为什么要打包压缩
+</h5><p>​	a.文件体积减少，节省资源，磁盘空间，减少网络传输的成本 &ndash; 压缩</p>
+<p>​	b.多个文件转一个文件，可以提高文件传输的 容错性</p>
+<h5 id="143-怎么打包压缩-zipunzip">14.3 怎么打包压缩 <code>zip/unzip</code>
+</h5><blockquote>
+<p>压缩的常用格式：<code>.zip</code>，<code>.tgz</code></p>
+</blockquote>
+<ul>
+<li>打包压缩目录：<code>zip -r test.zip test</code>将test目录打包压缩为test.zip</li>
+<li>打包压缩普通文件<code>zip 文件名.zip 要压缩的文件</code></li>
+<li>解压目录：<code>unzip 文件名.zip</code></li>
+</ul>
+<p>默认是解压到当前路径的，如果我们要解压到指定路径（-d）</p>
+<p><code>unzip test.zip -d ../lesson3</code>表示将test.zip解压到上级路径的lesson3中</p>
+<h5 id="144-实现windows和linux机器互传">14.4 实现windows和Linux机器互传
+</h5><blockquote>
+<p>先要安装lrsz：yum install -y lrzsz</p>
+</blockquote>
+<p>发送到windows 指令<code>sz test.zip</code>表示将test.zip发送到我们的windows机器上</p>
+<p>会弹出叫我们选择路径，即你想把该文件放到windows哪个路径下</p>
+<p>Linux机器接收windows的文件，<code>rz</code></p>
+<p>也可以直接将windows中的文件拖拽到Xshell中</p>
+<h5 id="145实现linux和linux机器之间互传">14.5实现Linux和Linux机器之间互传
+</h5><p><code>scp  test.tgz root@公网IP:路径</code></p>
+<p>scp远程拷贝</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730988242249.png"
+	width="1015"
+	height="82"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730988242249_hu_2cb9b5cbf8844033.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730988242249_hu_a263a8ed18c3c9bc.png 1024w"
+	loading="lazy"
+	
+		alt="73098824224"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1237"
+		data-flex-basis="2970px"
+	
+></p>
+<h4 id="15-tar指令">15. tar指令
+</h4><p>还有一种压缩文件<code>.tar.gz</code></p>
+<p><strong>打包压缩</strong></p>
+<p><code>tar -czf 目标文件名.tgz 源文件名</code></p>
+<p>c表示create创建一个文件，z表示要进行压缩，f表示f后面紧跟的就是目标文件</p>
+<blockquote>
+<p>例如：tar -czf test.tgz test</p>
+<p>此外，-v选项会将打包压缩的过程显示：tar -cvzf test.tgz test</p>
+</blockquote>
+<p><strong>解压</strong></p>
+<p><code>tar -xzf  test.tgz</code></p>
+<p>x是解压缩包的意思，z表示解压的的意思</p>
+<p><strong>其它</strong></p>
+<p>展现打包压缩的过程：-cvzf</p>
+<p>展示解包解压过程：-xvzf</p>
+<p>解压解包到指定路径下：tar -xvzf XXX.tgz -C 指定路径</p>
+<p><strong>Linux和Linux机器之间互传</strong></p>
+<p><code>scp test.tgz dyy@139.9.80.106:/home/dyy/114/lesson4/tar_test</code></p>
+<ul>
+<li>scp 远程拷贝</li>
+<li>test.tgz 当前机器上的压缩文件</li>
+<li>dyy@ 表示另一台机器的身份</li>
+<li>139.9.80.106 另一台Linux机器的IP地址</li>
+<li>:/home/dyy/114/lesson4/tar_test 表示拷贝到另一台机器上的哪个路径下</li>
+</ul>
+<h4 id="16bc指令">16.bc指令
+</h4><p>bc是Linux下的一个命令行计算器，在bc命令下可以进行浮点数运算</p>
+<p>quit或ctrl+c退出</p>
+<p>应用场景：表达式是不能直接写入到显示器中的，而使用bc就可以</p>
+<p><code>echo 1+2+3+4*8/9%10 | bc</code></p>
+<h4 id="17-uname指令">17. uname指令
+</h4><p><code>uname -a</code>查看当前Linux机器的所有详细信息</p>
+<blockquote>
+<p>内核名称，主机名，内核版本号，内核版本，硬件名，处理器类型，硬件平台类型，操作系统名称</p>
+</blockquote>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990139741.png"
+	width="1534"
+	height="125"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990139741_hu_83f941ea9d59a9eb.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990139741_hu_8402fea4a68bb2cd.png 1024w"
+	loading="lazy"
+	
+		alt="73099013974"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1227"
+		data-flex-basis="2945px"
+	
+></p>
+<p><code>uname -r</code>只查看内核版本和体系结构</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990193429.png"
+	width="754"
+	height="78"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990193429_hu_72566c1de8580507.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990193429_hu_ac0ae9e45865a1ce.png 1024w"
+	loading="lazy"
+	
+		alt="73099019342"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="966"
+		data-flex-basis="2320px"
+	
+></p>
+<p>CentOS查看当前机器版本 <code>cat /ect/redhat-release</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990392625.png"
+	width="1051"
+	height="84"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990392625_hu_94ff7d6d0bb75a18.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730990392625_hu_e4df399528497ee2.png 1024w"
+	loading="lazy"
+	
+		alt="73099039262"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1251"
+		data-flex-basis="3002px"
+	
+></p>
+<p>Ubuntu的查看<code>cat /etc/lsb*</code></p>
+<h4 id="18-重要热键">18. 重要热键
+</h4><ul>
+<li>tab键，进行命令或路径的补齐</li>
+<li>ctrl+c停止异常操作</li>
+<li>上下键，可以翻阅历史命令</li>
+<li>ctrl+r搜索历史命令，再按左右键就能得到该命令</li>
+</ul>
+<p>Linux会记录历史命令</p>
+<p><code>history</code>查看历史输过的指令</p>
+<h4 id="19关机">19.关机
+</h4><p>语法：<code>shutdown 选项</code></p>
+<blockquote>
+<p>-h：将系统的服务停掉后，立即关机</p>
+<p>-r：在将系统的服务停掉之后就重新启动</p>
+<p>-t sec ：-t后面加秒数，即过XX秒后关机</p>
+</blockquote>
+<p>重启：<code>reboot</code>再回车</p>
+<h2 id="2基础知识">2、基础知识
+</h2><h3 id="21-命令行">2.1 命令行
+</h3><p>我们在命令行中执行命令时，可以单纯地执行一条指令，也可以<code>指令+选项</code>的形式</p>
+<p>来展示更多的功能                                                                      -+-+-+-+-+-+</p>
+<p><strong>例如：</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728577982937.png"
+	width="709"
+	height="161"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728577982937_hu_3cb2c91ee83ace1e.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728577982937_hu_8f2fec7f239ae83d.png 1024w"
+	loading="lazy"
+	
+		alt="72857798293"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="440"
+		data-flex-basis="1056px"
+	
+></p>
+<p>再比如windows中的关机命令 shutdown -t -s 60 表示60秒后关机</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728578489870.png"
+	width="1144"
+	height="743"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728578489870_hu_1b1c3332d11f1c37.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728578489870_hu_5054cc3bc17f5b6d.png 1024w"
+	loading="lazy"
+	
+		alt="72857848987"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="369px"
+	
+></p>
+<h3 id="22-文件不等于文件的内容">2.2 文件不等于文件的内容
+</h3><p><strong>文件不仅仅包含文件的内容。</strong></p>
+<p>还包含文件名、文件的类型、文件的大小、文件的保存位置文件的修改时间，文件的修改权限等，这些都叫做文件的属性</p>
+<p><strong>文件的属性也是数据。</strong></p>
+<p>我们保存文件，不仅要将它文件的内容存储到内存中，也要将它文件的属性存储到计算机的磁盘中</p>
+<p><strong>在新建文件时，只要是数据，就要被保存起来</strong></p>
+<p>所以，即使我们新建了一个空的文件，它的大小为0，指的是文件的内容是空的，</p>
+<p>但是不代表它所占磁盘空间的大小为0</p>
+<p><strong>对文件的操作：</strong></p>
+<p>​	**a.对文件内容的操作 **</p>
+<p>​	<strong>b.对文件属性的操作</strong></p>
+<h3 id="23-隐藏文件">2.3 隐藏文件
+</h3><ul>
+<li>
+<p>==Linux中，以点<code>.</code>开头的目录/文件就是隐藏文件==</p>
+<p>默认我们直接ls 或ls -l 是无法显示隐藏文件的，但如果我们带上a也就是 ls -al 就可以显示隐藏文件了</p>
+</li>
+<li>
+<p>我们自己也可以创建隐藏目录/文件，只要文件名以点<code>.</code>开头就行了。</p>
+<p>例如： touch .readme.txt  和 mkdir .youcanseeme</p>
+</li>
+</ul>
+<h3 id="24-普通文件和目录文件">2.4 普通文件和目录文件
+</h3><h4 id="1-目录在电脑里面相当于文件夹">1. 目录在电脑里面相当于文件夹
+</h4><p>windows中反斜杠<code>\</code>  ， Linux中的斜杠<code>/</code>叫路径分隔符</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728581945888-175712539696558.png"
+	width="587"
+	height="78"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728581945888-175712539696558_hu_11a9c385dc0901bb.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728581945888-175712539696558_hu_7c8f651eb055cd5c.png 1024w"
+	loading="lazy"
+	
+		alt="72858194588"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="752"
+		data-flex-basis="1806px"
+	
+></p>
+<p><img src="/Md%E7%AC%94%E8%AE%B0/Markdown%E7%AC%94%E8%AE%B0/Linux%E5%AD%A6%E4%B9%A0/assets/1728581811801.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72858181180"
+	
+	
+></p>
+<ul>
+<li>
+<p>两个路径分隔符之间的，一定是一个目录/文件夹</p>
+</li>
+<li>
+<p>末端文件也可能是一个目录或者是普通文件</p>
+</li>
+</ul>
+<h4 id="2linux中以d开头的叫目录以-开头的叫普通文件">2.Linux中以<code>d</code>开头的叫目录，以<code>-</code>开头的叫普通文件
+</h4><ol>
+<li>
+<p>文本文件，二进制可执行程序，动静态库，视频，音频，图片&hellip;等都叫普通文件</p>
+</li>
+<li>
+<p>==Liunx系统中，文件类型与文件后缀无关==。<strong>系统不等于gcc（软件），建议带上后缀</strong></p>
+</li>
+<li>
+<p><code>file 跟文件名 </code>识别到准确的文件类型</p>
+</li>
+</ol>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728582613755.png"
+	width="1260"
+	height="387"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728582613755_hu_935e17e7c54d9667.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728582613755_hu_deb57540cc4e21a4.png 1024w"
+	loading="lazy"
+	
+		alt="72858261375"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="325"
+		data-flex-basis="781px"
+	
+></p>
+<ul>
+<li><code>.</code>和<code>..</code>都是目录</li>
+<li><code>..</code>表示上一级路径，<code>.</code>表示当前路径
+<ul>
+<li>根目录的<code>.</code>和<code>..</code>都指向自己</li>
+</ul>
+</li>
+</ul>
+<p><code>cd ..</code>表示切换到上一级</p>
+<p><code>cd 目录/文件名</code>进入一个路径</p>
+<p><code>cd 跟一个完整的路径</code>可以直接切换到该目录下</p>
+<p>例如：cd /root/114 表示切换到root路径下的114目录下</p>
+<h4 id="3根目录">3.根目录
+</h4><p>我们可以使用<code>cd ..</code>回退到上一级，但也是不能无限回退的，但当我们一直回退到不能再回退时，发现此时我们是在<code>/</code>或<code>\</code>路径下。</p>
+<p>==最开始的<code>/</code>或<code>\</code>目录叫根目录==</p>
+<p><strong>Linux的所有文件的系统结构是一个多叉树结构。</strong></p>
+<p><strong>它的非叶子结点一定是一个一个的目录，而它的叶子结点要么是空目录要么是普通文件</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728640259947.png"
+	width="864"
+	height="301"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728640259947_hu_df924c5876dc8ec.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728640259947_hu_a9c7bce16f0c362d.png 1024w"
+	loading="lazy"
+	
+		alt="72864025994"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="287"
+		data-flex-basis="688px"
+	
+></p>
+<p>访问一个文件</p>
+<p>前提：找到它（定位或找到任何一个文件的方式是通过路径），操作它</p>
+<p>==路径具有唯一性==（多叉树结构，每个子结点只有一个父节点，可以有多个子节点）</p>
+<p>**绝对路径：**从根目录开始定位文件的路径</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728641202065.png"
+	width="1001"
+	height="51"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728641202065_hu_5feea2cd90541ddc.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728641202065_hu_fd648e2050cfcf2e.png 1024w"
+	loading="lazy"
+	
+		alt="72864120206"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1962"
+		data-flex-basis="4710px"
+	
+></p>
+<p>**相对路径：**以相对于我自己的当前路径为参照点，查找定位目标的路径</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728642511682.png"
+	width="794"
+	height="35"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728642511682_hu_b5e0aebc4f80ac8d.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728642511682_hu_6a0d4ab402d929f1.png 1024w"
+	loading="lazy"
+	
+		alt="72864251168"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2268"
+		data-flex-basis="5444px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728642951074.png"
+	width="676"
+	height="545"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728642951074_hu_1123726ab2e4c836.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728642951074_hu_c99d391f46bfe786.png 1024w"
+	loading="lazy"
+	
+		alt="72864295107"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="124"
+		data-flex-basis="297px"
+	
+></p>
+<p><strong>如何选择？</strong></p>
+<p>操作中一般使用：相对路径</p>
+<p>配置文件，系统级配置文件，可以采用绝对路径</p>
+<h4 id="4在任何一个目录中都有和">4、在任何一个目录中都有<code>.</code>和<code>..</code>
+</h4><p>无论是自己新建的目录还是系统自带的目录，里面都有<code>.</code>和<code>..</code></p>
+<ul>
+<li><code>.</code>和<code>..</code>都是目录</li>
+<li><code>..</code>表示指向上一级的路径，<code>.</code>表示相当于指向自己的路径</li>
+<li>根目录的<code>..</code>和<code>.</code>都指向自己</li>
+</ul>
+<p><strong>执行一个C程序：</strong></p>
+<p>把一个程序运行起来，前提是先把文件添加到内存，而添加到内存之前要先找到它</p>
+<p>而我们默认，即便在当前路径下，我们也找不到它，所以我们<code>./a.out</code></p>
+<blockquote>
+<p>因为<code>.</code>表示当前路径，所以<code>./a.out</code>意思就是执行当前路径下的 a.out</p>
+</blockquote>
+<p>除了这种方式外，我们还可以通过决对路径来执行程序。例如：<code>/root/114/a.out</code></p>
+<h3 id="25-tree命令">2.5 tree命令
+</h3><p>tree+指定目录，以树形结构，展示文件和目录结构</p>
+<p><code>tree 指定目录</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728656444869.png"
+	width="664"
+	height="201"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728656444869_hu_b341c1cbb96791d7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728656444869_hu_543a94e7a924c91e.png 1024w"
+	loading="lazy"
+	
+		alt="72865644486"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="330"
+		data-flex-basis="792px"
+	
+></p>
+<p><code>tree .</code> 当前路径</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728656467773.png"
+	width="693"
+	height="415"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728656467773_hu_b4b3f65f951bb923.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1728656467773_hu_e57c7e07f2c917e4.png 1024w"
+	loading="lazy"
+	
+		alt="72865646777"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+></p>
+<p><code>tree /</code>从根目录开始，所有的Linux文件全部整理出来</p>
+<p>==命令行中，阻止非法或者刷屏操作，ctrl+c==</p>
+<p><strong>Linux中tree命令默认是没有安装的，需要我们自己安装</strong></p>
+<blockquote>
+<p>root用户下</p>
+<p>CentOS输入：yum install -y tree</p>
+<p>Ubuntu输入：apt install -y tree</p>
+</blockquote>
+<blockquote>
+<p>卸载：yum remove -y tree</p>
+</blockquote>
+<h3 id="26-cp指令">2.6 cp指令
+</h3><p>==Linux下，一切皆文件==   &mdash;&ndash;   显示器就是文件</p>
+<ul>
+<li>打印到显示器-&gt;显示器也是文件-&gt;写入到显示器文件</li>
+<li>从键盘读取数据-&gt;键盘也是文件-&gt;从键盘文件读取数据</li>
+</ul>
+<h4 id="261向文件中写入数据">2.6.1向文件中写入数据
+</h4><p>==<strong>echo指令</strong>==</p>
+<p><code>echo</code>指令可以<strong>将跟在echo后的内容当做字符串写入到显示器文件当中</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729413693065.png"
+	width="964"
+	height="79"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729413693065_hu_c567c254372b49e9.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729413693065_hu_d135afcd06242f41.png 1024w"
+	loading="lazy"
+	
+		alt="72941369306"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1220"
+		data-flex-basis="2928px"
+	
+></p>
+<blockquote>
+<p>可以将echo后的内容用单引号或双引号括起来</p>
+<p>使用<code>cat 文件名（包含后缀）</code>就可以查看文件里的内容</p>
+</blockquote>
+<p>echo 默认是向<strong>显示器文件</strong>写入，如果带上<code>&gt;</code>就会向指定文件写入 -&gt;重定向操作</p>
+<p><strong>如果文件不存在，就新建</strong>。重定向操会将文件<strong>先清空再写入</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729414007725.png"
+	width="1140"
+	height="46"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729414007725_hu_77d4afcce88dddb7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729414007725_hu_7c6c404eed90603e.png 1024w"
+	loading="lazy"
+	
+		alt="72941400772"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2478"
+		data-flex-basis="5947px"
+	
+></p>
+<p>==<strong><code>&gt;</code>是输出重定向操作</strong>==</p>
+<p>echo &lsquo;内容&rsquo; &gt; 文件名.后缀名 ，那么就会向指定文件写入，如果文件不存在，就新建</p>
+<p>如果文件存在，就先将里面的内容清空，然后再写入</p>
+<p>如果直接<code>&gt;加文件名（带后缀名）</code></p>
+<ul>
+<li><code>&gt;</code>可以将文件里的内容清空</li>
+<li>文件不存在，<code>&gt;</code>可以新建文件</li>
+</ul>
+<p>==<strong>ls写入</strong>==</p>
+<p><code>ls</code>默认也是向显示器文件写入</p>
+<p>我们也可以使用<code>&gt;</code>将其在其它文件中写入</p>
+<p>例如：ls -l &gt; log.txt  就是把当前目录下文件的详细信息写入到log.txt文件中</p>
+<p><strong>==<code>&gt;&gt;</code>追加重定向操作==</strong></p>
+<p><code>echo &quot;要写入的内容&quot; &gt;&gt; 文件名（带后缀的）</code>就<strong>可以不清空就写入</strong></p>
+<p>向指定的目标文件中，不断新增内容</p>
+<h4 id="262向文件中读取数据">2.6.2向文件中读取数据
+</h4><ol>
+<li>
+<p><strong><code>cat</code>后面什么都不跟，默认从键盘中读</strong>，把从键盘中读到的内容打印到显示器上</p>
+<p>输入什么内容，他就打印什么内容，ctrl+c退出</p>
+</li>
+</ol>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730396701373.png"
+	width="663"
+	height="199"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730396701373_hu_fc796cee096a95cd.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730396701373_hu_bf13fd2b7d629c5a.png 1024w"
+	loading="lazy"
+	
+		alt="73039670137"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="333"
+		data-flex-basis="799px"
+	
+></p>
+<ol start="2">
+<li>
+<p><code>cat &lt; 文件名.文件后缀</code>  读取文件里的内容  -&gt;  ==<code>&lt;</code>输入重定向==</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730396792627.png"
+	width="793"
+	height="41"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730396792627_hu_e17551b120fb9aa7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730396792627_hu_4846a1b492308cb6.png 1024w"
+	loading="lazy"
+	
+		alt="73039679262"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1934"
+		data-flex-basis="4641px"
+	
+></p>
+</li>
+</ol>
+<blockquote>
+<p>从log.txt里面读，把读到的内容打印到屏幕上</p>
+</blockquote>
+<h4 id="263-终端文件">2.6.3 终端文件
+</h4><p>我们打开Linux，默认会显示一个黑框框，这个黑框框我们把它叫做终端</p>
+<p>==终端的本质是一个文件==</p>
+<p><code>ls /dev/tty</code> 终端文件</p>
+<p><code>ls /dev/pts</code> 远程登录对应的登录终端</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730424401544.png"
+	width="922"
+	height="168"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730424401544_hu_c4eaaa6378285e36.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730424401544_hu_c0e9be1d06574fe2.png 1024w"
+	loading="lazy"
+	
+		alt="73042440154"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="548"
+		data-flex-basis="1317px"
+	
+></p>
+<p>如果我们再打开一个Linux机器，此时我们在第一个Linux机器中输入<code>ls -l /dev/pts</code></p>
+<p>就会发现多出了一个叫1的文件，也就是这代表我们新打开的Linux机器</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730424909407.png"
+	width="918"
+	height="204"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730424909407_hu_502c9a443287c670.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730424909407_hu_d5a604f4e62a271e.png 1024w"
+	loading="lazy"
+	
+		alt="73042490940"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="450"
+		data-flex-basis="1080px"
+	
+></p>
+<p>如果我们在第一个机器中向1中输入数据<code>echo helloworld &gt; /dev/pts/1</code></p>
+<p>就会发现在新机器中显示出来了</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>第一个机器</th>
+          <th>新机器</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425188428.png"
+	width="986"
+	height="138"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425188428_hu_1dd3157549de449a.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425188428_hu_fea4e66349b95263.png 1024w"
+	loading="lazy"
+	
+		alt="73042518842"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="714"
+		data-flex-basis="1714px"
+	
+></td>
+          <td><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425222118.png"
+	width="686"
+	height="132"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425222118_hu_5daada91395866f7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425222118_hu_d68f11584b0fe765.png 1024w"
+	loading="lazy"
+	
+		alt="73042522211"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="519"
+		data-flex-basis="1247px"
+	
+></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>我们再向0这个文件中输入，发现0就代表当前这个终端</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425305454.png"
+	width="999"
+	height="89"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425305454_hu_b0769b5229e87d2d.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730425305454_hu_83c76128955ea3c1.png 1024w"
+	loading="lazy"
+	
+		alt="73042530545"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1122"
+		data-flex-basis="2693px"
+	
+></p>
+<p>我们也可以在新打开的机器中向我们当前的这个机器写入数据</p>
+<p><strong>总结</strong></p>
+<p>我们的登录终端，在我们登录的时候，就会在/dev/pts这个目录下，形成一个以c开头</p>
+<p>文件，我们可以向该文件中写入数据（本质上就是向显示器上写）</p>
+<p><strong>nano &ndash; 文本编辑器</strong></p>
+<p>​	<code>nano 文件名.文件后缀名</code>就相当于打开了Linux下的记事本</p>
+<p>​	ctrl + x退出</p>
+<h3 id="27-指令是什么">2.7 指令是什么
+</h3><h4 id="271-指令本质上就是程序">2.7.1 指令本质上就是程序
+</h4><p>我们平时操作的指令都在 <code>/usr/bin</code>路径下。</p>
+<p>usr就是user用户的意思，bin就是binary二进制的意思</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432256837.png"
+	width="982"
+	height="409"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432256837_hu_cb634cb863aa1f01.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432256837_hu_1e1946a3f39488dc.png 1024w"
+	loading="lazy"
+	
+		alt="73043225683"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="240"
+		data-flex-basis="576px"
+	
+></p>
+<p>我们可以只查其中的某个指令</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432334502.png"
+	width="1048"
+	height="163"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432334502_hu_76f5938f1979e819.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432334502_hu_1d9d9814f8b0721e.png 1024w"
+	loading="lazy"
+	
+		alt="73043233450"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="642"
+		data-flex-basis="1543px"
+	
+></p>
+<p>我们发现==指令本质上就是程序==</p>
+<p>所以我们既可以直接输入指令（比如 ls），也可以<code>/usr/bin/ls</code>来执行指令</p>
+<p>==指令就是Linux特定路径下的二进制文件==</p>
+<h4 id="272-which命令">2.7.2 which命令
+</h4><p><strong>which命令可以帮我们快速找到指定的命令文件</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432614637.png"
+	width="807"
+	height="166"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432614637_hu_98bcddba2a1d4a45.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730432614637_hu_9215cea639336ab4.png 1024w"
+	loading="lazy"
+	
+		alt="73043261463"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="486"
+		data-flex-basis="1166px"
+	
+></p>
+<h4 id="273-alias-对指定的命令和选项组合起别名">2.7.3 alias 对指定的命令和选项组合起别名
+</h4><p>我们使用which命令找到 ls ，就会发现它上面多了一行</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435190741.png"
+	width="679"
+	height="118"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435190741_hu_83f259121f16ee8b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435190741_hu_12275d8a9c724b90.png 1024w"
+	loading="lazy"
+	
+		alt="73043519074"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="575"
+		data-flex-basis="1381px"
+	
+></p>
+<ol>
+<li>
+<p>如果我们直接执行ls 有些文件是不带颜色的</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435963783.png"
+	width="769"
+	height="80"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435963783_hu_93572a39a8db60b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435963783_hu_7e61e07b179cdc2a.png 1024w"
+	loading="lazy"
+	
+		alt="73043596378"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="961"
+		data-flex-basis="2307px"
+	
+></p>
+</li>
+<li>
+<p>如果我们执行<code>/usr/bin/ls --color=auto</code>就会发现选项带颜色了</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435981087.png"
+	width="954"
+	height="83"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435981087_hu_cef94aba4ff83efd.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730435981087_hu_12cde5a5b3b72e9c.png 1024w"
+	loading="lazy"
+	
+		alt="73043598108"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1149"
+		data-flex-basis="2758px"
+	
+></p>
+</li>
+<li>
+<p>alias是别名的意思，我们可以把某些指令取别名，然后用别名操作</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436267598.png"
+	width="992"
+	height="46"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436267598_hu_6d4581afad12b705.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436267598_hu_7cf07b11e8d1576e.png 1024w"
+	loading="lazy"
+	
+		alt="73043626759"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2156"
+		data-flex-basis="5175px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436287726.png"
+	width="993"
+	height="356"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436287726_hu_de1be70284810d7e.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436287726_hu_413351e0896c25d1.png 1024w"
+	loading="lazy"
+	
+		alt="73043628772"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="278"
+		data-flex-basis="669px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436344544.png"
+	width="807"
+	height="124"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436344544_hu_6e1dcee0dacfc2d8.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436344544_hu_3e30576e8b542328.png 1024w"
+	loading="lazy"
+	
+		alt="73043634454"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="650"
+		data-flex-basis="1561px"
+	
+></p>
+</li>
+</ol>
+<p>我们既可以用ll也可以用ls的原因就是<code>ll</code>是<code>ls -l</code>的别名</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436528132.png"
+	width="650"
+	height="118"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436528132_hu_9f672614123e3ba7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730436528132_hu_90f3998611bdcf9b.png 1024w"
+	loading="lazy"
+	
+		alt="73043652813"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="550"
+		data-flex-basis="1322px"
+	
+></p>
+<h3 id="28-日志的介绍">2.8 日志的介绍
+</h3><p><strong>什么是日志？</strong></p>
+<p>在程序正常工作之前，程序员自己需要打开日志文件，在程序运行期间，</p>
+<p>你以前写代码调试时，在代码中所有出现printf的地方，都要让它转而向</p>
+<p>文件里写入，让程序的执行痕迹写到日志里。这个文件就叫日志文件</p>
+<p>这个行为就叫写日志</p>
+<p><strong>日志的基本信息</strong></p>
+<p>报错还是警告，报错的内容是什么，警告的内容是什么，时间</p>
+<p><strong>查看日志</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456084846.png"
+	width="1522"
+	height="294"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456084846_hu_49079c81c9579465.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456084846_hu_dec18430a7853a4d.png 1024w"
+	loading="lazy"
+	
+		alt="73045608484"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="517"
+		data-flex-basis="1242px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456150175.png"
+	width="1365"
+	height="300"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456150175_hu_e5c4a81e42db03af.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730456150175_hu_451a6fc40244ca0b.png 1024w"
+	loading="lazy"
+	
+		alt="73045615017"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="455"
+		data-flex-basis="1092px"
+	
+></p>
+<h3 id="29-时间戳">2.9 时间戳
+</h3><p>时间戳是指1970年1月1日凌晨12点到现在的秒数</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467574636.png"
+	width="612"
+	height="78"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467574636_hu_a1b2c7f3ab2a21cf.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730467574636_hu_fe7996e86c625077.png 1024w"
+	loading="lazy"
+	
+		alt="73046757463"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="784"
+		data-flex-basis="1883px"
+	
+></p>
+<p>C语言中time返回的就是时间戳</p>
+<p><strong>格式化显示时间戳</strong></p>
+<p>@后面跟时间戳</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730468428339.png"
+	width="1190"
+	height="76"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730468428339_hu_fd12bddf6dfcaa5c.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730468428339_hu_240c8ec32977098b.png 1024w"
+	loading="lazy"
+	
+		alt="73046842833"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1565"
+		data-flex-basis="3757px"
+	
+></p>
+<p>@0 时显示的是1970-1-1的8点而不是凌晨12点原因是系统里把时区转过来了</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730468458146.png"
+	width="1035"
+	height="79"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730468458146_hu_9452b499a75fa03b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730468458146_hu_14ba7af8b89dc59d.png 1024w"
+	loading="lazy"
+	
+		alt="73046845814"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1310"
+		data-flex-basis="3144px"
+	
+></p>
+<h2 id="3shell命令以及运行原理">3、shell命令以及运行原理
+</h2><p><strong>广义上操作系统是：内核+外壳程序</strong></p>
+<blockquote>
+<p>Linux严格意义上说的是一个操作系统，我们称之为“核心（kernel）“ ，但我们一般用户，==不能直接使用kernel==。而是==通过kernel的“外壳”程序==，也就是所谓的==shell==，来与kernel沟通</p>
+</blockquote>
+<p><strong>外壳程序</strong></p>
+<p>外界输入指令 &mdash;&gt; 外壳程序解析 &mdash;如果合法&ndash;&gt; 内核执行</p>
+<p>外界             &lt;&mdash;&mdash; 外壳程序显示 &lt;&mdash;&mdash;&mdash;&mdash;&mdash;-</p>
+<p>这个外壳程序 Linux下叫：命令行解释器</p>
+<p>​		  windows下叫：图像化界面</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730992997756.png"
+	width="1123"
+	height="594"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730992997756_hu_f117e511037195bb.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730992997756_hu_c1b8264d71244fef.png 1024w"
+	loading="lazy"
+	
+		alt="73099299775"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="189"
+		data-flex-basis="453px"
+	
+></p>
+<p>shell外壳就是包裹在操作系统外面的一层软件层</p>
+<p>核心工作就是命令行解析和保护内核</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993041582.png"
+	width="1531"
+	height="571"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993041582_hu_eee0a09105df8656.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993041582_hu_7c0a2b8d7b98b7a4.png 1024w"
+	loading="lazy"
+	
+		alt="73099304158"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="268"
+		data-flex-basis="643px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993218904.png"
+	width="1467"
+	height="391"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993218904_hu_ecccff3f3a053e62.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993218904_hu_251da4b8f700edda.png 1024w"
+	loading="lazy"
+	
+		alt="73099321890"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="375"
+		data-flex-basis="900px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993417245.png"
+	width="1786"
+	height="405"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993417245_hu_6aed0289d7b902ec.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993417245_hu_81c86076a4fd197a.png 1024w"
+	loading="lazy"
+	
+		alt="73099341724"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="440"
+		data-flex-basis="1058px"
+	
+></p>
+<p>shell会进行创建子进程的方式进行命令解析</p>
+<p>每一个用户在登录时，系统都会为这个用户专门分配一个bash</p>
+<p>外壳程序：<code>ps ajx | grep bash</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993589526.png"
+	width="196"
+	height="141"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993589526_hu_53eebd1e1f8997c2.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730993589526_hu_a96eb147206b2943.png 1024w"
+	loading="lazy"
+	
+		alt="73099358952"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="333px"
+	
+></p>
+<h1 id="三linux权限">三、Linux权限
+</h1><h2 id="1-什么是权限">1. 什么是权限
+</h2><p>a.权限是限制人的。人 = 真实的人+身份角色</p>
+<p>b.目标事物的属性也会影响权限</p>
+<p>==<strong>权限=角色+事物属性</strong>==</p>
+<p>权限最终就是影响你能还是不能做一件事情</p>
+<h2 id="2认识人人切换">2.认识人，人切换
+</h2><h3 id="21用户">2.1用户
+</h3><p>root：超级管理员，几乎不受权限的约束</p>
+<p>普通用户：Linux使用者，受权限的约束</p>
+<h3 id="22切换用户的方式">2.2切换用户的方式
+</h3><ul>
+<li>
+<p>普通用户切换到管理员用户：<code>su</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730995945540.png"
+	width="566"
+	height="138"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730995945540_hu_fa365b28a2a3bb0a.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730995945540_hu_cea1ecfe68a34056.png 1024w"
+	loading="lazy"
+	
+		alt="73099594554"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="410"
+		data-flex-basis="984px"
+	
+></p>
+<ul>
+<li>
+<p>需要输入root密码，密码不会显示出来</p>
+</li>
+<li>
+<p>退回到普通用户：ctrl+d 或exit</p>
+</li>
+</ul>
+</li>
+<li>
+<p>切换到其它普通用户<code>su 用户名</code></p>
+</li>
+<li>
+<p>以root的身份重新登录<code>su -</code></p>
+</li>
+</ul>
+<p>**注意：**普通人之间切换，需要输入对方的密码；root可以切换成为任何人</p>
+<h3 id="23如何在不切换身份的情况下执行更高权限命令呢场景">2.3如何在不切换身份的情况下，执行更高权限命令呢？(场景)
+</h3><p><strong>指令提权</strong></p>
+<p>只要在要执行的指令前加上<code>sudo</code>，就可以以超级用户的身份来执行后续的命令</p>
+<p>输密码时输入普通用户的密码</p>
+<blockquote>
+<p>sudoers 类似一张用户白名单</p>
+</blockquote>
+<p><strong>场景</strong></p>
+<p>安装软件时，在Linux下安装软件只能在root身份下安</p>
+<h2 id="3-文件属性文件的权限属性linux角色划分">3. 文件属性，文件的权限属性，Linux角色划分
+</h2><h3 id="31-文件属性">3.1 文件属性
+</h3><p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731132664433.png"
+	width="1081"
+	height="612"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731132664433_hu_14319a6815b91371.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731132664433_hu_cdbd20de0fbb7338.png 1024w"
+	loading="lazy"
+	
+		alt="73113266443"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
+	
+></p>
+<p>字符设备文件：显示器，键盘</p>
+<p>块设备文件：磁盘</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731135583875.png"
+	width="888"
+	height="71"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731135583875_hu_591e71d7b54f752e.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731135583875_hu_5721e7b1a89e8839.png 1024w"
+	loading="lazy"
+	
+		alt="73113558387"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1250"
+		data-flex-basis="3001px"
+	
+></p>
+<p>管道文件：分为匿名管道和有名管道（用来进程间通信）</p>
+<p>创建管道文件</p>
+<p>​	<img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731135772701.png"
+	width="660"
+	height="39"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731135772701_hu_1470a9bce5b240d0.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731135772701_hu_b4892b93be710d8.png 1024w"
+	loading="lazy"
+	
+		alt="73113577270"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1692"
+		data-flex-basis="4061px"
+	
+></p>
+<p>管道文件</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136015873.png"
+	width="735"
+	height="46"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136015873_hu_b20bca336b635cf5.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136015873_hu_e6f71fe62604519c.png 1024w"
+	loading="lazy"
+	
+		alt="73113601587"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1597"
+		data-flex-basis="3834px"
+	
+></p>
+<p>链接文件：</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136126787.png"
+	width="727"
+	height="54"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136126787_hu_b1f1fae51f0c392d.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136126787_hu_7189632156e8eecb.png 1024w"
+	loading="lazy"
+	
+		alt="73113612678"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1346"
+		data-flex-basis="3231px"
+	
+> 						<img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136186406.png"
+	width="1537"
+	height="43"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136186406_hu_ccc51966373c6fb5.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731136186406_hu_2532ba02e679979c.png 1024w"
+	loading="lazy"
+	
+		alt="73113618640"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="3574"
+		data-flex-basis="8578px"
+	
+></p>
+<h3 id="33linux中的角色划分">3.3Linux中的角色划分
+</h3><p><strong>Linux中角色分三类</strong></p>
+<ol>
+<li>
+<p><strong>文件拥有者</strong></p>
+<p>一个文件是谁的，谁就是拥有者</p>
+</li>
+<li>
+<p><strong>文件所属组</strong></p>
+<p>如果没有所属组，那么一个文件要么是拥有者，要么是other，我想要让某个人看该文件，，就只能将权限放开至other，那么我不想给某些人看到该文件也不行。</p>
+<p>而有了所属组后，你就可以只让那个组里的人看该文件</p>
+</li>
+<li>
+<p><strong>other</strong></p>
+<p>既不是拥有者，也不是所属组</p>
+</li>
+</ol>
+<blockquote>
+<p>人 = 真实身份 + 身份角色</p>
+<p>具体用户：root，普通账号</p>
+<p>角色：拥有者，所属组，other</p>
+<p>具体的人可以扮演某种角色</p>
+</blockquote>
+<h3 id="32-文件权限属性">3.2 文件权限属性
+</h3><p>r 可读，w 可写，x 可执行</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731137908682.png"
+	width="1116"
+	height="682"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731137908682_hu_5eca0ce8f2b4b635.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731137908682_hu_3dc9a723385313d2.png 1024w"
+	loading="lazy"
+	
+		alt="73113790868"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="163"
+		data-flex-basis="392px"
+	
+></p>
+<h2 id="4操作有权限vs无权限">4.操作：有权限VS无权限
+</h2><h3 id="如何修改权限"><strong>如何修改权限？</strong>
+</h3><p><strong>取消权限</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138260680.png"
+	width="784"
+	height="81"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138260680_hu_e36fbf4168d64134.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138260680_hu_cedcf17036097dd4.png 1024w"
+	loading="lazy"
+	
+		alt="73113826068"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="967"
+		data-flex-basis="2322px"
+	
+> 改为不能读</p>
+<p><code>chmode u-w 文件</code> 文件不能写</p>
+<p><code>chmode u-x 文件</code>改为文件不可执行</p>
+<p><strong>增加权限</strong></p>
+<p><code>chmode u+r 文件</code>改为可读</p>
+<p><code>chmode u+w 文件</code>改为可写</p>
+<p><code>chmode u+x 文件</code>改为可执行</p>
+<ul>
+<li>
+<p>改拥有者权限<code> u</code></p>
+</li>
+<li>
+<p>改所属组的权限，就将u换成<code>g</code></p>
+</li>
+<li>
+<p>改other的权限，就将u换成<code>o</code></p>
+</li>
+<li>
+<p>给<strong>所有人</strong>加上某权限，就<strong>将u换成<code>a</code></strong></p>
+</li>
+</ul>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138696511.png"
+	width="835"
+	height="42"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138696511_hu_7dca6078ad211da0.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138696511_hu_a0d86f0e33041193.png 1024w"
+	loading="lazy"
+	
+		alt="73113869651"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1988"
+		data-flex-basis="4771px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138797831.png"
+	width="729"
+	height="43"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138797831_hu_956edaa891c6cfe.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731138797831_hu_23644999f7678d17.png 1024w"
+	loading="lazy"
+	
+		alt="73113879783"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1695"
+		data-flex-basis="4068px"
+	
+></p>
+<p><strong>结论：</strong></p>
+<ol>
+<li>
+<p><strong>只有文件的==拥有者==和==root==可以修改文件的权限</strong></p>
+</li>
+<li>
+<p><strong>Linux下能执行 = 真的是一个可执行文件 + 可执行权限</strong></p>
+</li>
+<li>
+<p><strong>user,group,other和我自己进行身份对比的时候，依次只对比一次</strong></p>
+<p>如果你既是拥有者又是拥有组，那么匹配到拥有者后就不再匹配，也就是就算拥有者没有读或写或可执行而拥有者有，你也是不能读或写的</p>
+</li>
+</ol>
+<h3 id="使用八进制增加权限"><strong>使用八进制增加权限</strong>
+</h3><p>r/- w/- x/- 三个分别为读，写，可执行，<code>-</code>表示没有该权限</p>
+<p>我们可以用0来表示没有该权限，1表示有该权限</p>
+<p>那么<code>可读可写可执行</code>就可以表示为<code>111</code>也就是7</p>
+<p>如果我们要设置拥有者，所属组，other的权限分别为</p>
+<p>​			    rwx         rw-           r&ndash;</p>
+<p>用二进制表示    111          110          100</p>
+<p>也就是                 7              6               4</p>
+<p>那么我们就可以用 <code>chmod 764 text.txt</code> 指令修改</p>
+<p>同样，如果我们希望给所有角色加上所有权限：<code>chmod 777 text.txt</code></p>
+<p>​				   给所有角色去掉所有权限：<code>chmod 000 text.txt</code></p>
+<p>拥有者和所属组可读可写，other只读 <code>chmod 664 test.txt</code></p>
+<h3 id="修改角色"><strong>修改角色</strong>
+</h3><ul>
+<li>
+<p>修改拥有者<code>chown 新拥有者 要修改的文件</code>不能直接修改拥有者</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731407912932.png"
+	width="1164"
+	height="81"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731407912932_hu_42f18e97ae8c4f98.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731407912932_hu_c4b12de600c7c853.png 1024w"
+	loading="lazy"
+	
+		alt="73140791293"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1437"
+		data-flex-basis="3448px"
+	
+></p>
+<p>只有超级用户或者指定提权</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408332857.png"
+	width="721"
+	height="63"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408332857_hu_f3c300208bc09f0c.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408332857_hu_a343ed892c3eda1b.png 1024w"
+	loading="lazy"
+	
+		alt="73140833285"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1144"
+		data-flex-basis="2746px"
+	
+></p>
+</li>
+<li>
+<p>修改所属组<code>chgrp 新拥有者 要修改的文件</code></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408614701.png"
+	width="751"
+	height="30"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408614701_hu_99e790b32f4dc0af.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408614701_hu_5e007e44d28f71dd.png 1024w"
+	loading="lazy"
+	
+		alt="73140861470"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2503"
+		data-flex-basis="6008px"
+	
+></p>
+</li>
+<li>
+<p>同时更改拥有者和所属组</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408727776.png"
+	width="792"
+	height="40"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408727776_hu_ff5488b2a24bd0d0.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731408727776_hu_fb34825a227109d4.png 1024w"
+	loading="lazy"
+	
+		alt="73140872777"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1980"
+		data-flex-basis="4752px"
+	
+></p>
+</li>
+</ul>
+<p>对于一个文件，如果没有r权限，用任何工具都不能查看文件的内容。权限限制的是人</p>
+<h2 id="5关于权限的三个问题">5.关于权限的三个问题
+</h2><h3 id="1目录权限">1.目录权限
+</h3><ul>
+<li>
+<p>如果我要==进入一个目录==，需要什么权限？==x权限==</p>
+</li>
+<li>
+<p>==r==对目录是什么意思？==有无权限查看指定目录下的文件信息==</p>
+<pre><code>  ![73140979480](assets/1731409794803.png) 
+</code></pre>
+</li>
+<li>
+<p>==w==对于目录？==有无权限在指定目录内部，新建文件，删除，修改文件名等修改===</p>
+<p>==文件操作==，都不行</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731409870346.png"
+	width="923"
+	height="78"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731409870346_hu_4de376dd1303d3ec.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731409870346_hu_b4734c5139677e8e.png 1024w"
+	loading="lazy"
+	
+		alt="73140987034"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1183"
+		data-flex-basis="2840px"
+	
+></p>
+</li>
+</ul>
+<h3 id="2-缺省权限">2. 缺省权限
+</h3><p>知识点</p>
+<blockquote>
+<ol>
+<li>
+<p>普通文件，起始权限666；目录文件，起始权限777</p>
+</li>
+<li>
+<p>umask的权限掩码</p>
+</li>
+<li>
+<p>最终权限（缺省权限）：664,775</p>
+</li>
+</ol>
+<p>结论：</p>
+<p>==最终权限（默认）= 起始权限 &amp; （~umask）==</p>
+</blockquote>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731412144933.png"
+	width="576"
+	height="72"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731412144933_hu_77b2d3e017f59164.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731412144933_hu_d760948697371bbf.png 1024w"
+	loading="lazy"
+	
+		alt="73141214493"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="800"
+		data-flex-basis="1920px"
+	
+></p>
+<p>只看后3位，实际是000 000 010</p>
+<p>修改权限掩码，达到修改Linux文件缺省权限的问题</p>
+<ul>
+<li>
+<p>修改成777<code>umask 777</code>那么此时umask按位取反结果为全0，任何数和0按位与</p>
+<p>结果都为0。那么默认创建的文件权限是全是<code>-</code></p>
+</li>
+<li>
+<p>修改成0<code>umask 0</code>那么此时umask按位取反结果为全1,任何数和1按位与结果都是</p>
+<p>它本身。此时创建文件的默认权限就是666和777</p>
+</li>
+</ul>
+<h3 id="3沾滞位">3.沾滞位
+</h3><p><strong>1. Linux多用户下，对于文件的访问，是隔离的</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731414901863.png"
+	width="1057"
+	height="153"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731414901863_hu_eb10133f517bb9bc.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731414901863_hu_2cf42ccb53959638.png 1024w"
+	loading="lazy"
+	
+		alt="73141490186"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="690"
+		data-flex-basis="1658px"
+	
+></p>
+<p><strong>2. 需求：我们想让Linux下不同的账号用户，共享文件呢？</strong></p>
+<p>共享文件不能在任何一个普通账号的家目录里面，只能在其它目录下，比如根目录下</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415214884.png"
+	width="903"
+	height="76"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415214884_hu_a34be4929a6e6334.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415214884_hu_e6359ef98c5b0578.png 1024w"
+	loading="lazy"
+	
+		alt="73141521488"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1188"
+		data-flex-basis="2851px"
+	
+></p>
+<p>但是根目录也是一个目录，所以新建时需要以超级用户身份来创建<code>sudo</code>，或者root用户来新建</p>
+<p>默认下other是没有创建文件的权限的，所以需要<code>sudo</code>添加w</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415670182.png"
+	width="963"
+	height="43"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415670182_hu_f37d3002cce02798.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415670182_hu_dfb252f89fc38c27.png 1024w"
+	loading="lazy"
+	
+		alt="73141567018"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2239"
+		data-flex-basis="5374px"
+	
+></p>
+<p><strong>3. 问题：我们想既共享文件，同时other不能随便删除这个文件</strong></p>
+<p>我们想共享文件，也就是需要让在根目录下建的目录的other的w权限放开，</p>
+<p>这样other就可以在这个共享目录中新建文件了，我们可以修改共享目录文件中新建的文件的属性也就是可以让拥有者和所属组的权限是可读可写可执行，other是不能读不能写不能执行</p>
+<p>但存在一个问题，在目录中，==创建删除修改一个文件是由目录的w权限决定的，与目标文件无关==，也就是如果我们将共享目录的w权限放开了，那么other就可以删除我们共享目录里的文件了</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731418484498.png"
+	width="1317"
+	height="240"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731418484498_hu_790aebce690b43bf.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731418484498_hu_a7e17d118ed8b2f9.png 1024w"
+	loading="lazy"
+	
+		alt="73141848449"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="548"
+		data-flex-basis="1317px"
+	
+></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731418533050.png"
+	width="742"
+	height="51"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731418533050_hu_8ecd988489b73d8b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731418533050_hu_b5e5b1c3e2e177a2.png 1024w"
+	loading="lazy"
+	
+		alt="73141853305"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1454"
+		data-flex-basis="3491px"
+	
+></p>
+<p>添加粘滞位：<code>sudo chmod +t /目录名/</code></p>
+<p><strong>任何用户，在设置了粘滞位的目录下</strong></p>
+<p>a. 自己只能删除自己的目录，其他人无法删除</p>
+<p>b. root无视</p>
+<p>c. 粘滞位，只能给目录设置，不需要给普通文件设置</p>
+<p>Linux下默认给tmp目录加了粘滞位</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1734865477362.png"
+	width="869"
+	height="53"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1734865477362_hu_e0d2d8ffef03826d.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1734865477362_hu_cdbe830d70b3f78b.png 1024w"
+	loading="lazy"
+	
+		alt="73486547736"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1639"
+		data-flex-basis="3935px"
+	
+></p>
+<h1 id="0笔记">0.笔记
+</h1><h2 id="1xshell安装和卸载">1.xshell安装和卸载
+</h2><h3 id="11安装">1.1安装
+</h3><p><a class="link" href="https://www.netsarang.com/zh/free-for-home-school/"  target="_blank" rel="noopener"
+    > https://www.netsarang.com/zh/free-for-home-school/</a></p>
+<p>点击下载即可</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000542057.png"
+	width="1011"
+	height="789"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000542057_hu_8afe66f1c1597d32.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000542057_hu_4250a8c790d12f4e.png 1024w"
+	loading="lazy"
+	
+		alt="73000054205"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="307px"
+	
+></p>
+<ul>
+<li>
+<p>下载完后，双击.exe文件，一直下一步，改安装路径。</p>
+</li>
+<li>
+<p>安装好后，打开XShell，第一次打开需要输用户名和邮箱，然后xshell会往你的邮箱发</p>
+<p>认证链接，点击认证链接后就注册成功了</p>
+</li>
+<li>
+<p>关掉其它界面，在下面的界面中输入<code>ssh root@你的公网IP</code>回车后输入你的密码</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000889465.png"
+	width="796"
+	height="271"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000889465_hu_19e66aad163165e6.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000889465_hu_af11adae8ad938a9.png 1024w"
+	loading="lazy"
+	
+		alt="73000088946"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="293"
+		data-flex-basis="704px"
+	
+></p>
+</li>
+</ul>
+<h3 id="12卸载">1.2卸载
+</h3><p>在控制面板中选择卸载程序，然后将xshell卸载即可</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000362242.png"
+	width="936"
+	height="514"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000362242_hu_32fc897dd7d308d2.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730000362242_hu_ab4505edf9d4525c.png 1024w"
+	loading="lazy"
+	
+		alt="73000036224"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="182"
+		data-flex-basis="437px"
+	
+></p>
+<h2 id="2xshell免密码登录">2.xshell免密码登录
+</h2><ol>
+<li>
+<p>首先添加一台机器</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001014013.png"
+	width="712"
+	height="193"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001014013_hu_99a40a91e7d1c9db.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001014013_hu_5899a0c61457bee2.png 1024w"
+	loading="lazy"
+	
+		alt="73000101401"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="368"
+		data-flex-basis="885px"
+	
+></p>
+<p>然后会弹出对话框</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001149138.png"
+	width="1158"
+	height="915"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001149138_hu_4f4511b05a1978bb.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001149138_hu_fef31dacfdcd6572.png 1024w"
+	loading="lazy"
+	
+		alt="73000114913"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="126"
+		data-flex-basis="303px"
+	
+></p>
+</li>
+<li>
+<p>查看我们添加的机器</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001243429.png"
+	width="708"
+	height="177"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001243429_hu_f8bedf2bcc185fe9.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001243429_hu_59f31e964eb80f5a.png 1024w"
+	loading="lazy"
+	
+		alt="73000124342"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="400"
+		data-flex-basis="960px"
+	
+></p>
+<p>然后可以点击连接</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001301296.png"
+	width="1209"
+	height="855"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001301296_hu_809b9a2d0ceeb1b7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001301296_hu_d389186dcc91064d.png 1024w"
+	loading="lazy"
+	
+		alt="73000130129"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="339px"
+	
+></p>
+<p>第一次要求输入用户名，输入后我们点击记住用户名，然后输密码</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001451503.png"
+	width="301"
+	height="192"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001451503_hu_4c553841c97c0ed4.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001451503_hu_2a7de773a1753c0d.png 1024w"
+	loading="lazy"
+	
+		alt="73000145150"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="156"
+		data-flex-basis="376px"
+	
+></p>
+</li>
+<li>
+<p>免密码登录</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001527674.png"
+	width="844"
+	height="723"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001527674_hu_65e7c53257ca1dcc.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001527674_hu_d161e60c48809465.png 1024w"
+	loading="lazy"
+	
+		alt="73000152767"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="116"
+		data-flex-basis="280px"
+	
+></p>
+<p>属性中有一个身份验证，输入用户名和密码点击确定后，以后只需要双击我们的机器就</p>
+<p>可以直接登录我们的机器，不用输密码了</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001591872.png"
+	width="1188"
+	height="805"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001591872_hu_a72ce54bcb88399b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730001591872_hu_995a5d082ad6eb68.png 1024w"
+	loading="lazy"
+	
+		alt="73000159187"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="147"
+		data-flex-basis="354px"
+	
+></p>
+</li>
+</ol>
+<h2 id="3-改主题">3. 改主题
+</h2><p>a. <img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995457316.png"
+	width="484"
+	height="134"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995457316_hu_f815b869e00b1e44.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995457316_hu_84d39121614abff6.png 1024w"
+	loading="lazy"
+	
+		alt="72999545731"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="361"
+		data-flex-basis="866px"
+	
+></p>
+<p>b.把配色方案勾上<img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995486184.png"
+	width="255"
+	height="136"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995486184_hu_46ce10567431d1d9.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995486184_hu_6a50755fb0d1587d.png 1024w"
+	loading="lazy"
+	
+		alt="72999548618"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="187"
+		data-flex-basis="450px"
+	
+></p>
+<p>c.然后再点击下图中的图标就可以改主题了</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995554765.png"
+	width="941"
+	height="103"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995554765_hu_f06675ee5ba2f9.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729995554765_hu_5c1230ae7e209a41.png 1024w"
+	loading="lazy"
+	
+		alt="72999555476"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="913"
+		data-flex-basis="2192px"
+	
+></p>
+<h2 id="4-新建用户及用新建的用户登录">4. 新建用户及用新建的用户登录
+</h2><h4 id="a新建用户及删除">a.新建用户及删除
+</h4><p>[root@bite-alicloud ~]# adduser zhangsan    新建一个用户</p>
+<p>[root@bite-alicloud ~]# passwd zhangsan      给新建的用户设置密码(不会显示)</p>
+<p>[root@bite-alicloud ~]# userdel -r zhangsan   删除用户</p>
+<h4 id="b怎么登录该用户呢">b.怎么登录该用户呢？
+</h4><p>首先，需要把xshell关闭，然后将弹出的对话框点叉</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996071648.png"
+	width="1220"
+	height="294"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996071648_hu_f36b89f5a9716a86.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996071648_hu_f5f0842f31fff2be.png 1024w"
+	loading="lazy"
+	
+		alt="72999607164"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="414"
+		data-flex-basis="995px"
+	
+></p>
+<p>然后如果是下面这个界面</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996604701.png"
+	width="1056"
+	height="365"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996604701_hu_74d738e1db20bf53.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996604701_hu_c82400aa5ecf92fc.png 1024w"
+	loading="lazy"
+	
+		alt="72999660470"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="289"
+		data-flex-basis="694px"
+	
+></p>
+<p>那么输入<code>你的用户名@你的公网IP</code>回车然后输入密码可以了</p>
+<p>如果是下面这个界面</p>
+<p>那么就需要输入<code>ssh 你的用户名@你的公网IP</code></p>
+<h2 id="5-在xshell查看公网ip">5. 在xshell查看公网IP
+</h2><p>右击我们的Linux机器，选择属性，就可以看到我们的公网IP了</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996202005.png"
+	width="1207"
+	height="845"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996202005_hu_c99be51ad119f2e.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729996202005_hu_e81518b3c9c769.png 1024w"
+	loading="lazy"
+	
+		alt="72999620200"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="342px"
+	
+></p>
+<h2 id="6登录的状态下切换linux机器">6.登录的状态下，切换Linux机器
+</h2><p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729992593702.png"
+	width="558"
+	height="107"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729992593702_hu_f01e9c77132965e7.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729992593702_hu_c6e1205b15f27099.png 1024w"
+	loading="lazy"
+	
+		alt="72999259370"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="521"
+		data-flex-basis="1251px"
+	
+></p>
+<p>就可以打开下面的界面</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729992654433.png"
+	width="1219"
+	height="849"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729992654433_hu_a3d6766ac1fbe17f.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1729992654433_hu_819fb9a62afd013f.png 1024w"
+	loading="lazy"
+	
+		alt="72999265443"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="344px"
+	
+></p>
+<p><code>logout</code>可以退出当前账号，再<code>ssh root@你的公网IP</code></p>
+<h2 id="7linux下安装应用">7.Linux下安装应用
+</h2><p><strong>Linux中tree命令默认是没有安装的，需要我们自己安装</strong></p>
+<blockquote>
+<p>root用户下</p>
+<p>CentOS输入：<code>yum install -y</code> tree</p>
+<p>Ubuntu输入：<code>apt install -y</code> tree</p>
+</blockquote>
+<blockquote>
+<p>卸载：<code>yum remove -y</code> tree</p>
+</blockquote>
+<h2 id="8伪造10万行代码">8.伪造10万行代码
+</h2><p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730457534087.png"
+	width="1804"
+	height="45"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730457534087_hu_2f5cf009ac4da183.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730457534087_hu_1133703f38ef3605.png 1024w"
+	loading="lazy"
+	
+		alt="73045753408"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="4008"
+		data-flex-basis="9621px"
+	
+></p>
+<h2 id="9向自己新打开的另一台linux机器中写入">9.向自己新打开的另一台Linux机器中写入
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FILE</span><span class="o">*</span> <span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;/dev/pts/1&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span><span class="p">(</span><span class="n">fp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">perror</span><span class="p">(</span><span class="s">&#34;fopen&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Enter# &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">scanf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">fputs</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">fflush</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然后编译运行</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600516909.png"
+	width="894"
+	height="82"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600516909_hu_a8b91f88512cafd0.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600516909_hu_8c0e6d063a9d3ee2.png 1024w"
+	loading="lazy"
+	
+		alt="73060051690"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1090"
+		data-flex-basis="2616px"
+	
+></p>
+<p>就可以写入了（ctrl+c退出）</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600544319.png"
+	width="278"
+	height="209"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600544319_hu_4865b1eaed6e79b.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600544319_hu_df046651d3fa90aa.png 1024w"
+	loading="lazy"
+	
+		alt="73060054431"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="319px"
+	
+></p>
+<p>对应另一台机器</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600566495.png"
+	width="364"
+	height="60"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600566495_hu_4b2a53bfd0066432.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1730600566495_hu_5633f70e9b80bc2d.png 1024w"
+	loading="lazy"
+	
+		alt="73060056649"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="606"
+		data-flex-basis="1456px"
+	
+></p>
+<h2 id="10-linux下的退出">10. Linux下的退出
+</h2><p>nano text.txt后使用<code>contrl+x</code>退出</p>
+<p>vim test.txt 中使用 <code>esc+:wq</code> 退出</p>
+<h2 id="11xshell看linux版本">11.xshell看Linux版本
+</h2><p><strong>centos下</strong></p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731908535071.png"
+	width="911"
+	height="76"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731908535071_hu_f002ae1f9e7f2941.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731908535071_hu_fd5cddadbc1394f2.png 1024w"
+	loading="lazy"
+	
+		alt="73190853507"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1198"
+		data-flex-basis="2876px"
+	
+></p>
+<p>cat /etc/redhat-release</p>
+<p><strong>ubuntu下</strong></p>
+<p>cat /etc/lsb*</p>
+<p><img src="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1735016793755.png"
+	width="562"
+	height="132"
+	srcset="/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1735016793755_hu_f38e5b17f1f7b171.png 480w, /p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1735016793755_hu_79b53cb969e41343.png 1024w"
+	loading="lazy"
+	
+		alt="73501679375"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="425"
+		data-flex-basis="1021px"
+	
+></p>
+<h2 id="12看linux的内核版本">12.看Linux的内核版本
+</h2><p><code>uname -r</code></p>
+<h2 id="13nano的使用">13.nano的使用
+</h2><p><strong>nano &ndash; 文本编辑器</strong></p>
+<p><code>nano 文件名.文件后缀名</code>就相当于打开了Linux下的记事本</p>
+<p>退出：ctrl+x，y 回车</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指令</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>shutdown -h now</td>
+          <td>立刻进行关机</td>
+      </tr>
+      <tr>
+          <td>shudown -h 1</td>
+          <td>“hello，1分钟后会关机了”</td>
+      </tr>
+      <tr>
+          <td>shutdown -r now</td>
+          <td>现在重新启动计算机</td>
+      </tr>
+      <tr>
+          <td>halt</td>
+          <td>关机，作用和上面一样</td>
+      </tr>
+      <tr>
+          <td>reboot</td>
+          <td>现在重新启动计算机</td>
+      </tr>
+      <tr>
+          <td>sync</td>
+          <td>把内存的数据同步到磁盘</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="14了解bash脚本">14.了解bash脚本
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>touch file
+</span></span><span class="line"><span class="cl">mv file myfile
+</span></span><span class="line"><span class="cl"><span class="nv">i</span><span class="o">=</span><span class="m">100</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$i</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行：bash test.sh</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-permission-development-tool/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】02基础权限开发工具"
+                        data-key="linux-basic-permission-development-tool" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】02基础权限开发工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-process-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】03进程的概念"
+                        data-key="linux-process-basic" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】03进程的概念</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-process-control/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】04进程控制"
+                        data-key="linux-process-control" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】04进程控制</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

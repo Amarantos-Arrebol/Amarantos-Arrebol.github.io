@@ -1,0 +1,4273 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="🥳1. 创建项目全流程 🍋\u200d1.1 创建自己的工程 打开对应版本的虚幻引擎\n注意：==高版本的可以打开低版本的项目，但低版本无法打开低版本的项目==\n在虚幻项目浏览器中选择是打开已有项目还是新建项目\n">
+<title>【虚幻引擎】-ue基础入门</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/ue-basic/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【虚幻引擎】-ue基础入门">
+<meta property='og:description' content="🥳1. 创建项目全流程 🍋\u200d1.1 创建自己的工程 打开对应版本的虚幻引擎\n注意：==高版本的可以打开低版本的项目，但低版本无法打开低版本的项目==\n在虚幻项目浏览器中选择是打开已有项目还是新建项目\n">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/ue-basic/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/ue-basic/01.jpg' />
+<meta name="twitter:title" content="【虚幻引擎】-ue基础入门">
+<meta name="twitter:description" content="🥳1. 创建项目全流程 🍋\u200d1.1 创建自己的工程 打开对应版本的虚幻引擎\n注意：==高版本的可以打开低版本的项目，但低版本无法打开低版本的项目==\n在虚幻项目浏览器中选择是打开已有项目还是新建项目\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/ue-basic/01.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-创建项目全流程">🥳1. 创建项目全流程</a>
+      <ul>
+        <li><a href="#11-创建自己的工程">🍋‍1.1 创建自己的工程</a></li>
+        <li><a href="#12-虚幻4的工程文件夹结构">🍇1.2 虚幻4的工程文件夹结构</a></li>
+        <li><a href="#13-运行我们的游戏">🫐1.3 运行我们的游戏</a></li>
+        <li><a href="#14-初学者内容包">🍉1.4 初学者内容包</a></li>
+        <li><a href="#15-快速添加功能或内容包">🍍1.5 快速添加功能或内容包</a></li>
+        <li><a href="#16-对虚幻4每个模版进行展示">🍅1.6 对虚幻4每个模版进行展示</a></li>
+      </ul>
+    </li>
+    <li><a href="#2视口导航">🤗2.视口导航</a></li>
+    <li><a href="#3-编辑界面介绍">😋3. 编辑界面介绍</a>
+      <ul>
+        <li><a href="#31-菜单栏">🌈3.1 菜单栏</a></li>
+        <li><a href="#32-关卡编辑器level-editor工具栏">❄️3.2 关卡编辑器(Level Editor)工具栏</a>
+          <ul>
+            <li><a href="#运行测试关卡">运行（测试关卡）</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-模式modes面板">🌊3.3 模式(Modes)面板</a></li>
+        <li><a href="#34-内容浏览器面板">☄️3.4 内容浏览器面板</a></li>
+        <li><a href="#35-视口面板">🌟3.5 视口面板</a></li>
+        <li><a href="#36-世界大纲视图面板">🌌3.6 世界大纲视图面板</a></li>
+        <li><a href="#37-细节面板">⚡3.7 细节面板</a></li>
+      </ul>
+    </li>
+    <li><a href="#4物体编辑坐标系变换单位">😁4.物体编辑（坐标系，变换单位）</a></li>
+    <li><a href="#5导入资源项目迁移和管理">😚5.导入资源，项目迁移和管理</a>
+      <ul>
+        <li><a href="#51-导入资源">5.1 导入资源</a></li>
+        <li><a href="#52-项目迁移">5.2 项目迁移</a></li>
+        <li><a href="#53-项目管理">5.3 项目管理</a></li>
+      </ul>
+    </li>
+    <li><a href="#6三维模型软件导入虚幻4">😎6.三维模型软件导入虚幻4</a></li>
+    <li><a href="#7datasmith插件使用全流程">🤔7.DataSmith插件使用全流程</a></li>
+    <li><a href="#虚幻引擎游戏制作教程">虚幻引擎游戏制作教程</a>
+      <ul>
+        <li><a href="#一-入门篇">一. 入门篇</a>
+          <ul>
+            <li><a href="#1-入门">1. 入门</a>
+              <ul>
+                <li><a href="#eipic-games内容推荐">Eipic Games内容推荐</a></li>
+                <li><a href="#01-常用快捷键">01 常用快捷键</a></li>
+                <li><a href="#02-命名规范">02 命名规范</a></li>
+                <li><a href="#03-材质基础">03 材质基础</a></li>
+                <li><a href="#04-灯光基础">04 灯光基础</a></li>
+                <li><a href="#05-蓝图">05 蓝图</a></li>
+                <li><a href="#11-初涉玩家角色">1.1 初涉玩家角色</a></li>
+                <li><a href="#12-导入后的模型设置">1.2 导入后的模型设置</a></li>
+                <li><a href="#13-初涉地形">1.3 初涉地形</a></li>
+                <li><a href="#14-初涉视觉效果">1.4 初涉视觉效果</a></li>
+                <li><a href="#15-初涉粒子">1.5 初涉粒子</a></li>
+                <li><a href="#16-初涉声音">1.6 初涉声音</a></li>
+                <li><a href="#17-初涉材质">1.7 初涉材质</a></li>
+                <li><a href="#18-初涉过场动画">1.8 初涉过场动画</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#2角色入门">2.角色入门</a></li>
+        <li><a href="#3场景入门">3.场景入门</a></li>
+        <li><a href="#4构造脚本">4.构造脚本</a></li>
+        <li><a href="#二角色篇">二、角色篇</a></li>
+      </ul>
+    </li>
+    <li><a href="#其它">其它</a>
+      <ul>
+        <li><a href="#最后做成视频">最后做成视频</a></li>
+        <li><a href="#项目1场景">项目1&ndash;场景</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/ue-basic/">
+                <img src="/p/ue-basic/01_hu_313cb7d05e22691f.jpg"
+                        srcset="/p/ue-basic/01_hu_313cb7d05e22691f.jpg 800w, /p/ue-basic/01_hu_184c120bc596a157.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【虚幻引擎】-ue基础入门" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%B8%B8%E6%88%8F/" style="background-color: #F37EF9; color: #ffffff;">
+                游戏
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/ue-basic/">【虚幻引擎】-ue基础入门</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1-创建项目全流程">🥳1. 创建项目全流程
+</h1><h2 id="11-创建自己的工程">🍋‍1.1 创建自己的工程
+</h2><ul>
+<li>
+<p>打开对应版本的虚幻引擎</p>
+<ul>
+<li>
+<p>注意：==高版本的可以打开低版本的项目，但低版本无法打开低版本的项目==</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095307785.png"
+	width="383"
+	height="237"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095307785_hu_f7a9e6e3804e6677.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095307785_hu_e839455853e94b67.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095307785"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="161"
+		data-flex-basis="387px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>在虚幻项目浏览器中选择是打开已有项目还是新建项目</p>
+<ul>
+<li>
+<p>只能打开对应版本的项目</p>
+<ul>
+<li>比如：如果启动的是4.22版本的虚幻引擎，那么就只能打开版本是4.22的项目</li>
+</ul>
+</li>
+<li>
+<p>我们可以按需要选择新项目的类型（以游戏为例）</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095312930.png"
+	width="1284"
+	height="1047"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095312930_hu_998112d80ed1735f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095312930_hu_160b6f7be493f9f0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095312930"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="122"
+		data-flex-basis="294px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>选择模版</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095332726.png"
+	width="1210"
+	height="832"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095332726_hu_6a9ea66a88fe4d39.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095332726_hu_89310f1cdad2ef9f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095332726"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="349px"
+	
+></p>
+</li>
+<li>
+<p>项目设置</p>
+<ul>
+<li>
+<p>C++项目还是蓝图项目？</p>
+<ul>
+<li>蓝图项目：使用蓝图脚本实现功能（不碰任何一行代码，底层还是C++）</li>
+<li>C++项目：使用C++代码实现功能（需要电脑上装有VS）</li>
+</ul>
+</li>
+<li>
+<p>目标硬件（PC或移动设备）</p>
+<ul>
+<li>选择PC</li>
+</ul>
+</li>
+<li>
+<p>目标平台图像画质</p>
+<ul>
+<li>选择最高质量</li>
+</ul>
+</li>
+<li>
+<p>是否包含初学者内容包</p>
+<ul>
+<li>选择包含</li>
+</ul>
+</li>
+<li>
+<p>选择项目创建路径以及项目名称</p>
+<ul>
+<li>项目名称开头只支持字母和中文</li>
+<li>项目名称支持的特殊符号：_</li>
+</ul>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095338911.png"
+	width="1298"
+	height="949"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095338911_hu_4c786949fa199948.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095338911_hu_81bd794df4f6dae9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095338911"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="328px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>点击创建项目</p>
+</li>
+</ul>
+<h2 id="12-虚幻4的工程文件夹结构">🍇1.2 虚幻4的工程文件夹结构
+</h2><ul>
+<li>Config
+<ul>
+<li>包含了项目设置，键盘输入之类的配置文件</li>
+</ul>
+</li>
+<li>Content
+<ul>
+<li>存放引擎或游戏的内容，包括<code>地图、贴图、模版、材质、蓝图</code>等</li>
+</ul>
+</li>
+<li>Saved
+<ul>
+<li>包含自动保存内容，配置(*.ini)文件以及日志文件</li>
+</ul>
+</li>
+<li>.uproject
+<ul>
+<li><code>项目启动程序</code>，开启我们的项目</li>
+</ul>
+</li>
+</ul>
+<p><img src="/assets/1727173647412.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72717364741"
+	
+	
+></p>
+<h2 id="13-运行我们的游戏">🫐1.3 运行我们的游戏
+</h2><ul>
+<li>在内容浏览器找到文件夹名字带有<code>BP</code>的文件夹
+<ul>
+<li><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095344475.png"
+	width="1512"
+	height="366"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095344475_hu_e3216fa2b80d8197.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095344475_hu_8e27f297dbec8af9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095344475"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="413"
+		data-flex-basis="991px"
+	
+></li>
+</ul>
+</li>
+<li>打开<code>Map</code>文件夹中的<code>关卡</code>
+<ul>
+<li><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095350862.png"
+	width="1169"
+	height="424"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095350862_hu_bbbd6cf87b3c64bb.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095350862_hu_25aa0fd66f0e492d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095350862"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="275"
+		data-flex-basis="661px"
+	
+></li>
+<li><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095354973.png"
+	width="684"
+	height="384"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095354973_hu_db2f960ce3aeb3a.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095354973_hu_3844c8d799b17171.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095354973"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="427px"
+	
+></li>
+</ul>
+</li>
+<li>点击工具栏中的<code>播放图标</code>开始游戏
+<ul>
+<li><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095400321.png"
+	width="1469"
+	height="380"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095400321_hu_7ac9fb0d84adb437.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095400321_hu_f02ce30ac3440a55.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095400321"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="386"
+		data-flex-basis="927px"
+	
+></li>
+<li>补充：播放游戏时切换到/取消全屏，F11</li>
+</ul>
+</li>
+</ul>
+<h2 id="14-初学者内容包">🍉1.4 初学者内容包
+</h2><ul>
+<li>
+<p>打开 内容浏览器中的StartContent 文件</p>
+<ul>
+<li>
+<p>里面是官方提供给初学者使用的素材包</p>
+</li>
+<li>
+<p>大致包括建筑模型，音频，蓝图，HDRI，关卡，材质，粒子，道具，贴图等</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095404893.png"
+	width="1529"
+	height="322"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095404893_hu_9f12533b6352a74a.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095404893_hu_da5d490b80694265.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095404893"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="474"
+		data-flex-basis="1139px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095415263.png"
+	width="1892"
+	height="334"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095415263_hu_ae0080b1fa0ae2fa.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095415263_hu_17e3efa8f5b7dfc0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095415263"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="566"
+		data-flex-basis="1359px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="15-快速添加功能或内容包">🍍1.5 快速添加功能或内容包
+</h2><p>如果在创建项目的时候，没有选择包含初学者内容包，那么可以通过以下步骤快速添加初学者内容包</p>
+<ul>
+<li>
+<p>在内容浏览器中的添加/导入中选择添加功能或者内容包</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095420052.png"
+	width="750"
+	height="1096"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095420052_hu_7efb4ac0b7cbd257.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095420052_hu_6b32bc795f67c8f2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095420052"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="68"
+		data-flex-basis="164px"
+	
+></p>
+</li>
+<li>
+<p>选择内容包，可以将初学者内容包添加到项目</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095425230.png"
+	width="1335"
+	height="777"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095425230_hu_351d88b01ce1df6c.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095425230_hu_3903cf93722556b3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095425230"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+</li>
+</ul>
+<p>除了添加初学者内容包，我们还可以添加蓝图功能，C++功能等</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095429341.png"
+	width="1319"
+	height="779"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095429341_hu_783574f297132783.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095429341_hu_9d5361beac401fab.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095429341"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="406px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095433634.png"
+	width="1313"
+	height="759"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095433634_hu_6fd1cc0f80b3fb12.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095433634_hu_8b7b4100ea2e34c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095433634"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="415px"
+	
+></p>
+<h2 id="16-对虚幻4每个模版进行展示">🍅1.6 对虚幻4每个模版进行展示
+</h2><ul>
+<li>第一人称游戏</li>
+<li>飞行类游戏</li>
+<li>拼图类游戏</li>
+<li>滚球类游戏</li>
+<li>第三人称游戏</li>
+<li>俯视角游戏
+<ul>
+<li>通过鼠标来移动人物</li>
+</ul>
+</li>
+<li>双摇杆射击类游戏</li>
+<li>手持式AR应用</li>
+<li>模版过关游戏</li>
+<li>2D模版过关游戏</li>
+<li>虚拟现实应用</li>
+<li>载具类游戏</li>
+<li>高级载具类游戏</li>
+</ul>
+<hr>
+<h1 id="2视口导航">🤗2.视口导航
+</h1><p>在视口中流畅地移动视角的方法</p>
+<ul>
+<li>
+<p><strong>方法一：只用鼠标</strong></p>
+<ul>
+<li>
+<p>按住鼠标左键</p>
+<ul>
+<li>前后移动鼠标：实现视口的<strong>前进/后退</strong></li>
+<li>左右移动鼠标：实现视口的旋转</li>
+</ul>
+</li>
+<li>
+<p>按住鼠标右键</p>
+<ul>
+<li>前后移动鼠标：实现视口的<strong>俯/仰</strong></li>
+<li>左右移动鼠标：实现视口的旋转</li>
+</ul>
+</li>
+<li>
+<p>按住鼠标中间</p>
+<ul>
+<li>
+<p>前后移动鼠标：实现<strong>上下</strong>移动视口</p>
+</li>
+<li>
+<p>左右移动鼠标：实现视口的左右移动</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>方法二：使用键盘的WASD</strong>（==前提：按住鼠标的右键==）</p>
+<ul>
+<li>
+<p>W：前进    S：后退    A：左移   D：右移</p>
+</li>
+<li>
+<p>Q：镜头的下降       E：镜头的上升</p>
+</li>
+<li>
+<p>Z：镜头拉远（会自动复原）       C：镜头拉近（会自动复原）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>其它视口导航操作</strong></p>
+<ul>
+<li>快速聚焦到物体身上
+<ul>
+<li>先选中要聚焦的物体，再按住F</li>
+<li>双击世界大纲上的模型</li>
+</ul>
+</li>
+<li>视口的旋转：alt+鼠标左键</li>
+<li>视口的缩放：alt+鼠标右键</li>
+<li>视口的平移：alt+鼠标中键</li>
+</ul>
+</li>
+</ul>
+<h1 id="3-编辑界面介绍">😋3. 编辑界面介绍
+</h1><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1727180333240-17571238114556.png"
+	width="2560"
+	height="1598"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1727180333240-17571238114556_hu_9d3ff8afb14c2eae.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1727180333240-17571238114556_hu_c0dac3b6313f5c0d.png 1024w"
+	loading="lazy"
+	
+		alt="1727180333240"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="384px"
+	
+></p>
+<h2 id="31-菜单栏">🌈3.1 菜单栏
+</h2><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095547319.png"
+	width="471"
+	height="41"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095547319_hu_cda28f91f84efae5.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095547319_hu_d149f409f690220d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095547319"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1148"
+		data-flex-basis="2757px"
+	
+></p>
+<ul>
+<li>文件
+<ul>
+<li>加载和保存项目及关卡</li>
+<li>打包项目</li>
+</ul>
+</li>
+<li>编辑
+<ul>
+<li>标准的复制和粘贴操作</li>
+<li>编辑器首选项和项目设置</li>
+<li>插件</li>
+</ul>
+</li>
+<li>窗口
+<ul>
+<li>开发者工具</li>
+<li>布局的保存和重置</li>
+<li>打开内容浏览器</li>
+<li>启用全屏：shift+F11</li>
+</ul>
+</li>
+<li>帮助
+<ul>
+<li>在线文档和教程等外部资源的链接</li>
+</ul>
+</li>
+</ul>
+<h2 id="32-关卡编辑器level-editor工具栏">❄️3.2 关卡编辑器(Level Editor)工具栏
+</h2><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095714941.png"
+	width="1533"
+	height="146"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095714941_hu_dc4569b308c24586.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095714941_hu_e55d56ecf066da53.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095714941"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1050"
+		data-flex-basis="2520px"
+	
+></p>
+<ul>
+<li>
+<p>保存当前关卡</p>
+<ul>
+<li>一般不使用这个，一般使用下方的保存所有</li>
+</ul>
+</li>
+<li>
+<p>源码管理</p>
+<ul>
+<li>如果有很多个人同时开发这个项目，那么就需要版本的管理</li>
+</ul>
+</li>
+<li>
+<p>内容</p>
+<ul>
+<li>如果不小心关掉了内容浏览器的窗口，就可以点击<code>内容</code>重新打开内容管理器</li>
+</ul>
+</li>
+<li>
+<p>虚幻商场</p>
+<ul>
+<li>可以链接到虚幻商城</li>
+</ul>
+</li>
+<li>
+<p>设置</p>
+<ul>
+<li>项目设置</li>
+<li>插件</li>
+<li>一些物体的选择（比如按T，就可以选择半透明物体）</li>
+<li>扩展性的设置（比如改画质）</li>
+<li>预览之后要打包平台的效果</li>
+</ul>
+</li>
+<li>
+<p>Magascans</p>
+<ul>
+<li>Bridge的插件</li>
+</ul>
+</li>
+<li>
+<p>蓝图</p>
+<ul>
+<li>打开蓝图类，打开关卡蓝图等</li>
+</ul>
+</li>
+<li>
+<p>过场动画</p>
+<ul>
+<li>可以添加一些镜头，给我们的场景进行介绍</li>
+</ul>
+</li>
+<li>
+<p>构建</p>
+<ul>
+<li>
+<p>当前物体被移动后，阴影就不正确了，会出现提示例如：光照需要构建</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095721144.png"
+	width="776"
+	height="255"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095721144_hu_504b22be07b4c918.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095721144_hu_e503901c3b843bbc.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095721144"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="304"
+		data-flex-basis="730px"
+	
+></p>
+<ul>
+<li>这时我们需要点击<code>构造</code>或<code>仅构建光照</code>让提示消失</li>
+<li>在构建的时候我们还可以选择下方的光照质量</li>
+</ul>
+</li>
+<li>
+<p>还可以构建反射、几何体、路径等</p>
+</li>
+</ul>
+</li>
+<li>
+<p>启动</p>
+<ul>
+<li>可以在不同的平台来启动我们的程序</li>
+</ul>
+</li>
+</ul>
+<h3 id="运行测试关卡">运行（测试关卡）
+</h3><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095726895.png"
+	width="542"
+	height="666"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095726895_hu_3e284fdf91170851.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095726895_hu_7f58100eea568dda.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095726895"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="81"
+		data-flex-basis="195px"
+	
+></p>
+<ul>
+<li>
+<p>选中的视口</p>
+<ul>
+<li>默认在当前视口进行播放</li>
+</ul>
+</li>
+<li>
+<p>移动设备预览</p>
+<ul>
+<li>会跳出一个移动端的窗口，来预览移动设备上的效果</li>
+</ul>
+</li>
+<li>
+<p>新建编辑器窗口</p>
+<ul>
+<li>新建一个视口来运行</li>
+</ul>
+</li>
+<li>
+<p>独立进程游戏</p>
+<ul>
+<li>会单独跳出一个新窗口来运行</li>
+</ul>
+</li>
+<li>
+<p>模拟</p>
+<ul>
+<li>跳出玩家控制，以上帝视角来查看整个关卡</li>
+<li>点击播放后，旁边有一个<code>拥有</code>的选项，点击可以切回玩家控制</li>
+</ul>
+</li>
+<li>
+<p>高级设置</p>
+<ul>
+<li>
+<p>可以调整播放时游戏视口的分辨率</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095732318.png"
+	width="1174"
+	height="282"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095732318_hu_a396a8af42546488.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095732318_hu_ba15d5af368cc79a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095732318"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="416"
+		data-flex-basis="999px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="33-模式modes面板">🌊3.3 模式(Modes)面板
+</h2><p>显示各种编辑模式，通过该面板可以使用特定的编辑界面来编辑不同类型的Actor</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095738717.png"
+	width="265"
+	height="300"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095738717_hu_515706b408a8aef3.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095738717_hu_4663c5bbee4e828e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095738717"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="88"
+		data-flex-basis="212px"
+	
+></p>
+<ul>
+<li>
+<p>选择</p>
+<ul>
+<li>
+<p>可以将下面图标里的物体通过鼠标左键拖动到我们的场景中</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095743351.png"
+	width="524"
+	height="869"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095743351_hu_b27d8f14a1c8f0db.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095743351_hu_75c16489042c522e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095743351"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="60"
+		data-flex-basis="144px"
+	
+></p>
+</li>
+<li>
+<p>基本：一些基本的几何体和触发器</p>
+</li>
+<li>
+<p>光源</p>
+</li>
+<li>
+<p>过场动画</p>
+<ul>
+<li>可以选择一些专业的摄像机</li>
+</ul>
+</li>
+<li>
+<p>视觉效果</p>
+<ul>
+<li>一些大气、雾、云、反射、捕捉、后期处理体积等</li>
+<li>这些效果拉到场景中可以实时看到效果</li>
+</ul>
+</li>
+<li>
+<p>几何体</p>
+<ul>
+<li>建模的工具</li>
+</ul>
+</li>
+<li>
+<p>体积</p>
+<ul>
+<li>一些不同的容器，比如触发体积（空气墙），可以阻挡角色，不让角色过去</li>
+</ul>
+</li>
+<li>
+<p>所有类</p>
+</li>
+</ul>
+</li>
+<li>
+<p>地形</p>
+<ul>
+<li>可以搭建我们的开发世界</li>
+<li>绘制/雕刻地形</li>
+<li>在地形上弄一些河流，道路</li>
+<li>通过导入一些高度图，快速生成地形</li>
+</ul>
+</li>
+<li>
+<p>植物</p>
+<ul>
+<li>
+<p>可以在我们已经搭建好的地形上，刷一些树、草、灌木、石头等模型，来美化我们的模型</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095749310.png"
+	width="1377"
+	height="173"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095749310_hu_3bfdb957d2505879.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095749310_hu_9eebc023d9042103.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095749310"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="795"
+		data-flex-basis="1910px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>笔刷编辑</p>
+<ul>
+<li>
+<p>编辑几何体，例如改变几何体形状</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095754427.png"
+	width="1161"
+	height="191"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095754427_hu_d735324a55a36e63.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095754427_hu_3112ad2e9b355459.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095754427"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="607"
+		data-flex-basis="1458px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>网格体绘制</p>
+<ul>
+<li>
+<p>在一个面片/模型上刷上我们想要的材质</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095758811.png"
+	width="1074"
+	height="215"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095758811_hu_456742b5703a9830.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095758811_hu_dafe7a16b092a9df.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095758811"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="499"
+		data-flex-basis="1198px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="34-内容浏览器面板">☄️3.4 内容浏览器面板
+</h2><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095803178.png"
+	width="1957"
+	height="510"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095803178_hu_19c4783a27edfe6a.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095803178_hu_9c5806579c2ea579.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095803178"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="383"
+		data-flex-basis="920px"
+	
+></p>
+<p>内容浏览器是在虚幻编辑器中<strong>创建、导入、组织、查看和修改内容资源</strong>的主要区域</p>
+<p>它可以<strong>管理内容文件夹</strong>，在资源上执行其它实用操作（如重命名、移动、复制和查看引用）</p>
+<p>内容浏览器可以<strong>搜索游戏中的所有资源并与之交互</strong></p>
+<p>==<em>注：资源被放置到关卡中后，就会被称之为Actor</em>==</p>
+<ul>
+<li>
+<p>添加/导入</p>
+<ul>
+<li>
+<p>可以快速添加一些新的类、功能、内容包等</p>
+</li>
+<li>
+<p>右击空白区域也可出现</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095808024.png"
+	width="234"
+	height="1055"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095808024_hu_fa1d7b783aed3ef9.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095808024_hu_c07259d6ecd9f6c5.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095808024"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="22"
+		data-flex-basis="53px"
+	
+></p>
+</li>
+<li>
+<p>这里的导入与文件中的导入到关卡是不同的，一般使用这里的导入</p>
+</li>
+</ul>
+</li>
+<li>
+<p>保存所有</p>
+<ul>
+<li>快捷键：ctrl+shift+s</li>
+</ul>
+</li>
+<li>
+<p>文件夹的显示/隐藏，搜索</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095813520.png"
+	width="880"
+	height="484"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095813520_hu_956e0e0622489c77.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095813520_hu_13e7f808ac10ce78.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095813520"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="436px"
+	
+></p>
+</li>
+<li>
+<p>过滤器</p>
+<ul>
+<li>当我们的项目越来越庞大，里面的东西越来越多时，可以通过过滤器来筛选</li>
+</ul>
+</li>
+<li>
+<p>移动或复制文件</p>
+<ul>
+<li>
+<p>可以通过拖动某个文件夹到另一个文件夹中，选择移动/复制/拷贝</p>
+</li>
+<li>
+<p>还可以将文件夹拖到左边的文件目录中的某个文件夹下</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095818705.png"
+	width="1041"
+	height="486"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095818705_hu_2f7f92f12cc1904d.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095818705_hu_92631faaee281f2a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095818705"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="214"
+		data-flex-basis="514px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>视图选项卡</p>
+<ul>
+<li>例如：选择显示引擎内容，就可以查看虚幻引擎自带的一些素材</li>
+<li>缩略图：可以控制文件夹的缩放，同样，我们也可以使用ctrl+鼠标滚轮来进行缩放</li>
+</ul>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095823659.png"
+	width="213"
+	height="851"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095823659_hu_79d6f2c2f179e148.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095823659_hu_c9a8d56d2cc64521.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095823659"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="25"
+		data-flex-basis="60px"
+	
+></p>
+</li>
+</ul>
+<h2 id="35-视口面板">🌟3.5 视口面板
+</h2><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095828889.png"
+	width="1596"
+	height="822"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095828889_hu_9fdb0d2cd0aa3968.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095828889_hu_86cfd1f5b65af526.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095828889"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="194"
+		data-flex-basis="465px"
+	
+></p>
+<p><code>视口</code>就是查看你在虚幻引擎中创建的世界场景的窗口</p>
+<p>你可以像在游戏中导航那样来导航视口，或者可以像使用建筑蓝图进行方案设计那样来应用视口</p>
+<p>虚幻编辑器视口包含各种工具和查看器，可以帮助你精确地看到所需数据</p>
+<blockquote>
+<p>透视视口：使用消失点呈现出三维世界场景  &mdash; 正常视角模式</p>
+<p>正交视口：将世界场景呈现为二维示意图</p>
+</blockquote>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095834338.png"
+	width="559"
+	height="653"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095834338_hu_3f9cbf1eec6747b9.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095834338_hu_28fcb770844d09c6.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095834338"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="85"
+		data-flex-basis="205px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095900476.png"
+	width="578"
+	height="676"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095900476_hu_caa75a1d97f6374b.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095900476_hu_6fa39ae7e97272ec.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095900476"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="85"
+		data-flex-basis="205px"
+	
+></p>
+<ul>
+<li>
+<p>我们可以在窗口处打开多个视口，提高工作效率</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095908792.png"
+	width="411"
+	height="241"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095908792_hu_89c4ab65797e023b.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095908792_hu_cc9d4657fea33930.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095908792"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="170"
+		data-flex-basis="409px"
+	
+></p>
+</li>
+<li>
+<p>视口选项</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095914220.png"
+	width="288"
+	height="711"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095914220_hu_963c827f0b4fac3e.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095914220_hu_b506c234b9988d16.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095914220"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="40"
+		data-flex-basis="97px"
+	
+></p>
+<ul>
+<li>
+<p>点击下拉的小箭头<img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095925836.png"
+	width="39"
+	height="38"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095925836_hu_81ce460afb024bd7.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095925836_hu_5a4587a9f1c8dd78.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095925836"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="246px"
+	
+></p>
+</li>
+<li>
+<p>显示数据，显示FPS帧率</p>
+</li>
+<li>
+<p>游戏视图：会隐藏我们在游戏中看不到的东西</p>
+</li>
+<li>
+<p>沉浸模式F11：让我们的视口全屏        shift+F11：全屏虚幻引擎</p>
+</li>
+<li>
+<p>书签，保存某个视角，快捷键ctrl+0到9，即可以保存9个书签</p>
+<p>输入对应的数字即可回到保存书签的那个视角</p>
+<p>注意：书签可以被覆盖</p>
+</li>
+<li>
+<p>在此处创建相机</p>
+</li>
+<li>
+<p>高分辨率截图</p>
+<ul>
+<li>截图尺寸系数，与电脑的性能有关，一般2~3</li>
+</ul>
+</li>
+<li>
+<p>布局：可以选择视口的不同模式</p>
+</li>
+</ul>
+</li>
+<li>
+<p>视口类型</p>
+<ul>
+<li>
+<p>透视视口，顶视口，底视口，左视口，右视口，前视口，后视口</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095931605.png"
+	width="283"
+	height="472"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095931605_hu_4ed17c53ef11be58.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095931605_hu_56932c35fec152db.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095931605"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="59"
+		data-flex-basis="143px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>视口模式</p>
+<ul>
+<li>
+<p>alt+0，alt+2到8可以切换不同的通道来显示</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095936962.png"
+	width="265"
+	height="617"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095936962_hu_9b58f2b08893a83e.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095936962_hu_12aa37ef1db033b2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095936962"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="42"
+		data-flex-basis="103px"
+	
+></p>
+</li>
+<li>
+<p>在缓冲显示下的总览中，我们可以看到不同通道下的效果</p>
+</li>
+</ul>
+</li>
+<li>
+<p>显示</p>
+<ul>
+<li>
+<p>里面是一些标签，如果不勾选，那么编辑的时候就会被隐藏起来</p>
+<p>播放的时候还是会显示</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="36-世界大纲视图面板">🌌3.6 世界大纲视图面板
+</h2><p>世界大纲面板以层次化的树状图形式显示了当前关卡中的<strong>所有Actor</strong></p>
+<p>字需要在世界大纲视图面板中单击Actor的名字即可将其选中</p>
+<p>选中的Actor属性将显示在细节面板中</p>
+<h2 id="37-细节面板">⚡3.7 细节面板
+</h2><p>当我们点击场景中的一个模型/物体后，细节面板就会显示当前物体的一些具体的参数</p>
+<p>我们可以在细节面板中对当前模型进行一些调整，比如改变它的位置，改变它的模型</p>
+<p>替换它的材质，更改它的碰撞，更改它的光照模型，调整它的渲染距离等</p>
+<h1 id="4物体编辑坐标系变换单位">😁4.物体编辑（坐标系，变换单位）
+</h1><ul>
+<li>
+<p>坐标系</p>
+<ul>
+<li>Z轴：上下方向 ，Y轴：左右方向 ，X轴：前后方向</li>
+</ul>
+</li>
+<li>
+<p>处理变换</p>
+<ul>
+<li>
+<p>移动：W</p>
+</li>
+<li>
+<p>缩放：R</p>
+</li>
+<li>
+<p>旋转：E</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095946805.png"
+	width="1561"
+	height="140"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095946805_hu_9ac4f2bf59d69b51.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095946805_hu_7ead046c267cbc8f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095946805"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1115"
+		data-flex-basis="2676px"
+	
+></p>
+</li>
+<li>
+<p>还可以在右边的细节面板中手动地输入精确的数值，让该模型移动到对应的位置等</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095951623.png"
+	width="791"
+	height="220"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095951623_hu_b06963c3493e714a.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906095951623_hu_e992a26fdee60479.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906095951623"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="359"
+		data-flex-basis="862px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>世界坐标轴和局部坐标轴</p>
+<ul>
+<li>
+<p>当我们对物体进行旋转后，它自己的坐标轴就会发生改变</p>
+</li>
+<li>
+<p>世界坐标轴永远保持水平</p>
+<ul>
+<li>
+<p>可以点击视口右上角的地球图标，使物体的坐标轴变为世界坐标轴</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100006989.png"
+	width="595"
+	height="68"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100006989_hu_79f4bb7ec9cc1cae.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100006989_hu_e142a04181a2efb4.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100006989"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="875"
+		data-flex-basis="2100px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>单位和度量</p>
+<ul>
+<li>虚幻引擎的单位是uu，相当于厘米</li>
+<li>默认情况下玩家通常在游戏场景中高约6英尺，相当于180cm或180uu</li>
+</ul>
+</li>
+<li>
+<p>对齐到网格</p>
+<ul>
+<li>
+<p>可以设置每次移动多少厘米，比如每次移动10厘米</p>
+<ul>
+<li>
+<p>选择视口右上方的设置位置网格对齐值</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100011875.png"
+	width="561"
+	height="372"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100011875_hu_bfd5a013738e1724.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100011875_hu_39652686ca0d883d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100011875"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="361px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>还可以设置每次旋转的度数</p>
+<ul>
+<li>
+<p>选择视口右上方的设置旋转网格对齐值</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100017489.png"
+	width="583"
+	height="355"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100017489_hu_6d967d54819e7811.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100017489_hu_e9a87bab4dc5d1ce.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100017489"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="394px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>注意：每一个都要先打开它们的开关</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100021926.png"
+	width="581"
+	height="113"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100021926_hu_dc3d1914b25c4b94.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100021926_hu_15044f608385a5c3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100021926"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="514"
+		data-flex-basis="1233px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>调整摄像机的速度</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100026670.png"
+	width="704"
+	height="210"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100026670_hu_fe7ca04ce5a8ea7f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100026670_hu_b58ab1396896efb.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100026670"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="335"
+		data-flex-basis="804px"
+	
+></p>
+</li>
+<li>
+<p>枢轴点</p>
+<ul>
+<li>
+<p>我们的模型导入到虚幻引擎中都会有一个坐标轴，有时候这个坐标轴会跑地很远</p>
+</li>
+<li>
+<p>将坐标轴重新放到物体上的步骤</p>
+<ul>
+<li>
+<p>点击坐标轴中间的白色圆点，可以对坐标轴进行移动，将其移动到模型上</p>
+</li>
+<li>
+<p>右击白色的点，找到<code>锚点</code>中的<code>设置为锚点偏移量</code></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100031070.png"
+	width="672"
+	height="281"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100031070_hu_3bb8092de6653968.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100031070_hu_be3bbcc09616870d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100031070"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="239"
+		data-flex-basis="573px"
+	
+></p>
+</li>
+<li>
+<p>这种方式只适用于当前关卡</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>在场景中快速选取很多个模型</p>
+<ul>
+<li>在视口中框选模型，框选的快捷键：<strong>ctrl+alt+鼠标左键</strong></li>
+</ul>
+</li>
+<li>
+<p>复制的快捷键：选中物体，按住alt，再拖动</p>
+</li>
+<li>
+<p>物体在内容浏览器中显示：ctrl+b</p>
+</li>
+</ul>
+<h1 id="5导入资源项目迁移和管理">😚5.导入资源，项目迁移和管理
+</h1><h2 id="51-导入资源">5.1 导入资源
+</h2><ul>
+<li>
+<p>文件类型</p>
+<p>UE4支持导入各种类型文件的内容</p>
+<p>例如：将模型的贴图、模型、音频等导入UE4中</p>
+<ul>
+<li>
+<p>一些常用的文件类型和资源类型以及相关的应用程序</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100036488.png"
+	width="928"
+	height="867"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100036488_hu_44d2cd997479aa4f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100036488_hu_a5fb70fa5edcaf08.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100036488"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="107"
+		data-flex-basis="256px"
+	
+></p>
+</li>
+<li>
+<p>许多资源不是导入的，而是直接在编辑器中创建的</p>
+</li>
+</ul>
+<p>​        例如：蓝图类、粒子系统，材质和材质实例等</p>
+</li>
+<li>
+<p>在将内容导入到引擎前，我们需要对外部文件进行合理地组织，并遵循<a class="link" href="http://ue4.stvle/"  target="_blank" rel="noopener"
+    >命名规范</a></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100041323.png"
+	width="434"
+	height="697"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100041323_hu_98857eea750b9f8f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100041323_hu_933808918a3cf4ce.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100041323"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="62"
+		data-flex-basis="149px"
+	
+></p>
+</li>
+<li>
+<p>内容浏览器</p>
+<ul>
+<li>
+<p>导入外部应用程序中所创建的外部内容的两种常用方法</p>
+<ul>
+<li>
+<p>方式一：使用内容浏览器，单击<code>导入</code>按钮或单击资源视图并选择<code>导入到</code></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100046319.png"
+	width="639"
+	height="1074"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100046319_hu_24f6bcd3c0cfc89b.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100046319_hu_fbfab4dfde4b6166.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100046319"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="59"
+		data-flex-basis="142px"
+	
+></p>
+</li>
+<li>
+<p>转到操作系统的文件管理器，<strong>选择要导入的文件</strong>，然后将其<strong>拖放到内容浏览器中</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>资源图标</p>
+<ul>
+<li>
+<p>资源图标左下角的小星号表示资源尚未保存</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100051689.png"
+	width="161"
+	height="170"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100051689_hu_611e0b6861d467ea.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100051689_hu_5a98dd661b5ca52f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100051689"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="94"
+		data-flex-basis="227px"
+	
+></p>
+</li>
+<li>
+<p>按ctrl+s保存所有资源</p>
+</li>
+</ul>
+</li>
+<li>
+<p>引用查看器</p>
+<p>大多数的资源都依赖一个或多个其它资源</p>
+<ul>
+<li>例如，如果在静态网格体编辑器中将一个材质分配给静态网格体资源，那么静态网格体就会引用该材质</li>
+<li>这意味着，当加载静态网格体资源时，还需加载引用的材质</li>
+<li>相应地，材质也将加载材质编辑器中引用的纹理</li>
+</ul>
+<p>右键我们要查看的资源，右击选择引用查看器</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100055948.png"
+	width="433"
+	height="766"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100055948_hu_2c131b83fd997d69.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100055948_hu_18a68509c49ece01.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100055948"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="56"
+		data-flex-basis="135px"
+	
+></p>
+</li>
+</ul>
+<h2 id="52-项目迁移">5.2 项目迁移
+</h2><ul>
+<li>
+<p><strong>项目迁移的两种情况</strong></p>
+<ul>
+<li>
+<p>情况一：</p>
+<p>我们电脑上通常有两个项目，一个是新建的项目，一个是过去以往的项目</p>
+<p>当我们新建一个项目的时候，可能会<strong>用到以前做过的项目的一些素材</strong></p>
+<p>这个时候我们就需要迁移，把<strong>旧的工程里的素材迁移到新的项目</strong>中</p>
+</li>
+<li>
+<p>情况二：</p>
+<p>分享给同事一些自己的东西，就需要迁移项目，把同事可能需要或你想要分享的</p>
+<p>迁移到新的项目中去。或者老板验收，需要弄到一个干净的项目里再打包给你的老板</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>迁移文件的步骤</strong></p>
+<ul>
+<li>
+<p>右键要迁移的文件，选择迁移</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100100535.png"
+	width="429"
+	height="703"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100100535_hu_7ff4620eedaf9163.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100100535_hu_a7efb08c3d3a34bb.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100100535"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="61"
+		data-flex-basis="146px"
+	
+></p>
+</li>
+<li>
+<p>选择要迁移的内容，选择完后点击确定</p>
+</li>
+<li>
+<p>选择要迁移到的路径，一定要迁移到目标项目的Content文件夹下面</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100105854.png"
+	width="689"
+	height="316"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100105854_hu_1b0fcc61ae9be85a.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100105854_hu_f4718c5157e8df83.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100105854"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="218"
+		data-flex-basis="523px"
+	
+></p>
+<p>如果同时选择多个蓝图/模型/粒子特效来进行迁移，迁移选项就在资产操作中</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100110304.png"
+	width="733"
+	height="821"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100110304_hu_84bc1d8414f0117c.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100110304_hu_44a73d286683e55f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100110304"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="214px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>网上下载的如何迁移</p>
+<ul>
+<li>从网上下载的资源中找到Content目录下的资源，复制到目标项目的Content文件夹下</li>
+<li>最好新建一个文件夹存放网上下载的资源中Content目录下的资源，再进行复制</li>
+</ul>
+</li>
+<li>
+<p>打包项目回家的步骤**</p>
+<ul>
+<li>找到创建项目的根目录</li>
+<li>将缓存文件（Intermediate）和自动保存文件（Saved）删除</li>
+<li>右键最外面的项目，添加到压缩文件</li>
+</ul>
+</li>
+</ul>
+<h2 id="53-项目管理">5.3 项目管理
+</h2><h1 id="6三维模型软件导入虚幻4">😎6.三维模型软件导入虚幻4
+</h1><p>maya的插件：虚幻商场的maya livelink，能动画同步</p>
+<p>3dmax和C4d的插件：DataSmith</p>
+<p>文件格式的用途</p>
+<ul>
+<li>
+<p>.fbx 和 .obj的格式都是三维通用模型格式，都可以用在目前几乎所有主流的三维软件中</p>
+</li>
+<li>
+<p>.fbx 中包含动画、材质特性、贴图、骨骼动画、灯光、摄像机等信息</p>
+<p>.obj 中不包含</p>
+</li>
+<li>
+<p>.abc 格式，支持动画、粒子等，烘焙三维场景的模型、流体、动画、特效等数据</p>
+</li>
+</ul>
+<p>总结</p>
+<ul>
+<li>静态或人物骨骼模型，我们通常会使用 .fbx</li>
+<li>模型导入到虚幻引擎中有两个类别
+<ul>
+<li>静态网格体：静态的摆件，例如家居，道具，鼠标，椅子，房子等</li>
+<li>骨骼网格体：有动画的，例如人物模型（要跑步、走路），机械臂</li>
+</ul>
+</li>
+</ul>
+<p>导入流程</p>
+<ul>
+<li>
+<p>用这几个三维模型软件统一导出一个通用的模型的格式（.fbx、.obj、.abc）</p>
+<ul>
+<li>
+<p>导出时带贴图：maya在导出时要勾选嵌入式媒体</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100117882.png"
+	width="988"
+	height="456"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100117882_hu_ddb52907550f73ca.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100117882_hu_72fd982aa8508528.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100117882"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="216"
+		data-flex-basis="520px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>导入到虚幻引擎，两种方式</p>
+<ul>
+<li>
+<p>方式一：==选择导入到/Game/_Orion/Meshes==</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100130116.png"
+	width="525"
+	height="106"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100130116_hu_b45f308fc13693b1.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100130116_hu_2066285b3e90ad8.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100130116"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="495"
+		data-flex-basis="1188px"
+	
+></p>
+</li>
+<li>
+<p>方式二：直接拖拽到虚幻引擎中</p>
+</li>
+</ul>
+</li>
+<li>
+<p>导入后的设置</p>
+<ul>
+<li>
+<p>Mesh中，如果是静态的模型，他就会自动帮你生成骨骼</p>
+<ul>
+<li>
+<p>LOD就是能为这个静态网格体自动生成多细节层次</p>
+</li>
+<li>
+<p>==合并网格体==，如果勾选，我们的模型就不是一个一个的，而是一个整体</p>
+</li>
+<li>
+<p>法线导入的方法，如果导入的模型出现了问题，例如出现了黑边，就可以</p>
+<p>更改法线导入的方法</p>
+</li>
+<li>
+<p>法线生成的方法，如果选择Mikk TSpace就可能出现一些黄色的警告，</p>
+<p>如果你的模型出现了问题，可以把法线生成方法改成内置</p>
+</li>
+<li>
+<p>Miscellaneous轴的设置</p>
+<ul>
+<li>
+<p>转换场景：就是将场景从fbx坐标系转换到虚幻引擎的坐标系</p>
+</li>
+<li>
+<p>强制前x轴：强制将这个模型的坐标系为前X轴而不是负Y轴</p>
+</li>
+<li>
+<p>一般是让模型的坐标系和UE4里的坐标相匹配，UE4中的坐标系是Z轴朝上</p>
+<p>而maya中是Y轴朝上</p>
+</li>
+<li>
+<p>转换场景单元：虚幻引擎的单位默认是厘米，如果别的软件里默认单位不是</p>
+<p>厘米，那么导入进来模型的大小就会发生变化</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>如果勾选骨骼网格体，那么导入的模型就会是一个骨骼模型就会有动画</p>
+<ul>
+<li>
+<p>使用TO作为参考姿势：就是使用动画的第0帧作为参考姿势</p>
+<p>如果不勾选，那么导入进来的模型可能会变形和一些拉伸</p>
+</li>
+<li>
+<p>导入变形目标，常用于面部表情</p>
+<p>勾选后，我们导入一些顶点变形动画就能导入进来，然后播放对应的动画</p>
+</li>
+<li>
+<p>Animation，我们导入骨架网格体的时候，是否要导入动画</p>
+<p>因为你导入的这个骨架网格体模型文件里可能携带有动画，这时就需要去勾选动画</p>
+</li>
+<li>
+<p>虚幻引擎里默认的动画帧率就是30帧</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="7datasmith插件使用全流程">🤔7.DataSmith插件使用全流程
+</h1><h1 id="虚幻引擎游戏制作教程">虚幻引擎游戏制作教程
+</h1><h2 id="一-入门篇">一. 入门篇
+</h2><h3 id="1-入门">1. 入门
+</h3><h4 id="eipic-games内容推荐">Eipic Games内容推荐
+</h4><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100145157.png"
+	width="511"
+	height="886"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100145157_hu_8f423439c9ac6653.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100145157_hu_da57a266814f8ffc.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100145157"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="57"
+		data-flex-basis="138px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100151262.png"
+	width="548"
+	height="616"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100151262_hu_c193432319b27ee4.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100151262_hu_5f0ac3847b494ce1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100151262"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="88"
+		data-flex-basis="213px"
+	
+></p>
+<p>虚幻学习工具包</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100156140.png"
+	width="548"
+	height="549"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100156140_hu_3c215bc0fda7424a.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100156140_hu_65f4ccc3df58993a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100156140"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="99"
+		data-flex-basis="239px"
+	
+></p>
+<h4 id="01-常用快捷键">01 常用快捷键
+</h4><ul>
+<li>ctrl+B 快速定位物体在内容浏览器中的位置</li>
+<li>ctrl+空格 弹出内容浏览器</li>
+<li>选中蓝图后，按ctrl+E进入到蓝图中</li>
+<li>G键显示图标</li>
+</ul>
+<h4 id="02-命名规范">02 命名规范
+</h4><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100201814.png"
+	width="434"
+	height="697"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100201814_hu_98857eea750b9f8f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100201814_hu_933808918a3cf4ce.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100201814"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="62"
+		data-flex-basis="149px"
+	
+></p>
+<h4 id="03-材质基础">03 材质基础
+</h4><p>t键 +鼠标点一下 &ndash; 纹理采样</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100206459.png"
+	width="724"
+	height="795"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100206459_hu_d10a0be2aa0f742.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100206459_hu_6d2b97d999f11a3f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100206459"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="91"
+		data-flex-basis="218px"
+	
+></p>
+<p>在左边纹理的部分选择纹理：</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100212692.png"
+	width="800"
+	height="237"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100212692_hu_6aec4662a9585047.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100212692_hu_e41aa6c1d803e209.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100212692"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="337"
+		data-flex-basis="810px"
+	
+></p>
+<p>如何使贴图有凹凸感&ndash;法线贴图：</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100217355.png"
+	width="742"
+	height="459"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100217355_hu_20cc58f42de80f74.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100217355_hu_3739184ea106f125.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100217355"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="161"
+		data-flex-basis="387px"
+	
+></p>
+<p>贴花材质</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100221868.png"
+	width="383"
+	height="217"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100221868_hu_46462b9d354494e7.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100221868_hu_84696664e4f1196e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100221868"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100226918.png"
+	width="663"
+	height="371"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100226918_hu_416eda6cce29b88.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100226918_hu_17c4893d79547623.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100226918"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="428px"
+	
+></p>
+<ul>
+<li>常量：按住1键+鼠标左键</li>
+<li>二维向量：按住2键+鼠标左键</li>
+<li>三维向量：按住3键+鼠标左键</li>
+</ul>
+<p>基础颜色常使用三维向量调节</p>
+<p>Metallic（金属度）和粗糙度常使用常量来调节</p>
+<p>常量值右键选中，转换为参数</p>
+<p>按住m键+点击画面 &mdash;- 乘法</p>
+<blockquote>
+<p>C键&ndash;描述框</p>
+<p>按住alt键，可以将连接的线断开</p>
+</blockquote>
+<p>控制当前贴图密度：按住U键+点击空白处</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100232097.png"
+	width="1196"
+	height="1095"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100232097_hu_3583e66c062d455.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100232097_hu_6608323fdc94d4ce.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100232097"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="109"
+		data-flex-basis="262px"
+	
+></p>
+<h4 id="04-灯光基础">04 灯光基础
+</h4><p><strong>关闭自动曝光：</strong></p>
+<p>先创建一个后期盒</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100237404.png"
+	width="614"
+	height="671"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100237404_hu_a526058a468e7f5c.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100237404_hu_cc756e2508b2310a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100237404"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="91"
+		data-flex-basis="219px"
+	
+></p>
+<p>然后将它的maxEV值和minEV值，设为0</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100242341.png"
+	width="345"
+	height="86"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100242341_hu_cb623c00256e66e7.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100242341_hu_42dbad0a23cae55b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100242341"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="401"
+		data-flex-basis="962px"
+	
+></p>
+<h4 id="05-蓝图">05 蓝图
+</h4><ul>
+<li>
+<p>==创建第一个蓝图Actor==</p>
+<ol>
+<li>
+<p>放到新建Blueprints文件夹中</p>
+</li>
+<li>
+<p>右击内容浏览器的空白位置处，新建一个蓝图类</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100247753.png"
+	width="315"
+	height="269"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100247753_hu_fa77387571829685.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100247753_hu_3e52d1617d761eb3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100247753"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="117"
+		data-flex-basis="281px"
+	
+></p>
+<p>会弹出选取父类，我们选择Actor</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100252537.png"
+	width="443"
+	height="231"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100252537_hu_811e28b8968aade6.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100252537_hu_a1103d3c49adf32f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100252537"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="191"
+		data-flex-basis="460px"
+	
+></p>
+</li>
+<li>
+<p>命名，前面加一个BP_</p>
+</li>
+<li>
+<p>点击创建好的蓝图就可以进入蓝图编辑</p>
+</li>
+<li>
+<p>点击左上角的添加</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100257096.png"
+	width="356"
+	height="166"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100257096_hu_9ce032595192e9bf.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100257096_hu_79d6a4e58fbc50eb.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100257096"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="214"
+		data-flex-basis="514px"
+	
+></p>
+<ul>
+<li>
+<p>我们添加一个<strong>盒子触发器</strong>【用于检测什么东西进入到这个框了】</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100301526.png"
+	width="359"
+	height="365"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100301526_hu_72dc0aa6beae3c30.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100301526_hu_1617949c902036a0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100301526"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="98"
+		data-flex-basis="236px"
+	
+></p>
+<p>可以在右边更改<strong>盒体的范围</strong></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100306234.png"
+	width="565"
+	height="78"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100306234_hu_89df8c295fe1ed8e.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100306234_hu_c1b7068d168597e1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100306234"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="724"
+		data-flex-basis="1738px"
+	
+></p>
+</li>
+<li>
+<p>还可以再添加一个<strong>文本渲染组件</strong></p>
+<p>可以在右边更改文本的内容</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100310619.png"
+	width="562"
+	height="95"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100310619_hu_2d985b2756033f89.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100310619_hu_23fb5c4ed6272880.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100310619"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="591"
+		data-flex-basis="1419px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>==编写第一段蓝图代码==</p>
+<blockquote>
+<p>当组件开始重叠时（人物和盒体触发器相碰时），就将文本从xxx设置为value(yyyy)</p>
+</blockquote>
+<ul>
+<li>
+<p>先选中盒体触发器，然后在右侧找到<strong>组件开始重叠时</strong></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100315097.png"
+	width="415"
+	height="369"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100315097_hu_97e2a0caac77c96b.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100315097_hu_20d11b4fecd543e9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100315097"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="269px"
+	
+></p>
+<p>或者在左边右击盒体触发器，添加事件，添加组件开始重叠时</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100319416.png"
+	width="913"
+	height="204"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100319416_hu_5079eb1809f06dfb.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100319416_hu_5aadc740c825358d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100319416"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="447"
+		data-flex-basis="1074px"
+	
+></p>
+</li>
+<li>
+<p>然后将TextRander拖入进去</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100324041.png"
+	width="637"
+	height="398"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100324041_hu_53e2ace44f97ab5f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100324041_hu_16cf61c4c7ee0bae.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100324041"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="384px"
+	
+></p>
+<p>设置文本</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100328157.png"
+	width="973"
+	height="566"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100328157_hu_4e62b2986115d972.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100328157_hu_8563a5ab00006b4f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100328157"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100332252.png"
+	width="841"
+	height="416"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100332252_hu_2f22a3eef2bab8c8.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100332252_hu_8258d83dbe6a903e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100332252"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="202"
+		data-flex-basis="485px"
+	
+></p>
+<p>选择value，更改变量名</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100336974.png"
+	width="515"
+	height="125"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100336974_hu_a3ba4a9056c34406.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100336974_hu_5f1065b76f094f8e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100336974"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="412"
+		data-flex-basis="988px"
+	
+></p>
+</li>
+<li>
+<p>最后编译一下（左上角）</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100341054.png"
+	width="358"
+	height="111"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100341054_hu_29864cf5a33d04df.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100341054_hu_5888c1cdb5f033b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100341054"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="322"
+		data-flex-basis="774px"
+	
+></p>
+</li>
+<li>
+<p>还可以添加组件结束重叠时</p>
+</li>
+</ul>
+</li>
+<li>
+<p>触发火焰蓝图</p>
+<blockquote>
+<p>实现：当人物靠近球的时候，火焰就升起，当人离开时，火焰就熄灭</p>
+</blockquote>
+<ul>
+<li>
+<p>新建一个蓝图Actor，改名BP_</p>
+</li>
+<li>
+<p>双击进入，添加一个球体</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100346422.png"
+	width="285"
+	height="374"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100346422_hu_41ebd0a5a2749a87.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100346422_hu_e16e49f641117301.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100346422"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="76"
+		data-flex-basis="182px"
+	
+></p>
+<p>可以改材质（选中球后，右侧）</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100350608.png"
+	width="502"
+	height="317"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100350608_hu_37695b974ad1214.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100350608_hu_2a934a6edd0814f9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100350608"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="380px"
+	
+></p>
+</li>
+<li>
+<p>添加火焰，火焰是粒子系统  （这里我们选cascade particle system）</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100354886.png"
+	width="392"
+	height="224"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100354886_hu_df9cea3bf436829e.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100354886_hu_3930d4085fc7e078.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100354886"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="175"
+		data-flex-basis="420px"
+	
+></p>
+<p>默认情况下，我们不希望火焰是燃烧的，可以在右侧细节面板中将火焰的可视关掉</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100358935.png"
+	width="400"
+	height="129"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100358935_hu_bc9db93185042f19.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100358935_hu_22f813638ef283c0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100358935"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="310"
+		data-flex-basis="744px"
+	
+></p>
+</li>
+<li>
+<p>添加一个盒体触发器，更改盒体范围（当人物进入该范围，火焰就燃烧）</p>
+</li>
+<li>
+<p>选择盒体触发器&ndash;添加事件&ndash;组件开始重叠时</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100402867.png"
+	width="828"
+	height="231"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100402867_hu_b4ffd16f86698669.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100402867_hu_1ce01ff5b57eed0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100402867"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="358"
+		data-flex-basis="860px"
+	
+></p>
+</li>
+<li>
+<p>将火焰拖入，然后设置粒子可视性</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100406780.png"
+	width="1034"
+	height="386"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100406780_hu_da05b28b65793d5.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100406780_hu_f0dfb08914e01b4b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100406780"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="642px"
+	
+></p>
+<p>勾选new visiblity</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100411269.png"
+	width="992"
+	height="374"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100411269_hu_7aaa8808de2f9ee1.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100411269_hu_5df86fe13423254a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100411269"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="265"
+		data-flex-basis="636px"
+	
+></p>
+</li>
+<li>
+<p>选择盒体触发器&ndash;添加事件&ndash;组件结束重叠时</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100415382.png"
+	width="951"
+	height="712"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100415382_hu_6dc160d7ccbddfa0.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100415382_hu_f9df2d4a47885893.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100415382"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="320px"
+	
+></p>
+</li>
+<li>
+<p>最后，编译+保存</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="11-初涉玩家角色">1.1 初涉玩家角色
+</h4><blockquote>
+<p>修改游戏模式</p>
+<ul>
+<li>
+<p>世界场景设置中将游戏模式改为Third  Person</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100424603.png"
+	width="540"
+	height="208"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100424603_hu_c81db30066b6b833.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100424603_hu_ec73d1cb9110e740.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100424603"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="259"
+		data-flex-basis="623px"
+	
+></p>
+<p>我们也可以将这个模式找到后，复制一份到我们自己的角色文件夹下</p>
+<p>改名后选择我们重命名的游戏模式</p>
+</li>
+<li>
+<p>我们还可以将人物复制一份后，将默认pawn类更改为我们自己的角色</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100428861.png"
+	width="701"
+	height="287"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100428861_hu_44c8d2bbdae6e264.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100428861_hu_79583033813d545f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100428861"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="586px"
+	
+></p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p>修改玩家视角</p>
+<ul>
+<li>先将玩家出生点删掉，用我们的主角代替</li>
+<li>然后在<code>细节</code>中选择自动控制中的玩家0</li>
+</ul>
+</li>
+<li>
+<p>玩家出生点的设置</p>
+<ul>
+<li>
+<p>默认出生点</p>
+</li>
+<li>
+<p>创建一个玩家出生点：创建-基础-玩家出生点</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100433141.png"
+	width="515"
+	height="831"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100433141_hu_db2fb6dfc67c3bd8.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100433141_hu_e505be77bddbaa06.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100433141"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="61"
+		data-flex-basis="148px"
+	
+></p>
+<p>缺点：不知道自己的人物长什么样</p>
+</li>
+<li>
+<p>从第三人称游戏中复制一个角色到我们自己的文件中</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100437325.png"
+	width="992"
+	height="401"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100437325_hu_6e5d082ab24b6d38.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100437325_hu_7c5f2342bd00b777.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100437325"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="247"
+		data-flex-basis="593px"
+	
+></p>
+<p>然后再将人物拖到我们的场景中</p>
+<blockquote>
+<p>此时，摄像机可能会挡住视口。我们在<code>编辑</code>-<code>编辑器偏好设置</code>中搜cam</p>
+<p>有一个摄像机的预览大小，我们可以调整这个数值，比如2.0</p>
+</blockquote>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100442050.png"
+	width="1499"
+	height="888"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100442050_hu_c1b82bd5fe25dd83.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100442050_hu_a70f958f033ccd99.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100442050"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="405px"
+	
+></p>
+<p>最后修改自动控制玩家</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100446133.png"
+	width="549"
+	height="625"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100446133_hu_cdcd2a76a8555f71.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100446133_hu_7fa311f997f7efe3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100446133"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="87"
+		data-flex-basis="210px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="12-导入后的模型设置">1.2 导入后的模型设置
+</h4><ol>
+<li>
+<p>导入后设置合并网格体</p>
+</li>
+<li>
+<p>如何统一导入进来的模型的比例</p>
+<p>从形状中拖一个空的球体，用来作为参照，选择模型和球体，在大纲视图右键</p>
+<p>选择==将Actor转换为静态网格体==，然后选择Mashes文件夹，名字用SM_开头</p>
+</li>
+<li>
+<p>命名，贴图用M_开头；纹理用T_开头；模型用SM_开头</p>
+</li>
+<li>
+<p>给导入的模型<strong>设置碰撞</strong></p>
+<p>模型刚导入进来时，人物可以穿过模型，所以需要给模型设置碰撞.</p>
+<p><strong>步骤：</strong></p>
+<p>选择模型，按ctrl+E，进入模型的静态网格体编辑</p>
+<p>（1）显示碰撞：显示&ndash;简单碰撞</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100455585.png"
+	width="455"
+	height="399"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100455585_hu_928bc7e3a8d77a3f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100455585_hu_e81664db2ed0e508.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100455585"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="273px"
+	
+></p>
+<p>（2）添加碰撞：碰撞&ndash;自动凸包碰撞</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100500277.png"
+	width="390"
+	height="678"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100500277_hu_166d4f3bfb570b1c.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100500277_hu_b5389ba754802205.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100500277"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="57"
+		data-flex-basis="138px"
+	
+></p>
+<p>（3）点应用</p>
+<p>（4）通过调整凸包数量，最大外壳定点数等数值以获得精确的碰撞</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100504493.png"
+	width="461"
+	height="214"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100504493_hu_2035499390cd8468.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100504493_hu_dfacb09e9d834cae.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100504493"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="517px"
+	
+></p>
+</li>
+</ol>
+<h4 id="13-初涉地形">1.3 初涉地形
+</h4><ol>
+<li>
+<h5 id="创建地形">创建地形
+</h5></li>
+</ol>
+<ul>
+<li>
+<p>创建地形：快捷键shift+2</p>
+<p>可以选择地形的分段大小，材质</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100508503.png"
+	width="556"
+	height="1108"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100508503_hu_63af134f9b5375a0.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100508503_hu_9e37455769ff96ea.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100508503"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="50"
+		data-flex-basis="120px"
+	
+></p>
+</li>
+<li>
+<p>创建好后，可以选择雕刻</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100513669.png"
+	width="499"
+	height="55"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100513669_hu_995a0bbc13303622.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100513669_hu_4432d17ad9fafd32.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100513669"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="907"
+		data-flex-basis="2177px"
+	
+></p>
+<p>通过更改笔刷尺寸、衰减程度、工具强度等雕刻我们的地形</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100520681.png"
+	width="524"
+	height="526"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100520681_hu_f455b8aaa770e844.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100520681_hu_4792d58d02ddfc6b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100520681"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="99"
+		data-flex-basis="239px"
+	
+></p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<h5 id="创建一片大海">创建一片大海
+</h5><ul>
+<li>
+<p>在放置Actor下找到几何体，选择盒体</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100525030.png"
+	width="542"
+	height="502"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100525030_hu_84aac4798584d389.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100525030_hu_f1d3d46634f9abf2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100525030"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="107"
+		data-flex-basis="259px"
+	
+></p>
+<p>在右侧的细节面板中更改画刷设置</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100529034.png"
+	width="600"
+	height="479"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100529034_hu_decb019c4e735388.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100529034_hu_adcb1aa98cf3434.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100529034"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="125"
+		data-flex-basis="300px"
+	
+></p>
+<p>并在画刷设置高级下，选择创建静态网格体</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100533737.png"
+	width="569"
+	height="142"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100533737_hu_694c9b6c34496bd3.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100533737_hu_251fd5951d9ff81b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100533737"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="400"
+		data-flex-basis="961px"
+	
+></p>
+<p>存放到我们的Meshes文件夹下，文件名以SM_开头</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100537526.png"
+	width="606"
+	height="658"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100537526_hu_944e664eaeb197be.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100537526_hu_1c4d14942ff1f9ff.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100537526"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="92"
+		data-flex-basis="221px"
+	
+></p>
+</li>
+<li>
+<p>在材质中选择Ocean材质</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100541867.png"
+	width="583"
+	height="524"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100541867_hu_a91bf38ffa5f6148.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100541867_hu_ea28a9f335b04ac0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100541867"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="111"
+		data-flex-basis="267px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<h5 id="创建植物">创建植物
+</h5><ul>
+<li>
+<p>植物编辑模式shift+3</p>
+</li>
+<li>
+<p>初学者内容包的静态网格体的位置如下：</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100546343.png"
+	width="1108"
+	height="258"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100546343_hu_4d8a1374412060f8.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100546343_hu_7371cebbdeada09f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100546343"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="429"
+		data-flex-basis="1030px"
+	
+></p>
+</li>
+<li>
+<p>添加植物：直接将静态网格体中的植物拖入到植物编辑模式-绘制下的方框内</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729825486989-17571243807119-175712438676211.png"
+	width="1459"
+	height="1358"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729825486989-17571243807119-175712438676211_hu_648e70f6befbd5d9.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729825486989-17571243807119-175712438676211_hu_2ff7358b34b495af.png 1024w"
+	loading="lazy"
+	
+		alt="1729825486989"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="107"
+		data-flex-basis="257px"
+	
+></p>
+<p>在打勾的情况下，我们就可以绘制相应的植物（按住shift可以把种植的植物去掉）</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100643816.png"
+	width="550"
+	height="305"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100643816_hu_59f790922324e932.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100643816_hu_4aec620724149150.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100643816"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="432px"
+	
+></p>
+</li>
+<li>
+<p>调整草和花的密度</p>
+<ol>
+<li>
+<p>选择要调整密度的植物</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100649072.png"
+	width="572"
+	height="363"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100649072_hu_9aedb2fe55746c21.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100649072_hu_a9520583fb390f56.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100649072"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="378px"
+	
+></p>
+<p>然后将这个地方点亮</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100653830.png"
+	width="615"
+	height="62"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100653830_hu_70a76a3ca1047a36.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100653830_hu_880a37041eafff26.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100653830"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="991"
+		data-flex-basis="2380px"
+	
+></p>
+<p>在下方将密度修改</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100658077.png"
+	width="652"
+	height="465"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100658077_hu_3688bb6ac90d294f.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100658077_hu_85085e81ccf64101.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100658077"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+</li>
+<li>
+<p>调整草或花的大小</p>
+<p>先勾选要调整大小的植物，然后调整缩放</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100701693.png"
+	width="524"
+	height="644"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100701693_hu_16b1073770ec5030.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100701693_hu_e3fac0fed8d2202d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100701693"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="81"
+		data-flex-basis="195px"
+	
+></p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="14-初涉视觉效果">1.4 初涉视觉效果
+</h4><ol>
+<li>
+<h5 id="指数级高度雾">指数级高度雾
+</h5><p>视觉效果中的指数级高度雾</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100706121.png"
+	width="465"
+	height="537"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100706121_hu_b892f8b6ad9f15d4.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100706121_hu_243133cc07630d8d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100706121"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="86"
+		data-flex-basis="207px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100710920.png"
+	width="584"
+	height="115"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100710920_hu_4d4ce5a4da200fec.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100710920_hu_cacd4ba3902ad4a2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100710920"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="507"
+		data-flex-basis="1218px"
+	
+></p>
+</li>
+</ol>
+<ul>
+<li>
+<p>在细节面板中调整雾的强度、衰减、颜色</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100715832.png"
+	width="585"
+	height="461"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100715832_hu_82fea27bdc7801f5.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100715832_hu_d9cb62742e79578.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100715832"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="126"
+		data-flex-basis="304px"
+	
+></p>
+<p>还可以将体积雾打开，用来产生光的散射</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100720044.png"
+	width="510"
+	height="200"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100720044_hu_59ea593f08ee2396.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100720044_hu_5ec563cbdee1bc99.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100720044"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="255"
+		data-flex-basis="612px"
+	
+></p>
+</li>
+</ul>
+<ol start="2">
+<li>
+<h5 id="光">光
+</h5><ul>
+<li>
+<p>==定向光源==</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100724523.png"
+	width="526"
+	height="123"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100724523_hu_b8bbfb9449888696.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100724523_hu_a0e600a51da24c28.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100724523"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="427"
+		data-flex-basis="1026px"
+	
+></p>
+<p>同样也可以调整光的颜色，强度</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100728614.png"
+	width="541"
+	height="196"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100728614_hu_6b65ed80261e426e.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100728614_hu_7e90c90f0cfc2ede.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100728614"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="276"
+		data-flex-basis="662px"
+	
+></p>
+<p>勾选光束遮挡后，光就变成一束一束的了</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100734132.png"
+	width="561"
+	height="195"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100734132_hu_9ad03d32137ef4d5.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100734132_hu_c56fe14fea09d900.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100734132"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="287"
+		data-flex-basis="690px"
+	
+></p>
+</li>
+<li>
+<p>==天光==</p>
+<p>作用：将整个天空照亮后，变成一个泛光源来照向整个大地</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100738197.png"
+	width="567"
+	height="230"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100738197_hu_ce35e4c78f949143.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100738197_hu_2020baedd1e4741b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100738197"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="246"
+		data-flex-basis="591px"
+	
+></p>
+<p>可以设置它的强度范围</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100742088.png"
+	width="441"
+	height="99"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100742088_hu_64a9263c3c6a25fd.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100742088_hu_d7ceef85265590c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100742088"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="445"
+		data-flex-basis="1069px"
+	
+></p>
+</li>
+<li>
+<p>==后期处理体积==</p>
+<p>可以用来调色，光的强度等调整</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100746664.png"
+	width="546"
+	height="50"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100746664_hu_c15ba0f4903c5a6d.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100746664_hu_c40849003a7ac6d1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100746664"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1092"
+		data-flex-basis="2620px"
+	
+></p>
+<p>后期处理体积可以只在方框内处理，勾选无限范围后也可以整个世界</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100750336.png"
+	width="508"
+	height="248"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100750336_hu_e79ff3a7ebed4753.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100750336_hu_eee8d51884dc31c9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100750336"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="204"
+		data-flex-basis="491px"
+	
+></p>
+<ol>
+<li>
+<p><strong>调光的强度</strong>：bloom下</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100754305.png"
+	width="454"
+	height="141"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100754305_hu_b1d590d7014f70b4.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100754305_hu_642d73abd63a0dac.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100754305"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="321"
+		data-flex-basis="772px"
+	
+></p>
+<p>调整曝光值</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100758197.png"
+	width="444"
+	height="125"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100758197_hu_9f5562316223b6be.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100758197_hu_b81b283325ad45a0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100758197"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="355"
+		data-flex-basis="852px"
+	
+></p>
+</li>
+<li>
+<p><strong>镜头特效</strong></p>
+<ul>
+<li>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100802468.png"
+	width="499"
+	height="118"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100802468_hu_f0c1f620627f773b.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100802468_hu_8fc5594c12d6102a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100802468"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="422"
+		data-flex-basis="1014px"
+	
+></p>
+</li>
+<li>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100806934.png"
+	width="533"
+	height="215"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100806934_hu_c4b3352db334110c.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100806934_hu_c0cb1c0613abbd18.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100806934"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="247"
+		data-flex-basis="594px"
+	
+></p>
+<p>镜头上像有脏东西</p>
+</li>
+<li>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100821234.png"
+	width="497"
+	height="205"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100821234_hu_3aac11dc0ca07d3d.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/image-20250906100821234_hu_d2e59769cf6c42e4.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906100821234"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="242"
+		data-flex-basis="581px"
+	
+></p>
+<p>镜头光晕</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729841989201.png"
+	width="1089"
+	height="624"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729841989201_hu_e4384184ce4b1cd0.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729841989201_hu_1b9c061b3349f7c2.png 1024w"
+	loading="lazy"
+	
+		alt="72984198920"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="174"
+		data-flex-basis="418px"
+	
+></p>
+</li>
+<li>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842055001.png"
+	width="469"
+	height="88"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842055001_hu_e7acc776fde3a510.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842055001_hu_96e586f69efbb5e5.png 1024w"
+	loading="lazy"
+	
+		alt="72984205500"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="532"
+		data-flex-basis="1279px"
+	
+></p>
+<p>可以将镜头边角变暗</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842115576.png"
+	width="1524"
+	height="843"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842115576_hu_52b7989345ed269c.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842115576_hu_3e76e5b5be00358d.png 1024w"
+	loading="lazy"
+	
+		alt="72984211557"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+></p>
+</li>
+</ul>
+</li>
+<li>
+<p>后期处理体积的<strong>调色</strong>功能</p>
+<ul>
+<li>
+<p>可以调白平衡</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842718331.png"
+	width="426"
+	height="167"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842718331_hu_c558551f2f2df190.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842718331_hu_2f07ad76a950a4f0.png 1024w"
+	loading="lazy"
+	
+		alt="72984271833"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="255"
+		data-flex-basis="612px"
+	
+></p>
+</li>
+<li>
+<p>全局的可以调饱和度，对比度，增益等</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842810114.png"
+	width="567"
+	height="464"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842810114_hu_f13a4f489109d17c.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729842810114_hu_19e2df1d82bf771.png 1024w"
+	loading="lazy"
+	
+		alt="72984281011"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="122"
+		data-flex-basis="293px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="15-初涉粒子">1.5 初涉粒子
+</h4><p>简单地设置粒子系统</p>
+<p>​	1. 属于特效，命名为FX</p>
+<p>​	2. 在内容浏览器空白处右键- FX - Niagara系统</p>
+<p>​	<img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843029348.png"
+	width="809"
+	height="460"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843029348_hu_2c76ee67b288fab2.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843029348_hu_a3d4353a9df06d15.png 1024w"
+	loading="lazy"
+	
+		alt="72984302934"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="175"
+		data-flex-basis="422px"
+	
+></p>
+<p>​	然后下一步，选择Hanging Particulates，添加，完成</p>
+<p>​	<img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843234555.png"
+	width="641"
+	height="760"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843234555_hu_1356dcfe0a183e22.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843234555_hu_6e85de5e867f4b28.png 1024w"
+	loading="lazy"
+	
+		alt="72984323455"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="84"
+		data-flex-basis="202px"
+	
+></p>
+<p>​	再改名，以   <code>FX_</code>开头，例如：</p>
+<p>​	<img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843350608.png"
+	width="178"
+	height="251"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843350608_hu_7e802f99f4361ce6.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843350608_hu_c9f78f9df5ede4be.png 1024w"
+	loading="lazy"
+	
+		alt="72984335060"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="70"
+		data-flex-basis="170px"
+	
+></p>
+<ol start="3">
+<li>
+<p>双击进入</p>
+<p>首先将发射器的属性改为GPU，以便产生更多的粒子</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843479556.png"
+	width="357"
+	height="205"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843479556_hu_2d83c55c57a0fcc5.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843479556_hu_fc8b48d7a55425b5.png 1024w"
+	loading="lazy"
+	
+		alt="72984347955"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="174"
+		data-flex-basis="417px"
+	
+> 右侧：<img src="/assets/1729843501424.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="72984350142"
+	
+	
+></p>
+<ul>
+<li>
+<p>调整粒子的数量</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843769252.png"
+	width="318"
+	height="309"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843769252_hu_cc491808784e01d9.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843769252_hu_9b70096f440ef82d.png 1024w"
+	loading="lazy"
+	
+		alt="72984376925"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="246px"
+	
+> <img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843782303.png"
+	width="401"
+	height="177"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843782303_hu_853033812d8e6340.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729843782303_hu_735987c7e8201397.png 1024w"
+	loading="lazy"
+	
+		alt="72984378230"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="543px"
+	
+></p>
+</li>
+<li>
+<p>调整范围的大小</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844133720.png"
+	width="325"
+	height="418"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844133720_hu_33fe4a67f8747fe1.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844133720_hu_2104064e6d1124ba.png 1024w"
+	loading="lazy"
+	
+		alt="72984413372"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="77"
+		data-flex-basis="186px"
+	
+> <img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844160313.png"
+	width="590"
+	height="123"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844160313_hu_62b0a3bcdc796341.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844160313_hu_62cdb4928a2c4bf8.png 1024w"
+	loading="lazy"
+	
+		alt="72984416031"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="479"
+		data-flex-basis="1151px"
+	
+></p>
+</li>
+<li>
+<p>让粒子发光</p>
+<p>只需要将rgb的数值超过1，想显示出偏蓝的粒子就将b的值调高一些</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844623762.png"
+	width="321"
+	height="390"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844623762_hu_e113ab6e8c095270.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844623762_hu_83c989bf5be08c53.png 1024w"
+	loading="lazy"
+	
+		alt="72984462376"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="82"
+		data-flex-basis="197px"
+	
+> <img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844649128.png"
+	width="611"
+	height="68"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844649128_hu_3fe7770af4e78ba8.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729844649128_hu_36e5b0336027d414.png 1024w"
+	loading="lazy"
+	
+		alt="72984464912"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="898"
+		data-flex-basis="2156px"
+	
+></p>
+</li>
+</ul>
+<p>按键盘上的G键，取消选中</p>
+</li>
+</ol>
+<h4 id="16-初涉声音">1.6 初涉声音
+</h4><ol>
+<li>
+<p>导入音频文件（背景音乐+环境音）</p>
+<p>新建一个文件夹，取名Audio</p>
+<p>只能导入wav或者aif文件</p>
+<p>可以先选择你要导入的文件，再ctrl+c，点击添加，导入到&hellip;</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846130312.png"
+	width="488"
+	height="740"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846130312_hu_98793cafbfd66d3.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846130312_hu_8f75e402a1361113.png 1024w"
+	loading="lazy"
+	
+		alt="72984613031"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="65"
+		data-flex-basis="158px"
+	
+></p>
+</li>
+<li>
+<p>让音频不断循环播放</p>
+<p>双击进去，点击窗口-细节</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846849373.png"
+	width="509"
+	height="147"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846849373_hu_3f40a371f32d5776.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846849373_hu_9720b51f5a2b4731.png 1024w"
+	loading="lazy"
+	
+		alt="72984684937"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="346"
+		data-flex-basis="831px"
+	
+></p>
+<p>可以将正在循环勾上</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846915201.png"
+	width="976"
+	height="133"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846915201_hu_e1ee1045f7194629.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729846915201_hu_ea5e1944fa6415a4.png 1024w"
+	loading="lazy"
+	
+		alt="72984691520"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="733"
+		data-flex-basis="1761px"
+	
+></p>
+</li>
+<li>
+<p>有些声音是只有靠近才能听到，离远了听不到的</p>
+<blockquote>
+<p>StarterContent里面提供了一些声音还有特效</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729847210810.png"
+	width="510"
+	height="64"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729847210810_hu_a4fad0598990bc0b.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729847210810_hu_7f63a55605b283.png 1024w"
+	loading="lazy"
+	
+		alt="72984721081"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="796"
+		data-flex-basis="1912px"
+	
+></p>
+<p>我们可以直接使用，以火为例</p>
+</blockquote>
+<p>将火的特效和声音放到一起，然后在声音的细节面板更改设置</p>
+<p>打开允许空间化，打开重载衰减。内部半径内声音不会衰减</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729848317054.png"
+	width="654"
+	height="370"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729848317054_hu_dc31d7805862855d.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729848317054_hu_2f5f1a0c1fefe97a.png 1024w"
+	loading="lazy"
+	
+		alt="72984831705"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="424px"
+	
+></p>
+<p>==按G切换可视==</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729848356891.png"
+	width="1249"
+	height="708"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729848356891_hu_f2c56062b0d1b045.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729848356891_hu_da85ca9845d45870.png 1024w"
+	loading="lazy"
+	
+		alt="72984835689"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
+	
+></p>
+</li>
+</ol>
+<h4 id="17-初涉材质">1.7 初涉材质
+</h4><p>新建文件夹，文件名为materials</p>
+<p>右击内容浏览器的空白处，创建材质，重命名以M_开头</p>
+<p>双击进入</p>
+<ol>
+<li>
+<p>让球有颜色，在基础颜色中右击提升为参数</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850330834.png"
+	width="422"
+	height="248"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850330834_hu_7f6dba7138c8be82.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850330834_hu_5912bd4b40b27b9.png 1024w"
+	loading="lazy"
+	
+		alt="72985033083"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="170"
+		data-flex-basis="408px"
+	
+></p>
+<p>双击基础颜色这个框，来选取颜色</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850422628.png"
+	width="720"
+	height="791"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850422628_hu_2288a64bf0793ee1.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850422628_hu_f9c896feb4caff67.png 1024w"
+	loading="lazy"
+	
+		alt="72985042262"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="91"
+		data-flex-basis="218px"
+	
+></p>
+<p>选颜色，饱和度和和亮度都要调整</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850550103.png"
+	width="651"
+	height="749"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850550103_hu_bb1606b3b1e5d861.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729850550103_hu_7479d891ed0b7d11.png 1024w"
+	loading="lazy"
+	
+		alt="72985055010"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="86"
+		data-flex-basis="208px"
+	
+></p>
+</li>
+<li>
+<p>可以调整混合模式和双面</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748583482323.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858348232"
+	
+	
+></p>
+<p>混合模式可以调 半透明和已遮罩</p>
+<p>双面打开后，可以看到模型的内部结构</p>
+</li>
+<li>
+<p>金属度、粗糙度、高光度</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748583448724.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858344872"
+	
+	
+></p>
+<p>高光的值越高，亮的地方越亮</p>
+</li>
+<li>
+<p>自发光颜色</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748583615041.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858361504"
+	
+	
+></p>
+<p>任何一个数值超过1，就可以发光</p>
+</li>
+</ol>
+<p><strong>纹理贴图</strong></p>
+<p>做一个木头材质</p>
+<ol>
+<li>
+<p>按键盘的t键+鼠标左键 &mdash;-&gt; 纹理采样</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748584171650.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858417165"
+	
+	
+></p>
+</li>
+<li>
+<p>做出凹凸感 &mdash;&gt; 法线</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748584400111.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858440011"
+	
+	
+></p>
+<p>如何制作法线贴图 &mdash;- &gt;在substance painter里面导出的时候就会法线==发现生成好的法线贴图</p>
+</li>
+<li>
+<p>如何用我们自己的纹理来做贴图？</p>
+<p>1）先新建一个文件夹 Texture，然后右键导入到&hellip; 把自己的贴图导入，命名以<code>T_</code>开头</p>
+<p>材质以<code>M_</code>开头。</p>
+<p>2）导入纹理后，拖入到模型中就会自动创建材质，把材质放到Material文件夹中</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748585701046.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858570104"
+	
+	
+></p>
+<p>如果不想要有些模型被该材质影响，可以在细节面板中将接收贴花的勾取消</p>
+<p>如果是人物，就 ctrl+e 点击网格体，在右边的细节中搜 decal 把接收贴花取消勾选</p>
+<p>3）制作法线贴图，让材质有凹凸感</p>
+<p>把纹理丢进photoshop中，选择上方工具栏的 滤镜 &ndash;&gt; 3D &ndash;&gt; 生成法线图（还可以调整模糊，细节缩放）</p>
+<p>然后导出格式 png</p>
+<p>3）将法线图片导入，名字<code>T_</code>开头，<code> _N</code>结尾，然后在材质中添加法线的步骤和之前的一样</p>
+</li>
+</ol>
+<h4 id="18-初涉过场动画">1.8 初涉过场动画
+</h4><ol>
+<li>
+<p>添加关卡序列</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729852322804.png"
+	width="434"
+	height="178"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729852322804_hu_685ae1383b3a44d.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729852322804_hu_4e069cd1791c5305.png 1024w"
+	loading="lazy"
+	
+		alt="72985232280"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="243"
+		data-flex-basis="585px"
+	
+></p>
+<p>放到Cinematics文件夹下，文件以SEQ_开头</p>
+</li>
+<li>
+<p>新建相机</p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729852687842.png"
+	width="411"
+	height="159"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729852687842_hu_8b2b90aa54c1a92b.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1729852687842_hu_81f915899e9f3900.png 1024w"
+	loading="lazy"
+	
+		alt="72985268784"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="620px"
+	
+></p>
+<p>可以调整焦距</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748588250957.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858825095"
+	
+	
+></p>
+<p>还可以调光圈：数字越小，光圈越大</p>
+</li>
+<li>
+<p>选好角度后，按 s 打关键帧</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748587893948.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858789394"
+	
+	
+></p>
+<p>往然后换场景，并将光标后拖一段后，再按s</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748587963188.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858796318"
+	
+	
+></p>
+</li>
+<li>
+<p>可以再多添加几个镜头</p>
+<p><img src="/%e5%9f%ba%e7%a1%80%e5%85%a5%e9%97%a8.assets/1748588161906.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="74858816190"
+	
+	
+></p>
+</li>
+</ol>
+<h2 id="2角色入门">2.角色入门
+</h2><h2 id="3场景入门">3.场景入门
+</h2><h2 id="4构造脚本">4.构造脚本
+</h2><h2 id="二角色篇">二、角色篇
+</h2><h1 id="其它">其它
+</h1><h2 id="最后做成视频">最后做成视频
+</h2><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1732322068313.png"
+	width="587"
+	height="308"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1732322068313_hu_64e375681ba1cff2.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1732322068313_hu_b4aff9b7319396bd.png 1024w"
+	loading="lazy"
+	
+		alt="73232206831"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="190"
+		data-flex-basis="457px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1732322020516.png"
+	width="586"
+	height="822"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1732322020516_hu_2e15672809ee6260.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1732322020516_hu_343f02b90f91d83e.png 1024w"
+	loading="lazy"
+	
+		alt="73232202051"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="71"
+		data-flex-basis="171px"
+	
+></p>
+<h2 id="项目1场景">项目1&ndash;场景
+</h2><p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1733237447452.png"
+	width="1744"
+	height="926"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1733237447452_hu_ed64a690e35f055.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1733237447452_hu_de7b3d685c6d8ba0.png 1024w"
+	loading="lazy"
+	
+		alt="73323744745"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="188"
+		data-flex-basis="452px"
+	
+></p>
+<p><img src="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1733237408544.png"
+	width="1762"
+	height="977"
+	srcset="/p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1733237408544_hu_daebf5d01d6dfdc2.png 480w, /p/ue-basic/%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8.assets/1733237408544_hu_484dfe18bcda48ec.png 1024w"
+	loading="lazy"
+	
+		alt="73323740854"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="432px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/ue-basic-new/">
+        
+        
+            <div class="article-image">
+                <img src="/p/ue-basic-new/01.fe1b04a46ad7fc7f020f6eec04b3bbce_hu_429550f225bc8ab0.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【虚幻引擎】-ue入门-新"
+                        data-key="ue-basic-new" 
+                        data-hash="md5-/hsEpGrX/H8CD27sBLO7zg==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【虚幻引擎】-ue入门-新</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

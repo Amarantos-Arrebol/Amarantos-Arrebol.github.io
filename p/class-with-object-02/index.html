@@ -1,0 +1,2372 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="构造、析构与拷贝：理解对象的生命周期">
+<title>【C&#43;&#43;初阶】03类和对象（中）</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/class-with-object-02/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【C++初阶】03类和对象（中）">
+<meta property='og:description' content="构造、析构与拷贝：理解对象的生命周期">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/class-with-object-02/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.png' />
+<meta name="twitter:title" content="【C++初阶】03类和对象（中）">
+<meta name="twitter:description" content="构造、析构与拷贝：理解对象的生命周期"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1类的默认成员函数">1、类的默认成员函数</a>
+      <ul>
+        <li><a href="#11构造函数">1.1构造函数</a></li>
+        <li><a href="#12-析构函数">1.2 析构函数</a></li>
+        <li><a href="#13拷贝构造">1.3拷贝构造</a></li>
+      </ul>
+    </li>
+    <li><a href="#2运算符重载">2、运算符重载</a>
+      <ul>
+        <li><a href="#21运算符重载基本介绍">2.1运算符重载基本介绍</a></li>
+        <li><a href="#22-赋值运算符重载">2.2 赋值运算符重载</a></li>
+        <li><a href="#25-流插入流提取运算符重载">2.5 流插入流提取运算符重载</a></li>
+        <li><a href="#24取地址运算符重载">2.4取地址运算符重载</a>
+          <ul>
+            <li><a href="#241const成员函数">2.4.1const成员函数</a></li>
+            <li><a href="#242取地址运算符重载">2.4.2取地址运算符重载</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3构造析构的总结">3、构造析构的总结</a></li>
+    <li><a href="#4日期类">4、日期类</a>
+      <ul>
+        <li><a href="#41日期天数进位">4.1日期+天数（进位）</a></li>
+        <li><a href="#42日期-天数借位">4.2日期-天数（借位）</a></li>
+        <li><a href="#43日期-日期">4.3日期-日期</a></li>
+        <li><a href="#44-流插入流提取重载">4.4 流插入流提取重载</a></li>
+        <li><a href="#45检查日期的合法性">4.5检查日期的合法性</a></li>
+        <li><a href="#完整代码">完整代码</a>
+          <ul>
+            <li><a href="#dateh">Date.h</a></li>
+            <li><a href="#datec">Date.c</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/class-with-object-02/">
+                <img src="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF_hu_7ee0e893365d5776.png"
+                        srcset="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF_hu_7ee0e893365d5776.png 800w, /p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF_hu_4eadafc0a4893607.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】03类和对象（中）" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/c&#43;&#43;/" style="background-color: #FF8F8F; color: #fff;">
+                C&#43;&#43;
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/class-with-object-02/">【C&#43;&#43;初阶】03类和对象（中）</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            构造、析构与拷贝：理解对象的生命周期
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1类的默认成员函数">1、类的默认成员函数
+</h1><p>默认成员函数就是用户没有显式实现，<span style="color: #FF0000;">编译器会自动生成的成员函数</span></p>
+<p>但有时候编译器默认生成的函数不满足我们的需求，就需要我们自己实现</p>
+<p>一个类，我们不写的情况下，编译器会默认生成以下6个默认成员的函数</p>
+<p>C++11以后还会增加两个默认成员函数，移动构造和移动赋值</p>
+<p><span style="color: #8080FF;">1）初始化和清理</span></p>
+<p><strong>构造函数</strong>：主要完成<span style="color: #FF0000;">初始化</span>工作（相当于Init函数）</p>
+<p><strong>析构函数</strong>：主要完成<span style="color: #FF0000;">清理</span>工作</p>
+<p><span style="color: #8080FF;">2）拷贝赋值</span></p>
+<p><strong>拷贝构造</strong>：使用同类对象<span style="color: #FF0000;">初始化创建对象</span></p>
+<p><strong>赋值重载</strong>：把一个对象<span style="color: #FF0000;">赋值</span>给另一个对象</p>
+<p><span style="color: #8080FF;">3）取地址重载</span></p>
+<p>主要是普通对象和const对象取地址，这两个很少会自己实现</p>
+<h2 id="11构造函数">1.1构造函数
+</h2><p>是特殊的成员函数，构造函数的主要任务<span style="color: #FF0000;">不是开空间创建对象</span>，而是对象实例化时初始化对象</p>
+<p>（我们常使用的局部对象是栈帧创建时，空间就开好了）</p>
+<p><strong>构造函数入门</strong></p>
+<p>1、函数名与类名相同</p>
+<p>1、函数名与类名相同</p>
+<p>2、无返回值（不需要写void）</p>
+<p>3、<span style="color: #FF0000;">对象实例化时</span>系统会<span style="color: #FF0000;">自动调用</span>对应的构造函数</p>
+<p>4、构造函数<span style="color: #FF0000;">可以重载</span>（我们可以写多个构造函数，只要参数不同）</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203449903.png"
+	width="808"
+	height="622"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203449903_hu_69efe522a49b7615.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203449903_hu_c4483bfd03bce82f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907203449903"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="129"
+		data-flex-basis="311px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203454861.png"
+	width="608"
+	height="430"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203454861_hu_1866f2c4cbb69ab9.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203454861_hu_4c8837caf5d02dee.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907203454861"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="339px"
+	
+></p>
+<p><strong>注意/细节</strong></p>
+<p>1、<span style="color: #FF0000;">调用无参构造时，后面不要加( )，加了( )有歧义</span></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203528067.png"
+	width="552"
+	height="109"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203528067_hu_f1cf13ace8135a2c.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203528067_hu_ce49632447cdeacc.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907203528067"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="506"
+		data-flex-basis="1215px"
+	
+></p>
+<p>2、构造函数可以缺省参数，但是在下面这种情况，如果全缺省的话，调用会存在歧义</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203548359.png"
+	width="883"
+	height="543"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203548359_hu_f8e7ed4374ffc7a5.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203548359_hu_6506b32ab7313212.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907203548359"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="162"
+		data-flex-basis="390px"
+	
+></p>
+<p>3、全缺省时调用更方便</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203559826.png"
+	width="788"
+	height="362"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203559826_hu_81a0a1ad001c30f5.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203559826_hu_90f2b7ac1ed0e824.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907203559826"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="217"
+		data-flex-basis="522px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203604546.png"
+	width="407"
+	height="503"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203604546_hu_7a5bde2b88b0d45f.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907203604546_hu_4daa977da0b3e1f1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907203604546"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="80"
+		data-flex-basis="194px"
+	
+></p>
+<p><strong>构造函数进阶</strong></p>
+<p>5、如果类中没有显式定义构造函数，则C++编译器会自动生成一个无参的默认构造函数，</p>
+<p><span style="color: #FF0000;">   一旦用户显式定义编译器将不再自动生成一个无参的默认构造函数</span></p>
+<p>6、下面的三种都叫默认构造</p>
+<p>（1）我们不写构造时，编译器默认生成的构造函数</p>
+<p>（2）我们显示写的无参构造</p>
+<p>（3）全缺省构造函数</p>
+<p>这三个函数有且只能存在一个，不能同时存在</p>
+<blockquote>
+<p>我们显示写的无参构造和全缺省构造函数，<span style="color: #FF0000;">虽然构成重载，但是调用的时候会存在歧义</span></p>
+</blockquote>
+<p>**总结：**不传实参就可以调用的构造就叫默认构造</p>
+<p>7、</p>
+<p>编译器默认自动生成的构造，对<span style="color: #FF0000;">内置类型</span>成员变量的初始化没有要求，也就是说是否初始化是不确定的，看编译器</p>
+<p><span style="color: #FF0000;">对于自定义类型成员变量</span>，要求调用这个成员变量的<span style="color: #FF0000;">默认构造函数</span>初始化</p>
+<p>如果这个成员变量没有默认构造函数，那么就会报错，我们要<span style="color: #FF0000;">初始化这个成员变量</span>，需要用初始化列表才能解决</p>
+<p>说明：C++中把类型分为内置类型（基本类型）和自定义类型。</p>
+<ul>
+<li>
+<p><strong>内置类型</strong>就是语言提供的原生数据类型，比如<span style="color: #FF0000;">int/char/double/指针</span>等</p>
+</li>
+<li>
+<p><strong>自定义类型</strong>就是我们使用<span style="color: #FF0000;">class/struct</span>等关键字自己定义的类型</p>
+</li>
+</ul>
+<h2 id="12-析构函数">1.2 析构函数
+</h2><p>析构函数<span style="color: #FF0000;">不是</span>完成对<span style="color: #FF0000;">对象本身的销毁</span>，比如局部对象是存在栈帧的，函数结束栈帧销毁，他就释放了，不需要我们管</p>
+<p>C++规定<span style="color: #FF0000;">对象在销毁时</span>会自动调用析构函数，完成对象中<span style="color: #FF0000;">资源的清理释放</span>工作</p>
+<p>类比我们之前在Stack实现的Destroy功能</p>
+<p>而像Date没有Destroy，其实就是没有资源需要释放，所以严格说Date是不需要析构函数的。</p>
+<p><strong>析构函数特点</strong></p>
+<p>1、析构函数名是<span style="color: #FF0000;">在类名前加上字符~</span></p>
+<p>2、无参数无返回值。（不需要加void）</p>
+<p>3、一个类<span style="color: #FF0000;">只能有一个析构函数</span>。若<span style="color: #FF0000;">未显示定义</span>，系统会<span style="color: #FF0000;">自动生成默认的析构函数</span></p>
+<p>4、对象生命周期结束时，系统会<span style="color: #FF0000;">自动调用</span>析构函数</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907204056953.png"
+	width="853"
+	height="877"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907204056953_hu_4ed9a01c12b07a94.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250907204056953_hu_e14535e12c81e68.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250907204056953"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="97"
+		data-flex-basis="233px"
+	
+></p>
+<p>5、我们不写，编译器会<span style="color: #FF0000;">自动生成</span>析构函数，==对内置类型成员不做处理，<span style="color: #FF0000;">自定义类型成员会调用它的析构函数</span>==</p>
+<p>6、对于自定义类型成员也会调用它的析构，也就是<span style="color: #FF0000;">自定义类型成员无论什么情况都会自动调用它的析构函数</span></p>
+<p>7、如果类<span style="color: #FF0000;">没有申请资源</span>，析构函数可以不写，直接使用编译器生成的<span style="color: #FF0000;">默认析构函数</span>，如Date</p>
+<p>如果<span style="color: #FF0000;">默认生成</span>的析构<span style="color: #FF0000;">就可以用</span>，也就<span style="color: #FF0000;">不需要显示写析构</span>，如MyQueue里的成员stack是自定义类型，默认会自动调用它自己的析构</p>
+<p>但<span style="color: #FF0000;">有资源申请</span>时，一定要<span style="color: #FF0000;">自己写析构</span>，否则会造成资源泄露，如Stack</p>
+<p>8、一个局部域的多个对象，C++规定<span style="color: #FF0000;">后定义的会先析构</span>。</p>
+<p><strong>使用场景：</strong></p>
+<p>1、malloc动态开辟的空间，需要我们手动地去销毁，我们就可以在析构函数中实现</p>
+<p>2、在构造函数fopen了一个文件，那么在析构里我们就可以fclose</p>
+<p>…</p>
+<p><strong>总结：</strong></p>
+<p><strong>一般情况下显示申请了资源（比如栈），才需要自己实现析构，其它情况基本都不需要显示写析构</strong></p>
+<h2 id="13拷贝构造">1.3拷贝构造
+</h2><p>拷贝构造函数：构造函数的<span style="color: #FF0000;">第一个参数是自身类类型的引用</span>，且任何<span style="color: #FF0000;">额外</span>的参数<span style="color: #FF0000;">都有默认值</span></p>
+<p>拷贝构造是一个特殊的构造函数，完成当前自己类类型的拷贝</p>
+<p>拷贝构造就是用<span style="color: #FF0000;">已经存在的对象拷贝给要初始化的对象</span>·</p>
+<p><strong>拷贝构造的特点：</strong></p>
+<p>1、拷贝构造函数是<span style="color: #FF0000;">构造函数的一个重载</span></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150823151.png"
+	width="681"
+	height="674"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150823151_hu_67fe9ac3272f8979.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150823151_hu_d0a70ceae1cd6ea6.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909150823151"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="242px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150828733.png"
+	width="375"
+	height="276"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150828733_hu_9ebd5d6629dae0cb.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150828733_hu_b7c100c01fb01f6b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909150828733"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="135"
+		data-flex-basis="326px"
+	
+></p>
+<p><strong>注意：</strong></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150840343.png"
+	width="346"
+	height="181"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150840343_hu_686949e422608004.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909150840343_hu_a5da6fcffcad2b76.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909150840343"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="191"
+		data-flex-basis="458px"
+	
+></p>
+<p>2、拷贝构造函数的<span style="color: #FF0000;">第一个参数必须是自身类类型对象的引用</span>。</p>
+<p><span style="color: #FF0000;">  使用传值</span>的方式编译器直接报错，因为语法逻辑上会引发<span style="color: #FF0000;">无穷递归调用</span></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909153155544.png"
+	width="1085"
+	height="533"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909153155544_hu_c8729ede2b9c8f06.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909153155544_hu_18b5383ab4811e33.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909153155544"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="203"
+		data-flex-basis="488px"
+	
+></p>
+<p>【<span style="color: #FF0000;">使用引用/指针就不会调用拷贝构造</span>】</p>
+<p>自定义类型才会调用拷贝构造，而指针是内置类型</p>
+<p>拷贝构造函数也可以多个参数，除了第一个参数，<span style="color: #8080FF;">其它额外的参数必须有缺省值</span></p>
+<p><span style="color: #8080FF;">拷贝构造要用引用传参，最好把const加上</span></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161553275.png"
+	width="1018"
+	height="396"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161553275_hu_9150a1ba9df931f1.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161553275_hu_e0afa89e150b8648.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909161553275"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="257"
+		data-flex-basis="616px"
+	
+></p>
+<p>3、C++规定<span style="color: #FF0000;">自定义类型对象</span>进行<span style="color: #FF0000;">拷贝行为</span>必须调用拷贝构造，所以这里<span style="color: #FF0000;"><strong>自定义类型</strong>传值传参和传值</span></p>
+<p><span style="color: #8080FF;">返回都会调用拷贝构造完成</span></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151040629.png"
+	width="830"
+	height="483"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151040629_hu_c43ca0b6770a2f5f.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151040629_hu_78012c349b66f6d3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909151040629"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+<p>==<strong>C++规定：类类型的传值传参必须调用拷贝构造</strong>==</p>
+<p>4、<span style="color: #8080FF;">如果没有显示定义拷贝构造函数，编译器会自动生成拷贝构造函数。</span></p>
+<p>自动生成的拷贝构造，对<span style="color: #FF0000;">内置类型</span>成员变量会完成<span style="color: #FF0000;">值拷贝/浅拷贝</span>（一个字节一个字节地拷贝），对<span style="color: #FF0000;">自定义类型</span>成员变量会<span style="color: #FF0000;">调用它的拷贝构造</span></p>
+<p>**为什么自定义类型要调用拷贝构造？**原因：C语言传值传参是值/浅拷贝，对于指针可能会析构两次等问题</p>
+<p><strong>浅拷贝和深拷贝，栈使用默认生成的拷贝构造会有问题</strong></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151145802.png"
+	width="1352"
+	height="426"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151145802_hu_a64a449ccb0c869f.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151145802_hu_930d4c1039ce38a4.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909151145802"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="317"
+		data-flex-basis="761px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151156077.png"
+	width="946"
+	height="346"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151156077_hu_adc4981d17f9c6c4.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909151156077_hu_d2a87d8468956c91.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909151156077"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="273"
+		data-flex-basis="656px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">int</span> <span class="n">STDataType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Stack</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Stack</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">STDataType</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STDataType</span><span class="p">)</span> <span class="o">*</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="k">nullptr</span> <span class="o">==</span> <span class="n">_a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">perror</span><span class="p">(</span><span class="s">&#34;malloc 申请空间失败&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_capacity</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_top</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Stack</span><span class="p">(</span><span class="k">const</span> <span class="n">Stack</span><span class="o">&amp;</span> <span class="n">st</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">STDataType</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">STDataType</span><span class="p">)</span> <span class="o">*</span> <span class="n">st</span><span class="p">.</span><span class="n">_capacity</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="k">nullptr</span> <span class="o">==</span> <span class="n">_a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">perror</span><span class="p">(</span><span class="s">&#34;malloc 申请空间失败&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="n">memcpy</span><span class="p">(</span><span class="n">_a</span><span class="p">,</span> <span class="n">st</span><span class="p">.</span><span class="n">_a</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">STDataType</span><span class="p">)</span> <span class="o">*</span> <span class="n">st</span><span class="p">.</span><span class="n">_top</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_capacity</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="n">_capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_top</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="n">_top</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="o">~</span><span class="n">Stack</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">free</span><span class="p">(</span><span class="n">_a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_a</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_top</span> <span class="o">=</span> <span class="n">_capacity</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">STDataType</span><span class="o">*</span> <span class="n">_a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_top</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Stack</span> <span class="n">st</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Stack</span> <span class="n">st1</span><span class="p">(</span><span class="n">st</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>**深拷贝：**不仅拷贝值，还会把<span style="color: #FF0000;">指针</span>和<span style="color: #FF0000;">指向的资源拷贝</span></p>
+<p>5、像Date这样的类，成员变量全是内置类型且<span style="color: #FF0000;">没有指向什么资源</span>，编译器自动生成的拷贝构造就可以完成需要的拷贝，所以不需要我们显示实现拷贝构造</p>
+<p>像Stack这样的类，虽然也是内置类型，但是<span style="color: #FF0000;">_a指向了资源</span>，<span style="color: #8080FF;">编译器自动生成的拷贝构造完成的值拷贝/浅拷贝，不符合我们的需求</span>，所以我们自己实现深拷贝（<span style="color: #FF0000;">对指向的资源也进行拷贝</span>）</p>
+<p>像MyQueue这样的类型内部主要是<span style="color: #FF0000;">自定义类型Stack成员</span>，编译器自动生成的拷贝构造<span style="color: #FF0000;">会调用Stack的拷贝构造</span>，也不需要我们显示1实现MyQueue的拷贝构造</p>
+<p>**总结：**如果一个类<span style="color: #FF0000;">显示实现了析构并释放资源</span>，那么他就需要<span style="color: #FF0000;">显示写拷贝构造</span></p>
+<p>6、<span style="color: #FF0000;">传值返回</span>产生一个<span style="color: #FF0000;">临时对象</span>调用拷贝构造，<span style="color: #FF0000;">传引用返回</span>，返回的是返回对象的别名（引用），没有产生拷贝</p>
+<p>但是如果返回对象是一个当前<span style="color: #FF0000;">函数局部域的局部对象</span>，函数结束就销毁了，那么使用引用返回是有问题的这时的引用相当于一个<span style="color: #FF0000;">野引用</span>，类似一个野指针一样。</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161900980.png"
+	width="1347"
+	height="604"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161900980_hu_1cf7e263d89b3976.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161900980_hu_148450a92a6a7e65.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909161900980"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="223"
+		data-flex-basis="535px"
+	
+></p>
+<p>传引用返回可以<span style="color: #FF0000;">减少拷贝</span>，但是一定要确保返回对象，在当前函数结束后还在，才能引用返回</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161919842.png"
+	width="654"
+	height="731"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161919842_hu_437d4d7c9ad45c71.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909161919842_hu_cc9dfa0c84f1ff80.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909161919842"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="214px"
+	
+></p>
+<h1 id="2运算符重载">2、运算符重载
+</h1><h2 id="21运算符重载基本介绍">2.1运算符重载基本介绍
+</h2><p><strong>运算符重载是为了让自定义类型能够使用运算符</strong></p>
+<p>1） 当运算符被用于<span style="color: #FF0000;">类类型的对象</span>（比如日期类）时，C++语言允许我们通过运算符重载的形式<span style="color: #FF0000;">指定新的含义</span>。</p>
+<p>​	C++规定，类类型对象<span style="color: #FF0000;">使用运算符</span>时，必须转换成<span style="color: #FF0000;">调用对应运算符重载</span>，若没有对应的运算符重载则会编译报错</p>
+<p>2）运算符重载是<span style="color: #FF0000;">具有特殊名字</span>的函数，它的名字由<span style="color: #FF0000;">operator和后面要定义的运算符</span>共同构成</p>
+<p>​    例如等号的运算符重载为<span style="color: #8080FF;">operator=</span>。</p>
+<p>​	和其他函数一样，它也具有其返回类型和参数列表以及函数体</p>
+<p>3）重载运算符函数的<span style="color: #FF0000;">参数个数</span>和该运算符作用的<span style="color: #FF0000;">运算对象数量?样多</span>。</p>
+<p>⼀元运算符（* ++ &ndash;等）有⼀个参数，⼆元运算符（+ - /等）有两个参数，</p>
+<p>⼆元运算符的左侧运算对象传给第⼀个参数，右侧运算对象传给第⼆个参数。</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162138529.png"
+	width="1112"
+	height="704"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162138529_hu_dc493388547e7d9b.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162138529_hu_95b392063747a370.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162138529"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="379px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162246884.png"
+	width="624"
+	height="439"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162246884_hu_d6de6f7271ca1318.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162246884_hu_bd25baf5afb45a98.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162246884"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="341px"
+	
+></p>
+<p>4）如果⼀个重载运算符函数是<strong>成员函数</strong>，则它的<span style="color: #8080FF;">第一个运算对象默认传给隐式的this指针</span>，</p>
+<p>因此运算符重载  作为成员函数时，<span style="color: #8080FF;">参数比运算对象少?个</span>。</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162357768.png"
+	width="1072"
+	height="1062"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162357768_hu_322532cbd334af52.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162357768_hu_77f46b07aa7e98ed.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162357768"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="242px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162407153.png"
+	width="635"
+	height="427"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162407153_hu_3d316b6eee4fa940.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162407153_hu_ffa8c802719059f6.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162407153"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="356px"
+	
+></p>
+<p>5）运算符重载以后，其优先级和结合性与对应的内置类型运算符保持⼀致</p>
+<p>6）<span style="color: #8080FF;">不能通过连接语法中没有的符号来创建新的操作符</span>：比如operator@。</p>
+<p>7）<span style="color: #8080FF;">*.</span> <span style="color: #FFA8FF;">::</span><span style="color: #FF8000;"> sizeof</span>  <span style="color: #FF0000;">? :</span>  <span style="color: #00FF00;">.</span> 注意以上5个运算符<span style="color: #8080FF;">不能重载</span>。(选择题里面常考)</p>
+<p>（*可以重载，乘【二元】或解引用【一元】，所以不存在区分问题）</p>
+<p><span style="color: #00FF00;">.*</span>主要是用来调用成员函数的指针</p>
+<p><span style="color: #FF0000;">成员函数有一个隐含的this指针</span>，所以需要加一个<span style="color: #FF0000;">类域</span>进行限制：void(<span style="color: #8080FF;">A::</span>*pf)()</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162719980.png"
+	width="695"
+	height="813"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162719980_hu_9185dfacf3c0dc76.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162719980_hu_9bb0f342a2796d64.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162719980"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="85"
+		data-flex-basis="205px"
+	
+></p>
+<p>8）重载操作符<span style="color: #FF0000;">至少有一个类类型参数</span>，<span style="color: #8080FF;">不能</span>通过运算符重载改变<span style="color: #8080FF;">内置类型</span>对象的含义，</p>
+<p>如：</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162749320.png"
+	width="508"
+	height="224"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162749320_hu_4942c534ec1cdcd.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162749320_hu_5dc03f0620755965.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162749320"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="226"
+		data-flex-basis="544px"
+	
+></p>
+<p>9）⼀个类需要重载哪些运算符，是看哪些运算符<span style="color: #FF0000;">重载后有意义</span>，</p>
+<p>比如Date类重载operator-就有意义，但是重载operator*就没有意义。</p>
+<p>日期-日期有意义，日期+天数有意义，日期+日期没有意义</p>
+<p>10）重载++运算符时，<strong>有前置++和后置++</strong>，运算符重载函数名都是operator++，无法很好的分。</p>
+<p>C++规定，<span style="color: #FF0000;">后置++重载时，增加一个int形参</span>，跟前置++构成函数重载，方便区分。</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162933674.png"
+	width="686"
+	height="620"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162933674_hu_5d1be4cb7d604287.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162933674_hu_38ba096b064285b5.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162933674"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="265px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162940463.png"
+	width="469"
+	height="568"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162940463_hu_4c1830d2272e2946.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250909162940463_hu_4f05aafb5eb6bfeb.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909162940463"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="82"
+		data-flex-basis="198px"
+	
+></p>
+<p>11）重载&laquo;和&raquo;时，需要重载为全局函数。</p>
+<p>如果重载为成员函数，<span style="color: #FF0000;">this指针默认抢占了第一个形参位置</span>，第⼀个形参位置是左侧运算对象，调用时就变成了 对象&laquo;cout，不符合使使习惯和可读性。</p>
+<ul>
+<li>
+<p>重载为全局函数时，把 ostream/istream 的对象放到形参的第一个位置，把当前类类型的对象放形参的第二个位置</p>
+</li>
+<li>
+<p>重载&laquo;时，为了支持连续赋值，函数需要返回ostream类型的对象</p>
+</li>
+</ul>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180309321.png"
+	width="604"
+	height="247"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180309321_hu_e19cb0badf7265cd.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180309321_hu_4339e614e70afc93.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911180309321"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="586px"
+	
+></p>
+<p>例子：</p>
+<blockquote>
+<p>先在类里声明为友元函数&mdash;&gt;可以调用类的成员</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911175915509.png"
+	width="885"
+	height="164"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911175915509_hu_820fd68bb08c375.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911175915509_hu_f4c334fde3d6d3a2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911175915509"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="539"
+		data-flex-basis="1295px"
+	
+></p>
+<p>类外声明</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911175958638.png"
+	width="784"
+	height="115"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911175958638_hu_77493bfe29ec0b5c.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911175958638_hu_3f5e64c361176eb0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911175958638"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="681"
+		data-flex-basis="1636px"
+	
+></p>
+<p>类外定义</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180243339.png"
+	width="1062"
+	height="240"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180243339_hu_376870a93479e1e0.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180243339_hu_acd2411c434c38ab.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911180243339"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="442"
+		data-flex-basis="1062px"
+	
+></p>
+</blockquote>
+<p><span style="color: #8080FF;"> 解决在类外定义的函数不能访问类里私有的成员变量的问题</span></p>
+<p><span style="color: #8080FF;">1、提供getxxx函数</span></p>
+<p><span style="color: #8080FF;">2、友元</span></p>
+<p><span style="color: #8080FF;">3、重载为成员函数（将该函数放到类里面）</span></p>
+<h2 id="22-赋值运算符重载">2.2 赋值运算符重载
+</h2><p>**赋值运算符重载：**是一个默认成员函数，用于完成两个已经存在的对象直接的拷贝赋值</p>
+<p>**拷贝构造：**用于一个已经存在的对象拷贝初始化给另一个要创建的对象</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180919188.png"
+	width="988"
+	height="407"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180919188_hu_6c0268be9f89b44a.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911180919188_hu_583f5574396c7f7b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911180919188"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="242"
+		data-flex-basis="582px"
+	
+></p>
+<p><strong>赋值运算符重载的特点：</strong></p>
+<p>1、赋值运算符重载是一个运算符重载，规定<span style="color: #FF0000;">必须重载为成员函数</span>。</p>
+<p>赋值运算重载的<span style="color: #FF0000;">参数</span>建议写成<span style="color: #FF0000;">const当前类类型引用</span>，否则传值传参会有拷贝</p>
+<p>2、<span style="color: #FF0000;">有返回值</span>，且建议写成<span style="color: #FF0000;">当前类类型引用</span>，引用返回可以提高效率(因为传值返回会调用拷贝构造)，</p>
+<p>有返回值目的是为了支持连续赋值场景</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181013595.png"
+	width="219"
+	height="215"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181013595_hu_bd8070a7f177bed8.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181013595_hu_6ab2ecddba1cc44a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911181013595"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="244px"
+	
+></p>
+<p><strong>例子：</strong></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181111408.png"
+	width="621"
+	height="405"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181111408_hu_7e0ef12a10c9a55c.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181111408_hu_4e5b8fb048cf7edd.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911181111408"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="368px"
+	
+></p>
+<p><strong>细节：自己给自己赋值的情况</strong></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181133810.png"
+	width="632"
+	height="472"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181133810_hu_10ec7093678b625b.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181133810_hu_caca2060b38efc9f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911181133810"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="321px"
+	
+></p>
+<p>3、没有显示实现时，编译器会自动生成一个默认赋值运算符重载，默认赋值运算符重载</p>
+<p>行为跟默认拷贝构造函数类似，对<span style="color: #FF0000;">内置类型</span>成员变量会完成<span style="color: #FF0000;">值拷贝/浅拷贝</span>（一个字节</p>
+<p>一个字节地拷贝），对<span style="color: #FF0000;">自定义类型</span>成员变量会<span style="color: #FF0000;">调用他的赋值重载函数</span></p>
+<p><strong>栈需要自己实现深拷贝的operator=，因为浅拷贝会导致两个栈指向同一块空间</strong></p>
+<p>4、</p>
+<p>像Date这样的类成员变量<span style="color: #FF0000;">全是内置类型</span>且<span style="color: #FF0000;">没有指向什么资源</span>，编译器自动生成的赋值运算符重载就</p>
+<p>可以完成需要的拷贝，所以不需要我们显示实现赋值运算符重载。</p>
+<p>像Stack这样的类，虽然也都是内置类型，但是<span style="color: #FF0000;">_a指向了资源</span>，编译器自动生成的赋值运算符重载完成的值拷贝/浅拷贝不符合我们的需求，所以需要我们<span style="color: #FF0000;">自己实现深拷贝</span>(对指向的资源也进行拷贝)。</p>
+<p>像MyQueue这样的类型内部主要是<span style="color: #FF0000;">自定义类型Stack成员</span>，编译器自动生成的赋值运算符重载<span style="color: #FF0000;">会调用Stack的赋值运算符重载</span>，也不需要我们显示实现MyQueue的赋值运算符重载。</p>
+<p>**小技巧：**如果⼀个类<span style="color: #FF0000;">显示实现了析构并释放资源</span>，那么他就<span style="color: #FF0000;">需要显示</span>写赋值运算符重载、拷贝构造，否则就不需要。</p>
+<h2 id="25-流插入流提取运算符重载">2.5 流插入流提取运算符重载
+</h2><p>[4、日期类：4.4流插入流提取重载](##4.4 流插入流提取重载)</p>
+<h2 id="24取地址运算符重载">2.4取地址运算符重载
+</h2><h3 id="241const成员函数">2.4.1const成员函数
+</h3><p>被const修饰的<span style="color: #FF0000;">成员函数</span>称之为const成员函数，const修饰成员函数<span style="color: #FF0000;">参数列表后面</span></p>
+<p>const实际修饰该成员函数隐含的<span style="color: #FF0000;">this指针</span>（修饰的是指针所指向的内容），</p>
+<p>表明在该函数中<span style="color: #FF0000;">不能对类的任何成员进行修改</span>。</p>
+<p><strong>注意：声明和定义中都要修改</strong></p>
+<p>把默认的this指针从Date* const this 改为 const Date* const this</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181840589.png"
+	width="914"
+	height="177"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181840589_hu_103ffabf844bb63b.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911181840589_hu_ca8f3ff5b692559d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911181840589"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="516"
+		data-flex-basis="1239px"
+	
+></p>
+<p><strong>总结：一个类的==成员函数==，==不修改成员变量==的都建议在函数参数列表后面加上const</strong></p>
+<h3 id="242取地址运算符重载">2.4.2取地址运算符重载
+</h3><p>分为<span style="color: #FF0000;">普通取地址重载</span>和<span style="color: #FF0000;">const取地址运算符重载</span></p>
+<p><span style="color: #8080FF;">这两个函数编译器自动生成的就够我们用了，不需要我们去显示实现</span></p>
+<p>特殊情况：我们不想让别人取到当前类对象的地址，就可以自己实现一份，胡乱返回一个地址</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182453144.png"
+	width="629"
+	height="509"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182453144_hu_6b7708df0b7619b.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182453144_hu_9051cf2de5afc39a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911182453144"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="123"
+		data-flex-basis="296px"
+	
+></p>
+<p><strong>const修饰的权限问题</strong></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182540239.png"
+	width="981"
+	height="854"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182540239_hu_35757e5d456c9add.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182540239_hu_58fc85744bca165f.png 1024w"
+	loading="lazy"
+	
+		alt="image-2025091118 2540239"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="275px"
+	
+></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182645765.png"
+	width="852"
+	height="517"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182645765_hu_fdc6f4574f2b0507.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182645765_hu_6491bd81c4db03c1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911182645765"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="395px"
+	
+></p>
+<p>拷贝的是地址</p>
+<p>d2被const修饰，d2指向的那块空间的内容不能被修改</p>
+<p>但this指针被const修饰后，是指针的指向不能变，也就是那块空间的内容可以修改</p>
+<p>把地址拷贝给this指针后，原本d2指向的那块不能修改的空间可以修改了</p>
+<p>显然不能这么做</p>
+<p><strong>总结</strong>：const修饰指向内容的时候才涉及权限放大和缩小问题</p>
+<h1 id="3构造析构的总结">3、构造析构的总结
+</h1><p>1、构造一般都需要自己写，自己传参定义初始化</p>
+<p>2、析构，构造时有资源申请（如malloc或者fopen）等，就需要显示写析构函数</p>
+<p>3、拷贝构造和赋值重载，显示写了析构，内部管理资源，就需要显示实现深拷贝</p>
+<h1 id="4日期类">4、日期类
+</h1><p>所有类只要要重载大小，就可以复用</p>
+<h2 id="41日期天数进位">4.1日期+天数（进位）
+</h2><p>先直接将天数相加，然后总天数不断地减去当前月应有的天数，月份不断往上进位</p>
+<p>月满了，年往上进位</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182809614.png"
+	width="315"
+	height="484"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182809614_hu_ab233046ca403e6d.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182809614_hu_2d3e0a0c32d768eb.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911182809614"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="65"
+		data-flex-basis="156px"
+	
+></p>
+<p>要用进位的方法实现进位的逻辑，首先需要获得每个月的天数</p>
+<p>注意：+不会改变当前日期，+=才会改变当前日期</p>
+<h2 id="42日期-天数借位">4.2日期-天数（借位）
+</h2><p>先直接天数相减，如果为负数，那么就向前一个月借天数（当前天数加上上一个月的天数）</p>
+<p>如果上一个月是12月，那么年份要减1</p>
+<h2 id="43日期-日期">4.3日期-日期
+</h2><p>方式一：</p>
+<p>先算各自年份从1月1日开始到当前月份和日期 有多少天</p>
+<p>再两者相减 &mdash; 结果保存到ret1</p>
+<p>再将两个当年1月1日相减，得到年份，再*365 得到之间天数</p>
+<p>最后统计当中有多少年是闰年，闰年要+1天  &mdash;结果保存到ret2</p>
+<p>最后，ret1+ret2得到日期-日期的天数</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182903238.png"
+	width="703"
+	height="319"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182903238_hu_60da75644502a384.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182903238_hu_4072e2caf5c36715.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911182903238"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="220"
+		data-flex-basis="528px"
+	
+></p>
+<p>方式二：</p>
+<p>让小的那个日期不断++，看当他的日期和大的日期相等的时候加了多少次，</p>
+<p>就是相差多少天</p>
+<h2 id="44-流插入流提取重载">4.4 流插入流提取重载
+</h2><p>cout是ostream类型的对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">_year</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;年&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">_month</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;月&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">_day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于如果流提取写在类里面作为成员函数的话，函数的第一个参数默认是this，</p>
+<p>调用的时候就只能 d&laquo;cout不符合我们的使用习惯</p>
+<p>所以，我们把流提取重载<span style="color: #FF0000;">写到类外面</span>，将第一个参数设置为ostream&amp; out 第二个</p>
+<p>参数设置为 Date&amp; d</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;年&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;月&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但是在类外面我们是无法访问类里面私有的成员变量的，所以我们需要将该函数在类里</p>
+<p><span style="color: #FF0000;">声明为友元函数</span></p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182919931.png"
+	width="874"
+	height="181"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182919931_hu_bc0c285bb9b3c35d.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182919931_hu_ecabd1040a8aa253.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911182919931"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="482"
+		data-flex-basis="1158px"
+	
+></p>
+<p>但是有时候，会遇到这种情况cout &laquo; d1 &laquo; d2 &laquo; endl; 所以我们需要让&laquo;支持连续赋值</p>
+<p>&laquo;是从左往右运算的，也就是先运算cout &laquo; d1，返回的结果是cout；然后再cout &laquo; d2</p>
+<p><img src="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182941472.png"
+	width="549"
+	height="231"
+	srcset="/p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182941472_hu_6f68c078c6e0a048.png 480w, /p/class-with-object-02/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%AD%EF%BC%89.assets/image-20250911182941472_hu_9b58243411fe258e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250911182941472"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="237"
+		data-flex-basis="570px"
+	
+></p>
+<p>所以，我们需要让函数<span style="color: #FF0000;">返回ostream类型的引用</span></p>
+<p><span style="color: #8080FF;">ostream类型的对象是不支持拷贝的，out就是cout的别名，出了作用域，out还在，因为cout是全局的</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;年&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;月&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>&raquo;流提取</strong></p>
+<p>cin是istream类型的对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;请依次输入年月日:&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">in</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">in</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要注意的是，<span style="color: #8080FF;">第二个参数Date&amp; d不能用const修饰，因为提取出来的数据要写入到d中</span></p>
+<h2 id="45检查日期的合法性">4.5检查日期的合法性
+</h2><p>可以直接写在类里面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">CheckDate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">_month</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">_month</span> <span class="o">&gt;</span> <span class="mi">12</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">||</span> <span class="n">_day</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">_day</span> <span class="o">&gt;</span> <span class="n">GetMonthDay</span><span class="p">(</span><span class="n">_year</span><span class="p">,</span> <span class="n">_month</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在构造的时候，判断日期是否合法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">Date</span><span class="o">::</span><span class="n">Date</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">_year</span> <span class="o">=</span> <span class="n">year</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">_month</span> <span class="o">=</span> <span class="n">month</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">_day</span> <span class="o">=</span> <span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CheckDate</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;日期非法-&gt;&#34;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="k">this</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在流提取的时候，判断是否合法</p>
+<h2 id="完整代码">完整代码
+</h2><h3 id="dateh">Date.h
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Date</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//右元函数声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">friend</span> <span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">friend</span> <span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//缺省值只能在声明时给，不能声明和定义同时给
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Date</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">Print</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="nf">CheckDate</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">_month</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">_month</span> <span class="o">&gt;</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">			<span class="o">||</span> <span class="n">_day</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">_day</span> <span class="o">&gt;</span> <span class="n">GetMonthDay</span><span class="p">(</span><span class="n">_year</span><span class="p">,</span> <span class="n">_month</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="nf">GetMonthDay</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">assert</span><span class="p">(</span><span class="n">month</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">//由于该函数会被高频调用，所以这个数组做成静态的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">static</span> <span class="kt">int</span> <span class="n">monthDayArray</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//先判断是不是2月，再判断是不是闰年
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="p">(</span><span class="n">month</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="mi">29</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">monthDayArray</span><span class="p">[</span><span class="n">month</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//运算符重载
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//比较大小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="k">operator</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;=</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="k">operator</span><span class="o">&gt;=</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//运算
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Date</span> <span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">-=</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//++--
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 前置++/--，返回++/--以后的值，用引用返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Date</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">--</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="k">operator</span><span class="o">--</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//日期-日期
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//重载流插入、流提取
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//void operator&lt;&lt;(ostream&amp; out);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_year</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_month</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="datec">Date.c
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#define _CRT_SECURE_NO_WARNINGS 1
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;Date.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">Date</span><span class="o">::</span><span class="n">Date</span><span class="p">(</span><span class="kt">int</span> <span class="n">year</span><span class="p">,</span> <span class="kt">int</span> <span class="n">month</span><span class="p">,</span> <span class="kt">int</span> <span class="n">day</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_year</span> <span class="o">=</span> <span class="n">year</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_month</span> <span class="o">=</span> <span class="n">month</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_day</span> <span class="o">=</span> <span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">CheckDate</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;日期非法：&#34;</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="k">this</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Date</span><span class="o">::</span><span class="n">Print</span><span class="p">()</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">_year</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;-&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">_month</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;-&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">_day</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//年小就小；年相等，月小则小；年月相等，天小则小
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">_year</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">_year</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&amp;&amp;</span> <span class="n">_month</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">_year</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&amp;&amp;</span> <span class="n">_month</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&amp;&amp;</span> <span class="n">_day</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">&gt;</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="k">this</span> <span class="o">&lt;=</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;=</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">*</span><span class="k">this</span> <span class="o">&lt;</span> <span class="n">d</span> <span class="o">||</span> <span class="o">*</span><span class="k">this</span> <span class="o">==</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">&gt;=</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="k">this</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">==</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">_year</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> 
+</span></span><span class="line"><span class="cl">		<span class="o">&amp;&amp;</span> <span class="n">_month</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> 
+</span></span><span class="line"><span class="cl">		<span class="o">&amp;&amp;</span> <span class="n">_day</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">!=</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="o">*</span><span class="k">this</span> <span class="o">==</span> <span class="n">d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Date</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">+</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="nf">ret</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//ret._day += day;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//while (ret._day &gt; GetMonthDay(ret._year, ret._month))
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//{
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//	ret._day -= GetMonthDay(ret._year, ret._month);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//	++ret._month;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//	if (ret._month == 13)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//	{
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//		ret._month = 1;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//		ret._year++;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//	}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//return ret;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">ret</span> <span class="o">+=</span> <span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Date</span><span class="o">&amp;</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">+=</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">day</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">*</span><span class="k">this</span> <span class="o">-=</span> <span class="o">-</span><span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">_day</span> <span class="o">+=</span> <span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">_day</span> <span class="o">&gt;</span> <span class="n">GetMonthDay</span><span class="p">(</span><span class="n">_year</span><span class="p">,</span> <span class="n">_month</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_day</span> <span class="o">-=</span> <span class="n">GetMonthDay</span><span class="p">(</span><span class="n">_year</span><span class="p">,</span> <span class="n">_month</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="o">++</span><span class="n">_month</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">_month</span> <span class="o">==</span> <span class="mi">13</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">_month</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="n">_year</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//Date&amp; Date::operator+=(int day)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//{
+</span></span></span><span class="line"><span class="cl"><span class="c1">//	*this = *this + day;
+</span></span></span><span class="line"><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1">//	return *this;
+</span></span></span><span class="line"><span class="cl"><span class="c1">//}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">Date</span><span class="o">&amp;</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">-=</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">day</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">*</span><span class="k">this</span> <span class="o">+=</span> <span class="o">-</span><span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">_day</span> <span class="o">-=</span> <span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">_day</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//借上个月的天数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="o">--</span><span class="n">_month</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">_month</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">_month</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">			<span class="o">--</span><span class="n">_year</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_day</span> <span class="o">+=</span> <span class="n">GetMonthDay</span><span class="p">(</span><span class="n">_year</span><span class="p">,</span> <span class="n">_month</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Date</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="kt">int</span> <span class="n">day</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="nf">tmp</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">tmp</span> <span class="o">-=</span> <span class="n">day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//前置++
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Date</span><span class="o">&amp;</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">*</span><span class="k">this</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//后置++
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Date</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="nf">ret</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="k">this</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Date</span><span class="o">&amp;</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">--</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">*</span><span class="k">this</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Date</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">--</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="nf">ret</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="k">this</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//日期-日期
+</span></span></span><span class="line"><span class="cl"><span class="c1">//方法一：
+</span></span></span><span class="line"><span class="cl"><span class="c1">//计算 2024 8 10 到 2003 10 20 之间的天数
+</span></span></span><span class="line"><span class="cl"><span class="c1">//2024 8 10    -  2024 1 1 = x1
+</span></span></span><span class="line"><span class="cl"><span class="c1">//2003 10 20  -  2003 1 1 = x2
+</span></span></span><span class="line"><span class="cl"><span class="c1">//(2024-2003)*365 + 闰年的年数 + (x1-x2)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//方法二：
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 让较小的日期一直++，直到等于较大的日期
+</span></span></span><span class="line"><span class="cl"><span class="c1">//	期间一共加了多少次，两个日期之间的天数就是多少
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">Date</span><span class="o">::</span><span class="k">operator</span><span class="o">-</span><span class="p">(</span><span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="n">max</span> <span class="o">=</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Date</span> <span class="n">min</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="k">this</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">max</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">min</span> <span class="o">=</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">flag</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">min</span> <span class="o">&lt;</span> <span class="n">max</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="o">++</span><span class="n">min</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">++</span><span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">flag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//// 	d1 &lt;&lt; cout;
+</span></span></span><span class="line"><span class="cl"><span class="c1">////d1.operator&lt;&lt;(cout);
+</span></span></span><span class="line"><span class="cl"><span class="c1">//void Date::operator&lt;&lt;(ostream&amp; out)
+</span></span></span><span class="line"><span class="cl"><span class="c1">//{
+</span></span></span><span class="line"><span class="cl"><span class="c1">//	out &lt;&lt; _year &lt;&lt; &#34;年&#34; &lt;&lt; _month &lt;&lt; &#34;月&#34; &lt;&lt; _day &lt;&lt; &#34;日&#34; &lt;&lt; endl;
+</span></span></span><span class="line"><span class="cl"><span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1">//}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;年&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;月&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;日&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">istream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">istream</span><span class="o">&amp;</span> <span class="n">in</span><span class="p">,</span> <span class="n">Date</span><span class="o">&amp;</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;请依次输入年月日:&gt;&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">in</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&gt;&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="n">CheckDate</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;日期非法，请重新输入&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">in</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-03/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-03/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】04类和对象（下）"
+                        data-key="class-with-object-03" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】04类和对象（下）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/c-memory-management/">
+        
+        
+            <div class="article-image">
+                <img src="/p/c-memory-management/aa.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】05内存管理"
+                        data-key="c&#43;&#43;-memory-management" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】05内存管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/template-basics-and-stl-introduction/">
+        
+        
+            <div class="article-image">
+                <img src="/p/template-basics-and-stl-introduction/bz.47b526136610e95223e241a5408c4dbf_hu_e7b33b5de769db40.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】06模版初阶&#43;STL简介"
+                        data-key="template-basics-and-stl-introduction" 
+                        data-hash="md5-R7UmE2YQ6VIj4kGlQIxNvw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】06模版初阶&#43;STL简介</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

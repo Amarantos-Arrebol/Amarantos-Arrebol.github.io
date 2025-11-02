@@ -1,0 +1,3530 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从vim到gcc再到make与gdb构建 Linux 开发环境">
+<title>【Linux】02基础权限开发工具</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【Linux】02基础权限开发工具">
+<meta property='og:description' content="从vim到gcc再到make与gdb构建 Linux 开发环境">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta name="twitter:title" content="【Linux】02基础权限开发工具">
+<meta name="twitter:description" content="从vim到gcc再到make与gdb构建 Linux 开发环境"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一linux环境基础开发工具使用">一、Linux环境基础开发工具使用</a>
+      <ul>
+        <li><a href="#1-软件包管理器">1. 软件包管理器</a>
+          <ul>
+            <li><a href="#11什么是软件包管理器">1.1什么是软件包管理器</a></li>
+            <li><a href="#12-yum"><strong>1.2</strong> yum</a></li>
+            <li><a href="#13-安装源">1.3 安装源</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-编辑器vim">2. 编辑器vim</a>
+          <ul>
+            <li><a href="#21-vim的介绍">2.1 vim的介绍</a>
+              <ul>
+                <li><a href="#211-见一见vim">2.1.1 见一见vim</a></li>
+                <li><a href="#bvim多模式-5模式-3种核心">b.vim多模式 5模式 3种核心</a></li>
+                <li><a href="#212-命令模式">2.1.2 命令模式</a></li>
+                <li><a href="#213-插入模式">2.1.3 插入模式</a></li>
+                <li><a href="#214-底行模式">2.1.4 底行模式</a></li>
+                <li><a href="#215-补充">2.1.5 补充</a></li>
+              </ul>
+            </li>
+            <li><a href="#22vim的配置">2.2vim的配置</a></li>
+          </ul>
+        </li>
+        <li><a href="#3编译器gccg">3.编译器gcc/g++</a>
+          <ul>
+            <li><a href="#31-程序翻译--gccg编译选项">3.1 程序翻译 &mdash; gcc/g++编译选项</a></li>
+            <li><a href="#32-为什么要编译为什么汇编编译器自举理解条件编译">3.2 为什么要编译，为什么汇编、编译器自举，理解条件编译</a>
+              <ul>
+                <li><a href="#为什么要编译汇编"><strong>为什么要编译，汇编</strong></a></li>
+                <li><a href="#编译器自举"><strong>编译器自举</strong></a></li>
+                <li><a href="#条件编译"><strong>条件编译</strong></a></li>
+              </ul>
+            </li>
+            <li><a href="#33动静态库和静态链接操作部分">3.3动静态库和静态链接&mdash;操作部分</a></li>
+            <li><a href="#34动静态库和静态链接理论部分">3.4动静态库和静态链接&mdash;理论部分</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-自动化构建makemakefile">4. 自动化构建make/Makefile</a>
+          <ul>
+            <li><a href="#41makemakefile是什么">4.1make/Makefile是什么？</a></li>
+            <li><a href="#42-看看makemakefile">4.2 看看make/Makefile</a></li>
+            <li><a href="#43-核心思想">4.3 核心思想</a></li>
+            <li><a href="#44-具体语法">4.4 具体语法</a>
+              <ul>
+                <li><a href="#441-第一部分-依赖关系">4.4.1 第一部分-依赖关系</a></li>
+                <li><a href="#412-文件的acm时间">4.1.2 文件的ACM时间</a></li>
+                <li><a href="#413-第二部分-依赖关系推导">4.1.3 第二部分-依赖关系推导</a></li>
+                <li><a href="#414-第三部分-更加通用的makefile">4.1.4 第三部分-更加通用的makefile</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#5linux第一个系统程序-进度条">5.Linux第一个系统程序-进度条</a>
+          <ul>
+            <li><a href="#51补充-回车与换行">5.1补充-回车与换行</a></li>
+            <li><a href="#52-行缓冲区">5.2 行缓冲区</a>
+              <ul>
+                <li><a href="#521引入">5.2.1引入</a></li>
+                <li><a href="#522显示器的刷新策略是行刷新"><strong>5.2.2显示器的刷新策略是：行刷新</strong></a></li>
+              </ul>
+            </li>
+            <li><a href="#53练手-倒计时程序">5.3练手-倒计时程序</a></li>
+            <li><a href="#54进度条">5.4进度条</a>
+              <ul>
+                <li><a href="#版本1显示功能">版本1：显示功能</a></li>
+                <li><a href="#版本2根据进度动态刷新一次进度条">版本2：根据进度，动态刷新一次进度条</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#6版本控制器git">6.版本控制器Git</a>
+          <ul>
+            <li><a href="#61如何理解版本控制">6.1如何理解版本控制</a></li>
+            <li><a href="#62git的历史">6.2Git的历史</a></li>
+            <li><a href="#63git的操作">6.3Git的操作</a>
+              <ul>
+                <li><a href="#1新建仓库">1.新建仓库</a></li>
+                <li><a href="#2将远端仓库拉取到本地">2.将远端仓库拉取到本地</a></li>
+                <li><a href="#3-将我们的文件添加到git里的暂存区">3. 将我们的文件添加到.git里的暂存区</a></li>
+                <li><a href="#4将暂存区里的文件提交到git本地仓库">4.将暂存区里的文件提交到git本地仓库</a></li>
+                <li><a href="#5将本地仓库和远端仓库同步">5.将本地仓库和远端仓库同步</a></li>
+                <li><a href="#总结">总结</a></li>
+              </ul>
+            </li>
+            <li><a href="#64-git操作细节">6.4 Git操作&ndash;细节</a></li>
+          </ul>
+        </li>
+        <li><a href="#补充sudo无法执行">补充：sudo无法执行</a></li>
+      </ul>
+    </li>
+    <li><a href="#二调试器---gdbcgdb使用">二、调试器 - gdb/cgdb使用</a>
+      <ul>
+        <li><a href="#21-准备知识">2.1 准备知识</a></li>
+        <li><a href="#22-快速认识gdb">2.2 快速认识gdb</a>
+          <ul>
+            <li><a href="#1gdb的安装">1）gdb的安装</a></li>
+            <li><a href="#2gdb如何进行打开退出中间如何让程序跑起来">2）gdb如何进行打开，退出，中间如何让程序跑起来</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-安装cgdb-解决gdb难用的问题">2.3 安装cgdb ，解决gdb难用的问题</a></li>
+        <li><a href="#24-cgdb命令的学习">2.4 cgdb命令的学习</a>
+          <ul>
+            <li><a href="#1根据文件名查看代码">1）根据文件名查看代码</a></li>
+            <li><a href="#2和断点相关的常用操作">2）和断点相关的常用操作</a></li>
+            <li><a href="#3运行程序">3）运行程序</a></li>
+            <li><a href="#4查看栈帧">4）查看栈帧</a></li>
+            <li><a href="#5结束函数调用回到函数调用处">5）结束函数调用，回到函数调用处</a></li>
+            <li><a href="#6变量相关">6）变量相关</a></li>
+            <li><a href="#7断点可以被使能开关">7）断点可以被使能（开关）</a></li>
+            <li><a href="#8查看源代码">8）查看源代码</a></li>
+          </ul>
+        </li>
+        <li><a href="#25调试的本质">2.5调试的本质</a></li>
+        <li><a href="#26条件断点">2.6条件断点</a></li>
+      </ul>
+    </li>
+    <li><a href="#三知识点">三、知识点</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/linux-basic-permission-development-tool/">
+                <img src="/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png"
+                        srcset="/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png 800w, /p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_a76c8c5ca0be0093.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】02基础权限开发工具" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" style="background-color: #77ACF1; color: #fff;">
+                Linux
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/linux-basic-permission-development-tool/">【Linux】02基础权限开发工具</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            从vim到gcc再到make与gdb构建 Linux 开发环境
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="一linux环境基础开发工具使用">一、Linux环境基础开发工具使用
+</h1><h2 id="1-软件包管理器">1. 软件包管理器
+</h2><h3 id="11什么是软件包管理器">1.1什么是软件包管理器
+</h3><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1748183752808.png"
+	width="955"
+	height="156"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1748183752808_hu_cc0de05ebf5e7f9d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1748183752808_hu_9458ef7b54659aa2.png 1024w"
+	loading="lazy"
+	
+		alt="74818375280"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="612"
+		data-flex-basis="1469px"
+	
+></p>
+<p>==软件包==相当于 <strong>app</strong></p>
+<p>==软件包管理器==相当于<strong>应用商店</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731419676014.png"
+	width="1041"
+	height="363"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731419676014_hu_f31a4234f25e27ad.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731419676014_hu_956cae660ad22050.png 1024w"
+	loading="lazy"
+	
+		alt="73141967601"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="286"
+		data-flex-basis="688px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731419954828.png"
+	width="939"
+	height="460"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731419954828_hu_15c69301485c6479.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731419954828_hu_1b6f624b066d1da3.png 1024w"
+	loading="lazy"
+	
+		alt="73141995482"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="204"
+		data-flex-basis="489px"
+	
+></p>
+<p><strong>我的服务器怎么知道，去哪里找软件包？</strong></p>
+<p>Linux机器上，有对应的给yum/apt提供的配置文件！</p>
+<p>记录下来了对应软件包服务器的url或者ip地址</p>
+<p>是在我们的云服务器或操作系统发布的时候和操作系统一起给我们发布出来的</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734940387648.png"
+	width="772"
+	height="412"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734940387648_hu_44f5fb83442fec86.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734940387648_hu_351d38360723f17f.png 1024w"
+	loading="lazy"
+	
+		alt="73494038764"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="187"
+		data-flex-basis="449px"
+	
+></p>
+<p><strong>centos、ubuntu&hellip;等操作系统都是国外的人做的</strong></p>
+<p>1.软件包服务器在国外，</p>
+<p>2.配置文件里写的都是国外的云服务器</p>
+<p><strong>镜像</strong></p>
+<p>国内的人将国外的软件包服务器里的内容拷贝到国内的服务器上</p>
+<p>同时再给我们国内的用户提供能下载国内的软件包服务器的配置文件</p>
+<p><strong>软件源</strong></p>
+<p>在我们的云服务器上配置对应的这种配置文件</p>
+<p>我们再把软件源由国外的替换为国内的</p>
+<p>云服务器：首先需要将国外的软件包服务器里的软件拷贝，</p>
+<p>​		   然后将国外的配置文件替换为国内的配置文件</p>
+<p>​		   所以我们使用的时候，内置的配置文件已经是国内的了</p>
+<h3 id="12-yum"><strong>1.2</strong> yum
+</h3><ol>
+<li>
+<p>查软件是否存在</p>
+<ul>
+<li>看在软件包服务器中是否存在</li>
+</ul>
+<p>yum list可以罗列出我们当前centos所支持的所有软件</p>
+<p>就是将远端的软件包服务器里有的软件的名称和相关的信息全部拉到本地，</p>
+<p>形成一个清单，让我们看到</p>
+<blockquote>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731563449905.png"
+	width="731"
+	height="42"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731563449905_hu_2bcc44404bfd73bb.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731563449905_hu_fffc725472f6c5d7.png 1024w"
+	loading="lazy"
+	
+		alt="73156344990"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1740"
+		data-flex-basis="4177px"
+	
+></p>
+<p>我们利用grep查看该清单名字中包含sl的软件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734942899018.png"
+	width="1406"
+	height="53"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734942899018_hu_114d70a8f2db761b.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734942899018_hu_9f7550c59a826d38.png 1024w"
+	loading="lazy"
+	
+		alt="73494289901"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2652"
+		data-flex-basis="6366px"
+	
+></p>
+<p>.x86_64表示该代码是在64位机器下编译的，只能在64位环境下跑</p>
+<p>el7就是centos7，@epel相当于苹果应用商店、小米应用商店等</p>
+</blockquote>
+<ul>
+<li>看在我们自己的云服务器上是否存在，which 软件名</li>
+</ul>
+<blockquote>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734943285751.png"
+	width="676"
+	height="80"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734943285751_hu_8ef4736210080f5d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734943285751_hu_1c4ae18a450b3ae9.png 1024w"
+	loading="lazy"
+	
+		alt="73494328575"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="845"
+		data-flex-basis="2028px"
+	
+></p>
+<p>sl我的云服务器上已经安装了</p>
+</blockquote>
+</li>
+<li>
+<p>安装软件，需要以管理员的身份（安装软件安装到usr/bin路径下）</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731563641562.png"
+	width="764"
+	height="116"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731563641562_hu_ec45a59d41fc8a39.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731563641562_hu_bd8ef21529f591da.png 1024w"
+	loading="lazy"
+	
+		alt="73156364156"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="658"
+		data-flex-basis="1580px"
+	
+></p>
+</li>
+<li>
+<p>安装软件的本质就是将软件的二进制文件下载，然后拷贝到系统指令的目录下</p>
+<p>所以有权限约束，使用root/sudo  yum/apt提权</p>
+</li>
+</ol>
+<p>Linux下安装的软件，是root安装的，其它人都能用能看</p>
+<p>Linux一般而言，软件只要安装一次，都能用。</p>
+<p>除了root外，其他人都是以other的身份进行使用软件的</p>
+<blockquote>
+<p>安装gcc:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Centos
+</span></span><span class="line"><span class="cl">$ sudo yum install -y lrzsz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Ubuntu
+</span></span><span class="line"><span class="cl">$ sudo apt install -y lrzsz
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p><strong>总结:</strong></p>
+<p>centos下</p>
+<ul>
+<li>
+<p>以超级用户身份<code>sudo</code></p>
+</li>
+<li>
+<p>查软件是否存在 <code>yum list | grep xxx</code></p>
+</li>
+<li>
+<p><strong>安装 <code>yum install (-y) xxxx</code></strong></p>
+</li>
+<li>
+<p><strong>卸载 <code>yum remove (-y) xxxx</code></strong></p>
+</li>
+</ul>
+<blockquote>
+<p>-y表示强制卸载</p>
+</blockquote>
+<p>ubuntu下</p>
+<p>查看ubuntu的机器：cat /etc/lsb*</p>
+<ul>
+<li>
+<p><code>apt search sl</code></p>
+</li>
+<li>
+<p><code>sudo apt install -y sl</code></p>
+</li>
+<li>
+<p><code>sudo apt remove -y sl</code></p>
+</li>
+</ul>
+<p><code>killall yum</code></p>
+<h3 id="13-安装源">1.3 安装源
+</h3><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731578685860.png"
+	width="1530"
+	height="915"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731578685860_hu_dc096e29a5a3454c.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731578685860_hu_696de00507cbe2bf.png 1024w"
+	loading="lazy"
+	
+		alt="73157868586"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="167"
+		data-flex-basis="401px"
+	
+></p>
+<p>yum源配置文件所在的路径</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731580972104.png"
+	width="758"
+	height="85"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731580972104_hu_d59758e538737be.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731580972104_hu_4be5bb69ee62c5fe.png 1024w"
+	loading="lazy"
+	
+		alt="73158097210"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="891"
+		data-flex-basis="2140px"
+	
+></p>
+<p>有多个</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731581060355.png"
+	width="1180"
+	height="423"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731581060355_hu_cc16d42ce8b873cf.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731581060355_hu_7cb0b9f91ddb7a96.png 1024w"
+	loading="lazy"
+	
+		alt="73158106035"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="278"
+		data-flex-basis="669px"
+	
+></p>
+<p>ubuntu下在<code>ls /etc/apt/sources.list</code>下</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731592658467.png"
+	width="1785"
+	height="927"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731592658467_hu_c2682e6dd703c9cc.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731592658467_hu_9a44dd6ea62e40c9.png 1024w"
+	loading="lazy"
+	
+		alt="73159265846"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="462px"
+	
+></p>
+<p>base是标准源，epel就是扩展软件源，扩展软件源可能不止一个</p>
+<p>安装扩展软件源：</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734945413042.png"
+	width="1131"
+	height="53"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734945413042_hu_ebc018088d5665b4.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734945413042_hu_261f1a7aed6f2553.png 1024w"
+	loading="lazy"
+	
+		alt="73494541304"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2133"
+		data-flex-basis="5121px"
+	
+></p>
+<p><strong>如何切换软件源？</strong></p>
+<p>本质就是更改配置文件，使用AI提供操作清单</p>
+<p>wget <a class="link" href="https://www.baidu.com"  target="_blank" rel="noopener"
+    >www.baidu.com</a>我们就得到了一个网页，默认是index.html</p>
+<p>我们cat index.html就得到了百度的首页</p>
+<p>好玩的命令：https://blog.csdn.net/xiaoxiaosutang/article/details/141053674</p>
+<h2 id="2-编辑器vim">2. 编辑器vim
+</h2><h3 id="21-vim的介绍">2.1 vim的介绍
+</h3><p><strong>1.vim是一个专注的编辑器</strong></p>
+<p><strong>2.多模式的编辑器</strong></p>
+<h4 id="211-见一见vim">2.1.1 见一见vim
+</h4><p>vim本质上也是一条命令，是在Linux磁盘中特定的文件系统里，/usr/bin/下的一个命令</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734947283328.png"
+	width="746"
+	height="72"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734947283328_hu_ed2d5d7900d63bbf.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1734947283328_hu_d41387c4cf91a2d2.png 1024w"
+	loading="lazy"
+	
+		alt="73494728332"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1036"
+		data-flex-basis="2486px"
+	
+></p>
+<p>我们先用vim来编写一个hello world</p>
+<ul>
+<li>
+<p>可以先创建一个文件，再用vim打开</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731752006563.png"
+	width="813"
+	height="48"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731752006563_hu_4b103060f1a0c60d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731752006563_hu_9fa37256f5c59d6.png 1024w"
+	loading="lazy"
+	
+		alt="73175200656"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1693"
+		data-flex-basis="4065px"
+	
+></p>
+</li>
+<li>
+<p>默认打开是命令模式，输入<code>i</code>后可以编辑</p>
+</li>
+<li>
+<p>如何退出vim？</p>
+<p>直接输入vim时使用 <code>shift+冒号+q</code>退出，</p>
+<p>写了代码后 <code>shift+冒号+wq</code>，如果是插入模式下需要先按<code>esc</code> 退回到命令模式</p>
+<blockquote>
+<ol>
+<li><strong>如果你没有做任何修改，只是查看了文件并想退出</strong>：
+<ul>
+<li>确保你处于命令模式（按 <code>Esc</code> 键可以确保你处于命令模式）。</li>
+<li>输入 <code>:q</code> 然后按 <code>Enter</code> 键。这将退出 Vim，且不会保存任何修改。</li>
+</ul>
+</li>
+<li><strong>如果你做了修改并希望保存更改然后退出</strong>：
+<ul>
+<li>确保你处于命令模式。</li>
+<li>输入 <code>:wq</code> 然后按 <code>Enter</code> 键。这将写入（保存）文件并退出 Vim。</li>
+<li>或者，你可以先输入 <code>:w</code> 然后按 <code>Enter</code> 键来保存文件，之后输入 <code>:q</code> 再按 <code>Enter</code> 键来退出。</li>
+</ul>
+</li>
+<li><strong>如果你做了修改但不希望保存更改并想退出</strong>：
+<ul>
+<li>确保你处于命令模式。</li>
+<li>输入 <code>:q!</code> 然后按 <code>Enter</code> 键。这将强制退出 Vim，且不保存任何修改。</li>
+</ul>
+</li>
+<li><strong>如果你处于插入模式（正在输入文本），并且想退出</strong>：
+<ul>
+<li>首先按 <code>Esc</code> 键回到命令模式。</li>
+<li>然后按照上述步骤之一退出 Vim。</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>gcc编译，形成a.out</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731753070206.png"
+	width="949"
+	height="257"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731753070206_hu_5b301d250561f85.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731753070206_hu_c202967fb0d55bb1.png 1024w"
+	loading="lazy"
+	
+		alt="73175307020"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="369"
+		data-flex-basis="886px"
+	
+></p>
+</li>
+</ul>
+<h4 id="bvim多模式-5模式-3种核心">b.vim多模式 5模式 3种核心
+</h4><ul>
+<li>
+<p>命令模式</p>
+<blockquote>
+<p>默认打开vim就是命令模式，在该模式下，vim会把我们从键盘上输入的都当成是命令</p>
+<p>目的：提高编辑效率，vim下<code>yy</code>复制粘贴</p>
+</blockquote>
+</li>
+<li>
+<p>插入模式</p>
+<blockquote>
+<p>正常的编写模式，还可以复制，粘贴，剪切等</p>
+</blockquote>
+</li>
+<li>
+<p>底行模式</p>
+<blockquote>
+<p>显示行号，想退出vim，保存&hellip;</p>
+<p><code>set nu</code>调出行号</p>
+<p><code>set nonu</code>把行号去掉</p>
+<p><code>wq</code>退出（w就是write写，q就是退出）</p>
+</blockquote>
+</li>
+</ul>
+<p>命令模式切换到插入模式:<code>i</code></p>
+<p>命令模式切换到底行模式：<code>shift+冒号</code></p>
+<p>底行模式切换到命令模式：<code>Esc</code></p>
+<p>插入模式切换到命令模式<code>Esc</code></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731765033217.png"
+	width="1047"
+	height="628"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731765033217_hu_207ce5633b733bcf.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731765033217_hu_4a7bce6c4791dbad.png 1024w"
+	loading="lazy"
+	
+		alt="73176503321"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+></p>
+<p><strong>总结：</strong></p>
+<ol>
+<li>默认打开是命令模式</li>
+<li>命令模式是vim的核心和精华</li>
+<li>光标定位，vim下一般不使用鼠标</li>
+</ol>
+<h4 id="212-命令模式">2.1.2 命令模式
+</h4><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">作用</th>
+          <th style="text-align: left">命令</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">光标定位到第一行</td>
+          <td style="text-align: left">gg</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">光标定位到文本末尾行</td>
+          <td style="text-align: left">shift + g = G</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">光标定位到任意一行</td>
+          <td style="text-align: left">n+gg 、n+shift+g</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">光标定位到行尾</td>
+          <td style="text-align: left">shift+4/$</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">光标定位到行首</td>
+          <td style="text-align: left">shift+6/^</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">：h左，l右，j(jump)下，k(king)上</td>
+          <td style="text-align: left">h、j、k、l</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">以单词为单位，向前或向后移动</td>
+          <td style="text-align: left">n+ w/b</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">复制光标所在行</td>
+          <td style="text-align: left">yy</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">复制多少行</td>
+          <td style="text-align: left">n+yy</td>
+      </tr>
+  </tbody>
+</table></div>
+<ol>
+<li>
+<p>粘贴到当前行的下一行：<code>p</code></p>
+<p>粘贴多少行<code>n+p</code></p>
+</li>
+<li>
+<p>==撤销：<code>u</code>==</p>
+</li>
+<li>
+<p>==反撤销：<code>ctrl+r</code>==</p>
+</li>
+<li>
+<p><code>n+dd</code>剪切或删除，dd+p就是剪切+粘贴</p>
+</li>
+<li>
+<p><code>n + x/X</code>删除光标后/前的字符</p>
+</li>
+<li>
+<p><code>shift+~</code>快速大小写转换</p>
+</li>
+<li>
+<p><code>n + r</code>小范围文本替换，将n个字符替换为输入的字符</p>
+</li>
+<li>
+<p>==<code>shift+r = R</code>进入替换模式==，退出替换模式<code>esc</code></p>
+</li>
+</ol>
+<p>在命令模式下退出vim<code>shift+zz</code></p>
+<h4 id="213-插入模式">2.1.3 插入模式
+</h4><p>i ：进入插入模式</p>
+<p>a：进入插入模式并光标向后移动一个</p>
+<p>o：进入插入模式并另起一行</p>
+<p>!xxxx：可以在不退出vim的情况下执行命令</p>
+<h4 id="214-底行模式">2.1.4 底行模式
+</h4><ul>
+<li>
+<p>命令模式进入底行模式，shift+冒号</p>
+</li>
+<li>
+<p><code>wq</code>保存并退出，<code>w!</code>强制保存，<code>q!</code>强制退出，<code>wq!</code>强制保存退出</p>
+</li>
+<li>
+<p><code>set nu</code>设置行号，<code>set nonu</code>不显示行号</p>
+</li>
+<li>
+<p>/xxx 搜索 xxx ，n搜索下一个匹配项</p>
+</li>
+<li>
+<p>!+指令，比如!ls，就可以执行ls命令，然后按任意键回去</p>
+</li>
+<li>
+<p><code>%s/把什么/替换成什么/g</code>   例如：:%s/code/proc/g</p>
+</li>
+<li>
+<p>vs xxx可以实现分屏，例如在vim code.c中输入vs code.h就可以实现下面的效果</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731762369604.png"
+	width="1401"
+	height="879"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731762369604_hu_aba378f52a0f6fa5.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731762369604_hu_940e10d7b420b492.png 1024w"
+	loading="lazy"
+	
+		alt="73176236960"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="159"
+		data-flex-basis="382px"
+	
+></p>
+<p>注意：光标在哪，编辑、保存等就在哪</p>
+<p>ctrl+www光标移动到另一个屏幕</p>
+</li>
+<li>
+<p>要查看你的所有模式：打开 vim，底⾏模式直接输⼊  <code>help vim-modes  </code></p>
+</li>
+</ul>
+<h4 id="215-补充">2.1.5 补充
+</h4><ol>
+<li>
+<p>批量化注释：ctrl+v &ndash;&gt; hjkl选择区域&ndash;&gt;shift+i 输入双斜杠==（也可以插入其它的文字）==&ndash;&gt;Esc</p>
+<blockquote>
+<p><strong>ctrl+v进入视图模式</strong></p>
+<p><strong>shift+i直接切换到插入模式</strong></p>
+<p>全部注释：gg定位到开头&mdash;&gt;ctrl+v&mdash;-&gt;shift+g定位到结尾&mdash;&gt;shift+i后输入//&mdash;&gt;再Esc</p>
+</blockquote>
+</li>
+<li>
+<p>批量化去注释：ctrl+v&mdash;&gt;hjkl选择区域（要将两个斜杠都选择）&ndash;&gt;d</p>
+</li>
+<li>
+<p>批量替换：%s/printf/print/g 将所有的printf替换成print，g - global的意思</p>
+</li>
+<li>
+<p>如果代码报错，指定行确定，可以使用vim查看时加上<code>+报错的行</code>那么打开vim光标就在指定行</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731812223299.png"
+	width="976"
+	height="160"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731812223299_hu_560f3b46fb5337c.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731812223299_hu_f06a2e8ce6049801.png 1024w"
+	loading="lazy"
+	
+		alt="73181222329"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="610"
+		data-flex-basis="1464px"
+	
+></p>
+</li>
+<li>
+<p>感叹号+之前执行过的命令首字母，就可以快速执行</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731813115101.png"
+	width="689"
+	height="289"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731813115101_hu_eae0428bbbd8cff9.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731813115101_hu_183f90bad72f6bf1.png 1024w"
+	loading="lazy"
+	
+		alt="73181311510"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="238"
+		data-flex-basis="572px"
+	
+></p>
+</li>
+</ol>
+<h3 id="22vim的配置">2.2vim的配置
+</h3><p>如果希望对当前的用户做配置</p>
+<ol>
+<li>
+<p>进入到当前用户的家目录<code>cd ~</code>（家目录里一般会有一些隐藏文件）</p>
+</li>
+<li>
+<p>在家目录创建一个<code>.vimrc</code>的文件</p>
+</li>
+<li>
+<p>打开<code>.vimrc</code>文件<code>vim .vimrc</code></p>
+</li>
+<li>
+<p>添加配置</p>
+<blockquote>
+<p>设置语法⾼亮: syntax on</p>
+<p>显示行号: set nu</p>
+<p>设置缩进的空格数为4: set shiftwidth=4</p>
+</blockquote>
+<p>如果是从网上下vim的插件，需要在当前用户的家目录里建一个<code>.vim</code>的文件，将下载的插件</p>
+<p>放到里面并安装，然后在<code>.vimrc</code>文件中引用<code>.vim</code>里的插件</p>
+</li>
+</ol>
+<p>Linux是一款多用户的操作系统，改自己用户的vim配置是在当前用户的家目录改的，别的用户</p>
+<p>的vim配置不会改，<code>/etc/vimrc</code>是全局的但是建议只改当前用户的，不改全局的</p>
+<ul>
+<li>
+<p>自动化配置，在除了root用户以外的家目录下执行</p>
+<blockquote>
+<p>curl -sLf <a class="link" href="https://gitee.com/HGtz2222/VimForCpp/raw/master/install.sh"  target="_blank" rel="noopener"
+    >https://gitee.com/HGtz2222/VimForCpp/raw/master/install.sh</a> -o ./install.sh &amp;&amp; bash ./install.sh</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="3编译器gccg">3.编译器gcc/g++
+</h2><h3 id="31-程序翻译--gccg编译选项">3.1 程序翻译 &mdash; gcc/g++编译选项
+</h3><p>gcc和g++都叫做编译器，主要工作就是将我们写的C/C++代码翻译成可执行二进制程序</p>
+<ul>
+<li>gcc只用来编译C</li>
+<li>g++编译C/C++</li>
+</ul>
+<blockquote>
+<p>g++ code.cpp -std=c++11</p>
+</blockquote>
+<ol>
+<li>
+<p><strong>预处理（进行宏替换/去注释/条件编译/头文件展开等)</strong>  ，还是C语言</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731829744450.png"
+	width="907"
+	height="38"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731829744450_hu_fd1255a9b260c88a.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731829744450_hu_76fbc00bc38b855e.png 1024w"
+	loading="lazy"
+	
+		alt="73182974445"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2386"
+		data-flex-basis="5728px"
+	
+></p>
+<p>-E表示从现在开始，进行程序的翻译，一旦预处理做完，就停下来</p>
+<p>如果不带-o，会把预处理的结果打印到显示器上。</p>
+<p>所以code.i保存的就是code.c预处理后的结果</p>
+<ul>
+<li>-o 表明-o后面的文件名称</li>
+<li>-E 表示从现在开始，进行程序的翻译，一旦预处理做完，就停下来</li>
+</ul>
+<blockquote>
+<p><strong>头文件展开</strong>：将要包含的头文件相关内容拷贝到源文件</p>
+<p>​			因为头文件里可能还包含其它头文件，所以展开类似于<strong>递归式展开</strong></p>
+<p>​			先追到根上的头文件，然后依次拷贝，最后将需要的头文件内容</p>
+<p>​			拷贝到可执行程序里，最终编译只编译源文件</p>
+</blockquote>
+<blockquote>
+<p>Linux中C语言标准头文件在该路径下<code>/usr/include/</code></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731826937389.png"
+	width="796"
+	height="106"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731826937389_hu_cbb2776bd609d816.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731826937389_hu_8a6d561f63fd5a64.png 1024w"
+	loading="lazy"
+	
+		alt="73182693738"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="750"
+		data-flex-basis="1802px"
+	
+>  函数的实现在库里</p>
+</blockquote>
+</li>
+<li>
+<p><strong>编译（C语言&ndash;&gt;汇编)</strong></p>
+<p><code>gcc -S code.i -o code.s</code>：-S表示开始进行程序翻译，编译做完，形成汇编，就停下来</p>
+</li>
+<li>
+<p><strong>汇编（生成机器可识别代码即汇编&mdash;&gt;二进制）</strong></p>
+<p><code>gcc -c code.s -o code.o</code>可重定位目标二进制文件，无法执行</p>
+<p>-c表示开始进行程序的翻译，编译做完，形成汇编，就停下来</p>
+</li>
+<li>
+<p><strong>连接（生成可执行文件或库文件)</strong></p>
+<p>将我们的.o文件和库文件进行连接，形成可执行文件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731831866674.png"
+	width="846"
+	height="37"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731831866674_hu_7386f30957223555.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731831866674_hu_af2e06298ba267bd.png 1024w"
+	loading="lazy"
+	
+		alt="73183186667"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2286"
+		data-flex-basis="5487px"
+	
+></p>
+</li>
+</ol>
+<p><strong>总结：</strong></p>
+<p>1）-E -S -c 预处理，编译，汇编</p>
+<p>2）.i  .s  .o 一些镜像文件的后缀</p>
+<p><strong>补充：反汇编指令</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900476471.png"
+	width="1013"
+	height="45"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900476471_hu_774628ea0c8a3254.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900476471_hu_51ff4884b4e18827.png 1024w"
+	loading="lazy"
+	
+		alt="73590047647"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2251"
+		data-flex-basis="5402px"
+	
+></p>
+<h3 id="32-为什么要编译为什么汇编编译器自举理解条件编译">3.2 为什么要编译，为什么汇编、编译器自举，理解条件编译
+</h3><h4 id="为什么要编译汇编"><strong>为什么要编译，汇编</strong>
+</h4><ol>
+<li>
+<p>早期：纸带打孔的方式编程 &ndash; 二进制编程</p>
+</li>
+<li>
+<p>汇编语言 &mdash; 编译器就要诞生了</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731913317018.png"
+	width="408"
+	height="614"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731913317018_hu_1b746387c244237d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731913317018_hu_e02b2884fb1e6e25.png 1024w"
+	loading="lazy"
+	
+		alt="73191331701"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="66"
+		data-flex-basis="159px"
+	
+></p>
+</li>
+<li>
+<p>面向过程，面向对象的语言</p>
+</li>
+</ol>
+<p><strong>为什么需要把我们用其他语言写的代码转成汇编？</strong></p>
+<p>**减少语言开发的成本。**因为汇编语言出现的比较早，已经有编译器可以将汇编语言翻译成</p>
+<p>二进制语言，所以我们只需要考虑把C/C++等语言翻译成汇编语言。</p>
+<h4 id="编译器自举"><strong>编译器自举</strong>
+</h4><p>先有语言，还是先有编译器？</p>
+<ul>
+<li>
+<p>先有编译器，二进制的编译器，能编译汇编语言所写的软件，编译器自己是软件</p>
+</li>
+<li>
+<p>我们可以用汇编语言重构编译器，这个编译器软件先经过二进制编译器，然后形成</p>
+<p>用汇编写的编译器。</p>
+</li>
+<li>
+<p>此后，我们就不需要使用二进制编译器了，而是可以使用用汇编写的编译器</p>
+</li>
+</ul>
+<h4 id="条件编译"><strong>条件编译</strong>
+</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731908345194.png"
+	width="522"
+	height="220"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731908345194_hu_f8f30fa98d0d74b.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731908345194_hu_e1a86dd2579e14e8.png 1024w"
+	loading="lazy"
+	
+		alt="73190834519"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="237"
+		data-flex-basis="569px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731912723852.png"
+	width="505"
+	height="84"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731912723852_hu_77c7b0553d72b215.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731912723852_hu_12ec775efa0e28bf.png 1024w"
+	loading="lazy"
+	
+		alt="73191272385"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="601"
+		data-flex-basis="1442px"
+	
+></p>
+<p>版本管理，通过条件编译形成不同版本</p>
+<h3 id="33动静态库和静态链接操作部分">3.3动静态库和静态链接&mdash;操作部分
+</h3><p>源文件经过预处理、编译、汇编后形成的二进制文件是不可执行的，还需要和库文件进行连接，形成可执行文件</p>
+<p><strong>库分为：静态库，动态库</strong></p>
+<p><strong>==Linux：动态库（libXXX.so），静态库（libXXX.a）==</strong></p>
+<blockquote>
+<p>去掉前缀lib，去掉后缀.so  .a ，剩下的就是库的名称。</p>
+<p>例如：libXXX.so 那么库的名字就是XXX</p>
+<p>​            libc-2.17.so库的名字是c-2.17</p>
+</blockquote>
+<p>==Windows：XXXX.dll      XXXX.lib==</p>
+<p>直接<code>gcc -c code.c</code>就是执行前三步然后停下来，形成同名的<code>.o</code>文件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915698494.png"
+	width="817"
+	height="194"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915698494_hu_225987a7a3cdb5af.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915698494_hu_5f84cf94636996a2.png 1024w"
+	loading="lazy"
+	
+		alt="73191569849"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="421"
+		data-flex-basis="1010px"
+	
+></p>
+<p>gcc链接库</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917362149.png"
+	width="870"
+	height="231"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917362149_hu_ca63726cf8758d19.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917362149_hu_ea93642e73764a89.png 1024w"
+	loading="lazy"
+	
+		alt="73191736214"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="376"
+		data-flex-basis="903px"
+	
+></p>
+<p><code>ldd</code>查看依赖哪些库</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915839555.png"
+	width="1006"
+	height="162"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915839555_hu_8265c62e189e11ed.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915839555_hu_8cee44c107665214.png 1024w"
+	loading="lazy"
+	
+		alt="73191583955"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="620"
+		data-flex-basis="1490px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915968157.png"
+	width="1268"
+	height="77"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915968157_hu_601631d364901ba3.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915968157_hu_29557c068c0b609.png 1024w"
+	loading="lazy"
+	
+		alt="73191596815"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1646"
+		data-flex-basis="3952px"
+	
+></p>
+<p>libc-2.17.so就是C标准库，gcc是用来编译c的，所以gcc能自动链接到c标准库</p>
+<p>我们最终形成的可执行程序是依赖c标准库的</p>
+<p>==默认形成的可执行程序采用的是C语言的<code>.so</code>动态库==</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731916905335.png"
+	width="1446"
+	height="160"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731916905335_hu_3e2e3bedfe510cf5.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731916905335_hu_b6306027b235273e.png 1024w"
+	loading="lazy"
+	
+		alt="73191690533"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="903"
+		data-flex-basis="2169px"
+	
+></p>
+<p><strong>如果我们希望静态链接</strong></p>
+<p>先要看你的Linux系统里是否安装了静态库</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731918269768.png"
+	width="1017"
+	height="159"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731918269768_hu_20bc0d27cfa8102e.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731918269768_hu_fa40f3e9088bc6a9.png 1024w"
+	loading="lazy"
+	
+		alt="73191826976"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="639"
+		data-flex-basis="1535px"
+	
+></p>
+<p>如果没有安装，需要执行下面的指令</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731918228118.png"
+	width="1346"
+	height="43"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731918228118_hu_f03b0d3c8d6a97eb.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731918228118_hu_f970af0c278161af.png 1024w"
+	loading="lazy"
+	
+		alt="73191822811"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="3130"
+		data-flex-basis="7512px"
+	
+></p>
+<p>安装好后，我们可以尝试静态链接</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917846905.png"
+	width="1047"
+	height="205"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917846905_hu_931b8b4721b7398e.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917846905_hu_dea732269e2f94a9.png 1024w"
+	loading="lazy"
+	
+		alt="73191784690"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="510"
+		data-flex-basis="1225px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917869009.png"
+	width="636"
+	height="58"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917869009_hu_2843fdb8b136aeb1.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917869009_hu_2ad044d1b1375159.png 1024w"
+	loading="lazy"
+	
+		alt="73191786900"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1096"
+		data-flex-basis="2631px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917880326.png"
+	width="1702"
+	height="136"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917880326_hu_4caa9800dee51bb4.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731917880326_hu_35913134a79e995b.png 1024w"
+	loading="lazy"
+	
+		alt="73191788032"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1251"
+		data-flex-basis="3003px"
+	
+></p>
+<p><strong>总结</strong></p>
+<ul>
+<li>gcc默认形成的可执行程序是动态链接的</li>
+<li>gcc-static：进行静态链接</li>
+</ul>
+<h3 id="34动静态库和静态链接理论部分">3.4动静态库和静态链接&mdash;理论部分
+</h3><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731920037566.png"
+	width="1723"
+	height="579"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731920037566_hu_347138812c1ce1d8.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731920037566_hu_123c2f9e0a9e3130.png 1024w"
+	loading="lazy"
+	
+		alt="73192003756"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="297"
+		data-flex-basis="714px"
+	
+></p>
+<p>==动态库是共享的，所以不能丢失==，一旦丢失，所有依赖动态库都会运行出错</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731920507779.png"
+	width="1801"
+	height="574"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731920507779_hu_5c02dead1a5b6411.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731920507779_hu_d497277a3706e30c.png 1024w"
+	loading="lazy"
+	
+		alt="73192050777"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="313"
+		data-flex-basis="753px"
+	
+></p>
+<p>**静态链接：**把我们要的库方法实现，==直接拷贝到我们的可执行程序中==</p>
+<p>​		一旦形成可执行程序，即使把静态库删了，程序照样能跑</p>
+<p><strong>总结：</strong></p>
+<p>动静态链接，首先系统里要有动态库，静态库，都有的情况下就可以对程序进行链接</p>
+<p>如果链接的是动态库，就是动态链接；如果链接的是静态库，就是静态链接</p>
+<p>静态链接优点：不依赖库</p>
+<p>缺点：浪费空间（磁盘和内存空间）</p>
+<h2 id="4-自动化构建makemakefile">4. 自动化构建make/Makefile
+</h2><h3 id="41makemakefile是什么">4.1make/Makefile是什么？
+</h3><p>make是一个命令</p>
+<p>makefile是一个文件</p>
+<h3 id="42-看看makemakefile">4.2 看看make/Makefile
+</h3><ol>
+<li>创建一个名为Makefile的文件</li>
+</ol>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731922934632.png"
+	width="852"
+	height="199"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731922934632_hu_5d427fa4d93b4d14.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731922934632_hu_c6d8f83010c860ce.png 1024w"
+	loading="lazy"
+	
+		alt="73192293463"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="428"
+		data-flex-basis="1027px"
+	
+></p>
+<ol start="2">
+<li>打开Makefile</li>
+</ol>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731922994432.png"
+	width="734"
+	height="48"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731922994432_hu_133b24db217f8a11.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731922994432_hu_6736406ce6f2f600.png 1024w"
+	loading="lazy"
+	
+		alt="73192299443"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1529"
+		data-flex-basis="3670px"
+	
+></p>
+<ol start="3">
+<li>写入下面的内容，保存退出</li>
+</ol>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923026955.png"
+	width="548"
+	height="84"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923026955_hu_fb43e11c80b2a3d2.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923026955_hu_536fa7007c84a53f.png 1024w"
+	loading="lazy"
+	
+		alt="73192302695"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="652"
+		data-flex-basis="1565px"
+	
+></p>
+<ol start="4">
+<li>以后执行make命令就会生成mytest可执行程序，我们只用 ./mytest就可以运行<img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923104507.png"
+	width="862"
+	height="263"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923104507_hu_4581de7c42d5a859.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923104507_hu_6cecba971e28bff2.png 1024w"
+	loading="lazy"
+	
+		alt="73192310450"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="327"
+		data-flex-basis="786px"
+	
+></li>
+</ol>
+<h3 id="43-核心思想">4.3 核心思想
+</h3><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923317286.png"
+	width="441"
+	height="75"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923317286_hu_c88f62b5b3d32d1e.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923317286_hu_be3b023339f00f4d.png 1024w"
+	loading="lazy"
+	
+		alt="73192331728"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="588"
+		data-flex-basis="1411px"
+	
+> 第一行是依赖关系，第二行是依赖方法</p>
+<p>依赖关系和依赖方法，形成目标文件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923609589.png"
+	width="1525"
+	height="220"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923609589_hu_e4fa6f179aa921d2.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923609589_hu_5b4f454fdf3b4fd4.png 1024w"
+	loading="lazy"
+	
+		alt="73192360958"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="693"
+		data-flex-basis="1663px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923337050.png"
+	width="826"
+	height="125"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923337050_hu_931f914e52dba2cc.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731923337050_hu_fcca9d23f8408deb.png 1024w"
+	loading="lazy"
+	
+		alt="73192333705"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="660"
+		data-flex-basis="1585px"
+	
+></p>
+<h3 id="44-具体语法">4.4 具体语法
+</h3><h4 id="441-第一部分-依赖关系">4.4.1 第一部分-依赖关系
+</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731995424595.png"
+	width="526"
+	height="229"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731995424595_hu_d89f530269590c62.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731995424595_hu_fce353bb93c67562.png 1024w"
+	loading="lazy"
+	
+		alt="73199542459"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="229"
+		data-flex-basis="551px"
+	
+></p>
+<ul>
+<li>
+<p>==冒号左边==，比如上图中的clean和mytest都是一个==目标文件==</p>
+</li>
+<li>
+<p>==冒号右边==，比如上图中的test.c是==依赖文件==，如果依赖文件有很多个，那么叫依赖文件列表</p>
+<p>而clean没有依赖文件</p>
+</li>
+<li>
+<p><strong>目标文件和依赖文件合起来叫依赖关系</strong></p>
+</li>
+<li>
+<p>make会自动向下扫描makefile文件，==形成第一个目标文件==</p>
+<p>如果想指定形成，<code>make 指定名称</code></p>
+</li>
+<li>
+<p><code>.PHONY</code>修饰的变为伪目标，==凡是被<code>.PHONY</code>修饰的方法，总是被执行==</p>
+<p>如果不被修饰，那么如果文件没有修改，再次执行make就不会起作用 &mdash;- 提高效率</p>
+</li>
+</ul>
+<p><strong>makefile怎么决定源文件到底要不要重新编译的呢？</strong></p>
+<blockquote>
+<ol>
+<li>先有源文件，然后gcc形成可执行程序。</li>
+<li>之后再修改源文件，那么源文件的修改时间就比可执行程序的时间新</li>
+<li>再次编译时，发现可执行程序的生成时间比源文件的修改时间晚，说明这是旧的可执行程序</li>
+<li>所以这时允许重新编译源文件</li>
+</ol>
+<p>结论：通过对比源文件和可执行文件的修改时间（Modify时间）</p>
+</blockquote>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732009180131.png"
+	width="624"
+	height="133"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732009180131_hu_10181fbe40e1bfc4.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732009180131_hu_160366d23d7733ec.png 1024w"
+	loading="lazy"
+	
+		alt="73200918013"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="469"
+		data-flex-basis="1126px"
+	
+></p>
+<h4 id="412-文件的acm时间">4.1.2 文件的ACM时间
+</h4><p><strong>文件=内容+属性</strong></p>
+<p>可以通过<code>stat 文件名</code>的方式查看文件的ACM时间</p>
+<ul>
+<li>
+<p>文件的<strong>内容</strong>修改，Modify时间变</p>
+</li>
+<li>
+<p>文件的<strong>属性</strong>修改，Change时间变</p>
+<ul>
+<li>修改文件的内容后，Modify时间变了，同时，文件的大小也变了，所以Change时间也会变</li>
+<li>如果只修改文件的权限，那么就只有Change时间会变</li>
+</ul>
+</li>
+<li>
+<p>Access是文件的<strong>最新访问</strong>时间，cat一个文件后，就会变。</p>
+<p>但是不是每次访问后，这个时间都会变</p>
+</li>
+</ul>
+<p>touch一个文件后，这个文件的ACM时间都更新</p>
+<blockquote>
+<p>makefile通过对比源文件和可执行文件的修改时间（Modify时间）来决定源文件</p>
+<p>到底要不要重新编译的。</p>
+<p>所以只要我们touch一下源文件，那么源文件的M时间一定比可执行程序的时间新</p>
+<p>这时再make就又可以编译了</p>
+</blockquote>
+<p>所以<code>.PHONY</code>修饰一个符号后，总是被执行的原因就是==忽略对比时间，下面这条命令总是执行==</p>
+<h4 id="413-第二部分-依赖关系推导">4.1.3 第二部分-依赖关系推导
+</h4><p>Makefile 是<code>#</code>来注释</p>
+<p>实际依赖了下面这些文件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732012612382.png"
+	width="536"
+	height="471"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732012612382_hu_5d3db963eb45b5e3.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732012612382_hu_2c2137ec3e855fa3.png 1024w"
+	loading="lazy"
+	
+		alt="73201261238"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="113"
+		data-flex-basis="273px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732012920149.png"
+	width="612"
+	height="202"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732012920149_hu_aa6e981778854648.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732012920149_hu_91a832619d009ae.png 1024w"
+	loading="lazy"
+	
+		alt="73201292014"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="302"
+		data-flex-basis="727px"
+	
+></p>
+<p>make会进行依赖关系推导（栈），直到依赖文件是存在的</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732013041303.png"
+	width="2081"
+	height="548"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732013041303_hu_fd20d86d2b111c.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732013041303_hu_c2c5efa1a840fa69.png 1024w"
+	loading="lazy"
+	
+		alt="73201304130"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="379"
+		data-flex-basis="911px"
+	
+></p>
+<p>将依赖方法不断入栈，推导完毕，出栈执行方法</p>
+<p>所以Makefile最终会形成一个目标文件</p>
+<h4 id="414-第三部分-更加通用的makefile">4.1.4 第三部分-更加通用的makefile
+</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731994822175.png"
+	width="841"
+	height="330"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731994822175_hu_8aac39e181fd24dd.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731994822175_hu_ff121ebfd7459e52.png 1024w"
+	loading="lazy"
+	
+		alt="73199482217"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="254"
+		data-flex-basis="611px"
+	
+></p>
+<ul>
+<li>
+<p><strong>更加通用的makefile</strong></p>
+<p>我们一般喜欢先把源文件 a.c  b.c  d.c  e.c等先变成a.o  b.o  d.o  e.o         &mdash;&mdash;&mdash;编译</p>
+<p>然后再和动静态库文件（lib.so  lib.a  libstdc++.so  llibc++.a）统一打包形成可执行程序   &mdash;&mdash;-链接</p>
+</li>
+</ul>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732405114888.png"
+	width="481"
+	height="418"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732405114888_hu_ecf46ec5643e9fee.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732405114888_hu_bb1d9322559a6123.png 1024w"
+	loading="lazy"
+	
+		alt="73240511488"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="115"
+		data-flex-basis="276px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732405138308.png"
+	width="541"
+	height="315"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732405138308_hu_97d2f3bceb2e1f8b.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732405138308_hu_4df4a9caa14ac907.png 1024w"
+	loading="lazy"
+	
+		alt="73240513830"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="412px"
+	
+></p>
+<p><strong>优化1：定义变量</strong></p>
+<p>变量：</p>
+<ul>
+<li>BIN 表示生成的可执行程序</li>
+<li>SRC 表示源文件</li>
+<li>OBJ 表示目标文件</li>
+<li>CC 表示用到的编译器</li>
+<li>RM 表示要用到的删除命令</li>
+</ul>
+<p>访问变量要使用 $(变量名)</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732406892543.png"
+	width="491"
+	height="546"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732406892543_hu_11f14ad0a3c9a6b.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732406892543_hu_af03a37adb7ac5cf.png 1024w"
+	loading="lazy"
+	
+		alt="73240689254"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="215px"
+	
+></p>
+<p>但是如果源文件多了，就不行，比如我们这里创建100个源文件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732407182197.png"
+	width="869"
+	height="46"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732407182197_hu_7bbfe6f360ff4511.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732407182197_hu_dda3c64424e63bde.png 1024w"
+	loading="lazy"
+	
+		alt="73240718219"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1889"
+		data-flex-basis="4533px"
+	
+></p>
+<p><strong>优化2：动态获取当前目录下所有的.c</strong></p>
+<ul>
+<li>
+<p>方式一：</p>
+<p>使用<code>$(shell ls *.c)</code>来罗列出所有以 .c 结尾的文件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732407804274.png"
+	width="674"
+	height="396"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732407804274_hu_ef463b8ac2245d80.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732407804274_hu_870638917c6aa29c.png 1024w"
+	loading="lazy"
+	
+		alt="73240780427"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="170"
+		data-flex-basis="408px"
+	
+></p>
+</li>
+<li>
+<p>方式二：</p>
+<p>Makefile自己本身包含了一个语法，给我们提供了一个基本的函数<code>wildcard</code></p>
+<p>同样可以将我们当前目录下所有的<code>.c</code>文件列出来</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732546457793.png"
+	width="575"
+	height="421"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732546457793_hu_39e98d46ceca7617.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732546457793_hu_4c72f88ab2bbd3ac.png 1024w"
+	loading="lazy"
+	
+		alt="73254645779"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="327px"
+	
+></p>
+</li>
+</ul>
+<p><strong>优化3：将源文件的.c都替换为同名.o 放到变量OBJ里</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732594061312.png"
+	width="610"
+	height="384"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732594061312_hu_336fe86709bbc37c.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732594061312_hu_80fb45770c472bd6.png 1024w"
+	loading="lazy"
+	
+		alt="73259406131"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="381px"
+	
+></p>
+<p>完整：</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732594878873.png"
+	width="677"
+	height="615"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732594878873_hu_fa1e0e1b4ffb1135.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732594878873_hu_556e7f45fc73f324.png 1024w"
+	loading="lazy"
+	
+		alt="73259487887"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="264px"
+	
+></p>
+<p>依赖关系里的<code>%.c</code> 会依次展开所有以.c结尾的文件，<code>$&lt;</code> 表示将上面展开的多个.c 一个一个交给对应的命令，一个一个地形成.o</p>
+<p>所以<code>$&lt;</code>指的是把一批文件一个个地拿出来，经过该方法，加工形成同名.o</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595246929.png"
+	width="636"
+	height="702"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595246929_hu_aa6c72dce9a33ff4.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595246929_hu_45dbc33756aa34f5.png 1024w"
+	loading="lazy"
+	
+		alt="73259524692"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="90"
+		data-flex-basis="217px"
+	
+></p>
+<ul>
+<li>
+<p>不想回显就加@</p>
+</li>
+<li>
+<p>依赖方法可以跟很多个</p>
+</li>
+<li>
+<p>make是一个命令</p>
+</li>
+</ul>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595316196.png"
+	width="1002"
+	height="829"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595316196_hu_1b7149c2120a02cd.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595316196_hu_99042cdde133fdfc.png 1024w"
+	loading="lazy"
+	
+		alt="73259531619"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="120"
+		data-flex-basis="290px"
+	
+></p>
+<h2 id="5linux第一个系统程序-进度条">5.Linux第一个系统程序-进度条
+</h2><h3 id="51补充-回车与换行">5.1补充-回车与换行
+</h3><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595674796.png"
+	width="225"
+	height="168"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595674796_hu_b44bc4fe6d986476.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732595674796_hu_51cdf751f93090ba.png 1024w"
+	loading="lazy"
+	
+		alt="73259567479"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="321px"
+	
+></p>
+<p>\r ：回车指从该行当前位置到该行最左侧</p>
+<p>\n：换行表示到下一行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;hello world</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>语言上的<code>\n</code>实际上是回车+换行</p>
+<p>回车换行是先换到下一行，然后回到该行的最左侧</p>
+<p><strong>新起一行需要做两步：</strong></p>
+<p>​	**1.回到当前行的开头  **</p>
+<p>​	<strong>2.到第二行</strong></p>
+<h3 id="52-行缓冲区">5.2 行缓冲区
+</h3><h4 id="521引入">5.2.1引入
+</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250901153154562.png"
+	width="1528"
+	height="327"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250901153154562_hu_ed33bd41512c8353.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250901153154562_hu_6cb2f18339cf19ca.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250901153154562"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="467"
+		data-flex-basis="1121px"
+	
+></p>
+<p>当我们在进行printf打印的时候，如果带了\n，那么默认是往显示器上打印</p>
+<p>Linux下一切皆文件，所以往显示器上打印就叫做往显示器上写入。</p>
+<p>所以带\n的表现形式就是数据立即显示。</p>
+<blockquote>
+<p>带了\n，数据也一定先放到缓冲区，只不过这个缓冲区是给显示器提供的</p>
+</blockquote>
+<p>不带\n再执行时，我们发现在显示器上是先卡了两秒，然后才打印</p>
+<p>但是在C语言中，==代码是从上到下依次执行的==，所以也就是说，我们发现</p>
+<p>显示器卡了两秒（执行sleep(2)）时就已经执行prinf(&ldquo;hello bit&rdquo;)这段代码了</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732596724107.png"
+	width="379"
+	height="237"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732596724107_hu_99e95009e77fe9c8.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732596724107_hu_60f3b643b7dfc8bd.png 1024w"
+	loading="lazy"
+	
+		alt="73259672410"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="159"
+		data-flex-basis="383px"
+	
+></p>
+<p>但是为什么我们没有看到呢，原因是print这段代码里的数据被保存到缓冲区了</p>
+<h4 id="522显示器的刷新策略是行刷新"><strong>5.2.2显示器的刷新策略是：行刷新</strong>
+</h4><p>比如如果打印信息碰到的是<code>\n</code>那么该信息会立即显示到显示器上</p>
+<p>如果不包含<code>\n</code>，该字符串不做刷新，直到要么程序结束，自动刷新</p>
+<p>要么将来强制刷新</p>
+<p><strong>如果我们希望不带\n的字符串立即刷新</strong></p>
+<p>可以使用fflush强制刷新</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597255711.png"
+	width="569"
+	height="284"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597255711_hu_ef415c3f0abe7e75.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597255711_hu_577323bdcc76af05.png 1024w"
+	loading="lazy"
+	
+		alt="73259725571"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="200"
+		data-flex-basis="480px"
+	
+></p>
+<p>在C语言中，我在进行printf打印的时候（包括C程序），</p>
+<p>默认会打开3个文件的输入输出流</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597362436.png"
+	width="367"
+	height="138"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597362436_hu_d9880bf475012d6a.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597362436_hu_cfd87c31323c126c.png 1024w"
+	loading="lazy"
+	
+		alt="73259736243"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="265"
+		data-flex-basis="638px"
+	
+></p>
+<p>printf打印消息的时候，是把消息写到了stdout标准输出里面</p>
+<p><strong>所以如果消息没有刷出来，我们就fflush刷新一下标准输出,就可以把这个</strong></p>
+<p><strong>字符串立即刷新出来</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597570429.png"
+	width="556"
+	height="356"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597570429_hu_f846a5188ce07de7.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732597570429_hu_585264db700f526c.png 1024w"
+	loading="lazy"
+	
+		alt="73259757042"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="156"
+		data-flex-basis="374px"
+	
+></p>
+<h3 id="53练手-倒计时程序">5.3练手-倒计时程序
+</h3><p>预备知识1：行缓冲区</p>
+<p>预备知识2：往显示器什么位置写入，由光标决定（类比笔尖）</p>
+<p>​			写一个字符后，光标就会向后移动一位</p>
+<p><strong>倒计时程序的原理</strong></p>
+<p>我们写一个字符后，光标就会向后移动一位。但是我们现在想写一个</p>
+<p>字符后，想办法将光标再移动到开头。过1秒后，再在里面写另一个字符</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735275930829.png"
+	width="902"
+	height="957"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735275930829_hu_833a364588235efc.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735275930829_hu_134262f5b4bad1c4.png 1024w"
+	loading="lazy"
+	
+		alt="73527593082"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="94"
+		data-flex-basis="226px"
+	
+></p>
+<p>printf打印的时候要做格式化，就是将整数等转成字符。所以我们这里需要限定打印的宽度，%-2d</p>
+<h3 id="54进度条">5.4进度条
+</h3><h4 id="版本1显示功能">版本1：显示功能
+</h4><ul>
+<li><strong>功能1</strong>
+<ul>
+<li>首先，在内容中预留出100个字符的空位置，进度条每走一个，就多一个#，右侧中括号的位置不变。</li>
+</ul>
+</li>
+<li><strong>功能2</strong>
+<ul>
+<li>右侧还有一个中括号，用来显示百分比。</li>
+</ul>
+</li>
+<li><strong>功能3</strong>
+<ul>
+<li>最右侧还有一个中括号做旋转光标，来证明我们的进度条一直在推进</li>
+</ul>
+</li>
+</ul>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732600776278.png"
+	width="924"
+	height="123"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732600776278_hu_f64f759e7dd3c658.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732600776278_hu_e09280a645f130ba.png 1024w"
+	loading="lazy"
+	
+		alt="73260077627"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="751"
+		data-flex-basis="1802px"
+	
+></p>
+<ol>
+<li>
+<p><strong>准备3个文件</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735270729115.png"
+	width="796"
+	height="123"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735270729115_hu_b31243abee6210c4.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735270729115_hu_88f9700414daa949.png 1024w"
+	loading="lazy"
+	
+		alt="73527072911"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="647"
+		data-flex-basis="1553px"
+	
+></p>
+</li>
+<li>
+<p><strong>实现功能</strong></p>
+<p><span style="color: #FF0000;">usleep：以微秒的时间来休眠</span></p>
+<blockquote>
+<p>1秒=1000毫秒，1毫秒=1000微秒，1秒=1000*1000微秒</p>
+</blockquote>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735285245659.png"
+	width="1287"
+	height="367"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735285245659_hu_a0b11b4fcbdc6447.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735285245659_hu_aabc701b89176548.png 1024w"
+	loading="lazy"
+	
+		alt="73528524565"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="350"
+		data-flex-basis="841px"
+	
+></p>
+<p>process.h中：</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289466310.png"
+	width="464"
+	height="384"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289466310_hu_dcf22257b800e414.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289466310_hu_477a833063d20c5e.png 1024w"
+	loading="lazy"
+	
+		alt="73528946631"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="120"
+		data-flex-basis="290px"
+	
+></p>
+<p>main.c中：</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289548385.png"
+	width="412"
+	height="306"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289548385_hu_41c2504f6167657d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289548385_hu_a43a0b8363188c94.png 1024w"
+	loading="lazy"
+	
+		alt="73528954838"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="134"
+		data-flex-basis="323px"
+	
+></p>
+<p>process.c中：</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289391073.png"
+	width="1197"
+	height="918"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289391073_hu_4a652d7ceea04765.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735289391073_hu_ad69c339ee3a4299.png 1024w"
+	loading="lazy"
+	
+		alt="73528939107"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="130"
+		data-flex-basis="312px"
+	
+></p>
+</li>
+</ol>
+<blockquote>
+<p>注意事项：</p>
+<p>printf打印的时候，需要做格式化，%-100s</p>
+<p>%要输出时，需要写成 %%</p>
+<p>\要输出时，需要写成  \\</p>
+<p>最后需要printf(&quot;\n&quot;)，否则就会和下一行命令在同一行</p>
+</blockquote>
+<h4 id="版本2根据进度动态刷新一次进度条">版本2：根据进度，动态刷新一次进度条
+</h4><p>为了让下载业务或上传业务安心做自己的事，而让刷新行为单独来做，所以我们这里将<span style="color: #8080FF;">下载</span>的逻辑和<span style="color: #8080FF;">进度条刷新</span>的逻辑进行解耦</p>
+<p>这样的话，回调函数不需要知道具体的刷新函数的名称</p>
+<p>==process.h==</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301097456.png"
+	width="1113"
+	height="348"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301097456_hu_4c530a3188b6e43c.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301097456_hu_5dcc7cab2027c273.png 1024w"
+	loading="lazy"
+	
+		alt="73530109745"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="319"
+		data-flex-basis="767px"
+	
+></p>
+<p>==process.c==</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301048684.png"
+	width="1383"
+	height="2356"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301048684_hu_318b7c391ef65451.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301048684_hu_9e747841e195cb18.png 1024w"
+	loading="lazy"
+	
+		alt="73530104868"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="58"
+		data-flex-basis="140px"
+	
+></p>
+<p>==main.c==</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301145014.png"
+	width="1258"
+	height="2713"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301145014_hu_c6fbb56adba00d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301145014_hu_9a6c732736e13e37.png 1024w"
+	loading="lazy"
+	
+		alt="73530114501"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="46"
+		data-flex-basis="111px"
+	
+></p>
+<h2 id="6版本控制器git">6.版本控制器Git
+</h2><h3 id="61如何理解版本控制">6.1如何理解版本控制
+</h3><p><code>git</code>是一个版本控制器软件，既是一个client也是一个server</p>
+<p><code>gitee</code>||<code>github</code>是基于git的网站或平台</p>
+<p><code>仓库</code>&ndash;本质上就是一个文件夹</p>
+<p><strong>1.数据安全</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735363006446.png"
+	width="1654"
+	height="796"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735363006446_hu_1f5bd85e618fe997.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735363006446_hu_80ef8fa3aeb55d5a.png 1024w"
+	loading="lazy"
+	
+		alt="73536300644"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<p>我们每一次做git操作的时候，在当前目录下我们可以新建很多仓库，</p>
+<p>新建好仓库后，我们可以把自己的仓库推送到远端。</p>
+<p><strong>2.协作开发</strong></p>
+<p><strong>git是去中心化、分布式的版本控制</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735362746019.png"
+	width="919"
+	height="522"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735362746019_hu_fb1a9e5655653961.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735362746019_hu_49cb86ae36763bf4.png 1024w"
+	loading="lazy"
+	
+		alt="73536274601"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="422px"
+	
+></p>
+<blockquote>
+<p>两台装了git的机器相互之间可以互相拉取</p>
+</blockquote>
+<h3 id="62git的历史">6.2Git的历史
+</h3><p>git是开源的</p>
+<h3 id="63git的操作">6.3Git的操作
+</h3><h4 id="1新建仓库">1.新建仓库
+</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250906160302516.png"
+	width="1743"
+	height="1162"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250906160302516_hu_49c4b11d50e24efe.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250906160302516_hu_4be2496d132f78d7.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250906160302516"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="360px"
+	
+></p>
+<h4 id="2将远端仓库拉取到本地">2.将远端仓库拉取到本地
+</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364779607.png"
+	width="1250"
+	height="400"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364779607_hu_36b1ec7fb606dc00.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364779607_hu_2d8efdba89b85843.png 1024w"
+	loading="lazy"
+	
+		alt="73536477960"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="312"
+		data-flex-basis="750px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364757744.png"
+	width="1031"
+	height="264"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364757744_hu_d5c0228d2ff9322e.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364757744_hu_fe7d0f4a1183acfb.png 1024w"
+	loading="lazy"
+	
+		alt="73536475774"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="390"
+		data-flex-basis="937px"
+	
+></p>
+<p>在本地先新建一个目录，然后在目录里执行<span style="color: #FF0000;"> git clone 加刚刚复制的HTTPS地址</span></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365192934.png"
+	width="1318"
+	height="388"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365192934_hu_f7f75c94744f2ef1.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365192934_hu_858471693fd53216.png 1024w"
+	loading="lazy"
+	
+		alt="73536519293"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="339"
+		data-flex-basis="815px"
+	
+></p>
+<p>我们就拉取到了远端的文件</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365317281.png"
+	width="878"
+	height="305"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365317281_hu_f81cedfb9eec6661.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365317281_hu_df44afb30c788658.png 1024w"
+	loading="lazy"
+	
+		alt="73536531728"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="287"
+		data-flex-basis="690px"
+	
+></p>
+<p>ls -al就可以看到隐藏文件.git，我们把<code>.git</code>称为隐藏的仓库</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365416971.png"
+	width="921"
+	height="314"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365416971_hu_63e467538fefad94.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365416971_hu_9a1f083c676f3e86.png 1024w"
+	loading="lazy"
+	
+		alt="73536541697"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="293"
+		data-flex-basis="703px"
+	
+></p>
+<p>我们可以 <span style="color: #8080FF;">tree .git</span> ，.git里面是历史上我们每次修改的记录</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365647438.png"
+	width="627"
+	height="40"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365647438_hu_ed9086befd3244a3.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365647438_hu_9ca1aff8e77f6a88.png 1024w"
+	loading="lazy"
+	
+		alt="73536564743"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1567"
+		data-flex-basis="3762px"
+	
+></p>
+<p>==git提交的时候，只会提交变化的部分==</p>
+<h4 id="3-将我们的文件添加到git里的暂存区">3. 将我们的文件添加到.git里的暂存区
+</h4><p>.git所在的目录：当前工作区</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367375104.png"
+	width="638"
+	height="85"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367375104_hu_60a9a48233fe2393.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367375104_hu_adcb396795d06be.png 1024w"
+	loading="lazy"
+	
+		alt="73536737510"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="750"
+		data-flex-basis="1801px"
+	
+></p>
+<ul>
+<li>
+<p><span style="color: #FF0000;">git add .</span> 默认把当前工作路径下所有的陌生文件全部添加到.git仓库中</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367732395.png"
+	width="619"
+	height="42"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367732395_hu_93468c679de341df.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367732395_hu_7de650db801b8f4d.png 1024w"
+	loading="lazy"
+	
+		alt="73536773239"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1473"
+		data-flex-basis="3537px"
+	
+></p>
+</li>
+<li>
+<p>或者如果确定了要添加的文件，也可以<span style="color: #FF0000;"> git add 文件名</span></p>
+</li>
+<li>
+<p>还可以 <span style="color: #FF0000;">git add *</span></p>
+</li>
+</ul>
+<p>但是执行了这个操作，实际上并不算完全添加到仓库里了，而是先添加到.git里的暂存区</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368115979.png"
+	width="603"
+	height="424"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368115979_hu_3964731ec18ad92d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368115979_hu_8cad48723df4af5a.png 1024w"
+	loading="lazy"
+	
+		alt="73536811597"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="142"
+		data-flex-basis="341px"
+	
+></p>
+<p>有了暂存区，git就让我们可以在本地多次add，一次提交到git仓库里</p>
+<h4 id="4将暂存区里的文件提交到git本地仓库">4.将暂存区里的文件提交到git本地仓库
+</h4><p>先查看当前的状态：<span style="color: #FF0000;">git status</span></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368434247.png"
+	width="819"
+	height="305"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368434247_hu_2d06b2b196224d31.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368434247_hu_e2f3625c5e029e06.png 1024w"
+	loading="lazy"
+	
+		alt="73536843424"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="268"
+		data-flex-basis="644px"
+	
+></p>
+<p>如果不想要提交某个文件了，可以使用<span style="color: #FF0000;"> git reset HEAD 文件名</span> 来将它删掉</p>
+<p>使用<span style="color: #FF0000;"> git commit -m &ldquo;日志信息&rdquo; </span>才能真正将文件添加到本地仓库</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368758373.png"
+	width="969"
+	height="57"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368758373_hu_4a10c83bf640ca67.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368758373_hu_5f9069fc20530667.png 1024w"
+	loading="lazy"
+	
+		alt="73536875837"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1700"
+		data-flex-basis="4080px"
+	
+></p>
+<p><span style="color: #8080FF;">git log</span>可以查看提交记录</p>
+<h4 id="5将本地仓库和远端仓库同步">5.将本地仓库和远端仓库同步
+</h4><p><span style="color: #FF0000;">git push</span></p>
+<p>如果将本地目录全删掉了，但是想获得我历史上的提交信息，</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735551720786.png"
+	width="1003"
+	height="334"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735551720786_hu_5f7704f033850e61.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735551720786_hu_2754547b74e82d2b.png 1024w"
+	loading="lazy"
+	
+		alt="73555172078"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="300"
+		data-flex-basis="720px"
+	
+></p>
+<p>复制链接，然后执行以下命令就可以将之前的记录重新拉取下来</p>
+<p><span style="color: #8080FF;">git clone 复制的链接</span></p>
+<h4 id="总结">总结
+</h4><ol>
+<li><strong>将远端仓库拉取到本地：</strong><span style="color: #8080FF;">git clone 复制的链接</span></li>
+<li><strong>将当前目录下的文件添加到 .git暂存区：</strong><span style="color: #FF0000;">git add . </span>或<span style="color: #FF0000;"> git add 文件名</span></li>
+<li><strong>查看当前的状态：</strong><span style="color: #8080FF;">git status</span></li>
+<li><strong>如果不想提交某个文件了：</strong><span style="color: #8080FF;">git reset HEAD 文件名</span></li>
+<li><strong>将暂存区里的文件提交到git本地仓库：</strong><span style="color: #FF0000;">git commit -m &ldquo;日志信息&rdquo;</span></li>
+<li><strong>查看提交历史记录：</strong><span style="color: #8080FF;">git log </span></li>
+<li><strong>将本地仓库提交到远端仓库：</strong><span style="color: #FF0000;">git push</span></li>
+<li><strong>把远端仓库和本地仓库做一下同步：</strong><span style="color: #8080FF;">git pull </span></li>
+</ol>
+<h3 id="64-git操作细节">6.4 Git操作&ndash;细节
+</h3><p><strong>1.git命令行安装</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo yum install git
+</span></span><span class="line"><span class="cl">sudo apt install -y git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看当前是否已经安装了：<code>git --version </code>和 <code>which git</code></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552551878.png"
+	width="699"
+	height="156"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552551878_hu_f9d681e1e58c98ea.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552551878_hu_891a79641f1b4022.png 1024w"
+	loading="lazy"
+	
+		alt="73555255187"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="448"
+		data-flex-basis="1075px"
+	
+></p>
+<p><strong>2.首次使用：git输入username，email</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552732692.png"
+	width="1194"
+	height="429"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552732692_hu_522eb1b58b20329b.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552732692_hu_741def2fb786642.png 1024w"
+	loading="lazy"
+	
+		alt="73555273269"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="278"
+		data-flex-basis="667px"
+	
+></p>
+<p><span style="color: #FF0000;"><strong>3.git版本管理，只进行管理源文件</strong></span></p>
+<p><span style="color: #8080FF;"><code>.gitignore</code>进行本地文件后缀过滤的</span>，如果某些特定后缀的文件在这个配置信息里，</p>
+<p>那么在add，commit，push时就不会被提交</p>
+<p><strong>4.<code>.gitignore</code>：需要忽略的特定后缀的文件列表</strong></p>
+<p><strong>5.windows上和liux上的人都对该仓库的文件做了修改，此时需要先重新拉取一下</strong></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735697288687.png"
+	width="1423"
+	height="297"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735697288687_hu_ae609dc0de29626c.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735697288687_hu_93c2f1792ccff852.png 1024w"
+	loading="lazy"
+	
+		alt="73569728868"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="479"
+		data-flex-basis="1149px"
+	
+></p>
+<ol>
+<li><span style="color: #FF0000;">git pull 把远端仓库和本地仓库做一下同步</span></li>
+<li>然后再进行 git push</li>
+</ol>
+<p>远端仓库，相比较于任何人，都是最新的</p>
+<p>为什么要冲突？提醒本地用户，你要和远端仓库进行同步了</p>
+<blockquote>
+<p><a class="link" href="https://gitee.com/chxuan/vimplus"  target="_blank" rel="noopener"
+    >Ubuntu下安装vimplus</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/chxuan/vimplus.git ~/.vimplus
+</span></span><span class="line"><span class="cl">cd ~/.vimplus
+</span></span><span class="line"><span class="cl">./install.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h2 id="补充sudo无法执行">补充：sudo无法执行
+</h2><ol>
+<li>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907047779.png"
+	width="718"
+	height="41"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907047779_hu_f168bd61f9c8c4ae.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907047779_hu_d735e2da50667fa.png 1024w"
+	loading="lazy"
+	
+		alt="73190704777"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1751"
+		data-flex-basis="4202px"
+	
+></p>
+</li>
+<li>
+<p>切换到超级用户</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907115790.png"
+	width="455"
+	height="72"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907115790_hu_400fdc379635470f.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907115790_hu_a0e49741ed112cf5.png 1024w"
+	loading="lazy"
+	
+		alt="73190711579"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="631"
+		data-flex-basis="1516px"
+	
+></p>
+</li>
+<li>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907174880.png"
+	width="716"
+	height="43"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907174880_hu_f43addcd6bc29e88.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907174880_hu_2638a24f6c615ccb.png 1024w"
+	loading="lazy"
+	
+		alt="73190717488"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1665"
+		data-flex-basis="3996px"
+	
+></p>
+</li>
+<li>
+<p>添加配置，yy+p</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907541466.png"
+	width="825"
+	height="188"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907541466_hu_a9d8d286d97341b9.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907541466_hu_43d977e69b64c8cf.png 1024w"
+	loading="lazy"
+	
+		alt="73190754146"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="438"
+		data-flex-basis="1053px"
+	
+></p>
+</li>
+<li>
+<p>切换到底行模式执行<code>wq!</code>保存并退出</p>
+</li>
+</ol>
+<p>再切回普通账号<code>ctrl+d</code>就可以执行sudo了</p>
+<h1 id="二调试器---gdbcgdb使用">二、调试器 - gdb/cgdb使用
+</h1><h2 id="21-准备知识">2.1 准备知识
+</h2><p><strong>软件发布的模式</strong></p>
+<ol>
+<li>
+<p>debug</p>
+</li>
+<li>
+<p>release模式 &ndash; 发布模式</p>
+<blockquote>
+<p>软件测试工程师，测试就是对release版本进行测试 &ndash; 上线</p>
+</blockquote>
+</li>
+</ol>
+<p>Linux下我们编译好的代码无法直接调试</p>
+<p><strong>如何调试？</strong></p>
+<p>gcc/g++默认的工作模式是release模式</p>
+<p>如何改到debug模式？<span style="color: #8080FF;">在编译的时候要加上<code>-g</code>选项</span>：</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735722377417.png"
+	width="579"
+	height="611"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735722377417_hu_3bacbaf4635318f6.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735722377417_hu_20f0638f8e7cb800.png 1024w"
+	loading="lazy"
+	
+		alt="73572237741"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="94"
+		data-flex-basis="227px"
+	
+></p>
+<p>readelf读取一个可执行程序的格式：</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735899194862.png"
+	width="1141"
+	height="424"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735899194862_hu_889696ff306b5924.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735899194862_hu_3646363040cc83c5.png 1024w"
+	loading="lazy"
+	
+		alt="73589919486"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="645px"
+	
+></p>
+<blockquote>
+<p>readelf指令会在可执行程序与elf以及动静态库加载的时候深入学习</p>
+<p>grep -i debug 表示忽略大小写查debug</p>
+</blockquote>
+<p>我们发现，在编译的时候加上 -g 选项可以给最后形成的可执行程序添加上调试信息</p>
+<p>未来我们再输入 <span style="color: #FF0000;">gdb [可执行程序]</span> 命令就可以调试程序了</p>
+<p><strong>结论：</strong></p>
+<ul>
+<li>
+<p>-g选项，让最后形成的可执行程序，添加调试信息 &ndash; debug模式</p>
+</li>
+<li>
+<p>程序要调试，必须是debug模式</p>
+</li>
+<li>
+<p>如何调试程序？gdb 携带调试信息的exe</p>
+</li>
+</ul>
+<h2 id="22-快速认识gdb">2.2 快速认识gdb
+</h2><h3 id="1gdb的安装">1）gdb的安装
+</h3><p>CentOS下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo yum install gdb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Debian 或 Ubuntu下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install gdb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2gdb如何进行打开退出中间如何让程序跑起来">2）gdb如何进行打开，退出，中间如何让程序跑起来
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">e</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>                                                                        
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;I will begin</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="nf">Sum</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span><span class="c1">//求区间的和，闭区间[start, end]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;running done, result is: [%d-%d]=%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这段代码直接编译会提示不支持在循环体中定义变量，所以要带上<code>-std=c99</code></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735888834923.png"
+	width="974"
+	height="33"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735888834923_hu_92d36576325f1a7d.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735888834923_hu_6b1bcd159e358d44.png 1024w"
+	loading="lazy"
+	
+		alt="73588883492"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2951"
+		data-flex-basis="7083px"
+	
+></p>
+<p>这时如果我们直接<code>gdb mycode</code>会发现提示找不到该命令，原因是默认是release发布模式</p>
+<p>需要在编译的时候带上<code>-g</code>选项</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735889495118.png"
+	width="1001"
+	height="56"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735889495118_hu_fe34db0e257cfb06.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735889495118_hu_3442dcb5fcd0a664.png 1024w"
+	loading="lazy"
+	
+		alt="73588949511"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1787"
+		data-flex-basis="4290px"
+	
+></p>
+<p>再次执行 <code>gdb mycode</code>就可以进行调试了</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735893990564.png"
+	width="1136"
+	height="533"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735893990564_hu_a4d9db8a66491653.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735893990564_hu_bac05f2bd15891ba.png 1024w"
+	loading="lazy"
+	
+		alt="73589399056"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="511px"
+	
+></p>
+<p>在调试模式下，我们可能会用到如下的操作</p>
+<ol>
+<li>
+<p><strong>查看源代码</strong></p>
+<ul>
+<li>
+<p><span style="color: #8080FF;">list</span>（可以简写成<span style="color: #8080FF;">l</span>）</p>
+</li>
+<li>
+<p><span style="color: #8080FF;">l 1</span>，代码从第一行开始显示</p>
+<p>之后直接回车，就会继续显示下面的代码</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>打断点：</strong><span style="color: #8080FF;"> b 行号</span></p>
+</li>
+<li>
+<p><strong>让程序运行起来：</strong><span style="color: #8080FF;">r</span></p>
+</li>
+<li>
+<p><strong>让程序直接跑完：</strong><span style="color: #8080FF;">c</span></p>
+</li>
+<li>
+<p><strong>退出：</strong><span style="color: #8080FF;">quit</span></p>
+</li>
+</ol>
+<h2 id="23-安装cgdb-解决gdb难用的问题">2.3 安装cgdb ，解决gdb难用的问题
+</h2><p><strong>安装cgdb</strong></p>
+<p>Ubuntu:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo apt-get install -y cgdb
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Centos:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo yum install -y cgdb 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用cgdb进行调试，<code>cgdb 可执行程序</code></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735894642427.png"
+	width="613"
+	height="43"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735894642427_hu_44f44512bb8628c3.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735894642427_hu_dc2edc3656c49f5a.png 1024w"
+	loading="lazy"
+	
+		alt="73589464242"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1425"
+		data-flex-basis="3421px"
+	
+></p>
+<p>调试界面就会变成：上面是代码界面，下面是debug界面</p>
+<h2 id="24-cgdb命令的学习">2.4 cgdb命令的学习
+</h2><h3 id="1根据文件名查看代码">1）根据文件名查看代码
+</h3><p><strong>命令格式：</strong><span style="color: #8080FF;">l 文件名:行号</span></p>
+<p>**例如：**l mycode.c:1</p>
+<blockquote>
+<p>l表示从第一行开始显示</p>
+</blockquote>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735894952170.png"
+	width="674"
+	height="464"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735894952170_hu_161c986afdb49345.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735894952170_hu_712f9c04ef4be62d.png 1024w"
+	loading="lazy"
+	
+		alt="73589495217"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="348px"
+	
+></p>
+<h3 id="2和断点相关的常用操作">2）和断点相关的常用操作
+</h3><p><strong>打断点的几种方法：</strong></p>
+<ul>
+<li><span style="color: #8080FF;">b 文件名：行号</span></li>
+<li><span style="color: #8080FF;">b 文件名:函数名</span>，例如：<code>b mycode.c:main</code></li>
+<li><span style="color: #8080FF;">b 行号</span></li>
+</ul>
+<blockquote>
+<p>b是break的简写</p>
+</blockquote>
+<p><strong>查看当前打的所有断点：</strong><span style="color: #8080FF;">info b</span></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896336695.png"
+	width="1261"
+	height="188"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896336695_hu_ae9e89cb406a2926.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896336695_hu_1bae2471850c63b8.png 1024w"
+	loading="lazy"
+	
+		alt="73589633669"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="670"
+		data-flex-basis="1609px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896857961.png"
+	width="1068"
+	height="144"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896857961_hu_c86217d2618975c6.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896857961_hu_aa025c5b5f7cd840.png 1024w"
+	loading="lazy"
+	
+		alt="73589685796"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="741"
+		data-flex-basis="1780px"
+	
+></p>
+<p><strong>删除断点：</strong><span style="color: #8080FF;">d 断点编号</span></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896386409.png"
+	width="1249"
+	height="196"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896386409_hu_b0faa2f12b9b257b.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735896386409_hu_118fc5a1eac16d4d.png 1024w"
+	loading="lazy"
+	
+		alt="73589638640"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="637"
+		data-flex-basis="1529px"
+	
+></p>
+<p><strong>运行到下一个断点处：</strong><span style="color: #8080FF;">c</span></p>
+<p><strong>跳出循环，到下一个断点：</strong><span style="color: #8080FF;">until 代码行号</span></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736146571262.png"
+	width="572"
+	height="156"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736146571262_hu_58543d8f4045a6fe.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736146571262_hu_fcaf7e9a70e99346.png 1024w"
+	loading="lazy"
+	
+		alt="73614657126"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="366"
+		data-flex-basis="880px"
+	
+></p>
+<h3 id="3运行程序">3）运行程序
+</h3><ul>
+<li>
+<p>运行程序：<span style="color: #8080FF;">r </span></p>
+<p>如果没有断点，则直接跑完</p>
+</li>
+<li>
+<p>逐过程：<span style="color: #8080FF;">n</span> 或者 <span style="color: #8080FF;">next</span></p>
+<p>在调试的过程中再次输入<code>r</code>就可以重新从断点处开始调试</p>
+</li>
+<li>
+<p>逐语句（会进入到函数内部）：<span style="color: #8080FF;">s </span>或者 <span style="color: #8080FF;">step</span></p>
+<p>gdb会自动记录最新的一条输入指令</p>
+<p>例如如果我们在debug期间不想一直输s了，就可以回车</p>
+</li>
+</ul>
+<h3 id="4查看栈帧">4）查看栈帧
+</h3><ul>
+<li><span style="color: #8080FF;">bt </span></li>
+</ul>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900019570.png"
+	width="848"
+	height="114"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900019570_hu_19aa70e752098784.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900019570_hu_b9b7d61ba41ca68c.png 1024w"
+	loading="lazy"
+	
+		alt="73590001957"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="743"
+		data-flex-basis="1785px"
+	
+></p>
+<blockquote>
+<p>main先入栈，Sum函数先出栈</p>
+</blockquote>
+<h3 id="5结束函数调用回到函数调用处">5）结束函数调用，回到函数调用处
+</h3><ul>
+<li><span style="color: #8080FF;">finish</span></li>
+</ul>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900293618.png"
+	width="1158"
+	height="993"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900293618_hu_83b21b6025e55f46.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735900293618_hu_232e2f2fa5c1df5f.png 1024w"
+	loading="lazy"
+	
+		alt="73590029361"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="116"
+		data-flex-basis="279px"
+	
+></p>
+<h3 id="6变量相关">6）变量相关
+</h3><p><strong>临时查看变量的值：</strong><span style="color: #8080FF;">p 变量名</span></p>
+<p><strong>让变量一直显示：</strong><span style="color: #8080FF;">dispaly 变量名/&amp;变量名等</span></p>
+<p><strong>如果不想让变量一直显示：</strong><span style="color: #8080FF;">undisplay 编号</span></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250909210127884.png"
+	width="423"
+	height="383"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250909210127884_hu_b4ab4a9ee4948dea.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250909210127884_hu_a92e35db54684270.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250909210127884"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="265px"
+	
+></p>
+<p><strong>查看整个函数内定义的临时变量：</strong><span style="color: #8080FF;">info locals</span></p>
+<p><strong>查看变量的变化：</strong><span style="color: #8080FF;">watch 变量</span>，不用了就 <span style="color: #8080FF;">d 编号</span></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736145245185.png"
+	width="516"
+	height="162"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736145245185_hu_5aa8bd6fa80b02f0.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736145245185_hu_b43e1b387a6ea25a.png 1024w"
+	loading="lazy"
+	
+		alt="73614524518"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="318"
+		data-flex-basis="764px"
+	
+></p>
+<p><strong>可以在调试的时候手动将变量的值改了，然后再调试</strong>：<span style="color: #8080FF;">set val 变量=值</span></p>
+<h3 id="7断点可以被使能开关">7）断点可以被使能（开关）
+</h3><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736140160041.png"
+	width="1276"
+	height="192"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736140160041_hu_4883966e13d53f2c.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736140160041_hu_754fce4692f5b572.png 1024w"
+	loading="lazy"
+	
+		alt="73614016004"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="664"
+		data-flex-basis="1595px"
+	
+></p>
+<p>默认断点是 Enb y 表示Enable yes</p>
+<p>想让断点不起作用：<span style="color: #8080FF;">disable 断点编号</span></p>
+<p>恢复断点的作用：<span style="color: #8080FF;">enable 断点编号</span></p>
+<blockquote>
+<p>只有打断点的时候需要行号，其它时候都使用断点编号</p>
+</blockquote>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736140407736.png"
+	width="1267"
+	height="494"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736140407736_hu_878338fd65ee2cb2.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736140407736_hu_898b89f75fab5019.png 1024w"
+	loading="lazy"
+	
+		alt="73614040773"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="256"
+		data-flex-basis="615px"
+	
+></p>
+<h3 id="8查看源代码">8）查看源代码
+</h3><p>cgdb分屏操作，ESC 进入代码屏幕，然后可以通过上下键查看源代码，i回退到命令行，</p>
+<h2 id="25调试的本质">2.5调试的本质
+</h2><ol>
+<li>
+<p><strong>找到问题</strong></p>
+<p><span style="color: #8080FF;">断点的本质，是把代码进行块级别划分，以块为单位进行快速定位区域</span></p>
+<p>c -&gt; 运行到下一个断点处</p>
+<p>finish -&gt; 快速跑完该函数，可以帮助我们确认问题是否在函数内</p>
+<p>until 代码的行号 -&gt; 局部区域快速执行</p>
+</li>
+<li>
+<p><strong>查看代码上下文</strong></p>
+</li>
+</ol>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736144329691.png"
+	width="527"
+	height="386"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736144329691_hu_dd52dc20b1b62301.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1736144329691_hu_bbef7a2c0c5631fb.png 1024w"
+	loading="lazy"
+	
+		alt="73614432969"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="327px"
+	
+></p>
+<ol start="3">
+<li><strong>我们自己解决问题</strong></li>
+</ol>
+<h2 id="26条件断点">2.6条件断点
+</h2><p>需求：我们希望在for循环中，只有i=10的时候该断点才会被触发</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737435050387.png"
+	width="598"
+	height="358"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737435050387_hu_47e9e6730f459954.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737435050387_hu_1ec24881bbe2ad4a.png 1024w"
+	loading="lazy"
+	
+		alt="73743505038"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="167"
+		data-flex-basis="400px"
+	
+></p>
+<p>可以像下面这样打断点</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737434984964.png"
+	width="417"
+	height="42"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737434984964_hu_60c6632aea706d26.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737434984964_hu_695f5daf92e39a68.png 1024w"
+	loading="lazy"
+	
+		alt="73743498496"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="992"
+		data-flex-basis="2382px"
+	
+></p>
+<blockquote>
+<p>表示在第10行打断点，当i=10的时候</p>
+</blockquote>
+<p><strong>在断点已经存在的情况下新增条件</strong></p>
+<p>给4号断点新增条件：当i=20时</p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737436347014.png"
+	width="1250"
+	height="189"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737436347014_hu_204fa6afcabe26cc.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1737436347014_hu_327495080c6f0d5.png 1024w"
+	loading="lazy"
+	
+		alt="73743634701"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="661"
+		data-flex-basis="1587px"
+	
+></p>
+<h1 id="三知识点">三、知识点
+</h1><ol>
+<li>操作系统的生态问题！</li>
+<li>什么OS是好的OS？生态好</li>
+</ol>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731420816925.png"
+	width="825"
+	height="457"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731420816925_hu_687847ba8eff75e4.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731420816925_hu_74021680bf397467.png 1024w"
+	loading="lazy"
+	
+		alt="73142081692"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+></p>
+<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731422591561.png"
+	width="2016"
+	height="816"
+	srcset="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731422591561_hu_d1bebf6c0e04a4a4.png 480w, /p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731422591561_hu_e4f7c9970bd920dc.png 1024w"
+	loading="lazy"
+	
+		alt="73142259156"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="247"
+		data-flex-basis="592px"
+	
+></p>
+<p>将二进制程序做反汇编，例如：</p>
+<p>objdump -S mycode &gt; mycode.s</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-instruction/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】01初始Linux&#43;基础指令"
+                        data-key="linux-basic-instruction" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】01初始Linux&#43;基础指令</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-process-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】03进程的概念"
+                        data-key="linux-process-basic" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】03进程的概念</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-process-control/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】04进程控制"
+                        data-key="linux-process-control" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】04进程控制</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

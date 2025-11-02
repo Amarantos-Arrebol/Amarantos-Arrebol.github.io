@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="泛型编程入门：模板与 STL 的初见">
+<title>【C&#43;&#43;初阶】06模版初阶&#43;STL简介</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/template-basics-and-stl-introduction/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【C++初阶】06模版初阶+STL简介">
+<meta property='og:description' content="泛型编程入门：模板与 STL 的初见">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/template-basics-and-stl-introduction/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/template-basics-and-stl-introduction/bz.png' />
+<meta name="twitter:title" content="【C++初阶】06模版初阶+STL简介">
+<meta name="twitter:description" content="泛型编程入门：模板与 STL 的初见"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/template-basics-and-stl-introduction/bz.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1泛型编程">1.泛型编程</a></li>
+    <li><a href="#2-函数模版">2. 函数模版</a>
+      <ul>
+        <li><a href="#21-函数模版概念">2.1 函数模版概念</a></li>
+        <li><a href="#22-函数模版格式">2.2 函数模版格式</a></li>
+        <li><a href="#23-函数模版的原理">2.3 函数模版的原理</a></li>
+        <li><a href="#24-函数模版实例化">2.4 函数模版实例化</a>
+          <ul>
+            <li><a href="#隐式实例化--自动推导类型">隐式实例化 &ndash; 自动推导类型</a></li>
+            <li><a href="#显示实例化--不用推导">显示实例化 &ndash; 不用推导</a></li>
+          </ul>
+        </li>
+        <li><a href="#25-模版参数的匹配原则">2.5 模版参数的匹配原则</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-类模版">3. 类模版</a>
+      <ul>
+        <li><a href="#31-类模版的定义格式">3.1 类模版的定义格式</a></li>
+        <li><a href="#32-类模版的实例化">3.2 类模版的实例化</a></li>
+      </ul>
+    </li>
+    <li><a href="#4stl简介">4.STL简介</a>
+      <ul>
+        <li><a href="#41什么是stl">4.1什么是STL</a></li>
+        <li><a href="#42-stl的版本">4.2 STL的版本</a></li>
+        <li><a href="#43-stl的六大组件">4.3 STL的六大组件</a></li>
+        <li><a href="#43-stl的重要性">4.3 STL的重要性</a></li>
+        <li><a href="#44如何学习stl">4.4如何学习STL</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/template-basics-and-stl-introduction/">
+                <img src="/p/template-basics-and-stl-introduction/bz_hu_af428e6b9ee5080e.png"
+                        srcset="/p/template-basics-and-stl-introduction/bz_hu_af428e6b9ee5080e.png 800w, /p/template-basics-and-stl-introduction/bz_hu_80a61587ab7c328a.png 1600w"
+                        width="800" 
+                        height="442" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】06模版初阶&#43;STL简介" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/c&#43;&#43;/" style="background-color: #FF8F8F; color: #fff;">
+                C&#43;&#43;
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/template-basics-and-stl-introduction/">【C&#43;&#43;初阶】06模版初阶&#43;STL简介</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            泛型编程入门：模板与 STL 的初见
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1泛型编程">1.泛型编程
+</h1><p>假设我们需要交换两个数，那么就需要写一个交换函数。但是我们可能这次想交换两个整型数据，下次想交换两个浮点型数据等，那么就要求函数参数的类型不同。如果是在C语言中，我们可能需要写不同函数名，不同函数参数，但是需要想很多函数名。而在C++中，我们可以使用函数重载这一特性，也就是函数名相同，函数参数不同。</p>
+<p>使用函数重载，我们就可以写出下面这段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Swap</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">right</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Swap</span><span class="p">(</span><span class="kt">double</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="kt">double</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">right</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Swap</span><span class="p">(</span><span class="kt">char</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="kt">char</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">right</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们可以发现，在上面这段代码中，我们函数实现的逻辑是完全相同的，只是传给函数的形参类型不同，也就是我们写了大量重复的代码。那有没有办法能解决呢？</p>
+<p>答案是有的，在C++中，我们可以给编译器一个函数模版，然后让编译器随着我们函数参数类型的变化自动生成对应的函数实例。</p>
+<blockquote>
+<p>我们原先是根据具体的类型来编程的，而现在我们只需要写一个通用的函数模版出来就可以<strong>处理不同类型</strong>的数据。我们把这种根据广泛数据类型的编程就叫做<strong>泛型编程</strong>。</p>
+</blockquote>
+<blockquote>
+<p>泛型编程：编写==与类型无关==的通用代码，是代码复用的一种手段。模板是泛型编程的基础</p>
+</blockquote>
+<h1 id="2-函数模版">2. 函数模版
+</h1><h2 id="21-函数模版概念">2.1 函数模版概念
+</h2><blockquote>
+<p>函数模板代表了一个函数家族，该函数模板与类型无关，在使用时被参数化，<strong>根据实参类型产生函数的特定类型版本。</strong></p>
+</blockquote>
+<h2 id="22-函数模版格式">2.2 函数模版格式
+</h2><p>函数模版格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="n">typname</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="p">...,</span><span class="k">typename</span> <span class="n">Tn</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="err">返回类型</span> <span class="err">函数名（函数参数）</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>其中typename可以换成class</p>
+<p>函数模版中函数里面的类型一般都用T代替（T是Type的缩写）</p>
+<p>可以定义多个模版参数</p>
+</blockquote>
+<p>我们现在来写一个交换函数的模版</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span>   <span class="c1">//类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">Swap</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> <span class="c1">//对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">T1</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">right</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>我们可以测试一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="n">m</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mf">2.2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Swap</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Swap</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的代码中，我们分别传了（整型，整型），（浮点型，浮点型），（整型，浮点型）</p>
+<p>那么编译器就会根据我们写的函数模版和提供的函数参数类型，推断并生成对应的实例函数</p>
+<p>而不会把所有类型的函数生成，比如我们这个例子中就不会生成char类型的Swap函数</p>
+<p>注意：</p>
+<ol>
+<li>不同类型的参数，调用的不同的函数</li>
+<li>模版本质是让编译器当牛马，实例化生成对应的函数</li>
+<li>==模版不是函数，编译器根据模版实例化生成的才是函数==</li>
+</ol>
+<h2 id="23-函数模版的原理">2.3 函数模版的原理
+</h2><p>函数模版是一个蓝图，它本身不是一个函数，是==编译器用使用方式产生特定具体类型函数的模具==。所以其实模板就是将本来应该我们做的重复的事情交给了编译器</p>
+<p><img src="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730097917108.png"
+	width="1050"
+	height="533"
+	srcset="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730097917108_hu_6eb9f994ebf8ed6a.png 480w, /p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730097917108_hu_f3597b2ccda1f629.png 1024w"
+	loading="lazy"
+	
+		alt="73009791710"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="196"
+		data-flex-basis="472px"
+	
+></p>
+<ul>
+<li>
+<p>==模版是在编译阶段生成对应函数的==，编译器编译成指令后，就没有模版这个概念了，只有对应生成的函数实例了</p>
+</li>
+<li>
+<p>在编译器<strong>编译</strong>阶段，对于模板函数的使用，编译器需要根据传入的实参类型来<strong>推演生成对应类型的函数</strong>以供调用。</p>
+</li>
+</ul>
+<blockquote>
+<p>比如：当用double类型使用函数模板时，编译器通过对实参类型的推演，将T确定为double类型，然后产生一份专门处理double类型的代码，对于字符类型也是如此。</p>
+</blockquote>
+<h2 id="24-函数模版实例化">2.4 函数模版实例化
+</h2><blockquote>
+<p>用不同类型的参数使用函数模板时，称为函数模板的实例化。</p>
+</blockquote>
+<p>函数模版的实例化分为隐式实例化和显式实例化</p>
+<p>以一个加法函数模版为例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">Add</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">a1</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">a2</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="n">d1</span> <span class="o">=</span> <span class="mf">10.1</span><span class="p">,</span> <span class="n">d2</span> <span class="o">=</span> <span class="mf">20.1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Add</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Add</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>
+<h3 id="隐式实例化--自动推导类型">隐式实例化 &ndash; 自动推导类型
+</h3><p>隐式实例化就是，编译器会根据我们传的实参自己去推模版参数的实际类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">	<span class="c1">//强转
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">d1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">a1</span><span class="p">,</span> <span class="n">d1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<h3 id="显示实例化--不用推导">显示实例化 &ndash; 不用推导
+</h3><p>在函数名和参数中间加上<code>&lt;&gt;</code>告诉编译器是什么类型</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">d1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">d1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>显示实例化的应用场景</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span><span class="o">*</span> <span class="n">Func</span><span class="p">(</span><span class="n">size_t</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Func</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在上面的场景中，编译器无法推断类型，所以需要我们显示地写</p>
+</li>
+</ol>
+<h2 id="25-模版参数的匹配原则">2.5 模版参数的匹配原则
+</h2><p>如果我们既写了函数模版，也写了普通函数，那么编译器会优先匹配谁呢</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">Add</span><span class="p">(</span><span class="n">T</span> <span class="n">left</span><span class="p">,</span> <span class="n">T</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>如果函数模版和普通函数同时存在，编译器会优先调用普通函数</strong></p>
+<p>那如果我们就是要调用函数模版呢？我们可以显示调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果传的参数和普通函数的参数类型不匹配，那么会调模版</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>补充：<strong>交换函数我们不需要自己写，库里面有swap函数</strong></p>
+<p>不需要我们自己包头文件，间接被包了</p>
+<p><img src="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730109586276.png"
+	width="1034"
+	height="687"
+	srcset="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730109586276_hu_569e3716a237984.png 480w, /p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730109586276_hu_340bc339849ddffd.png 1024w"
+	loading="lazy"
+	
+		alt="73010958627"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="361px"
+	
+></p>
+</blockquote>
+<p><strong>编译器会先调用更匹配的</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Add</span><span class="p">(</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">Add</span><span class="p">(</span><span class="n">T</span> <span class="n">left</span><span class="p">,</span> <span class="n">T</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T1</span> <span class="n">Add</span><span class="p">(</span><span class="n">T1</span> <span class="n">left</span><span class="p">,</span> <span class="n">T2</span> <span class="n">right</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">*</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//优先匹配 template&lt;class T&gt;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3-类模版">3. 类模版
+</h1><h2 id="31-类模版的定义格式">3.1 类模版的定义格式
+</h2><p>如果一个类中的数据<strong>成员的数据类型</strong>不能确定，或者是某个<strong>成员函数的参数</strong>或者<strong>返回值的类型</strong>不能确定，就必须将此类声明为模板。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T2</span><span class="p">,</span> <span class="p">...,</span> <span class="k">class</span> <span class="nc">Tn</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="err">类模版名</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//类内成员定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如我们写一个栈的模版</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Stack</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Stack</span><span class="p">(</span><span class="n">size_t</span> <span class="n">capacity</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_capacity</span> <span class="o">=</span> <span class="n">capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">T</span><span class="o">*</span> <span class="n">_array</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">_capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">_size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用类的模版后，我们就可以==创建多个存有不同数据类型==的栈了。</p>
+<p>而使用typedef或using就只能创建存有同一种数据类型的栈</p>
+<blockquote>
+<p>C++中喜欢用using替代typedef。</p>
+<p>例如：using STDataType = int;</p>
+</blockquote>
+<h2 id="32-类模版的实例化">3.2 类模版的实例化
+</h2><p>类模版一般是显示实例化，即<code>类名&lt;显示传类型&gt; 对象</code></p>
+<p>==类模板名字不是真正的类，而实例化的结果才是真正的类==</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//实例化生成对应的类，这里是两个不同的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//Stack是类名，Stack&lt;int&gt;才是类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st1</span><span class="p">;</span>        <span class="c1">//存储int的栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Stack</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">st2</span><span class="p">;</span>     <span class="c1">//存储double的栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：</p>
+<ol>
+<li>==模版一般不会声明和定义分离==</li>
+<li>要么全写在.h要么全写在.cpp</li>
+<li>==<span style="color: #FF0000;">类模版不能用类名代表类型</span>==，必须加上模版参数才是类型（也就是必须显示调用模版）</li>
+</ol>
+<p>如果类模版中的成员函数声明和定义分离写，那么指定类域应该这样写==类名<T>::==</p>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Stack</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Stack</span><span class="p">(</span><span class="n">size_t</span> <span class="n">capacity</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_array</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">capacity</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_capacity</span> <span class="o">=</span> <span class="n">capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">_size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">T</span><span class="o">*</span> <span class="n">_array</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">_capacity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">size_t</span> <span class="n">_size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//再次声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Push</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">_arr</span><span class="p">[</span><span class="n">_size</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>类模板中的成员函数都是函数模板</p>
+<h1 id="4stl简介">4.STL简介
+</h1><h2 id="41什么是stl">4.1什么是STL
+</h2><p>STL（standard template libaray 标准模版库）：==是C++标准库的重要组成部分==。</p>
+<p>不仅是一个可复用的组件库，而且是一个==包罗数据结构与算法的软件框架==。</p>
+<p><img src="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/image-20250919142430740.png"
+	width="909"
+	height="655"
+	srcset="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/image-20250919142430740_hu_62d21f336599dc77.png 480w, /p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/image-20250919142430740_hu_8c8dd039286a030b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250919142430740"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="333px"
+	
+></p>
+<blockquote>
+<p>IO流、智能指针、线程库&hellip;不属于STL</p>
+</blockquote>
+<p><img src="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730194036788.png"
+	width="622"
+	height="481"
+	srcset="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730194036788_hu_bdd04acbbf6ce048.png 480w, /p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730194036788_hu_55405607ae28e0ed.png 1024w"
+	loading="lazy"
+	
+		alt="73019403678"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="129"
+		data-flex-basis="310px"
+	
+></p>
+<h2 id="42-stl的版本">4.2 STL的版本
+</h2><ul>
+<li>
+<p><strong>原始版本</strong></p>
+<p>Alexander Stepanov、Meng Lee 在<strong>惠普实验室</strong>完成的原始版本，本着开源精神，他们声明允许任何人任意运用、拷贝、修改、传播、商业使用这些代码，无需付费。唯一的条件就是也需要向原始版本一样做开源使用。</p>
+<p><strong>HP 版本是所有STL实现版本的始祖</strong></p>
+</li>
+<li>
+<p><strong>P. J. 版本</strong></p>
+<p>由P. J. Plauger开发，继承自HP版本，被**Windows Visual C++**采用，不能公开或修改，</p>
+<p>缺陷：可读性比较低，符号命名比较怪异。</p>
+</li>
+<li>
+<p><strong>RW版本</strong></p>
+<p>由Rouge Wage公司开发，继承自HP版本，被C+ + Builder 采用，不能公开或修改，可读性一般</p>
+</li>
+<li>
+<p><strong>SGI版本</strong></p>
+<p>由Silicon Graphics Computer Systems，Inc公司开发，继承自HP版 本。被**GCC(Linux)**采用，可移植性好，可公开、修改甚至贩卖，从命名风格和编程 风格上看，阅读性非常高。我们后面学习STL要阅读部分源代码，主要参考的就是这个版本</p>
+</li>
+</ul>
+<h2 id="43-stl的六大组件">4.3 STL的六大组件
+</h2><ol>
+<li>容器 - 就是我们常见的数据结构</li>
+<li>算法 -</li>
+<li>空间配置器 - 内存池，给容器（数据结构）提供内存，提高效率</li>
+<li>迭代器</li>
+<li>仿函数</li>
+<li>配接器</li>
+</ol>
+<p><img src="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730194738374.png"
+	width="1079"
+	height="752"
+	srcset="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730194738374_hu_b480cc5eebb9aae3.png 480w, /p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730194738374_hu_349f42d9545e927e.png 1024w"
+	loading="lazy"
+	
+		alt="73019473837"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="344px"
+	
+></p>
+<h2 id="43-stl的重要性">4.3 STL的重要性
+</h2><p>笔试</p>
+<p>面试</p>
+<p><img src="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730195296659.png"
+	width="944"
+	height="1162"
+	srcset="/p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730195296659_hu_f69055e72d401be9.png 480w, /p/template-basics-and-stl-introduction/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730195296659_hu_29f61dd284b1f00f.png 1024w"
+	loading="lazy"
+	
+		alt="73019529665"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="81"
+		data-flex-basis="194px"
+	
+></p>
+<p>工作</p>
+<h2 id="44如何学习stl">4.4如何学习STL
+</h2><p>学习STL的三种境界</p>
+<ul>
+<li>熟用STL</li>
+<li>了解泛型技术的内涵与STL的学理乃至实作</li>
+<li>扩充STL</li>
+</ul>
+<p>简单总结一下：学习STL的三个境界：<strong>能用，明理，能扩展</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-02/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】03类和对象（中）"
+                        data-key="class-with-object-02" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】03类和对象（中）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-03/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-03/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】04类和对象（下）"
+                        data-key="class-with-object-03" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】04类和对象（下）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/c-memory-management/">
+        
+        
+            <div class="article-image">
+                <img src="/p/c-memory-management/aa.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】05内存管理"
+                        data-key="c&#43;&#43;-memory-management" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】05内存管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

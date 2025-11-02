@@ -1,0 +1,3578 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="理解进程、环境变量与地址空间">
+<title>【Linux】03进程的概念</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【Linux】03进程的概念">
+<meta property='og:description' content="理解进程、环境变量与地址空间">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta name="twitter:title" content="【Linux】03进程的概念">
+<meta name="twitter:description" content="理解进程、环境变量与地址空间"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一进程">一、进程</a>
+      <ul>
+        <li><a href="#11进程概念">1.1进程概念</a>
+          <ul>
+            <li><a href="#111冯诺依曼体系结构">1.1.1冯诺依曼体系结构</a></li>
+            <li><a href="#112软件运行必须先加载到内存">1.1.2软件运行，必须先加载到内存</a></li>
+            <li><a href="#113-理解数据流动">1.1.3 理解数据流动</a></li>
+            <li><a href="#114-操作系统">1.1.4 操作系统</a>
+              <ul>
+                <li><a href="#操作系统基本介绍">操作系统基本介绍</a></li>
+                <li><a href="#设计os的目的"><strong>设计OS的目的</strong></a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#12-进程">1.2 进程</a>
+          <ul>
+            <li><a href="#121-概念">1.2.1 概念</a></li>
+            <li><a href="#622-task_"><strong>6.2.2 task_struct</strong></a></li>
+            <li><a href="#623-查看进程">6.2.3 查看进程</a>
+              <ul>
+                <li><a href="#getpid查看进程id">getpid()查看进程id</a></li>
+                <li><a href="#通过文件去查看进程">通过文件去查看进程</a></li>
+                <li><a href="#getppid查看父进程">getppid()查看父进程</a></li>
+                <li><a href="#fork函数创建子进程">fork函数创建子进程</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#13进程的状态"><strong>1.3</strong>进程的状态</a>
+          <ul>
+            <li><a href="#631进程状态基本介绍">6.3.1进程状态基本介绍</a>
+              <ul>
+                <li><a href="#运行阻塞挂起">运行&amp;&amp;阻塞&amp;&amp;挂起</a></li>
+                <li><a href="#理解内核链表">理解内核链表</a></li>
+                <li><a href="#linux的进程状态">Linux的进程状态</a></li>
+              </ul>
+            </li>
+            <li><a href="#632僵尸进程">6.3.2僵尸进程</a></li>
+            <li><a href="#633孤儿进程">6.3.3孤儿进程</a></li>
+          </ul>
+        </li>
+        <li><a href="#14进程的优先级">1.4进程的优先级</a>
+          <ul>
+            <li><a href="#641基本概念">6.4.1基本概念</a></li>
+            <li><a href="#642查看系统进程">6.4.2查看系统进程</a></li>
+            <li><a href="#643pri和ni">6.4.3PRI和NI</a></li>
+            <li><a href="#644补充概念-竞争独立并行并发">6.4.4补充概念-竞争、独立、并行、并发</a></li>
+          </ul>
+        </li>
+        <li><a href="#15进程切换">1.5进程切换</a>
+          <ul>
+            <li><a href="#651死循环进程如何运行">6.5.1死循环进程如何运行</a></li>
+            <li><a href="#652cpu寄存器">6.5.2CPU，寄存器</a></li>
+            <li><a href="#653进程是如何切换的">6.5.3进程是如何切换的？</a></li>
+          </ul>
+        </li>
+        <li><a href="#16linux26内核进程o1调度队列">1.6Linux2.6内核进程O(1)调度队列</a>
+          <ul>
+            <li><a href="#活动队列">活动队列</a></li>
+            <li><a href="#过期队列">过期队列</a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#二环境变量">二、环境变量</a>
+      <ul>
+        <li><a href="#1-概念介绍">1. 概念介绍</a>
+          <ul>
+            <li><a href="#11命令行参数">1.1命令行参数</a></li>
+          </ul>
+        </li>
+        <li><a href="#2-一个例子认识环境变量">2. 一个例子，认识环境变量</a></li>
+        <li><a href="#3认识更多的环境变量">3.认识更多的环境变量</a></li>
+        <li><a href="#4获取环境变量的方法">4.获取环境变量的方法</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#方式1获取环境变量">方式1：获取环境变量</a></li>
+                <li><a href="#方法2推荐getenv">方法2(推荐)：getenv</a></li>
+                <li><a href="#方法3environ">方法3：environ</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#5理解环境变量的特性">5.理解环境变量的特性</a>
+          <ul>
+            <li><a href="#51-环境变量具有全局特性">5.1 环境变量具有全局特性</a></li>
+            <li><a href="#52-补充两个概念">5.2 补充两个概念</a></li>
+          </ul>
+        </li>
+        <li><a href="#6-程序地址空间初识">6. 程序地址空间初识</a></li>
+      </ul>
+    </li>
+    <li><a href="#三进程地址空间">三、进程地址空间</a>
+      <ul>
+        <li><a href="#1引入新概念">1.引入新概念</a>
+          <ul>
+            <li><a href="#11-一个进程一个虚拟地址空间">1.1 一个进程，一个虚拟地址空间</a></li>
+            <li><a href="#12一个进程一套页表">1.2一个进程，一套页表</a></li>
+            <li><a href="#13页表是用来做虚拟地址和物理地址映射的">1.3页表是用来做虚拟地址和物理地址映射的</a></li>
+          </ul>
+        </li>
+        <li><a href="#2虚拟地址与进程地址空间">2.虚拟地址与进程地址空间</a>
+          <ul>
+            <li><a href="#21虚拟地址空间是什么">2.1虚拟地址空间是什么？</a></li>
+            <li><a href="#22如何描述虚拟地址空间">2.2如何描述虚拟地址空间</a></li>
+            <li><a href="#23为什么要有进程地址空间">2.3为什么要有进程地址空间</a></li>
+          </ul>
+        </li>
+        <li><a href="#3地址空间的扩展知识">3.地址空间的扩展知识</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/linux-process-basic/">
+                <img src="/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png"
+                        srcset="/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png 800w, /p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_a76c8c5ca0be0093.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】03进程的概念" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" style="background-color: #77ACF1; color: #fff;">
+                Linux
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/linux-process-basic/">【Linux】03进程的概念</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            理解进程、环境变量与地址空间
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="一进程">一、进程
+</h1><p>创建进程时，要有对应的task_struct来描述进程</p>
+<p>而每一个task_struct最终都要对应一个虚拟地址空间</p>
+<h2 id="11进程概念">1.1进程概念
+</h2><h3 id="111冯诺依曼体系结构">1.1.1冯诺依曼体系结构
+</h3><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910092624351.png"
+	width="888"
+	height="432"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910092624351_hu_c79f4e4aebe1092e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910092624351_hu_9581092868f4c93c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250910092624351"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="205"
+		data-flex-basis="493px"
+	
+></p>
+<blockquote>
+<p>输入设备：键盘，鼠标，话筒，摄像头&hellip;网卡，磁盘</p>
+<p>输出设备：显示器，磁盘，网卡，打印机&hellip;</p>
+</blockquote>
+<p><strong>在冯诺依曼体系中，统一把输入输出设备称为外设</strong></p>
+<ul>
+<li>
+<p>输入设备：将外设的数据读到内存里</p>
+</li>
+<li>
+<p>输出设备：把内存的数据输出到外设中</p>
+</li>
+<li>
+<p>==磁盘和网卡== 既是输入设备也是输出设备：</p>
+<p>读取文件就是把磁盘中的数据读到内存里；</p>
+<p>写文件就是把内存里的数据写到磁盘上</p>
+<p>Input/Output &mdash;&gt;IO</p>
+</li>
+<li>
+<p>站在内存的角度，外设把数据交给我（内存）&mdash;&gt;Input</p>
+<p>我(内存)把数据交给输出设备&mdash;&ndash;&gt;Output</p>
+</li>
+</ul>
+<p><strong>CPU=运算器+控制器</strong></p>
+<blockquote>
+<p>算术运算（+-*/等），逻辑运算（真假）</p>
+<p>控制器主要是控制CPU去取指令，分析指令，执行指令</p>
+<p>我们把CPU也叫做中央处理器</p>
+</blockquote>
+<p><strong>存储器：内存</strong></p>
+<blockquote>
+<p>磁盘：外存</p>
+</blockquote>
+<h3 id="112软件运行必须先加载到内存">1.1.2软件运行，必须先加载到内存
+</h3><ol>
+<li>
+<p><strong>软件运行，必须先加载到内存。程序运行之前，在哪里？</strong></p>
+<p>磁盘。程序就是一个文件，是编译好的在磁盘特定路径下的二进制文件</p>
+</li>
+<li>
+<p><strong>为什么程序运行的时候要==先将程序加载到内存==？</strong> &mdash;&ndash;&gt; 体系结构规定</p>
+<p>CPU获取，写入，只能从内存中来进行</p>
+</li>
+<li>
+<p><strong>==软件运行 实际上是CPU执行我们的代码，访问我们的数据==</strong></p>
+<p>CPU无法直接从外设读取数据，所以必须先将数据加载到内存</p>
+<p>这时，我们的程序才能被CPU访问到</p>
+<blockquote>
+<p>执行printf的时候是先从CPU处理完后，放到内存的缓冲区里，然后需要的时候再把数据刷新到外设</p>
+</blockquote>
+</li>
+<li>
+<p><strong>数据流动的本质——数据是从一个设备”拷贝“到另一个数据</strong></p>
+<p>体系结构的效率：由设备的拷贝效率决定</p>
+</li>
+</ol>
+<p>==<strong>结论：在数据层面，CPU只和内存打交道，外设只和内存打交道</strong>==</p>
+<p><strong>存储分级：离CPU越近，效率越高，容量越小</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732629388338.png"
+	width="1824"
+	height="1034"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732629388338_hu_683e0b7ae4d276f1.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732629388338_hu_356f45df553e1790.png 1024w"
+	loading="lazy"
+	
+		alt="73262938833"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
+	
+></p>
+<p><strong>为什么不按照下面的方式设计计算机呢？</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732627764668.png"
+	width="922"
+	height="333"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732627764668_hu_459176d898b7d7bd.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732627764668_hu_e791cea72f84c477.png 1024w"
+	loading="lazy"
+	
+		alt="73262776466"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="276"
+		data-flex-basis="664px"
+	
+></p>
+<p>由于CPU处理数据非常快，外设的处理数据比较慢，如果采用这种结构</p>
+<p>那么整个体系结构的效率就完全由外设的效率决定了</p>
+<p>所以引入内存</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732628882412.png"
+	width="843"
+	height="438"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732628882412_hu_6faeb2617579ac14.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732628882412_hu_de2f4205700008ba.png 1024w"
+	loading="lazy"
+	
+		alt="73262888241"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="192"
+		data-flex-basis="461px"
+	
+></p>
+<p>内存和CPU，外设都能比较好地适配</p>
+<blockquote>
+<p>操作系统能提前将输入设备里的数据搬到内存里</p>
+</blockquote>
+<p>有了内存，使当代计算机，是性价比的产物</p>
+<p>后来，芯片技术+摩尔定律</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732769208301.png"
+	width="980"
+	height="206"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732769208301_hu_3e8b21fa180f8c2f.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732769208301_hu_64633f06885146.png 1024w"
+	loading="lazy"
+	
+		alt="73276920830"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="475"
+		data-flex-basis="1141px"
+	
+></p>
+<h3 id="113-理解数据流动">1.1.3 理解数据流动
+</h3><p><strong>数据流动的本质就是在冯诺依曼体系结构中进行流动</strong></p>
+<p>举例：</p>
+<p><strong>1.QQ聊天</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732769677391.png"
+	width="1591"
+	height="459"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732769677391_hu_66f2280955f2aef5.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732769677391_hu_be2b57c05ff7ec56.png 1024w"
+	loading="lazy"
+	
+		alt="73276967739"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="346"
+		data-flex-basis="831px"
+	
+></p>
+<p>用户从键盘输入，首先要打开QQ这个软件，需要将QQ这个软件加载到内存，把键盘</p>
+<p>数据搬到内存，你的消息需要经过运算器控制（加密、封包&hellip;），然后由CPU写回内存</p>
+<p>再通过QQ将数据送到自己的体系结构的输出设备（网卡）</p>
+<p>网卡将数据交到网络里，一定会交到朋友的那台机器，由朋友的输入设备（网卡）</p>
+<p>来接收，朋友的QQ也一定得启动起来加载到内存，把数据从外设搬到内存，在QQ</p>
+<p>内部执行所有的代码（将读到的数据交给CPU，比如做解密，然后再交给内存），由</p>
+<p>存储器刷新到输出设备（显示器）</p>
+<p><strong>2.发送文件</strong></p>
+<p>文件是在磁盘上的，当我们将文件拖拽到QQ中，本质上是将磁盘文件拷贝到QQ，即</p>
+<p>搬到内存里，经过CPU的加密封装&hellip;等，然后再写回到存储器（内存），再将我们的</p>
+<p>文件数据刷新到网卡，经过网卡，对方网卡接收，读到内存，经过CPU解包解密，写回</p>
+<p>到内存，打开对应目标文件，然后把数据写入到输出设备（磁盘）</p>
+<h3 id="114-操作系统">1.1.4 操作系统
+</h3><h4 id="操作系统基本介绍">操作系统基本介绍
+</h4><p>一个基本的程序集合，称为操作系统（OS）</p>
+<p>操作系统是一款<strong>进行软硬件管理</strong>的==软件==</p>
+<p><strong>操作系统包括：</strong></p>
+<p><strong>内核</strong>（进程管理，内存管理，文件管理，驱动管理）</p>
+<p><strong>其它程序</strong>（例如函数库，shell程序）</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910094856748.png"
+	width="1150"
+	height="576"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910094856748_hu_76347483d912ef0d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910094856748_hu_fca4deae793111f2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250910094856748"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="199"
+		data-flex-basis="479px"
+	
+></p>
+<h4 id="设计os的目的"><strong>设计OS的目的</strong>
+</h4><p>为用户程序提供一个良好的执行环境</p>
+<p><strong>硬件部分</strong></p>
+<p>最底层是硬件，而硬件在逻辑上是按照冯诺依曼结构组织的</p>
+<p>每一种硬件都有对应的驱动程序</p>
+<p><strong>驱动程序</strong></p>
+<p>在硬件层面，不同的硬件都有自己个性化的读取方式，所以我们访问各种不同的硬件都要配上驱动程序</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910095228256.png"
+	width="1023"
+	height="888"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910095228256_hu_c49f7af1b07a1c7a.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910095228256_hu_62f104a3af034daf.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250910095228256"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="115"
+		data-flex-basis="276px"
+	
+></p>
+<p><strong>操作系统</strong></p>
+<p>对下，与软硬件交互，管理所有软硬件资源（不是目的，是手段）</p>
+<p>对上，为用户（目的）程序（应用程序）提供一个良好的执行环境</p>
+<p><strong>1.软硬件体系结构层状结构 &ndash; 从硬件一直到用户</strong></p>
+<blockquote>
+<p>硬件是一层，驱动程序是一层，操作系统是一层</p>
+<p>软件的层状结构：在软件功能上体现高内聚，低耦合</p>
+<ul>
+<li>高内聚：将相同功能相同逻辑的代码数据放到同一层的内部</li>
+<li>低耦合：层跟层之间只使用接口来调用</li>
+</ul>
+<p>目的：提高代码的可维护性 &ndash;一个模块修改了，不影响另一个模块</p>
+</blockquote>
+<p><strong>2.访问操作系统，必须使用系统调用&ndash;其实就是函数，只不过是系统提供的</strong></p>
+<blockquote>
+<p>prinf的本质：把数据写到了硬件!显示器!</p>
+<p>底层封装了系统调用，然后通过操作系统，对驱动进行访问，访问对应驱动，然后才能把数据交到硬件上</p>
+</blockquote>
+<p><strong>3.我们的程序，只要你判断出它访问了硬件，那么它必须贯穿整个软硬件体系结构</strong></p>
+<p><strong>4.我们平时用的库可能在底层封装了系统调用</strong></p>
+<p><strong>理解操作系统</strong></p>
+<ul>
+<li>
+<p>核心功能</p>
+<ul>
+<li>在整个计算机软硬件架构中，操作系统是一款进行软硬件<span style="color: #8080FF;">管理</span>的软件</li>
+</ul>
+</li>
+<li>
+<p>如何理解管理？</p>
+<ul>
+<li>
+<p>事情：1.决策 2.执行</p>
+</li>
+<li>
+<p>操作系统拥有决策权，驱动程序来执行，硬件被管理</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736728845182.png"
+	width="414"
+	height="571"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736728845182_hu_f2d7c58508a2de65.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736728845182_hu_6462eb2b0a223b64.png 1024w"
+	loading="lazy"
+	
+		alt="73672884518"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="72"
+		data-flex-basis="174px"
+	
+></p>
+<p>1.要管理，管理者和被管理者，可以不需要见面</p>
+<p>2.管理者和被管理者，怎么管理呢？根据数据进行管理</p>
+<p>3.不需要见面，如何得到数据？由中间层获取</p>
+</li>
+</ul>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910205552418.png"
+	width="1199"
+	height="790"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910205552418_hu_a906e27473fe4d96.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250910205552418_hu_ca942b02f2248411.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250910205552418"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="151"
+		data-flex-basis="364px"
+	
+></p>
+</li>
+</ul>
+<p><strong>操作系统如何管理硬件？</strong></p>
+<blockquote>
+<p>1.描述起来，用struct结构体
+2.组织起来，用链表或其他高效的数据结构</p>
+</blockquote>
+<p>每一个硬件都有硬件名，操作系统在内部，==先描述，再组织==。</p>
+<p>把网卡、硬盘、显卡、键盘、显示器等统一使用struct device定义一个结构</p>
+<p>类里面可以包含每一种硬件的各种属性（硬件名称、状态、相关链接信息..）</p>
+<p>每一个硬件都对应一个struct device对象，把对象管理起来。</p>
+<p>操作系统管理硬件 &mdash;&gt; 对硬件的增删查改</p>
+<blockquote>
+<p><strong>操作系统怎么对进程进行管理？</strong></p>
+<p>操作系统要对每个进程定义struct结构体结构，然后将进程相关的属性放到</p>
+<p>结构体里，用链接结点全部连起来，转换成对进程管理，转换成对链表的</p>
+<p>增删查改</p>
+</blockquote>
+<p>C++中：类+STL</p>
+<ul>
+<li>类解决了先描述</li>
+<li>STL解决了再组织</li>
+</ul>
+<p><strong>理解系统调用</strong></p>
+<ul>
+<li>操作系统要向上提供对应的服务</li>
+<li>操作系统，不相信任何用户或者人</li>
+</ul>
+<p>我们未来访问操作系统、获取操作系统内的数据、设置自己的信息等都要</p>
+<p>通过系统调用来完成</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740052959285.png"
+	width="1177"
+	height="246"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740052959285_hu_9353fa466ae7d97e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740052959285_hu_d8bf28c9d786cea3.png 1024w"
+	loading="lazy"
+	
+		alt="74005295928"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="478"
+		data-flex-basis="1148px"
+	
+></p>
+<p>Linux/windows/macos的操作系统都是C语言写的&ndash;&gt;C函数&ndash;&gt;输入参数和返回值</p>
+<ul>
+<li>输入参数：用户给操作系统</li>
+<li>返回值：操作系统给用户</li>
+</ul>
+<p>==系统调用的本质：用户和操作系统之间，进行某种数据交互==</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736733937738.png"
+	width="867"
+	height="423"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736733937738_hu_9047ad396547315e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736733937738_hu_a13e96510a232b47.png 1024w"
+	loading="lazy"
+	
+		alt="73673393773"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="204"
+		data-flex-basis="491px"
+	
+></p>
+<blockquote>
+<p>库函数如果访问了硬件，那么底层一定访问了系统调用</p>
+</blockquote>
+<p><strong>系统调用和库函数</strong></p>
+<blockquote>
+<p>在开发角度，操作系统对外会表现为一个整体，但是会<strong>暴露自己的部分接口，供上层开发使用</strong>，这部分<strong>由操作系统提供的接口，叫做系统调用</strong>。</p>
+<p>系统调用在使用上，功能比较基础，对用户的要求相对也比较高，所以，有心的开发者可以<strong>对部分系统调用进行适度封装，从而形成库</strong>，有了库，就很有利于更上层用户或者开发者进行二次开发。</p>
+</blockquote>
+<h2 id="12-进程">1.2 进程
+</h2><h3 id="121-概念">1.2.1 概念
+</h3><p>==进程 = 内核数据结构对象 + 自己的代码和数据==</p>
+<p>==进程 = PCB(task_struct) + 自己的代码和数据==</p>
+<p>操作系统必然要对多个被加载到内存中的程序进行管理</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736734939556.png"
+	width="1141"
+	height="745"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736734939556_hu_e628960c7eecfc2.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736734939556_hu_736d6d4d5d8de72a.png 1024w"
+	loading="lazy"
+	
+		alt="73673493955"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="153"
+		data-flex-basis="367px"
+	
+></p>
+<p><span style="color: #FF0000;">对进程的管理，就变成了对链表的增删查改 </span></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736734972066.png"
+	width="193"
+	height="306"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736734972066_hu_54aa528ed0860848.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736734972066_hu_4f4a3e663fae2b49.png 1024w"
+	loading="lazy"
+	
+		alt="73673497206"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="63"
+		data-flex-basis="151px"
+	
+></p>
+<p>我们把这个结构体叫PCB（process control block )进程控制块</p>
+<p>在Linux中，这个PCB叫task_struct，</p>
+<p>进程的所有属性，都可以直接或者间接通过task_struct找到</p>
+<blockquote>
+<p>task_struct - PCB的一种</p>
+<ul>
+<li>在Linux中描述进程的结构体叫做task_struct。</li>
+<li>task_struct是Linux内核的一种数据结构类型，它会被装载到RAM（内存）里并且包含着进程的信息</li>
+</ul>
+</blockquote>
+<h3 id="622-task_"><strong>6.2.2 task_struct</strong>
+</h3><blockquote>
+<p>在Linux中描述进程的结构体叫做task_struct。</p>
+</blockquote>
+<ul>
+<li>标志符：<span style="color: #8080FF;">描述本进程的唯一标志符，用来区别其它进程</span></li>
+<li>状态：任务状态、退出代码、退出信号</li>
+<li>优先级：相对于其它进程的优先级</li>
+<li>程序计数器：程序中即将被执行的下一条指令的地址</li>
+<li>内存指针：包括程序代码和进程相关数据的指针，还有和其他进程共享的内存块的指针，能真正找到代码和数据</li>
+<li><strong>上下文数据</strong>：进程执行时处理器的寄存器中的数据</li>
+<li>I/O状态信息：包括显示的I/0请求，分配给进程的I/0设备和被进程使用的文件列表</li>
+<li>记账信息：可能包括处理器时间总和，使用的时钟数总和，时间限制，记账号等</li>
+<li>其他信息</li>
+</ul>
+<p><strong>组织进程</strong></p>
+<blockquote>
+<p>可以在内核源代码里找到它。所有运行在系统里的进程都以task_struct链表的形式存在内核里</p>
+</blockquote>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914161445126.png"
+	width="1018"
+	height="523"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914161445126_hu_b39d6bfd888eef30.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914161445126_hu_98e9d291cd22fe4a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914161445126"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="194"
+		data-flex-basis="467px"
+	
+></p>
+<h3 id="623-查看进程">6.2.3 查看进程
+</h3><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925104339.png"
+	width="233"
+	height="89"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925104339_hu_fb363cc3a40a378f.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925104339_hu_3ddf6f78bc8c4650.png 1024w"
+	loading="lazy"
+	
+		alt="73692510433"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="261"
+		data-flex-basis="628px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925083748.png"
+	width="419"
+	height="233"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925083748_hu_492094581cb24fea.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925083748_hu_55f9b7a1c935b4ff.png 1024w"
+	loading="lazy"
+	
+		alt="73692508374"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="179"
+		data-flex-basis="431px"
+	
+></p>
+<p>sleep需要包含头文件unistd</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925040146.png"
+	width="586"
+	height="539"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925040146_hu_9c77a5de913e488f.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925040146_hu_3b73fc9b8de84bd6.png 1024w"
+	loading="lazy"
+	
+		alt="73692504014"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="108"
+		data-flex-basis="260px"
+	
+></p>
+<p>我们历史上执行的所有==指令，工具，自己的程序==，<strong>运行起来，全部都是进程</strong></p>
+<h4 id="getpid查看进程id">getpid()查看进程id
+</h4><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925739600.png"
+	width="753"
+	height="238"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925739600_hu_d9f44bc8cbd3b9ae.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925739600_hu_757653f0d5a59f19.png 1024w"
+	loading="lazy"
+	
+		alt="73692573960"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="316"
+		data-flex-basis="759px"
+	
+></p>
+<p><strong>getpid获得标志符，谁调用这个函数就获得谁的进程ID</strong></p>
+<p>调getpid本质是让操作系统从PCB里把我的pid拷贝出来，让用户看到我的ID是什么</p>
+<blockquote>
+<ul>
+<li>man 3号手册是库调用，2号手册是系统调用</li>
+<li>task_stuct结构体里有个属性叫pid</li>
+<li>==getpid是系统调用，为了获得进程自己的pid==，pid在当前进程task_struct里对应的标志符里</li>
+</ul>
+</blockquote>
+<p><strong>只要是一个进程，就有自己的ID信息</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>      
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>               
+</span></span><span class="line"><span class="cl"><span class="p">{</span>                     
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>                 
+</span></span><span class="line"><span class="cl">        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>      
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;我是一个进程!, 我的pid:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">getpid</span><span class="p">());</span>                    
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>  
+</span></span><span class="line"><span class="cl">                                                               
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>                                                 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914162920848.png"
+	width="930"
+	height="373"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914162920848_hu_2377c74cce584eb4.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914162920848_hu_5e3f2b040ea6cfd3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914162920848"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="249"
+		data-flex-basis="598px"
+	
+></p>
+<p><code>ps axj</code>查看以特定形式显示的所有进程（a表示所有）</p>
+<ol>
+<li><code>ps axj | head -l</code>先将第一行显示（属性列的名字）</li>
+</ol>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926676916.png"
+	width="1124"
+	height="87"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926676916_hu_c05b14605bf2caed.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926676916_hu_8d166d37d2ad35d6.png 1024w"
+	loading="lazy"
+	
+		alt="73692667691"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1291"
+		data-flex-basis="3100px"
+	
+></p>
+<ol start="2">
+<li><code>ps axj | grep myprocess</code>再查我们的进程</li>
+</ol>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926613428.png"
+	width="1236"
+	height="163"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926613428_hu_ef9260cb8886114e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926613428_hu_f7c574ed0fdfa006.png 1024w"
+	loading="lazy"
+	
+		alt="73692661342"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="758"
+		data-flex-basis="1819px"
+	
+></p>
+<p>在Linux中，如果想==同时执行两条命令==，==可以使用分号或者&amp;&amp;==</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926804631.png"
+	width="1187"
+	height="190"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926804631_hu_85c6355388a4018b.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926804631_hu_bd42da5e4bb50ed8.png 1024w"
+	loading="lazy"
+	
+		alt="73692680463"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="624"
+		data-flex-basis="1499px"
+	
+></p>
+<blockquote>
+<p>因为grep命令它自己跑起来也是一个进程，它过滤的关键字中也包含myprocess，所以它自己也会被查出来，如果不想把grep也查出来，可以带-v 反向匹配，也就是包含grep的不查出来</p>
+<p><code>ps ajx | head -1;ps axj | grep myprocess | grep -v grep</code></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740057449955.png"
+	width="1410"
+	height="122"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740057449955_hu_f82513b17b5570e2.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740057449955_hu_9136920e28fd7231.png 1024w"
+	loading="lazy"
+	
+		alt="74005744995"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1155"
+		data-flex-basis="2773px"
+	
+></p>
+</blockquote>
+<p><strong>杀掉进程</strong>：<code>kill -9 对应PID</code></p>
+<blockquote>
+<p>-9表示信号</p>
+</blockquote>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740057526187.png"
+	width="654"
+	height="39"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740057526187_hu_60039afa8167322e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740057526187_hu_ab42511751921fe9.png 1024w"
+	loading="lazy"
+	
+		alt="74005752618"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1676"
+		data-flex-basis="4024px"
+	
+></p>
+<p>ctrl+c也可以杀掉进程</p>
+<h4 id="通过文件去查看进程">通过文件去查看进程
+</h4><p>可以通过文件的方式去查看进程</p>
+<blockquote>
+<p>proc目录（process的简写）</p>
+</blockquote>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736927704025.png"
+	width="1120"
+	height="502"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736927704025_hu_6dabc79173a24e0c.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736927704025_hu_be8b537d62c11125.png 1024w"
+	loading="lazy"
+	
+		alt="73692770402"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="223"
+		data-flex-basis="535px"
+	
+></p>
+<p>进程运行时，proc里的数据已经拷贝到内存了</p>
+<p>例如：</p>
+<ol>
+<li>先将程序运行起来</li>
+</ol>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928299460.png"
+	width="719"
+	height="76"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928299460_hu_f220ec3586436fbd.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928299460_hu_3d6f58c782e39438.png 1024w"
+	loading="lazy"
+	
+		alt="73692829946"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="946"
+		data-flex-basis="2270px"
+	
+></p>
+<ol start="2">
+<li>查proc目录里的pid文件</li>
+</ol>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928340654.png"
+	width="816"
+	height="82"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928340654_hu_1c428d7ae16630ef.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928340654_hu_886d6cf1664c2ca6.png 1024w"
+	loading="lazy"
+	
+		alt="73692834065"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="995"
+		data-flex-basis="2388px"
+	
+></p>
+<ol start="3">
+<li>当我们杀掉这个进程后再查，就发现找不到目录了</li>
+</ol>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740058006381.png"
+	width="1005"
+	height="82"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740058006381_hu_614c393e5f4be8c8.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740058006381_hu_444c2b9377794d87.png 1024w"
+	loading="lazy"
+	
+		alt="74005800638"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1225"
+		data-flex-basis="2941px"
+	
+></p>
+<p><strong>看一看进程目录下都有哪些文件</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928717526.png"
+	width="1647"
+	height="378"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928717526_hu_ecf590ebe37d5452.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928717526_hu_2ceac48d03db4cd8.png 1024w"
+	loading="lazy"
+	
+		alt="73692871752"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="435"
+		data-flex-basis="1045px"
+	
+></p>
+<ul>
+<li>
+<p>exe：进程对应的可执行文件</p>
+</li>
+<li>
+<p>cwd：current work dir 进程会记录下来自己的当前路径</p>
+</li>
+</ul>
+<p><strong>更改一个进程的当前路径<code>chdir</code></strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928992426.png"
+	width="836"
+	height="311"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928992426_hu_cad5163b3390661c.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736928992426_hu_d402c4245584ecf7.png 1024w"
+	loading="lazy"
+	
+		alt="73692899242"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="268"
+		data-flex-basis="645px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929101055.png"
+	width="932"
+	height="601"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929101055_hu_7edfccc54130996f.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929101055_hu_6c6d28b843ede29a.png 1024w"
+	loading="lazy"
+	
+		alt="73692910105"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="155"
+		data-flex-basis="372px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929275552.png"
+	width="948"
+	height="576"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929275552_hu_eeba9b60ee83f9b.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929275552_hu_2a8e9ec8d08e0a73.png 1024w"
+	loading="lazy"
+	
+		alt="73692927555"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="395px"
+	
+></p>
+<h4 id="getppid查看父进程">getppid()查看父进程
+</h4><p>getppid()</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929537072.png"
+	width="1427"
+	height="645"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929537072_hu_ad382888ec3bf4c1.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736929537072_hu_d8c12f8af869bc61.png 1024w"
+	loading="lazy"
+	
+		alt="73692953707"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="221"
+		data-flex-basis="530px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914170727248.png"
+	width="995"
+	height="483"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914170727248_hu_7265d009cf3f6b32.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914170727248_hu_258d0b84a33ca9a3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914170727248"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="494px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914171033193.png"
+	width="1440"
+	height="119"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914171033193_hu_84c1d1f0bcd22c24.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914171033193_hu_57c7158198609a8b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914171033193"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1210"
+		data-flex-basis="2904px"
+	
+></p>
+<p>1.命令行解释器（王婆）：本质是一个进程</p>
+<p>2.王婆和实习生</p>
+<p><span style="color: #8080FF;">操作系统会给每一个登录用户，分配一个bash</span><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914171704134.png"
+	width="1930"
+	height="268"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914171704134_hu_ab8659d9338c763a.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914171704134_hu_d1930bd6e6f007bd.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914171704134"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="720"
+		data-flex-basis="1728px"
+	
+></p>
+<h4 id="fork函数创建子进程">fork函数创建子进程
+</h4><p>fork函数，从已存在进程中创建一个新进程。新进程为子进程，而原进程为父进程。</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172129942.png"
+	width="661"
+	height="349"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172129942_hu_238692a82d5c171f.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172129942_hu_49bb34c3d070d1d3.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914172129942"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="189"
+		data-flex-basis="454px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172713326.png"
+	width="995"
+	height="566"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172713326_hu_5f23b373c782eaca.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172713326_hu_11aa0889037b7e75.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914172713326"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="175"
+		data-flex-basis="421px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172825066.png"
+	width="916"
+	height="154"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172825066_hu_9ef9a74a781da4d4.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914172825066_hu_5e9d392ca5a6e28c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914172825066"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="594"
+		data-flex-basis="1427px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914173025725.png"
+	width="781"
+	height="267"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914173025725_hu_921add08d15f4d4d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914173025725_hu_9e62a6f93271505c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914173025725"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="292"
+		data-flex-basis="702px"
+	
+></p>
+<p><strong>fork的返回值</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914173839780.png"
+	width="1724"
+	height="197"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914173839780_hu_d11f18bfff879a2e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914173839780_hu_4979a9a0a4efc2bd.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914173839780"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="875"
+		data-flex-basis="2100px"
+	
+></p>
+<ul>
+<li>
+<p>如果创建子进程成功了，那么父进程和新创建的子进程都要执行这个函数的return语句，此时</p>
+<ul>
+<li>如果是父进程，那么返回值就是子进程的pid</li>
+<li>如果是子进程，那么返回值是0</li>
+</ul>
+</li>
+<li>
+<p>如果创建子进程失败了，那么返回值就是-1</p>
+</li>
+</ul>
+<p><strong>现在我们想让父子未来执行不同的代码逻辑</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914174436507.png"
+	width="1636"
+	height="1720"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914174436507_hu_e11b673a225e24b6.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914174436507_hu_33d5aedaa70a526d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914174436507"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="95"
+		data-flex-basis="228px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914174952332.png"
+	width="912"
+	height="299"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914174952332_hu_746a57988b7b345a.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914174952332_hu_f8f01060d3635060.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914174952332"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="305"
+		data-flex-basis="732px"
+	
+></p>
+<ol>
+<li>
+<p><strong>为什么fork给父子返回各自的不同返回值？</strong></p>
+<p>父：子 = 1：n</p>
+<p>任何一个父进程都可以有多个子进程，任何一个子进程都只会有一个父进程</p>
+<p>所以未来创建子进程的时候，一定要把子进程的pid返回给父进程，因为父进程要通过不同的pid来区分不同的子进程，而子进程不需要获得父进程的pid，因为它自己能getpid()</p>
+</li>
+<li>
+<p><strong>为什么一个函数会返回两次？</strong></p>
+<p>当一个函数已经到return xx了，核心工作已经做完了。</p>
+<p>fork函数当执行到return语句的时候，子进程已经被创建，甚至被调度了！</p>
+<p>由于return 也是语句，所以父子进程各执行一次</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914180037050.png"
+	width="1704"
+	height="676"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914180037050_hu_317be8453bbe1af4.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250914180037050_hu_199b3a1618d974ac.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250914180037050"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="604px"
+	
+></p>
+<p>返回的本质是在写入变量</p>
+<blockquote>
+<p>进程调用fork，当控制转移到内核中的fork代码后，内核做：</p>
+<ul>
+<li>分配新的内存块和内核数据结构给子进程</li>
+<li>将父进程部分数据结构内容拷贝至子进程</li>
+<li>添加子进程到系统进程列表当中</li>
+<li>fork返回，开始调度器调度</li>
+</ul>
+</blockquote>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251029112419978.png"
+	width="1006"
+	height="428"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251029112419978_hu_232d3dca3025faed.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251029112419978_hu_aa9ee478d5c150c4.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251029112419978"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="235"
+		data-flex-basis="564px"
+	
+></p>
+</li>
+<li>
+<p><strong>为什么一个变量，既==0，又大于0？导致if else 同时成立</strong>?</p>
+</li>
+</ol>
+<p><strong>进程具有独立性</strong></p>
+<ol>
+<li>
+<p>数据结构独立，进程=内核数据结构对象 + 自己的代码和数据</p>
+</li>
+<li>
+<p>代码共享，但是代码是只读的</p>
+</li>
+<li>
+<p>数据以写时拷贝的方式，各自私有一份</p>
+</li>
+</ol>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736934233629.png"
+	width="1152"
+	height="249"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736934233629_hu_b5817d7c3781b962.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736934233629_hu_7a5f33d45acf2098.png 1024w"
+	loading="lazy"
+	
+		alt="73693423362"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="462"
+		data-flex-basis="1110px"
+	
+></p>
+<blockquote>
+<p><strong>写实拷贝</strong></p>
+<p>通常，父子代码共享，父子再不写入时，数据也是共享的，当任意一方试图写入，便以写时拷贝的方式各自一份副本</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251029105929375.png"
+	width="989"
+	height="369"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251029105929375_hu_440b15b8e6b545b2.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251029105929375_hu_a4d9438af4811bf9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251029105929375"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="268"
+		data-flex-basis="643px"
+	
+></p>
+<p>因为有写时拷贝技术的存在，所以父子进程得以彻底分离离！完成了进程独立性的技术保证！
+写时拷贝，是一种延时申请技术，可以提高整机内存的使用率</p>
+</blockquote>
+<h2 id="13进程的状态"><strong>1.3</strong>进程的状态
+</h2><h3 id="631进程状态基本介绍">6.3.1进程状态基本介绍
+</h3><p>一个进程可以有几个状态（在Linux内核里，进程有时候也叫做任务）</p>
+<p>进程状态就是task_struct内的一个整数</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918103847327.png"
+	width="1274"
+	height="795"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918103847327_hu_2ac486f70966f003.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918103847327_hu_d155016a7cc8becf.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918103847327"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="160"
+		data-flex-basis="384px"
+	
+></p>
+<p>进程状态很多</p>
+<p>这些状态间可以相互进行转换</p>
+<h4 id="运行阻塞挂起">运行&amp;&amp;阻塞&amp;&amp;挂起
+</h4><p>CPU调度就是在这个队列中，按照顺序，依次选择一个task_struct来选择执行</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918104655266.png"
+	width="1372"
+	height="418"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918104655266_hu_1160e58a2a3c8812.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918104655266_hu_e7db7a411d8c29f6.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918104655266"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="328"
+		data-flex-basis="787px"
+	
+></p>
+<p>**运行：**进程在调度队列中，进程的状态都是running</p>
+<p>**阻塞：**等待某种设备或者资源就绪（键盘，显示器，网卡，磁盘，摄像头，话筒&hellip;.）</p>
+<blockquote>
+<p>操作系统要管理系统中的各种硬件资源，先描述，再组织</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918105818682.png"
+	width="1349"
+	height="760"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918105818682_hu_9e8e6fef78519809.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918105818682_hu_ab61430f46da531e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918105818682"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="426px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918152009319.png"
+	width="323"
+	height="325"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918152009319_hu_9caaf2dfbec37ede.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918152009319_hu_ef709946d075a9e7.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918152009319"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="99"
+		data-flex-basis="238px"
+	
+></p>
+<p>例子：</p>
+<p>CPU正在运行一个进程，运行的过程中操作系统发现这个进程要scanf进行读取，操作系统就去检查键盘的状态，发现键盘并没有被按下，操作系统就认为这个进程就无法继续往下运行，就把这个进程从CPU上拿下来，并把它从运行队列中移走并链入到<span style="color: #8080FF;">特定设备的等待队列</span>中，这个进程就<span style="color: #8080FF;">没有在运行队列</span>中，不会被调度，这个进程就处于<span style="color: #8080FF;">阻塞</span>状态了（只有在运行队列里的进程才会被CPU调度）</p>
+<p>当键盘被按下了即硬件就绪了，由于操作系统是硬件的管理者，操作系统知道了，于是直接去查看对应就绪设备的节点，将其状态设置为活跃的，并检查等待队列，发现不为空，就将等待队列中的进程设置为运行状态，然后将该进程重新链回运行队列</p>
+</blockquote>
+<ul>
+<li>
+<p>从运行队列到变成阻塞的本质其实是把PCB链入到不同的队列结构中</p>
+</li>
+<li>
+<p>从阻塞回到运行状态，本质上就是找到PCB，再把PCB链回到运行队列，就变成运行状态了</p>
+</li>
+<li>
+<p>进程状态的变化，表现之一就是要在不同的队列中进行流动，本质都是数据结构的增删改查</p>
+</li>
+</ul>
+<p><strong>挂起：</strong></p>
+<blockquote>
+<p>在等待队列中，可能不止一个进程，这些进程没有被执行但是都需要占用内存空间，当内存空间严重不足时，操作系统就会将这些在等待队列的进程置换到磁盘中的swap分区中（在等待队列中只存PCB，而将对应的代码和数据唤出到swap分区中，等这些进程要运行了，再把代码和数据还回去），这些进程的状态就叫阻塞挂起</p>
+<p>如果内存特别紧张，操作系统可能把在运行队列中末端的一些进程置换到磁盘中——&gt;运行挂起状态</p>
+</blockquote>
+<h4 id="理解内核链表">理解内核链表
+</h4><p>我们以前学的链表，next指针会指向整个Node结点：</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918155832158.png"
+	width="939"
+	height="182"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918155832158_hu_442e3eb743cebb81.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918155832158_hu_2930c7deb0dc044.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918155832158"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="515"
+		data-flex-basis="1238px"
+	
+></p>
+<p>Linux内核中的链表，next指针只会指向目标结构体内部的某一个成员对象：</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918161314320.png"
+	width="1566"
+	height="739"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918161314320_hu_e002589836e79dda.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918161314320_hu_a2d6bb2aba6a5eb8.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918161314320"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="211"
+		data-flex-basis="508px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918161537954.png"
+	width="1251"
+	height="658"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918161537954_hu_cf82b66055ff4f3c.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918161537954_hu_380c2bd6b929a8af.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918161537954"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="190"
+		data-flex-basis="456px"
+	
+></p>
+<p>一个PCB在内核里只存在一份，一个PCB可以同时隶属于多个结构</p>
+<blockquote>
+<p>我们内核中的数据结构不是单一的数据结构</p>
+</blockquote>
+<h4 id="linux的进程状态">Linux的进程状态
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">task_state_array</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;R (running)&#34;</span><span class="p">,</span><span class="cm">/*0 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;S (sleeping)&#34;</span><span class="err">，</span><span class="cm">/*l */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;D）(disk sleep)&#34;</span><span class="err">，</span><span class="cm">/*2 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;T(stopped)&#34;</span><span class="err">，</span><span class="cm">/*4 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;t(tracing stop)&#34;</span><span class="err">，</span><span class="cm">/*8 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;X (dead)&#34;</span><span class="err">，</span><span class="cm">/*16 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;Z (zombie)&#34;</span><span class="err">，</span><span class="cm">/*32 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>**R运行状态（running  ）：**并不意味着进程一定在运行中，它表明进程要么是在运行中要么在运行队列里</p>
+<p>例如当代码中有printf时（有IO操作）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;                                        </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;hello</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918162923794.png"
+	width="1107"
+	height="80"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918162923794_hu_b23f8bc591f19635.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918162923794_hu_7574ba5d814ad626.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918162923794"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1383"
+		data-flex-basis="3321px"
+	
+></p>
+<p>当我们不做IO相关的操作时：<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693.png"
+	width="1092"
+	height="72"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693_hu_a681efc04eda458d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693_hu_3afc0381db3604ff.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918163503693"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1516"
+		data-flex-basis="3640px"
+	
+></p>
+<blockquote>
+<p>有加号的原因是因为进程是在前台启动的</p>
+</blockquote>
+<p><code>./myprocess &amp;</code> 表示将myprocess进程放在后台去运行<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637.png"
+	width="1107"
+	height="79"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637_hu_e610859320822697.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637_hu_d8f89ddab30da0d7.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918163817637"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1401"
+		data-flex-basis="3363px"
+	
+></p>
+</li>
+<li>
+<p><strong>S睡眠状态（sleeping)</strong>：意味着进程在等待事件完成（这里的睡眠有时候也叫做可中断睡眠
+(interruptible sleep)，浅睡眠）</p>
+<blockquote>
+<p>可中断休眠状态：如果一个进程自己处于S状态，我们可以直接杀掉这个进程，这个进程会响应我们杀掉它的动作</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;  </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;  </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>                                        
+</span></span><span class="line"><span class="cl"><span class="p">{</span>                                                 
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个进程，pid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">());</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>                                                     
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当我们键盘一直没有输入时，进程状态就是S（阻塞状态）</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210.png"
+	width="1094"
+	height="75"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210_hu_66063309da05382e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210_hu_e3d9253e00244db1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918165113210"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1458"
+		data-flex-basis="3500px"
+	
+></p>
+</li>
+<li>
+<p><strong>t和T 暂停状态</strong></p>
+<p><strong>t状态</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165800223.png"
+	width="1272"
+	height="1236"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165800223_hu_89498e62f36c193.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165800223_hu_b16f490cedf41955.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918165800223"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="246px"
+	
+></p>
+<p>当我们调试程序时，给这个程序打上断点再运行，那么这个程序的进程状态就是 t，即进程被暂停了</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165644447.png"
+	width="1599"
+	height="111"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165644447_hu_478a5faed261bb17.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165644447_hu_7b353ade894b3f2d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918165644447"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1440"
+		data-flex-basis="3457px"
+	
+></p>
+<p><strong>T停止状态（stopped）</strong>：可以通过发送 SIGSTOP信号给进程来停止（T）进程。这个被暂停的
+进程可以通过发送SIGCONT信号让进程继续运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;                                        </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;hello</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当我们按ctrl+Z 将当前进程暂停，是通过用户进行操作将进程暂停了，这时的状态就是 T</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918170803795.png"
+	width="768"
+	height="117"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918170803795_hu_465f04b30a92e13b.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918170803795_hu_e8ed068f34ef9b75.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918170803795"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="656"
+		data-flex-basis="1575px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918170549871-17581863759721.png"
+	width="1088"
+	height="80"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918170549871-17581863759721_hu_efcf85dd00a9fa85.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918170549871-17581863759721_hu_6bde28a9c05a8636.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918170549871"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1360"
+		data-flex-basis="3264px"
+	
+></p>
+<blockquote>
+<p>暂停进程的方式二：发送信号</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918173727937.png"
+	width="1290"
+	height="609"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918173727937_hu_3db0b20ff9017d57.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918173727937_hu_87f7abb75b53c6bc.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918173727937"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="211"
+		data-flex-basis="508px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918173900743.png"
+	width="1091"
+	height="75"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918173900743_hu_7b90be3408ee4167.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918173900743_hu_69566fe35f3c755e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918173900743"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1454"
+		data-flex-basis="3491px"
+	
+></p>
+<p>如果想要进程再次运行</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918174009739.png"
+	width="992"
+	height="87"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918174009739_hu_1e4b27016676d82e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918174009739_hu_569dd4d83347cf35.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918174009739"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1140"
+		data-flex-basis="2736px"
+	
+></p>
+</blockquote>
+</li>
+<li>
+<p><strong>D磁盘休眠状态（Disk sleep）</strong>：深睡眠，也可以叫不可中断睡眠状态（uninterruptible sleep），在这个状态的进程通常会等待IO的结束</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918172134624.png"
+	width="724"
+	height="516"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918172134624_hu_c7adbe7b934e9044.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918172134624_hu_a5fdf3120de199bc.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918172134624"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+<blockquote>
+<p>模拟D状态：dd命令</p>
+<p>dd if=/dev/zero of=~/test.txt bs=4096 count=100000</p>
+</blockquote>
+</li>
+<li>
+<p><strong>x死亡状态（dead）</strong>：这个状态只是一个返回状态，你不会在任务列表里看到这个状态</p>
+</li>
+<li>
+<p><a class="link" href="###6.3.3%e5%83%b5%e5%b0%b8%e8%bf%9b%e7%a8%8b" >Z僵尸状态（zombie）</a>：为了获取退出信息</p>
+</li>
+</ul>
+<p><strong>总结：</strong></p>
+<ul>
+<li><strong>阻塞</strong>
+<ul>
+<li>S：可中断睡眠，浅睡眠。意味着进程在等待事件完成</li>
+<li>D：不可中断睡眠，深度睡眠。和磁盘的读取写入相关（如果被中断，可能会导致数据丢失）</li>
+</ul>
+</li>
+<li><strong>t，T</strong>
+<ul>
+<li>t：被debug，断点：进程被暂停了</li>
+<li>T：通过用户进行操作将进程暂停</li>
+</ul>
+</li>
+</ul>
+<h3 id="632僵尸进程">6.3.2僵尸进程
+</h3><p><strong>Z僵尸状态（zombie）</strong>：为了获取退出信息</p>
+<blockquote>
+<p>我们现在所学的所有进程都是某个进程的子进程，我们创建子进程的目的是为了让子进程完成某种事情。所以当一个子进程退出，不能直接退出，子进程退出的结果信息得让父进程知道</p>
+<p>当一个进程退出时，它的代码和数据直接就被释放掉了，但是它的PCB必须一直维持（PCB就是操作系统内部的一个数据结构，父进程可以进行系统调用，获得子进程的信息）</p>
+</blockquote>
+<p><strong>如何模拟Z状态？</strong></p>
+<p>1.需要有父子进程</p>
+<p>2.需要让子进程退出</p>
+<p>3.子进程在退出的时候，父进程什么都不干，让子进程一直维持在Z状态</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918180152504.png"
+	width="1437"
+	height="1519"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918180152504_hu_aa278c6bab497604.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918180152504_hu_c972218e9fad162c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918180152504"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="94"
+		data-flex-basis="227px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918180437148.png"
+	width="1272"
+	height="114"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918180437148_hu_f50debc20948a380.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918180437148_hu_92eedeb4452c303c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918180437148"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1115"
+		data-flex-basis="2677px"
+	
+></p>
+<p>如果父进程一直不管，不回收，不获取子进程的退出信息，那么Z状态会一直存在（内存泄漏问题）</p>
+<blockquote>
+<p>如果父进程不管，子进程的Z状态一直存在，那么PCB就要一直维护，就要一直占用内存</p>
+</blockquote>
+<p>所以父进程未来获取子进程退出信息的时候，除了获取子进程的退出信息，还要把PCB释放掉（解决内存泄漏）</p>
+<blockquote>
+<p><strong>知识点1：</strong></p>
+<p>进程退出了，内存泄漏问题还在不在？不在</p>
+<p>什么样的进程具有内存泄漏问题，是比较麻烦的？常驻内存进程（一旦启动就不会退出）</p>
+<p>操作系统一旦启动后，就是常驻内存软件</p>
+<p><strong>知识点2：关于内核结构的申请</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918182005433.png"
+	width="857"
+	height="511"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918182005433_hu_514eaf6474c5804f.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918182005433_hu_7676fad50f5f2295.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918182005433"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="167"
+		data-flex-basis="402px"
+	
+></p>
+</blockquote>
+<h3 id="633孤儿进程">6.3.3孤儿进程
+</h3><p>父进程先退出，子进程就称之为“孤儿进程”</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921192800700.png"
+	width="1431"
+	height="1158"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921192800700_hu_a6a2f1ffab7f330.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921192800700_hu_261d74207bb7161f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250921192800700"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="123"
+		data-flex-basis="296px"
+	
+></p>
+<p><code>while :; do ps ajx | head -1 &amp;&amp; ps ajx | grep myprocess;sleep 1; done</code></p>
+<p>父子进程关系中，如果父进程先退出，子进程要被1号进程领养，这个被领养的进程（子进程），叫做孤儿进程</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193128329.png"
+	width="1102"
+	height="216"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193128329_hu_a7a73d65890d561d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193128329_hu_bcba1fdd06803e95.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250921193128329"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="510"
+		data-flex-basis="1224px"
+	
+></p>
+<p>1号systemd/init进程——&gt;操作系统</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193719843.png"
+	width="1362"
+	height="248"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193719843_hu_966847ec71ca7d08.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193719843_hu_5d894a78702947e7.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250921193719843"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="549"
+		data-flex-basis="1318px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193945164.png"
+	width="1741"
+	height="303"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193945164_hu_9cd4c88310c71566.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193945164_hu_ef643bc9309578be.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250921193945164"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="574"
+		data-flex-basis="1379px"
+	
+></p>
+<p><strong>为什么要领养？</strong></p>
+<p>如果不领养，子进程进入僵尸之后，就一定会造成内存泄漏而无法解决</p>
+<p>孤儿进程会变成后台进程</p>
+<blockquote>
+<p>./cmd &amp; 也会变成后台进程</p>
+<p>ctrl+c不能杀掉后台进程</p>
+</blockquote>
+<h2 id="14进程的优先级">1.4进程的优先级
+</h2><h3 id="641基本概念">6.4.1基本概念
+</h3><p><strong>是什么？</strong></p>
+<p>是进程得到CPU资源的先后顺序</p>
+<p><strong>为什么？</strong></p>
+<p>目标资源稀缺，导致要通过优先级确认谁先谁后的问题</p>
+<p><strong>优先级vs权限</strong></p>
+<p>优先级：能得到资源，先后问题</p>
+<p>权限：能否得到资源</p>
+<p><strong>怎么办？</strong></p>
+<p>优先级也是一种数字，task_struct中的一种属性</p>
+<p>值越低，优先级越高，反之，优先级越低</p>
+<p>当代大部分操作系统都是基于时间片的分时操作系统，要考虑公平性，优先级可能变化，但是变化幅度不能太大</p>
+<h3 id="642查看系统进程">6.4.2查看系统进程
+</h3><p><code>ps -al | head -1 &amp;&amp; ps -al | grep myprocess</code></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926183023700.png"
+	width="1319"
+	height="163"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926183023700_hu_cb08267c5b4fd536.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926183023700_hu_a33838bd84982413.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926183023700"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="809"
+		data-flex-basis="1942px"
+	
+></p>
+<p>UID：user id</p>
+<blockquote>
+<p>Linux是通过用户id来识别用户的</p>
+<p>文件在创建的时候就写入了UID，即这个文件是谁创建的</p>
+<p>进程在启动的时候也会把UID保存起来，表明这个进程是谁启动的</p>
+</blockquote>
+<p><strong>小知识</strong></p>
+<p>系统怎么知道我访问文件的时候，是拥有者，所属组，还是other</p>
+<p>当我们 touch ，cat，vim &hellip;访问文件的时候，<span style="color: #8080FF;">本质是进程在访问文件</span></p>
+<p>进程在启动的时候会保存启动它的UID</p>
+<p><strong>Linux系统中，访问任何资源，都是进程访问</strong>，进程就代表用户</p>
+<p>识别权限不是识别用户，是识别进程和文件之间的权限的</p>
+<h3 id="643pri和ni">6.4.3PRI和NI
+</h3><p><strong><span style="color: #8080FF;">PRI：进程的优先级，默认：80</span></strong></p>
+<p><strong><span style="color: #8080FF;">NI：进程优先级的修正数据，nice值，默认为0</span></strong></p>
+<blockquote>
+<p>在Linux系统中，我们的进程优先级是可以被动态调整的，不管是进程启动前还是进程运行过程中</p>
+</blockquote>
+<p><strong><span style="color: #8080FF;">进程真实的优先级=PRI(默认) + NI</span></strong></p>
+<p><strong>改进程的优先级，<code>top</code>，再输入 <code>r</code></strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184346539.png"
+	width="1420"
+	height="768"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184346539_hu_57ced75ba486594c.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184346539_hu_ce2ce38ca532746.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926184346539"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="184"
+		data-flex-basis="443px"
+	
+></p>
+<p>修改Nice值</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184511004.png"
+	width="719"
+	height="269"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184511004_hu_d7532a4d1817bb6b.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184511004_hu_a8255c4cb767df32.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926184511004"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="641px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184656459.png"
+	width="1348"
+	height="174"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184656459_hu_ae8b40929d93cf29.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184656459_hu_71ab93d26812a9d9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926184656459"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="774"
+		data-flex-basis="1859px"
+	
+></p>
+<blockquote>
+<p>还有一些方法可以改进程的优先级：nice，renice命令</p>
+</blockquote>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926185531250.png"
+	width="928"
+	height="59"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926185531250_hu_381d7755c51639e1.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926185531250_hu_fa88cd1f043c540b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926185531250"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1572"
+		data-flex-basis="3774px"
+	
+></p>
+<p><strong>优先级的极值问题：</strong></p>
+<p><code>renice -n -100 -p 3092</code></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926190322281.png"
+	width="1152"
+	height="104"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926190322281_hu_7a016efbe5927ab6.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926190322281_hu_e0150698eb55d617.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926190322281"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1107"
+		data-flex-basis="2658px"
+	
+></p>
+<p><code>renice -n 100 -p 3092</code></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926190443658.png"
+	width="1256"
+	height="117"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926190443658_hu_82b89e5564a699d0.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926190443658_hu_58b9cf0a861b9c96.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926190443658"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1073"
+		data-flex-basis="2576px"
+	
+></p>
+<p><span style="color: #8080FF;">nice值的范围是[-10, 19]</span></p>
+<p><span style="color: #FFA8FF;">进程优先级PRI默认是：80</span></p>
+<p><span style="color: #FF8000;">Linux进程的优先级范围 [60, 99]</span></p>
+<blockquote>
+<p>因为进程调度要考虑公平性</p>
+</blockquote>
+<p>进程优先级设立不合理，会导致优先级低的进程，长时间得不到CPU资源，进而导致：进程饥饿</p>
+<h3 id="644补充概念-竞争独立并行并发">6.4.4补充概念-竞争、独立、并行、并发
+</h3><ul>
+<li>
+<p>由于CPU资源是有限的，所以各个进程之间是具有<strong>竞争</strong>属性的</p>
+</li>
+<li>
+<p>进程之间具有<strong>独立性</strong></p>
+<p>进程=内核数据结构(task_struct)+代码和数据</p>
+<p>每个进程都有自己独立的 task_struct，每个进程都有自己的代码和数据</p>
+</li>
+<li>
+<p><strong>并行</strong>：多个进程在<span style="color: #8080FF;">多个CPU</span>下分别，同时进行运行</p>
+</li>
+<li>
+<p><strong>并发</strong>：多个进程在<span style="color: #8080FF;">一个CPU</span>下采用<span style="color: #FF8000;">进程切换</span>的方式，在一段时间之内，让多个进程都得以推进</p>
+</li>
+</ul>
+<blockquote>
+<p>cat /proc/cpuinfo</p>
+</blockquote>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926192734748.png"
+	width="999"
+	height="664"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926192734748_hu_bd26e54e2e1e67c4.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926192734748_hu_f7ca8c19568ba39c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926192734748"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="150"
+		data-flex-basis="361px"
+	
+></p>
+<h2 id="15进程切换">1.5进程切换
+</h2><h3 id="651死循环进程如何运行">6.5.1死循环进程如何运行
+</h3><p>a. 一旦一个进程占有CPU，会把自己的代码跑完吗？</p>
+<p>​	不会，对于每一个进程，系统都会给它分配一个叫时间片的东西</p>
+<p>b. 死循环进程，不会打死系统，不会一直占有CPU</p>
+<h3 id="652cpu寄存器">6.5.2CPU，寄存器
+</h3><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926194032755.png"
+	width="788"
+	height="547"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926194032755_hu_31d2150466b69ca8.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926194032755_hu_145dcb68ccfe0a64.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926194032755"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="345px"
+	
+></p>
+<p><strong>结论：</strong></p>
+<ol>
+<li>
+<p>寄存器就是CPU内部的临时空间</p>
+</li>
+<li>
+<p>寄存器！=寄存器里面的数据</p>
+</li>
+</ol>
+<p>​		寄存器是空间，寄存器里面的数据是内容！</p>
+<p>​		<span style="color: #8080FF;">空间只有1份，内容是变化的，多份的</span></p>
+<h3 id="653进程是如何切换的">6.5.3进程是如何切换的？
+</h3><p><strong>a. 故事</strong></p>
+<ol>
+<li>
+<p>当兵？保留学籍—&gt;当兵—&gt;恢复学籍</p>
+<p>保留学籍的目的就是为了恢复学籍</p>
+</li>
+</ol>
+<p>​	<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926195258392.png"
+	width="981"
+	height="208"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926195258392_hu_b146484d77f1b42b.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926195258392_hu_7241b405c0625eb1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926195258392"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="471"
+		data-flex-basis="1131px"
+	
+></p>
+<p><strong>b. 具体</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926195757264.png"
+	width="1218"
+	height="536"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926195757264_hu_f576611c98c27f93.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926195757264_hu_f0953b12bfd77d8b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926195757264"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="227"
+		data-flex-basis="545px"
+	
+></p>
+<p>进程切换，最核心的，就是保存和恢复当前进程的硬件上下文的数据，即CPU内寄存器的内容！</p>
+<p><strong>1.所以：当前进程要把自己的进程硬件上下文数据，保存起来，保存到哪里了呢？</strong></p>
+<p>​	保存到进程的task_struc里面</p>
+<p>​	当代计算机给每个进程一个 TSS：任务状态段，能直接通过task_struct找到TSS</p>
+<p>​	<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926201513761.png"
+	width="1351"
+	height="579"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926201513761_hu_786def60a0613529.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926201513761_hu_39eb39b7828f0642.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250926201513761"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="233"
+		data-flex-basis="560px"
+	
+></p>
+<p><strong>2.全新的进程vs已经调度过的进程</strong></p>
+<p>可以理解成在task_struct里面再新增一个标记位，比如int isRunning ，进程没有运行就是0，只要一开始调度就直接置为1</p>
+<blockquote>
+<p>时间片：当代计算机都是分时操作系统，没有进程都有它合适的时间片（其实就是一个计数器)。时间片到达，进程就被操作系统从CPU中剥离下来。</p>
+<p>struct task_struct* current 记录当前进程结构指针变量</p>
+</blockquote>
+<h2 id="16linux26内核进程o1调度队列">1.6Linux2.6内核进程O(1)调度队列
+</h2><p><span style="color: #FF8000;">调度</span>和<span style="color: #FF8000;">切换</span>共同构成了<span style="color: #8080FF;">调度器</span>，调度器的作用：1.切换 2.选择进程</p>
+<blockquote>
+<p>也就是先把当前进程保存下来，再在系统中选择一个进程，把这个进程放上来</p>
+</blockquote>
+<p><strong>Linux真实调度算法：</strong></p>
+<p>一个CPU，一个运行队列（两个CPU，两个运行队列&hellip;）</p>
+<p><strong>Linux的优先级有140个：</strong></p>
+<ul>
+<li>[0,99] 100个是实时优先级，我们不考虑</li>
+</ul>
+<blockquote>
+<p><strong>操作系统分为两大类：</strong></p>
+<ol>
+<li>
+<p>分时操作系统：按照时间片公平调度</p>
+<p>现在很多操作系统都支持内核优先级抢占</p>
+</li>
+<li>
+<p>实时操作系统：一旦来了一个进程，就必须实时响应，处理完才能处理下一个进程</p>
+<p>实时操作系统一般应用在工业、制造&hellip;等领域，例子：车载操作系统</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>普通优先级：[100,139]</li>
+</ul>
+<h3 id="活动队列">活动队列
+</h3><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250930211016217.png"
+	width="1814"
+	height="778"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250930211016217_hu_3823ce015c095021.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250930211016217_hu_7283604f92b082b8.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250930211016217"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="233"
+		data-flex-basis="559px"
+	
+></p>
+<p>Linux进程的优先级范围 [60, 99]，在队列中的位置：x-60+(140-40)</p>
+<p>宏观上看优先级，优先级相同的，先进先出</p>
+<p><strong>调度器如何快速地挑选一个进程？</strong></p>
+<p>unsigned int bitmap[5] 位图 ——&gt; 32 * 5 = 160</p>
+<p>比特位的位置和queue[140]的位置是一一对应的</p>
+<p>比特位的内容：1或0，表示是否存在进程</p>
+<p><strong>调度器挑选一个进程：1.挑队列 2.挑进程</strong></p>
+<p>调度器挑队列只需要查看对应的位图</p>
+<p>nr_active: 总共有多少个运行状态的进程</p>
+<p>所以调度的时候先查nr_active，大于0，再查bitmap，确认下标直接索引找到目标队列，从队列头部提取内容，pop_front，把对应节点拿出来，把PCB放入到current指针里，然后执行切换算法，然后让current指向的进程放到CPU上就可以运行了</p>
+<h3 id="过期队列">过期队列
+</h3><p><strong>active指针和expired指针</strong></p>
+<ul>
+<li>active指针永远指向活动队列</li>
+<li>expired指针永远指向过期队列</li>
+<li>活动队列上的进程调用完之后，交换active指针和expired指针的内容</li>
+</ul>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002100314694.png"
+	width="758"
+	height="163"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002100314694_hu_cb6c1943e078f6ab.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002100314694_hu_1e56165aa272e0cd.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251002100314694"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="465"
+		data-flex-basis="1116px"
+	
+></p>
+<h3 id="总结">总结
+</h3><p>在系统当中查找一个最合适调度的进程的时间复杂度是一个常数，不随着进程增多而导致时间成
+本增加，我们称之为进程调度0(1)算法</p>
+<h1 id="二环境变量">二、环境变量
+</h1><h2 id="1-概念介绍">1. 概念介绍
+</h2><blockquote>
+<ul>
+<li>
+<p>环境变量一般是指在操作系统中用来<span style="color: #8080FF;">指定操作系统运行环境的一些参数</span> —&gt;bash用—&gt;用户间接用了</p>
+</li>
+<li>
+<p>如：我们在编写C/C++代码的时候，在链接的时候，从来不知道我们的所链接的动态静态库在哪里，但是照样可以链接成功，生成可执行程序，原因就是有相关环境变量帮助编译器进行查找。</p>
+</li>
+<li>
+<p>环境变量通常具有某些特殊用途，还有在系统当中通常具有全局特性</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="11命令行参数">1.1命令行参数
+</h3><p>main函数是有参数的，argv是一个指针数组，argc代表数组中的元素个数<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642.png"
+	width="772"
+	height="410"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642_hu_20e86f95cc7843de.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642_hu_dfe9f61be24e311e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251002103755642"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="188"
+		data-flex-basis="451px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732168789744.png"
+	width="750"
+	height="189"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732168789744_hu_32eaa71b806c3a54.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732168789744_hu_5f45f210fbdbe55a.png 1024w"
+	loading="lazy"
+	
+		alt="73216878974"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="396"
+		data-flex-basis="952px"
+	
+></p>
+<p>当我们在命令行输入一个./code 或以空格作为分隔符，其实输入的就是一个长字符串。而当我们在执行某一个C语言程序时，这些字符串会以空格为分隔符切分</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002104416560.png"
+	width="445"
+	height="360"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002104416560_hu_90af78490593e43a.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002104416560_hu_820d91c771877ca8.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251002104416560"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="123"
+		data-flex-basis="296px"
+	
+></p>
+<p>我们平时用的命令本质上就是可执行程序，基本上都是用C语言写的，我们可以给命令后面带很多选项</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732168971833.png"
+	width="1330"
+	height="232"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732168971833_hu_28d1fcdbc49f5c58.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732168971833_hu_1ee5823009de1be6.png 1024w"
+	loading="lazy"
+	
+		alt="73216897183"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="573"
+		data-flex-basis="1375px"
+	
+></p>
+<p><strong>==main函数的命令行参数，是实现程序不同子功能的方法（指令带选项）==</strong></p>
+<blockquote>
+<p>我们在命令行输入带选项的命令，本质上是字符串，被bash切分</p>
+</blockquote>
+<p>进程拥有一张表，argv表，用来支持实现选项功能</p>
+<h2 id="2-一个例子认识环境变量">2. 一个例子，认识环境变量
+</h2><ul>
+<li><strong>要执行一个程序，必须先找到它，谁找？bash找，通过PATH(环境变量)找</strong></li>
+<li>执行我们自己写的程序，需要带./ 表示在当前路径下，但是<strong>为什么执行系统指令不需要带<code>./</code>呢？</strong>
+<ul>
+<li><span style="color: #8080FF;">系统中存在环境变量，来帮助系统找到目标二进制文件</span>
+<ul>
+<li>系统中存在环境变量PATH，告诉系统去哪查目标二进制文件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002110747633.png"
+	width="1156"
+	height="536"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002110747633_hu_1d3de2f626e4fe15.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002110747633_hu_4b81ae7a2b900cdc.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251002110747633"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="215"
+		data-flex-basis="517px"
+	
+></p>
+<p><strong>环境变量：名字+内容</strong></p>
+<ul>
+<li><code>env</code>查看系统中所有环境变量</li>
+<li><code>echo $某一个环境变量的名字</code>查看某一个环境变量的内容，例如：echo $PATH</li>
+</ul>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732017140374.png"
+	width="1489"
+	height="87"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732017140374_hu_a51fb7357063f0b0.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732017140374_hu_fcb909231a3b291.png 1024w"
+	loading="lazy"
+	
+		alt="73201714037"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1711"
+		data-flex-basis="4107px"
+	
+></p>
+<p>在系统内找到某一个命令/二进制文件，操作系统默认去查PATH环境变量，PATH环境变量找的时候会以冒号作为分隔符，先在第一个路径下找，如果没有找到，就到下一个路径找，如果所有路径都没找到，就报Command not found</p>
+<p>直接覆盖添加环境变量：<code>PATH=路径</code></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732408110926.png"
+	width="1131"
+	height="123"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732408110926_hu_8c13c58a1afae374.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732408110926_hu_33169d9dc79a126a.png 1024w"
+	loading="lazy"
+	
+		alt="73240811092"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="919"
+		data-flex-basis="2206px"
+	
+></p>
+<p>不覆盖添加环境变量：<code>PATH=$PATH:要添加的路径</code></p>
+<p><strong>1.如何理解环境变量呢？存储的角度</strong></p>
+<p>当我们登录的时候，系统就会创建一个bash进程，bash就必须去系统中读取所有环境变量信息，在bash进程内部形成一张表，这张表叫做环境变量表——&gt; 从配置文件拷贝来</p>
+<blockquote>
+<p>bash内部有两张表，命令行参数表和环境变量表</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732016086077.png"
+	width="912"
+	height="396"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732016086077_hu_3981f006f2a8bc99.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732016086077_hu_23025ba66b15beef.png 1024w"
+	loading="lazy"
+	
+		alt="73201608607"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="230"
+		data-flex-basis="552px"
+	
+></p>
+<p>环境变量就是 key-value的长字符串</p>
+</blockquote>
+<p><span style="color: #8080FF;">每个程序都会收到1张环境表</span>，环境表是⼀个<span style="color: #8080FF;">字符指针数组</span>，每个指针指向⼀个<span style="color: #8080FF;">以’\0’结尾的环境字符串</span></p>
+<p><strong>2.环境变量，最开始从哪里来的呢？是从系统的相关配置文件中来的</strong></p>
+<p>系统给每一个用户的家目录里存在两个隐藏文件，一个是.bash_profile，一个是.bashrc</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002113547303.png"
+	width="1329"
+	height="1088"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002113547303_hu_2558e38ab4782c8b.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002113547303_hu_54ef448de33cae6f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251002113547303"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="122"
+		data-flex-basis="293px"
+	
+></p>
+<blockquote>
+<p>.bash_profile要求用户去加载.bashrc，而.bashrc 会要求用户去加载 /etc/bashrc</p>
+</blockquote>
+<p>系统登录，bash拷贝配置文件，形成一张表</p>
+<p>我们把自己的路径加到配置文件中，那么登录时默认使用配置文件</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002115957665.png"
+	width="901"
+	height="280"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002115957665_hu_a7bfaf186167f988.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002115957665_hu_805514c5cea583f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251002115957665"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="321"
+		data-flex-basis="772px"
+	
+></p>
+<p>如果Linux系统中有10个用户登录，就有10个bash，这10个bash进程都要从对应的配置文件中读到bash自己的上下文里，所以每一个bash都有存在两张表，命令行参数表和环境变量表</p>
+<h2 id="3认识更多的环境变量">3.认识更多的环境变量
+</h2><p>为什么我们输入 cd ~ 就能切换到当前用户的家目录呢？HOME环境变量表示当前用户所对应的家目录</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002122442600.png"
+	width="775"
+	height="74"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002122442600_hu_a21e651c1405f48f.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002122442600_hu_5af9bd2b1a7cac1f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251002122442600"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1047"
+		data-flex-basis="2513px"
+	
+></p>
+<p>echo $SHELL 表示用户在登录时用的是哪一个版本的shell</p>
+<p>echo $USER</p>
+<blockquote>
+<p>user</p>
+<p>logname</p>
+</blockquote>
+<p>echo $HISTSIZE</p>
+<blockquote>
+<p>Linux只会记录最新的HISTSIZE条历史命令</p>
+<p>ctrl+r历史命令搜索</p>
+</blockquote>
+<p>echo $HOSTNAME</p>
+<blockquote>
+<p>HOSTNAME主机名</p>
+</blockquote>
+<p>echo $PWD</p>
+<blockquote>
+<p>PWD记录当前的工作路径</p>
+</blockquote>
+<p>echo $OLDPWD</p>
+<blockquote>
+<p>为什么我们cd - 的时候可以回到上一次的路径下，原因是OLDPWD记录下来了</p>
+</blockquote>
+<h2 id="4获取环境变量的方法">4.获取环境变量的方法
+</h2><blockquote>
+<p><strong>查所有环境变量</strong></p>
+<p>env</p>
+<p><strong>查看单个环境变量</strong></p>
+<p>echo $环境变量名</p>
+<p><strong>我们自己可以导环境变量</strong></p>
+<p><span style="color: #FF8000;">export 环境变量名=值</span></p>
+<p><span style="color: #FF8000;">export 环境变量名</span></p>
+<p><strong>取消环境变量</strong></p>
+<p><span style="color: #8080FF;">unset 环境变量名</span></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976.png"
+	width="1076"
+	height="156"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976_hu_1b88f9d9faaacd31.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976_hu_ebbc2fec7a69cfa5.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251008193603976"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="689"
+		data-flex-basis="1655px"
+	
+></p>
+</blockquote>
+<blockquote>
+<p>我们自己的可执行程序的入口不是main函数，Linux中的入口函数是start函数</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093.png"
+	width="325"
+	height="390"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093_hu_2c8de60165de0b57.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093_hu_3a3f75471121273c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251008195652093"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="200px"
+	
+></p>
+</blockquote>
+<h4 id="方式1获取环境变量">方式1：获取环境变量
+</h4><p>获取的是父进程（bash）的</p>
+<p><strong>环境变量可以被子进程继承</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732019967875.png"
+	width="1588"
+	height="372"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732019967875_hu_21aa189fad38eb30.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732019967875_hu_97c2ec6c1573e7c7.png 1024w"
+	loading="lazy"
+	
+		alt="73201996787"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="426"
+		data-flex-basis="1024px"
+	
+></p>
+<p>环境变量在系统中通常具有全局特性</p>
+<h4 id="方法2推荐getenv">方法2(推荐)：getenv
+</h4><p>getenv 会根据环境变量的名字获取环境变量的内容</p>
+<p>如果获取成功了，就返回环境变量内容字符串的起始地址，否则就返回NULL</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732020219265.png"
+	width="1376"
+	height="669"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732020219265_hu_c893480a59c90b35.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732020219265_hu_9ac9ab4d2a9b5aac.png 1024w"
+	loading="lazy"
+	
+		alt="73202021926"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="205"
+		data-flex-basis="493px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//main有参数吗？有
+</span></span></span><span class="line"><span class="cl"><span class="c1">//最多可以有几个？3个
+</span></span></span><span class="line"><span class="cl"><span class="c1">//是父进程传递给我们的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span><span class="o">*</span> <span class="n">env</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">env</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">value</span> <span class="o">=</span> <span class="nf">getenv</span><span class="p">(</span><span class="s">&#34;PATH&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;PATH-&gt;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008201342503.png"
+	width="1615"
+	height="76"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008201342503_hu_d4b79dfe7f1fe8bc.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008201342503_hu_4761899729bbfd53.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251008201342503"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2125"
+		data-flex-basis="5100px"
+	
+></p>
+<p>如果我们想写一个程序，只有我自己可以用</p>
+<p>整个系统中，只有bash知道登录用户是谁</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//main有参数吗？有
+</span></span></span><span class="line"><span class="cl"><span class="c1">//最多可以有几个？3个
+</span></span></span><span class="line"><span class="cl"><span class="c1">//是父进程传递给我们的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span><span class="o">*</span> <span class="n">env</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">env</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">who</span> <span class="o">=</span> <span class="nf">getenv</span><span class="p">(</span><span class="s">&#34;USER&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">who</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="nf">strcmp</span><span class="p">(</span><span class="n">who</span><span class="p">,</span> <span class="s">&#34;zhangsan&#34;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     	<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;这是程序的正常执行逻辑</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;只有zhangsan可以执行</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="方法3environ">方法3：environ
+</h4><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008210301372.png"
+	width="984"
+	height="261"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008210301372_hu_33a5cfceb52bd5b3.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008210301372_hu_3448f2e2842ed761.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251008210301372"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="377"
+		data-flex-basis="904px"
+	
+></p>
+<p>全局变量 environ</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">char</span> <span class="o">**</span><span class="n">environ</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>环境变量表是 char* []类型的</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">environ</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//main有参数吗？有
+</span></span></span><span class="line"><span class="cl"><span class="c1">//最多可以有几个？3个
+</span></span></span><span class="line"><span class="cl"><span class="c1">//是父进程传递给我们的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="err">θ</span><span class="p">;</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;env[%d]-&gt; %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span> <span class="n">i</span><span class="p">,</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5理解环境变量的特性">5.理解环境变量的特性
+</h2><h3 id="51-环境变量具有全局特性">5.1 环境变量具有全局特性
+</h3><h3 id="52-补充两个概念">5.2 补充两个概念
+</h3><p><strong>a.本地变量</strong></p>
+<p>在命令行定义<strong>本地</strong>变量</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021018651.png"
+	width="672"
+	height="110"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021018651_hu_51b0881de4362503.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021018651_hu_44a1d445d34184f3.png 1024w"
+	loading="lazy"
+	
+		alt="73202101865"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="610"
+		data-flex-basis="1466px"
+	
+></p>
+<blockquote>
+<p>取消本地变量也是 unset 变量名</p>
+</blockquote>
+<p>查看本地变量：<code>set</code>，set会显示环境变量和本地变量</p>
+<p>bash会记录两套变量：1.环境变量 2.本地变量</p>
+<ul>
+<li>本地变量不会被子进程继承，只在bash内部被使用</li>
+</ul>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021267124.png"
+	width="967"
+	height="276"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021267124_hu_6433727ab0b34b75.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021267124_hu_b1e391ae94cface6.png 1024w"
+	loading="lazy"
+	
+		alt="73202126712"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="350"
+		data-flex-basis="840px"
+	
+></p>
+<p><strong>b.我们的环境变量在谁里面？bash</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">export</span> <span class="n">i</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>像export这种命令，我们叫做 <code>内建命令</code>，内建命令在执行时不需要创建子进程，而是bash自己亲自执行</p>
+<blockquote>
+<p>bash自己调函数，或者系统调用完成</p>
+</blockquote>
+<h2 id="6-程序地址空间初识">6. 程序地址空间初识
+</h2><p>代码是只读的，string常量也是只读的 <img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012162604220.png"
+	width="2236"
+	height="787"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012162604220_hu_8dbc02e71cfe4309.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012162604220_hu_554422f44fe95a8e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012162604220"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="284"
+		data-flex-basis="681px"
+	
+></p>
+<p><span style="color: #FF8000;">程序地址空间不是内存</span></p>
+<p><span style="color: #8080FF;">进程地址空间（虚拟地址空间）</span>，是一个系统概念，不是语言层的概念</p>
+<p>子进程和父进程都会读取全局变量，但是只有子进程修改了这个变量，子进程修改了这个变量，父进程能看到吗</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="n">gval</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;子: gaval:%d, &amp;gval: %p, pid:%d, ppid: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">gval</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">gval</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">(),</span> <span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">gval</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;父gaval: %d, &amp;gval: %p, pid: %d, ppid: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">gval</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">gval</span><span class="p">,</span> <span class="n">getpidC</span><span class="p">),</span> <span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012164134701.png"
+	width="906"
+	height="422"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012164134701_hu_4870260d66ad2d11.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012164134701_hu_b23212c90c13b7de.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012164134701"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="214"
+		data-flex-basis="515px"
+	
+></p>
+<p>C/C++指针用到的地址，全部都是虚拟地址</p>
+<h1 id="三进程地址空间">三、进程地址空间
+</h1><h2 id="1引入新概念">1.引入新概念
+</h2><p>虚拟地址空间不是物理内存</p>
+<h3 id="11-一个进程一个虚拟地址空间">1.1 一个进程，一个虚拟地址空间
+</h3><p>创建进程时，要有对应的task_struct来描述进程，而每一个task_struct最终都要对应一个虚拟地址空间</p>
+<ul>
+<li>
+<p>虚拟地址</p>
+<ul>
+<li>虚拟地址空间对应的宽度单位是1字节</li>
+<li>在32位机器下，虚拟地址空间的范围是2^32^个地址 * 1字节 = 能表示的总的地址空间的容量是4GB
+<ul>
+<li>0<del>3GB 叫用户空间，3</del>4GB 叫内核空间</li>
+</ul>
+</li>
+<li>在64位机器下，虚拟地址空间的范围是2^64^个地址</li>
+</ul>
+</li>
+<li>
+<p>用户空间和内核空间</p>
+<ul>
+<li>用户空间，用户拿到地址就可以直接访问该空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="12一个进程一套页表">1.2一个进程，一套页表
+</h3><p>我们定义一个变量，该变量一定存放在内存中，同时，在虚拟地址空间上也要有对应的这个变量</p>
+<p>也就是任何一个变量，在内存中存在一个<span style="color: #8080FF;">物理地址</span>，在虚拟地址空间上存在一个<span style="color: #8080FF;">虚拟地址</span>，并且操作系统在每一个进程创建的时候，要为其构建一张页表</p>
+<h3 id="13页表是用来做虚拟地址和物理地址映射的">1.3页表是用来做虚拟地址和物理地址映射的
+</h3><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201210602.png"
+	width="1310"
+	height="539"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201210602_hu_2af58e7344fd28e2.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201210602_hu_3f37e8f6e3a464e0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012201210602"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="243"
+		data-flex-basis="583px"
+	
+></p>
+<p>一个进程，一套页表 ——&gt;子进程也有自己的虚拟地址空间和页表</p>
+<p>子进程的task_struct是拷贝的父进程的，虚拟地址空间、页表也是拷贝的父进程的</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012174051549.png"
+	width="1116"
+	height="703"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012174051549_hu_533fb0e5d79f95dc.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012174051549_hu_858c34c497dfd02c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012174051549"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="380px"
+	
+></p>
+<p><strong>子进程对变量要进行修改？写时拷贝</strong></p>
+<p>进程具有独立性，子进程会重新给这个变量开辟一块空间，并修改虚拟地址和物理地址的映射</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012182658120.png"
+	width="1897"
+	height="751"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012182658120_hu_db324ef41b37435d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012182658120_hu_eeb7c81ab51ad5de.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012182658120"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="606px"
+	
+></p>
+<h2 id="2虚拟地址与进程地址空间">2.虚拟地址与进程地址空间
+</h2><h3 id="21虚拟地址空间是什么">2.1虚拟地址空间是什么？
+</h3><p>操作系统让每一个进程都认为自己有4GB的物理内存（每一个进程都认为自己在独占物理内存），操作系统需要管理虚拟地址空间</p>
+<p><span style="color: #FF0000;">虚拟地址空间本质是一个数据结构（结构体）</span></p>
+<p>1.我们可以不加载代码和数据，只有task_struct, mm_struct，页表</p>
+<p>2.创建进程，先有task_struct, mm_struct等，还是先加载代码和数据？</p>
+<p>3.如何理解进程挂起？</p>
+<h3 id="22如何描述虚拟地址空间">2.2如何描述虚拟地址空间
+</h3><p>区域划分——&gt;只需要确认区域的开始和结束即可</p>
+<p>调整区域——&gt;只需要对整数变量进行加或减</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012190721903.png"
+	width="1586"
+	height="550"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012190721903_hu_156af27f4df10f0.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012190721903_hu_b7f558d465e37f2e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012190721903"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="288"
+		data-flex-basis="692px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012191640269.png"
+	width="571"
+	height="242"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012191640269_hu_2b656b0de1ee261a.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012191640269_hu_ebf41554aa43dc4e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012191640269"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="235"
+		data-flex-basis="566px"
+	
+></p>
+<p>物理地址转化成为虚拟地址，虚拟地址提供给上层用户使用</p>
+<ol>
+<li>
+<p>在虚拟地址空间中申请指定大小的空间</p>
+</li>
+<li>
+<p>加载程序，申请物理空间</p>
+</li>
+</ol>
+<p>​	1&lt;&ndash;&gt;2-&gt;页表进行映射</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012192401762.png"
+	width="1643"
+	height="760"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012192401762_hu_a66cd910d2b67b5d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012192401762_hu_c796d5dc1ad3be23.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012192401762"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="216"
+		data-flex-basis="518px"
+	
+></p>
+<h3 id="23为什么要有进程地址空间">2.3为什么要有进程地址空间
+</h3><p><strong>1.将地址从无序变有序</strong></p>
+<p>可执行程序未来可以加载到物理内存的任意位置，通过页表的映射关系把无序的物理地址变有序（虚拟地址空间）</p>
+<p><strong>2.转化过程中，也可以对你的地址和操作进行合法性判定，进而保护物理内存</strong></p>
+<p>页表里面除了保存了物理地址和虚拟地址的映射关系，还有这个区域的权限</p>
+<p>a.什么是野指针</p>
+<p>b.char* str = &ldquo;hello world&rdquo;; str = &ldquo;H&rdquo;</p>
+<p>为什么在字符常量区写入，就会崩溃？查找页表的时候，权限拦截了</p>
+<p><strong>3.让进程管理和内存管理，进行一定程度的解耦合</strong></p>
+<p>缺页中断</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012200018226.png"
+	width="1662"
+	height="879"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012200018226_hu_ec70e4ee42dfe4c8.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012200018226_hu_d9d2bf1a67c073e2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012200018226"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="189"
+		data-flex-basis="453px"
+	
+></p>
+<h2 id="3地址空间的扩展知识">3.地址空间的扩展知识
+</h2><p>堆区不止一个起始虚拟地址</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201039762.png"
+	width="937"
+	height="631"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201039762_hu_dac5749cdd2be712.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201039762_hu_97a3bfb7a0ec0170.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012201039762"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="356px"
+	
+></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201058852.png"
+	width="1140"
+	height="770"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201058852_hu_f88f8993d419ea0e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201058852_hu_27ceb1bd2b73e2cb.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012201058852"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="355px"
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-instruction/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】01初始Linux&#43;基础指令"
+                        data-key="linux-basic-instruction" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】01初始Linux&#43;基础指令</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-permission-development-tool/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】02基础权限开发工具"
+                        data-key="linux-basic-permission-development-tool" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】02基础权限开发工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-process-control/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】04进程控制"
+                        data-key="linux-process-control" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】04进程控制</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

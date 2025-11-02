@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从虚函数到抽象类，理解多态的核心原理">
+<title>【C&#43;&#43;进阶】02多态</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/c-polymorphic/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【C++进阶】02多态">
+<meta property='og:description' content="从虚函数到抽象类，理解多态的核心原理">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/c-polymorphic/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/c-polymorphic/bz03.jpg' />
+<meta name="twitter:title" content="【C++进阶】02多态">
+<meta name="twitter:description" content="从虚函数到抽象类，理解多态的核心原理"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/c-polymorphic/bz03.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1多态的基本介绍">1.多态的基本介绍</a></li>
+    <li><a href="#2虚函数">2.虚函数</a>
+      <ul>
+        <li><a href="#21虚函数的基本介绍">2.1虚函数的基本介绍</a></li>
+        <li><a href="#22虚函数的重写覆盖">2.2虚函数的重写/覆盖</a></li>
+        <li><a href="#23虚函数重写的一些问题">2.3虚函数重写的一些问题</a>
+          <ul>
+            <li><a href="#231-协变">2.3.1 协变</a></li>
+            <li><a href="#232析构函数的重写">2.3.2析构函数的重写</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3override-和-final关键字">3.override 和 final关键字</a></li>
+    <li><a href="#4重载重写隐藏的对比">4.重载/重写/隐藏的对比</a></li>
+    <li><a href="#5纯虚函数和抽象类">5.纯虚函数和抽象类</a></li>
+    <li><a href="#6多态的原理">6.多态的原理</a>
+      <ul>
+        <li><a href="#61虚函数表指针">6.1虚函数表指针</a></li>
+        <li><a href="#62多态的原理">6.2多态的原理</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结-易混点">总结-易混点</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/c-polymorphic/">
+                <img src="/p/c-polymorphic/bz03_hu_b3ba7175c442d010.jpg"
+                        srcset="/p/c-polymorphic/bz03_hu_b3ba7175c442d010.jpg 800w, /p/c-polymorphic/bz03_hu_204f31e91d7f242e.jpg 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;进阶】02多态" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/c&#43;&#43;/" style="background-color: #FF8F8F; color: #fff;">
+                C&#43;&#43;
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/c-polymorphic/">【C&#43;&#43;进阶】02多态</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            从虚函数到抽象类，理解多态的核心原理
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1多态的基本介绍">1.多态的基本介绍
+</h1><p>多态，通俗来讲就是多种形态。</p>
+<p>多态分为 <strong>编译时多态</strong>(静态多态) 和 <strong>运行时多态</strong>(动态多态)</p>
+<ul>
+<li>
+<p><strong>编译时多态</strong>，比如 函数重载，函数模版 就体现多态</p>
+<p>它们<span style="color: #8080FF;">传不同类型的参数</span>就可以<span style="color: #8080FF;">调用不同的函数</span>，<span style="color: #FF8000;">通过参数不同达到多种形态</span></p>
+<p>之所以叫编译时多态，是因为他们<span style="color: #FF8000;">实参传给形参的参数匹配是在编译时完成的</span></p>
+<p>我们把编译时一般归为静态，运行时归为动态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">i</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">d</span><span class="p">;</span> <span class="c1">// 自动识别类型？编译时调用了两个重载函数
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>运行时多态</strong></p>
+<p>具体点就是完成某个行为(函数)，可以<span style="color: #8080FF;">传不同的对象就会完成不同的行为</span>，就达到多种形态</p>
+<p>比如买票这个行为，当普通人买票时，是全价买票；学生买票时，是优惠买票(5折或75折)；军人买票时是优先买票</p>
+<p>再比如，同样是动物叫的一个行为(函数)，传猫对象过去，就是”(&gt;^w^&lt;)&ldquo;喵“，传狗对象过去，就是&quot;汪汪&rdquo;</p>
+</li>
+</ul>
+<p>我们主要谈运行时多态，<strong>构成运行时多态的前提</strong>：</p>
+<p>1）对象之间存在<span style="color: #8080FF;">继承</span>关系</p>
+<p>2）子类必须对父类的<span style="color: #FF0000;">虚函数完成重写/覆盖</span></p>
+<p>3）<span style="color: #FF0000;">必须是父类的指针或者引用调用虚函数</span></p>
+<h1 id="2虚函数">2.虚函数
+</h1><h2 id="21虚函数的基本介绍">2.1虚函数的基本介绍
+</h2><p>在类的<strong>非静态成员函数</strong>前面加 virtual 修饰，那么这个成员函数就被称为虚函数</p>
+<p>注意：非成员函数和静态成员函数不能加 virtual 修饰</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">BuyTicket</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;买票-全价&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="22虚函数的重写覆盖">2.2虚函数的重写/覆盖
+</h2><p><strong>子类的虚函数重写了父类的虚函数</strong>：子类中有一个跟父类完全相同的虚函数，即子类虚函数与父类虚函数的返回值类型、函数名字、参数列表完全相同</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">BuyTicket</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;买票-全价&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">BuyTicket</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;买票-打折&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">(</span><span class="n">Person</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//虽然都是Person指针ptr在调用BuyTicket
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//但是跟ptr无关，而是由ptr指向的对象决定
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">BuyTicket</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Student</span> <span class="n">stu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stu</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意： 子类在重写父类虚函数时，子类的虚函数可以不加virtual关键字，也可以构成重写</strong>（因为<span style="color: #FF0000;">继承后父类的虚函数被继承下来了</span>，在子类依旧保持虚函数属性），但是不建议这样使用</p>
+<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251022205202551.png"
+	width="1385"
+	height="620"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251022205202551_hu_cdd479794dbce342.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251022205202551_hu_2ea7d74ac35aa47e.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251022205202551"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="223"
+		data-flex-basis="536px"
+	
+></p>
+<blockquote>
+<p>1.是父类的指针或者引用调用虚函数</p>
+<p>p指针调用test函数，先去子类B找有没有test函数，没有，去父类A找，找到了</p>
+<p>父类A的test函数，参数有隐含的this指针，是父类类型的指针</p>
+<p>调用func函数时，实际上是父类类型的指针 this 调用的 func函数</p>
+<p>2.子类的func函数的函数名、返回值类型、形参列表和父类完全一致，虽然没有写virtual，但也构成重写</p>
+<p>以上两点满足了多态，所以调用的是子类重写的虚函数</p>
+</blockquote>
+<p>一定要注意，<strong>满足了多态的情况下，调用的是子类重写的虚函数</strong></p>
+<blockquote>
+<p>满足多态的条件：1.子类重写了父类的虚函数 2.调用虚函数的是父类的指针或引用</p>
+</blockquote>
+<h2 id="23虚函数重写的一些问题">2.3虚函数重写的一些问题
+</h2><h3 id="231-协变">2.3.1 协变
+</h3><p>子类重写父类虚函数时，与父类虚函数<span style="color: #8080FF;">返回值类型不同</span></p>
+<p>即父类虚函数返回父类对象的指针或者引用，子类虚函数返回子类对象的指针或者引用时，称为协变</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">A</span><span class="o">*</span> <span class="n">BuyTicket</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;买票-全价&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">B</span><span class="o">*</span> <span class="n">BuyTicket</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;买票-打折&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">(</span><span class="n">Person</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">BuyTicket</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Student</span> <span class="n">stu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="o">&amp;</span><span class="n">stu</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="232析构函数的重写">2.3.2析构函数的重写
+</h3><p><strong>父类的析构函数为虚函数</strong>，此时<strong>子类析构函数只要定义，无论是否加virtual关键字，都与父类的析</strong>
+<strong>构函数构成重写</strong></p>
+<p>虽然父类与子类析构函数名字不同看起来不符合重写的规则，实际上编译器对析构函数的名称做了特殊处理，<strong>编译后析构函数的名称统一处理</strong>成destructor，所以父类的析构函数加了vialtual修饰，子类的析构函数就构成重写</p>
+<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024134202126.png"
+	width="1564"
+	height="673"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024134202126_hu_da7973408902a5f3.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024134202126_hu_8ecefa1fd045374f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251024134202126"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="557px"
+	
+></p>
+<p>上面的代码我们可以看到，如果<del>A()，不加virtual，那么delete p2时只调用的A的析构函数，没有调用
+B的析构函数，就会导致内存泄漏问题，因为</del>B()中在释放资源</p>
+<blockquote>
+<p>父类指针可以指向父类对象，也可以指向子类对象</p>
+<p><strong>父类指针指向指向子类对象，析构时只调用了父类的析构</strong>，<strong>可能会导致子类对象的资源没有释放</strong></p>
+<p>要想正确释放，必须构成多态</p>
+<p>构成多态，才能指向谁，调用谁的析构函数，正确释放资源</p>
+</blockquote>
+<h1 id="3override-和-final关键字">3.override 和 final关键字
+</h1><p>C++11提供了override，可以帮助用户检测是否重写</p>
+<blockquote>
+<p>C++对虚函数重写的要求比较严格，但是有些情况下由于疏忽，比如函数名写错参数写错等导致无法构成重写，而这种错误在编译期间是不会报出的，只有在程序运行时没有得到预期结果才来debug会得不偿失</p>
+</blockquote>
+<p>override的写法：放在子类成员函数形参列表的后面</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="o">~</span><span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~A()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="o">~</span><span class="n">B</span><span class="p">()</span> <span class="k">override</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~B()-&gt;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">_p</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">_p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>final修饰一个类，那么这个类不能被继承</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Car</span> <span class="k">final</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Dirve</span><span class="p">()</span> <span class="k">final</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>final修饰一个成员函数，那么这个成员函数不能被重写</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Car</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Dirve</span><span class="p">()</span> <span class="k">final</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Benz</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Car</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Drive</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Benz-舒适&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4重载重写隐藏的对比">4.重载/重写/隐藏的对比
+</h1><p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024140239587.png"
+	width="1041"
+	height="496"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024140239587_hu_41ad8822646a00ae.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024140239587_hu_1fa0de9b223d2c0b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251024140239587"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="503px"
+	
+></p>
+<h1 id="5纯虚函数和抽象类">5.纯虚函数和抽象类
+</h1><p><strong>在虚函数的后面写上<code>=0</code></strong>，则这个函数为纯虚函数</p>
+<blockquote>
+<p>虚函数不需要定义实现，只要声明即可，因为要被派生类重写，但是语法上可以实现，</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Car</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> 
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Drive</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>含纯虚函数的类叫做抽象类</strong>，<strong>抽象类不能实例化出对象</strong></p>
+<p>如果派生类继承后不重写纯虚函数，那么派生类也是抽象类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Car</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Drive</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Benz</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Car</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Drive</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Benz-舒适&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BMW</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Car</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Drive</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;BMW-操控&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Car c; //抽象类无法实例化出对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="n">Car</span><span class="o">*</span> <span class="n">pBenz</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Benz</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pBenz</span><span class="o">-&gt;</span><span class="n">Drive</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Car</span><span class="o">*</span> <span class="n">pBMW</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BMW</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pBMW</span><span class="o">-&gt;</span><span class="n">Drive</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>纯虚函数某种程度上强制了派生类重写虚函数，因为不重写实例化不出对象</p>
+<h1 id="6多态的原理">6.多态的原理
+</h1><h2 id="61虚函数表指针">6.1虚函数表指针
+</h2><p>__vfptr 虚函数表指针 (v 代表virtual，f 代表function)</p>
+<p>一个含有虚函数的类中都至少都有一个虚函数表指针，因为一个类所有虚函数的地址要被放到这个类对象的虚函数表中，虚函数表也简称虚表</p>
+<p>下面编译为32位程序的运行结果是什么（)
+A.编译报错    B.运行报错   C.8    D.12</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span> <span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="kt">void</span> <span class="n">Func1</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Func1()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">_ch</span> <span class="o">=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Base</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>上面题目运行结果12bytes</p>
+<p>除了_b和_ch成员，还多一个虚函数表指针__vfptr放在对象的前面（注意有些平台可能会放到对象的最后面，这个跟平台有关)。</p>
+</blockquote>
+<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024143622321.png"
+	width="746"
+	height="171"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024143622321_hu_34371cef65a3ad85.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024143622321_hu_acaeed3fb3101c50.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251024143622321"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="436"
+		data-flex-basis="1047px"
+	
+></p>
+<h2 id="62多态的原理">6.2多态的原理
+</h2><p><strong>多态本质上是去调用不同的函数</strong></p>
+<ul>
+<li>
+<p>静态多态是编译时确定</p>
+</li>
+<li>
+<p>运行时多态是运行时去确定调用不同的函数（指向哪个对象，就调用哪个对象的函数）</p>
+<ul>
+<li>
+<p>子类对象的虚函数表中存放子类虚函数的地址</p>
+<ul>
+<li>父类的指针指向子类对象会发生切片，即父类的指针指向子类中父类的一部分</li>
+</ul>
+</li>
+<li>
+<p>父类对象的虚函数表中存放父类虚函数的地址</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024144737682.png"
+	width="591"
+	height="516"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024144737682_hu_4defe56683b7cda1.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024144737682_hu_f779a00666d87c64.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251024144737682"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="114"
+		data-flex-basis="274px"
+	
+></p>
+<p>动态多态：<strong>运行时到指向对象虚表中找到对应虚函数进行调用</strong></p>
+<p>目的：指向谁，调用谁的对应虚函数</p>
+<p>父类指针/引用既可以指向父类对象也可以指向子类对象，指向父类对象，运行时就到父类的虚函数表中找到对应的虚函数进行调用；指向子类对象，运行时就到从子类对象中切出来的被子类重写的虚函数表中找到虚函数进行调用</p>
+<blockquote>
+<p>编译期间，编译器主要检测代码是否违反语法规则，此时无法知道父类的指针或者引用到底引用那个类的对象，也就无法知道调用那个类的虚函数</p>
+<p>在程序运行时，才知道具体指向那个类的对象，然后通过虚表调用对应的虚函数，从而实现多态</p>
+</blockquote>
+<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024142522897.png"
+	width="1692"
+	height="692"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024142522897_hu_4155106d28dc774a.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024142522897_hu_63819aef81986a59.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251024142522897"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="244"
+		data-flex-basis="586px"
+	
+></p>
+<p><strong>再看构成运行时多态的前提</strong>：</p>
+<p>1）对象之间存在继承关系</p>
+<p>2）子类必须对父类的虚函数完成重写/覆盖</p>
+<p>​		子类对象的虚表覆盖成重写的虚表</p>
+<p>3）必须是父类的指针或者引用调用虚函数</p>
+<p>​		父类的指针指向子类对象会发生切片，即父类的指针指向子类中父类的一部分</p>
+<p><strong>动态绑定与静态绑定</strong></p>
+<p>（1）静态绑定就是编译时确定调用函数的地址</p>
+<p>（2）动态绑定就是 在运行时到指向对象的虚函数表中找到调用函数的地址</p>
+<p>满足多态条件的函数调用是运行时绑定，其它函数是静态绑定</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// ptr是指针+BuyTicket是虚函数满⾜多态条件。
+</span></span><span class="line"><span class="cl">// 这⾥就是动态绑定，编译在运⾏时到ptr指向对象的虚函数表中确定调用函数地址
+</span></span><span class="line"><span class="cl">ptr-&gt;BuyTicket();
+</span></span><span class="line"><span class="cl">00EF2001 mov eax,dword ptr [ptr]
+</span></span><span class="line"><span class="cl">00EF2004 mov edx,dword ptr [eax]
+</span></span><span class="line"><span class="cl">00EF2006 mov esi,esp
+</span></span><span class="line"><span class="cl">00EF2008 mov ecx,dword ptr [ptr]
+</span></span><span class="line"><span class="cl">00EF200B mov eax,dword ptr [edx]
+</span></span><span class="line"><span class="cl">00EF200D call eax
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// BuyTicket不是虚函数，不满⾜多态条件。
+</span></span><span class="line"><span class="cl">// 这⾥就是静态绑定，编译器直接确定调⽤函数地址
+</span></span><span class="line"><span class="cl">ptr-&gt;BuyTicket();
+</span></span><span class="line"><span class="cl">00EA2C91 mov ecx,dword ptr [ptr]
+</span></span><span class="line"><span class="cl">00EA2C94 call Student::Student (0EA153Ch)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>虚函数表</strong></p>
+<p><span style="color: #FF8000;"><strong>同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表</strong></span>，所以==父类和子类有各自独立的虚表==</p>
+<p>（1）父类对象的虚函数表中存放<span style="color: #8080FF;">父类所有虚函数的地址</span></p>
+<p>（2）子类由两部分构成，<span style="color: #8080FF;">继承下来的父类和自己的成员</span></p>
+<blockquote>
+<p>一般情况下，继承下来的父类中有虚函数表指针，自己就不会再生成虚函数表指针</p>
+<p>但是要注意的<strong>这里继承下来的父类部分虚函数表指针和父类对象的虚函数表指针不是同一个</strong>，就像父类对象的成员和子类对象中的父类对象成员也独立的</p>
+</blockquote>
+<p>子类中重写的父类的虚函数，子类的虚函数表中对应的虚函数就会被<strong>覆盖</strong>成子类重写的虚函数地址</p>
+<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733.png"
+	width="722"
+	height="311"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_33049791a063661b.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_fffa2927c7908d6f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251024154825733"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="557px"
+	
+></p>
+<p>子类的虚函数表中包含</p>
+<p>（1）父类的虚函数地址</p>
+<p>（2）子类重写的虚函数地址完成覆盖</p>
+<p>（3）子类自己的虚函数地址三个部分</p>
+<p>虚函数表本质是一个<span style="color: #8080FF;">存虚函数指针的指针数组</span>，一般情况这个数组最后面放了一个0x00000000标
+记</p>
+<blockquote>
+<p>这个C++并没有进行规定，各个编译器自行定义的，VS系列编译器会再后面放个0x00000000标记，g++系列编译不会放</p>
+</blockquote>
+<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024161550615.png"
+	width="774"
+	height="431"
+	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024161550615_hu_a815c1337b13ee10.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024161550615_hu_4dc69b720ec06991.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251024161550615"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="179"
+		data-flex-basis="430px"
+	
+></p>
+<p><strong>虚函数存在哪的？</strong></p>
+<p>虚函数和普通函数一样的，编译好后是一段指令，都是存在代码段的，只是虚函数的地址又存到了虚表中</p>
+<p><strong>虚函数表存在哪的？</strong></p>
+<p>这个问题严格说并没有标准答案C++标准并没有规定。Vs下是存在代码段(常量区)</p>
+<blockquote>
+<p>对象是在栈帧里面，虚表的地址一般是存在对象的头4/8个字节里</p>
+<p>取出一个对象头4/8个字节的地址：</p>
+<p>Base b;</p>
+<p>Base* p = &amp;b;</p>
+<p>printf(&ldquo;Base虚表地址：%p\n&rdquo;, *(int*)p); // 强转成int，解引用就取出4个字节</p>
+</blockquote>
+<blockquote>
+<p>规定：取成员函数的地址要加上取地址符 &amp;，例如 &amp;Person::func1</p>
+</blockquote>
+<h1 id="总结-易混点">总结-易混点
+</h1><ul>
+<li>
+<p><strong>virtual关键字只能在声明时加，在类外现实时不能加</strong></p>
+</li>
+<li>
+<p><strong>使用父类对象调用的方法永远是父类的方法</strong></p>
+</li>
+<li>
+<p><strong>赋值兼容规则保证了子类对象可以直接赋值给父类对象，不需要强转</strong></p>
+</li>
+<li>
+<p><strong>虚函数表是在编译时生成的</strong></p>
+</li>
+<li>
+<p><strong>静态成员函数不能设置为虚函数</strong>（没有this指针，无法拿到虚表，就不能实现多态）</p>
+</li>
+<li>
+<p><strong>父类的析构函数建议设置为虚函数，这样动态释放父类指针所指的子类对象时，能够达到析构的多态</strong></p>
+</li>
+<li>
+<p>运行时多态</p>
+<ul>
+<li>编译期间，编译器主要检测代码是否违反语法规则，此时无法知道父类的指针或引用到底引用哪个类的对象，也就无法知道调用哪个类的虚函数。在程序运行时，才知道具体指向哪个类的对象，然后通过虚表调用对应的虚函数，从而实现多态</li>
+</ul>
+</li>
+<li>
+<p>重写即覆盖，针对多态，要求函数完全相同</p>
+</li>
+<li>
+<p>重定义即隐藏，只需要函数名相同</p>
+</li>
+<li>
+<p><strong>通过对象调用时，编译期间就知道调用哪个函数了</strong></p>
+</li>
+<li>
+<p>抽象类不能实例化对象，但是可以定义指针，目的是用父类指针指向子类从而实现多态</p>
+</li>
+<li>
+<p>同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表。</p>
+</li>
+<li>
+<ul>
+<li><strong>多继承的时候，一个类可能会有多张表</strong></li>
+</ul>
+</li>
+<li>
+<p><strong>子类对象构造时，调用父类父类构造的过程中，多态机制还没有生效，如果调用函数，调的是父类的</strong></p>
+</li>
+<li>
+<p><strong>多态仅仅是用子类函数的地址覆盖虚表，最终调用的位置不变，只是执行函数发生变化</strong></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-02/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】03类和对象（中）"
+                        data-key="class-with-object-02" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】03类和对象（中）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-03/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-03/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】04类和对象（下）"
+                        data-key="class-with-object-03" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】04类和对象（下）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/c-memory-management/">
+        
+        
+            <div class="article-image">
+                <img src="/p/c-memory-management/aa.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】05内存管理"
+                        data-key="c&#43;&#43;-memory-management" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】05内存管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

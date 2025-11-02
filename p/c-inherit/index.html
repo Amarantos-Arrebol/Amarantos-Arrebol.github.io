@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从基类到派生类，理解继承与多继承的关系">
+<title>【C&#43;&#43;进阶】01继承</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/c-inherit/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【C++进阶】01继承">
+<meta property='og:description' content="从基类到派生类，理解继承与多继承的关系">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/c-inherit/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E.png' />
+<meta name="twitter:title" content="【C++进阶】01继承">
+<meta name="twitter:description" content="从基类到派生类，理解继承与多继承的关系"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1继承的基本介绍">1.继承的基本介绍</a>
+      <ul>
+        <li><a href="#11继承定义">1.1继承定义</a></li>
+        <li><a href="#12继承类模版">1.2继承类模版</a></li>
+      </ul>
+    </li>
+    <li><a href="#2基类和派生类间的转换">2.基类和派生类间的转换</a></li>
+    <li><a href="#3继承中的作用域">3.继承中的作用域</a></li>
+    <li><a href="#4派生类的默认成员函数">4.派生类的默认成员函数</a>
+      <ul>
+        <li><a href="#41构造">4.1构造</a></li>
+        <li><a href="#42拷贝构造">4.2拷贝构造</a></li>
+        <li><a href="#43赋值运算符重载">4.3赋值运算符重载</a></li>
+        <li><a href="#44析构">4.4析构</a></li>
+        <li><a href="#45总结">4.5总结</a></li>
+        <li><a href="#46面试题实现一个不能被继承的类">4.6面试题：实现一个不能被继承的类</a></li>
+      </ul>
+    </li>
+    <li><a href="#5继承与友元">5.继承与友元</a></li>
+    <li><a href="#6继承与静态成员">6.继承与静态成员</a></li>
+    <li><a href="#7多继承及其菱形继承问题">7.多继承及其菱形继承问题</a>
+      <ul>
+        <li><a href="#71继承模型">7.1继承模型</a></li>
+        <li><a href="#72虚继承">7.2虚继承</a></li>
+        <li><a href="#73多继承中指针偏移问题">7.3多继承中指针偏移问题</a></li>
+        <li><a href="#74io库中的菱形虚拟继承">7.4IO库中的菱形虚拟继承</a></li>
+      </ul>
+    </li>
+    <li><a href="#8继承和组合">8.继承和组合</a></li>
+    <li><a href="#总结-易混点">总结-易混点</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/c-inherit/">
+                <img src="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_528927338237fab5.png"
+                        srcset="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_528927338237fab5.png 800w, /p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_c9207ab5fc9ee710.png 1600w"
+                        width="800" 
+                        height="504" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;进阶】01继承" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/c&#43;&#43;/" style="background-color: #FF8F8F; color: #fff;">
+                C&#43;&#43;
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/c-inherit/">【C&#43;&#43;进阶】01继承</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            从基类到派生类，理解继承与多继承的关系
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1继承的基本介绍">1.继承的基本介绍
+</h1><p>继承是类设计层次的复用</p>
+<h2 id="11继承定义">1.1继承定义
+</h2><p>父类/基类，子类/派生类</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019143547793.png"
+	width="500"
+	height="357"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019143547793_hu_16521ccfd234b07.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019143547793_hu_353bae8730524788.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251019143547793"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+<p><strong>继承方式：</strong></p>
+<ul>
+<li>public继承</li>
+<li>protected继承</li>
+<li>private继承</li>
+</ul>
+<p><strong>访问限定符：</strong></p>
+<ul>
+<li>public访问</li>
+<li>protected访问</li>
+<li>private访问</li>
+</ul>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019152807233.png"
+	width="1093"
+	height="247"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019152807233_hu_d70fb39f1a9114ef.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019152807233_hu_cc75d3f4d7a261ed.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251019152807233"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="442"
+		data-flex-basis="1062px"
+	
+></p>
+<p>1.<span style="color: #8080FF;">子类对象</span>不管是类里面还是类外面 都<span style="color: #8080FF;">不能访问 父类的private成员</span></p>
+<p>2.如果父类成员不想在类外直接被访问，但需要<span style="color: #8080FF;">在子类中能访问</span>，就定义成protected</p>
+<p>3.父类的私有成员在子类中是不可见的，父类的其它成员的访问方式==min(成员在父类中的访问限定符，继承方式)，public &gt; protected &gt; private</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019151710203.png"
+	width="637"
+	height="1014"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019151710203_hu_a6a2686d5ef3496d.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019151710203_hu_f047bac274e8eaff.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251019151710203"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="62"
+		data-flex-basis="150px"
+	
+></p>
+<p>4.使用class时默认是private继承，使用struct时默认是public继承，不过最好显示写出继承方式</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019152618813.png"
+	width="997"
+	height="1017"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019152618813_hu_b8a8ddbd4111c735.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019152618813_hu_996d7f71a52f860b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251019152618813"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="98"
+		data-flex-basis="235px"
+	
+></p>
+<h2 id="12继承类模版">1.2继承类模版
+</h2><p><strong>用继承的方式实现栈</strong>
+stack和vector既符合is-a的关系，也符合has-a的关系</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">dyy</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//用继承的方式实现栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//stack和vector既符合is-a的关系，也符合has-a的关系
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">class</span> <span class="nc">stack</span> <span class="o">:</span> <span class="k">public</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">//父类是类模版时，需要指定一下类域，否则编译报错
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//因为stack&lt;int&gt;实例化时，也实例化vector&lt;int&gt;了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//但是模版是需要按需实例化，push_back等成员函数未实例化，所以找不到
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">pop</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">pop_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">top</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">empty</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">dyy</span><span class="o">::</span><span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">st</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>父类是类模版时，需要指定一下类域，否则编译报错
+因为stack&lt;int&gt;实例化时，也实例化vector&lt;int&gt;了
+但是模版是需要按需实例化，push_back等成员函数未实例化，所以找不到</p>
+<blockquote>
+<p>按需实例化：</p>
+<p>实例化一个类的时候，并不会把它所有的成员函数都实例化，而是用哪个成员函数，才会实例化哪个成员函数</p>
+</blockquote>
+<p><strong>补充：</strong></p>
+<blockquote>
+<p>凡是在模版或带有模版参数的类模版里，要去取一个东西，它可能是静态成员变量，也可能是一个内嵌类型</p>
+<blockquote>
+<p>静态成员变量是公有的，可以通过类域去取</p>
+<p>内嵌类型：比如内部类，在一个类里面定义的类型（即typedef的类型）</p>
+</blockquote>
+<p><strong>类模版没有实例化，是不能去里面找东西的</strong></p>
+<p>或者直接用auto接收</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019211328587.png"
+	width="1078"
+	height="805"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019211328587_hu_a0d790f437062113.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251019211328587_hu_f51808bd0a7ef93d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251019211328587"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="321px"
+	
+></p>
+</blockquote>
+<h1 id="2基类和派生类间的转换">2.基类和派生类间的转换
+</h1><ol>
+<li>public继承的<span style="color: #FF8000;">子类对象，可以赋值给 父类的指针/引用</span>，指针/引用<span style="color: #8080FF;">指向的是子类中父类的一部分</span></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_gender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_no</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Student</span> <span class="n">stu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//1.子类对象可以赋值给父类的指针/引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Person</span><span class="o">*</span> <span class="n">pp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">stu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Person</span><span class="o">&amp;</span> <span class="n">rp</span> <span class="o">=</span> <span class="n">stu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"> 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>赋值兼容转换（这个过程没有产生临时对象），或者说 切片 或 切割</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020095602487.png"
+	width="900"
+	height="622"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020095602487_hu_d05991472c7ecaff.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020095602487_hu_59c1194bdbd064ed.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020095602487"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="347px"
+	
+></p>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">1.1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//单参数的构造支持隐式类型转换，产生临时对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&#34;11111&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&#34;11111&#34;</span><span class="p">;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>2.<span style="color: #FF0000;">子类的对象可以给父类对象</span>（<strong>通过调父类的拷贝构造完成</strong>），但是<span style="color: #FF8000;">父类对象不能赋值给子类对象</span>，因为<span style="color: #8080FF;">父类类型对于子类类型来说类型不完全</span></p>
+<p>3.父类指针或引用可以通过<strong>强制类型转换</strong> 赋值给子类的指针或引用。但是必须是<span style="color: #FF8000;">父类指针或引用指向子类对象</span>时才是安全的。</p>
+<p>这里父类如果是<span style="color: #8080FF;">多态类型</span>，可以使用RTT的<span style="color: #8080FF;">dynamic_cast</span>来进行识别后进行安全转换</p>
+<h1 id="3继承中的作用域">3.继承中的作用域
+</h1><p>1.在继承体系中父类和子类都有独立的作用域</p>
+<p>2.子类和父类中的成员，在子类成员函数中访问成员优先在子类查找，子类没有才到父类查找</p>
+<p>3.子类和父类中有<strong>同名成员</strong>，<strong>子类成员将屏蔽父类对同名成员的直接访问</strong>，这种情况叫隐藏</p>
+<p><span style="color: #8080FF;">如果在子类成员函数中，想要调用父类的成员，必须显示指定父类类域</span>：<strong><code>父类::父类成员</code></strong></p>
+<p>4.需要注意的是<span style="color: #FF0000;">如果是成员函数的隐藏，只需要<strong>函数名相同</strong>就构成隐藏</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> 
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">fun</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;func()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span> 
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">fun</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;func(int i)&#34;</span> <span class="o">&lt;&lt;</span><span class="n">i</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">B</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="p">.</span><span class="n">func</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="p">.</span><span class="n">func</span><span class="p">();</span> <span class="c1">// 编译报错，子类父类之前同名函数，构成隐藏，如果要调用父类的func函数，需要显示指定类域
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">b</span><span class="p">.</span><span class="n">A</span><span class="o">::</span><span class="n">func</span><span class="p">();</span> <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>上面这段代码中，A和B类中的两个func就构成隐藏</p>
+<p>重载要求在同一作用域中，同一个作用域里面函数名相同参数不同才构成重载</p>
+</blockquote>
+<h1 id="4派生类的默认成员函数">4.派生类的默认成员函数
+</h1><p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020105419403.png"
+	width="1070"
+	height="344"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020105419403_hu_5bbe05f1e08e47a3.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020105419403_hu_a7eb310b63f1c3fa.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020105419403"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="311"
+		data-flex-basis="746px"
+	
+></p>
+<h2 id="41构造">4.1构造
+</h2><p>默认生成的构造：子类成员 + 父类成员</p>
+<ul>
+<li>
+<p>子类成员</p>
+<ul>
+<li>内置类型，有缺省值就用；没有缺省值，它的值可能是随机的</li>
+<li>自定义类型，调用它的默认构造，没有默认构造，就需要在初始化列表中显示调用</li>
+</ul>
+</li>
+<li>
+<p>父类成员</p>
+<ul>
+<li>
+<p>默认会调用父类的默认构造，如果父类没有默认构造，就需要子类显示调用父类带参的构造</p>
+<blockquote>
+<p>可以把子类中继承下来的父类成员当做一个<span style="color: #8080FF;">整体对象</span></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>子类显示调用父类构造的例子：</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020112003846.png"
+	width="639"
+	height="763"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020112003846_hu_9ee31358899a70be.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020112003846_hu_dd670899e172d974.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020112003846"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="200px"
+	
+></p>
+<blockquote>
+<p>初始化列表不是根据出现的顺序初始化，而是根据声明的顺序初始化</p>
+<p>所以会先初始化父类的成员</p>
+</blockquote>
+<h2 id="42拷贝构造">4.2拷贝构造
+</h2><p>默认生成的拷贝构造：子类成员 + 父类成员</p>
+<ul>
+<li>子类成员
+<ul>
+<li>内置类型，值拷贝</li>
+<li>自定义类型，调用这个类类型的拷贝构造</li>
+</ul>
+</li>
+<li>父类成员
+<ul>
+<li>必须调用父类的拷贝构造</li>
+</ul>
+</li>
+</ul>
+<p>显示写，例子：</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020113237849.png"
+	width="689"
+	height="1163"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020113237849_hu_1ecdd9c4f7449e3b.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020113237849_hu_d41a8dddcb2f809f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020113237849"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="59"
+		data-flex-basis="142px"
+	
+></p>
+<p><strong>注意：子类的拷贝构造函数必须调用父类的拷贝构造完成父类的拷贝初始化</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">(</span><span class="n">Person</span> <span class="n">ptr</span><span class="p">)</span> <span class="c1">// 不管传父类对象还是子类对象，调用的都是父类的拷贝构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ptr</span><span class="p">.</span><span class="n">BuyTicket</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Student</span> <span class="n">stu</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="n">stu</span><span class="p">);</span> <span class="c1">// 调用的是父类的拷贝构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="43赋值运算符重载">4.3赋值运算符重载
+</h2><p>默认生成的赋值运算符重载的行为和默认生成的拷贝构造的行为是相同的</p>
+<p>显示写，例子：</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020114741479.png"
+	width="625"
+	height="319"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020114741479_hu_db6314c262da54dc.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020114741479_hu_e2e44cb918899560.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020114741479"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="470px"
+	
+></p>
+<blockquote>
+<p>注意，子类和父类的同名成员函数构成隐藏，如果子类要调同名的父类的成员函数，需要显示指定父类的类域</p>
+</blockquote>
+<h2 id="44析构">4.4析构
+</h2><p>默认生成的析构：子类成员 + 父类成员</p>
+<ul>
+<li>子类成员
+<ul>
+<li>内置类型，不处理</li>
+<li>自定义类型，调用它自己的析构</li>
+</ul>
+</li>
+<li>父类成员
+<ul>
+<li>调用它自己的析构</li>
+</ul>
+</li>
+</ul>
+<p>由于多态中一些场景中析构函数需要构成重写，重写的条件之一是函数名相同，所以编译器会对析构函数的函数名做特殊处理，处理成destructor()，所以子类析构函数不加virtual的情况下，<span style="color: #8080FF;">子类析构函数和父类析构函数构成隐藏关系</span></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="o">~</span><span class="n">Student</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~Student()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//delete[] _ptr;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//~Person(); // err
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Person</span><span class="o">::~</span><span class="n">Person</span><span class="p">();</span> <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>**注意：**如果我们要显示写子类的析构，<span style="color: #FF0000;">不需要显示调用父类析构</span></p>
+<p>因为<strong>子类的析构函数会在被调用完成后，会自动调用父类的析构函数清理父类成员</strong></p>
+<p>这样才能保证析构时先析构子类对象，再析构父类对象</p>
+<blockquote>
+<p>析构的时候先析构子，再析构父；构造的时候先构造父，再构造子</p>
+</blockquote>
+<h2 id="45总结">4.5总结
+</h2><ul>
+<li>
+<p>一般情况下，子类我们只需要写构造</p>
+</li>
+<li>
+<p>如果需要写析构，就还需要写拷贝构造和赋值运算符重载</p>
+<blockquote>
+<p>需要自己写析构，说明有资源要清理，那么拷贝构造和赋值运算符重载应该是深拷贝</p>
+</blockquote>
+</li>
+<li>
+<p>如果要自己显示写成员函数，那么构造、拷贝构造、赋值运算符重载需要我们显示调父类的，但是父类的析构不需要我们显示调</p>
+</li>
+</ul>
+<h2 id="46面试题实现一个不能被继承的类">4.6面试题：实现一个不能被继承的类
+</h2><p><strong>方法一：把父类的构造函数私有化</strong></p>
+<p>因为子类构造必须调用父类的构造函数，如果父类构造函数私有化，那么子类就不能调用了，子类就无法实例化出对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="n">func5</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base::func5()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Base</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>方法二：使用C++11新增的final关键字 来修饰父类</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="k">final</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="n">func5</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base::func5()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="5继承与友元">5.继承与友元
+</h1><p>友元关系不能继承，也就是说父类友元不能访问子类私有和保护成员</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020160851384.png"
+	width="655"
+	height="648"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020160851384_hu_ec5f8f439be4f458.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020160851384_hu_4e184a80b9a5986b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020160851384"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="242px"
+	
+></p>
+<h1 id="6继承与静态成员">6.继承与静态成员
+</h1><p>如果父类定义了静态成员，那么无论派生出多少子类，都只有一份静态成员，也就是静态成员在子类和父类之间是共享的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">static</span> <span class="kt">int</span> <span class="n">_count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">Person</span><span class="o">::</span><span class="n">_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_stuNum</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Person</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Student</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//对于非静态成员，子类继承后，子类对象和父类对象各一份
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">.</span><span class="n">_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">.</span><span class="n">_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//子类和父类共用同一份静态成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">.</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">.</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//公有的情况下，父类子类都可以通过指定类域访问静态成员
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">Student</span><span class="o">::</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020161618359.png"
+	width="329"
+	height="181"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020161618359_hu_8b92e1741dc73cc4.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020161618359_hu_b078d9a1da71ae98.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020161618359"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="436px"
+	
+></p>
+<h1 id="7多继承及其菱形继承问题">7.多继承及其菱形继承问题
+</h1><h2 id="71继承模型">7.1继承模型
+</h2><ul>
+<li><strong>单继承</strong>：一个子类<span style="color: #FF0000;">只有一个</span><span style="color: #8080FF;">直接</span>父类</li>
+</ul>
+<p>​	<img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020162540256.png"
+	width="415"
+	height="251"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020162540256_hu_649268160d37a2d1.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020162540256_hu_41daef59d3430138.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020162540256"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="396px"
+	
+></p>
+<ul>
+<li>
+<p><strong>多继承</strong>：一个子类<span style="color: #FF0000;">有两个或以上</span>的<span style="color: #8080FF;">直接</span>父类</p>
+<p>多继承对象在内存中的模型是，先继承的父类在前面，后面继承的父类在后面，子类成员在放到最后面</p>
+</li>
+</ul>
+<p>​	<img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020162553369.png"
+	width="569"
+	height="238"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020162553369_hu_9c50d4398a8f901a.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020162553369_hu_53c06c57d8671d0c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020162553369"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="239"
+		data-flex-basis="573px"
+	
+></p>
+<ul>
+<li>
+<p><strong>菱形继承</strong>：菱形继承是多继承的一种特殊情况，即一个类<span style="color: #FF0000;">继承的两个或多个类有公共的父类</span></p>
+<p>菱形继承有<strong>数据冗余</strong>和<strong>二义性</strong>的问题，在Assistant的对象中Person成员会有两份</p>
+<p>有多继承就有可能出现菱形继承</p>
+<blockquote>
+<p>显示指定访问哪个父类的成员可以解决二义性问题，但数据冗余问题无法解决</p>
+</blockquote>
+</li>
+</ul>
+<p>​	<img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020163105404.png"
+	width="1094"
+	height="353"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020163105404_hu_abbc798e2aaadc21.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020163105404_hu_3187767dd365c1ae.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020163105404"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="309"
+		data-flex-basis="743px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span> <span class="c1">// 学号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Teacher</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span> <span class="c1">// 职工编号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Assistant</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Student</span><span class="p">,</span> <span class="k">public</span> <span class="n">Teacher</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_majorCourse</span><span class="p">;</span> <span class="c1">// 主修课程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Assistant</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//a._name = &#34;peter&#34;; // 编译报错，对 &#34;_name&#34; 的访问不明确
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//需要显示指定访问哪个父类的成员可以解决二义性问题，但数据冗余问题无法解决
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">a</span><span class="p">.</span><span class="n">Student</span><span class="o">::</span><span class="n">_name</span> <span class="o">=</span> <span class="s">&#34;小王&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="p">.</span><span class="n">Teacher</span><span class="o">::</span><span class="n">_name</span> <span class="o">=</span> <span class="s">&#34;王老师&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="72虚继承">7.2虚继承
+</h2><p>有多继承就存在菱形继承，有菱形继承就有菱形虚拟继承。</p>
+<p>但是菱形虚拟继承底层实现很复杂，性能也会有一些损失，所以最好不要设计出菱形继承</p>
+<blockquote>
+<p>我们可以设计出多继承，但是不建议设计出菱形继承，但有多继承语法支持，就一定存在会设计出菱形继承</p>
+</blockquote>
+<p>virtual关键字</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020165739334.png"
+	width="842"
+	height="1145"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020165739334_hu_c679f15f4fd0ace1.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020165739334_hu_3aebbe052825cfcd.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020165739334"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="73"
+		data-flex-basis="176px"
+	
+></p>
+<p>virtual关键字需放在直接继承共同父类的子类的继承声明中，如下图中共同父类是A，所以virtual关键字应该放在 A类的直接子类 B 和 C 类的继承声明中</p>
+<p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251022181218020.png"
+	width="451"
+	height="424"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251022181218020_hu_a4e13859599f2a0e.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251022181218020_hu_35de4cf9ccc012ea.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251022181218020"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="106"
+		data-flex-basis="255px"
+	
+></p>
+<p><strong>最好不要玩菱形继承</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Person</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Student</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">,</span> <span class="n">_num</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_num</span><span class="p">;</span> <span class="c1">// 学号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Teacher</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">Person</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Teacher</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">,</span> <span class="n">_id</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span> <span class="c1">// 职工编号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Assistant</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Student</span><span class="p">,</span> <span class="k">public</span> <span class="n">Teacher</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Assistant</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name1</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name2</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">Person</span><span class="p">(</span><span class="n">name3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">,</span> <span class="n">Student</span><span class="p">(</span><span class="n">name1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">,</span> <span class="n">Teacher</span><span class="p">(</span><span class="n">name2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_majorCourse</span><span class="p">;</span> <span class="c1">// 主修课程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//不会走三次Person的构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//已经是虚继承了，Person不在 Teacher 和 Student里面，而在一个公共的区域 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//所以调Teacher 和 Student的构造时，不会走Person的构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Assistant</span> <span class="n">a</span><span class="p">(</span><span class="s">&#34;张三&#34;</span><span class="p">,</span> <span class="s">&#34;李四&#34;</span><span class="p">,</span> <span class="s">&#34;王五&#34;</span><span class="p">);</span> <span class="c1">// name=&#34;王五&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="73多继承中指针偏移问题">7.3多继承中指针偏移问题
+</h2><p>多继承中指针偏移问题？下面说法正确的是( C )</p>
+<p>A：p1 == p2 == p3  B：p1 &lt; p2 &lt; p3  C：p1 == p3 != p2  D：p1 != p2 != p3</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base1</span> <span class="p">{</span> <span class="k">public</span><span class="o">:</span> <span class="kt">int</span> <span class="n">_b1</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base2</span> <span class="p">{</span> <span class="k">public</span><span class="o">:</span> <span class="kt">int</span> <span class="n">_b2</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derive</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base1</span><span class="p">,</span> <span class="k">public</span> <span class="n">Base2</span> <span class="p">{</span> <span class="k">public</span><span class="o">:</span> <span class="kt">int</span> <span class="n">_d</span><span class="p">;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derive</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base1</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base2</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derive</span><span class="o">*</span> <span class="n">p3</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251022185023807.png"
+	width="383"
+	height="257"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251022185023807_hu_8b54e2254fe52828.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251022185023807_hu_c441849a435d0f37.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251022185023807"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="149"
+		data-flex-basis="357px"
+	
+></p>
+<blockquote>
+<p>先声明的在前，先继承的在前</p>
+</blockquote>
+<h2 id="74io库中的菱形虚拟继承">7.4IO库中的菱形虚拟继承
+</h2><p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020165950373.png"
+	width="1062"
+	height="412"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020165950373_hu_7518a06becd7e30a.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020165950373_hu_2eebdd29b7d8b835.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020165950373"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="257"
+		data-flex-basis="618px"
+	
+></p>
+<p><strong>源码：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">CharT</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Traits</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="n">CharT</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">basic_ostream</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">std</span><span class="o">::</span><span class="n">basic_ios</span><span class="o">&lt;</span><span class="n">CharT</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">CharT</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Traits</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="n">CharT</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">basic_istream</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">std</span><span class="o">::</span><span class="n">basic_ios</span><span class="o">&lt;</span><span class="n">CharT</span><span class="p">,</span> <span class="n">Traits</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020170720068.png"
+	width="774"
+	height="523"
+	srcset="/p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020170720068_hu_fbfa1482c56376e8.png 480w, /p/c-inherit/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9101%E7%BB%A7%E6%89%BF.assets/image-20251020170720068_hu_ef2562d2d282f6ac.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251020170720068"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="147"
+		data-flex-basis="355px"
+	
+></p>
+<h1 id="8继承和组合">8.继承和组合
+</h1><p><strong>继承</strong>和<strong>组合</strong> 本质上都是类之间的<strong>复用</strong></p>
+<ul>
+<li>
+<p>public继承是一种<span style="color: #8080FF;">is-a</span>的关系</p>
+<ul>
+<li>也就是说每个子类对象都是一个父类对象</li>
+</ul>
+</li>
+<li>
+<p>组合是一种<span style="color: #8080FF;">has-a</span>的关系</p>
+<ul>
+<li>假设B组合了A，每个B对象中都有一个A对象</li>
+<li>适配器的方式就是组合，只不过适配器的方式更灵活</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//组合
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">A</span> <span class="n">_a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>继承和组合哪个更好？</strong></p>
+<p><strong>继承</strong>允许你根据父类的实现来定义子类的实现</p>
+<ul>
+<li>
+<p>通过<strong>生成子类的复用</strong>通常被称为<strong>白箱复用</strong>(white-boxreuse)</p>
+</li>
+<li>
+<p><span style="color: #8080FF;">在继承方式中，父类的内部细节对子类可见</span></p>
+</li>
+<li>
+<p>继承一定程度破坏了父类的封装，父类的改变，对子类有很大的影响</p>
+</li>
+<li>
+<p>子类和父类间的<span style="color: #8080FF;">依赖关系很强，耦合度高</span></p>
+</li>
+</ul>
+<p><strong>对象组合</strong>是类继承之外的另一种复用选择，新的更复杂的功能可以通过<strong>组装或组合对象</strong>来获得</p>
+<ul>
+<li>
+<p>对象组合要求被组合的对象具有良好定义的接口。这种复用风格被称为<strong>黑箱复用</strong>(black-boxreuse)</p>
+</li>
+<li>
+<p>对象的内部细节是不可见的。对象只以“黑箱”的形式出现。</p>
+</li>
+<li>
+<p>组合类之间没有很强的依赖关系，耦合度低</p>
+<p>优先使用对象组合有助于你保持每个类被封装。</p>
+</li>
+</ul>
+<p><strong>优先使用组合，而不是继承</strong>。实际尽量多去用组合，<strong>组合的耦合度低，代码维护性好</strong>。不过也不太
+那么绝对，<span style="color: #FF8000;">类之间的关系就适合继承(is-a)那就用继承</span>，另外<span style="color: #FF8000;">要实现多态，也必须要继承</span>。类之间的
+关系既适合用继承(is-a)也适合组合(has-a)，就用组合。</p>
+<h1 id="总结-易混点">总结-易混点
+</h1><ul>
+<li><strong>菱形继承</strong>，子类对象不能直接访问最顶层父类继承下来的成员，因为在子类对象中，有两份最顶层的父类成员，<strong>直接通过子类对象访问会存在二义性问题</strong></li>
+<li><strong>菱形继承存在二义性问题，尽量避免设计菱形继承，如果真有需要，一般采用虚拟继承减少数据冗余</strong></li>
+<li>子类构造函数的定义有时需要参考基类构造函数，原因是需要看父类构造函数是否需要参数子类的，从而你决定子类构造函数的定义</li>
+<li><strong>如果父类没有默认构造函数</strong>，<strong>派生类构造函数初始化列表的位置必须显式调用基类的构造函数</strong>，以完成基类部分成员的初始化</li>
+<li>基类对象中没有包含所有基类的成员变量，<strong>静态成员变量为整个类所共有，不属于某一个对象</strong></li>
+<li><strong>构造时，先构造父，再构造子；析构时，先析构子，再析构父</strong></li>
+<li><strong>子类要继承父类的所有成员</strong></li>
+<li><strong>静态成员一定是不被包含在对象中的</strong></li>
+<li><strong>基类不能给子类对象直接赋值，因为父类类型对于子类类型来说类型不完全</strong></li>
+<li><strong>赋值兼容规则，基类指针/引用可以直接指向子类对象，子类对象可以直接赋值给基类对象</strong></li>
+<li><strong>要是public成员对象都可以直接访问</strong></li>
+<li>在派生构造函数初始化列表的位置不是必须显式调用基类构造函数，如果父类有默认构造函数就不需要</li>
+</ul>
+<ul>
+<li><strong>子类的对象可以给父类对象，通过调父类的拷贝构造完成</strong>，父类的指针/引用指向子类对象叫切片</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-02/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】03类和对象（中）"
+                        data-key="class-with-object-02" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】03类和对象（中）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-03/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-03/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】04类和对象（下）"
+                        data-key="class-with-object-03" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】04类和对象（下）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/c-memory-management/">
+        
+        
+            <div class="article-image">
+                <img src="/p/c-memory-management/aa.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】05内存管理"
+                        data-key="c&#43;&#43;-memory-management" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】05内存管理</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

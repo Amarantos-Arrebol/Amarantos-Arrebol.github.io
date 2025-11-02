@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握进程创建、等待与替换的核心机制">
+<title>【Linux】04进程控制</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/linux-process-control/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【Linux】04进程控制">
+<meta property='og:description' content="掌握进程创建、等待与替换的核心机制">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta name="twitter:title" content="【Linux】04进程控制">
+<meta name="twitter:description" content="掌握进程创建、等待与替换的核心机制"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一进程创建">一、.进程创建</a>
+      <ul>
+        <li><a href="#11fork函数初识">1.1fork函数初识</a></li>
+        <li><a href="#12写时拷贝">1.2写时拷贝</a></li>
+        <li><a href="#13fork常规用法">1.3fork常规用法</a></li>
+        <li><a href="#14fork调用失败">1.4fork调用失败</a></li>
+      </ul>
+    </li>
+    <li><a href="#二进程终止">二、.进程终止</a>
+      <ul>
+        <li><a href="#21进程退出的场景">2.1进程退出的场景</a></li>
+        <li><a href="#22退出码">2.2退出码</a>
+          <ul>
+            <li><a href="#221程序执行的三种情况">2.2.1程序执行的三种情况</a></li>
+            <li><a href="#222代码运行完毕">2.2.2代码运行完毕</a></li>
+            <li><a href="#223代码异常终止">2.2.3代码异常终止</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-exit和_exit函数">2.3 exit和_exit函数</a>
+          <ul>
+            <li><a href="#231exit函数">2.3.1exit函数</a></li>
+            <li><a href="#232_exit函数">2.3.2_exit函数</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三进程等待">三、.进程等待</a>
+      <ul>
+        <li><a href="#31基本介绍">3.1基本介绍</a></li>
+        <li><a href="#32wait-和-waitpid">3.2wait 和 waitpid</a>
+          <ul>
+            <li><a href="#321wait">3.2.1<strong>wait</strong></a></li>
+            <li><a href="#322waitpid">3.2.2<strong>waitpid</strong></a></li>
+            <li><a href="#323status参数">3.2.3status参数</a></li>
+          </ul>
+        </li>
+        <li><a href="#33阻塞与非阻塞等待">3.3阻塞与非阻塞等待</a></li>
+      </ul>
+    </li>
+    <li><a href="#四进程程序替换">四、进程程序替换</a>
+      <ul>
+        <li><a href="#41快速见一见效果">4.1快速见一见效果</a></li>
+        <li><a href="#42进程替换原理---fork">4.2进程替换原理 - fork</a></li>
+        <li><a href="#43认识全部接口">4.3认识全部接口</a></li>
+      </ul>
+    </li>
+    <li><a href="#五自主shell命令行解释器">五、自主Shell命令行解释器</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/linux-process-control/">
+                <img src="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png"
+                        srcset="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png 800w, /p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_a76c8c5ca0be0093.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】04进程控制" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" style="background-color: #77ACF1; color: #fff;">
+                Linux
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/linux-process-control/">【Linux】04进程控制</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            掌握进程创建、等待与替换的核心机制
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="一进程创建">一、.进程创建
+</h1><h2 id="11fork函数初识">1.1fork函数初识
+</h2><p>fork创建一个子进程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>返回值：自进程中返回θ，父进程返回子进程id，出错返回-1</p>
+<p>进程调用fork，当控制转移到内核中的fork代码后，内核做</p>
+<blockquote>
+<ul>
+<li>
+<p><span style="color: #8080FF;">分配新的内存块和内核数据结构</span>给子进程</p>
+</li>
+<li>
+<p>将父进程部分数据结构内容<span style="color: #8080FF;">拷贝</span>至子进程</p>
+</li>
+<li>
+<p><span style="color: #8080FF;">添加</span>子进程到<span style="color: #8080FF;">系统进程列表</span>当中</p>
+</li>
+<li>
+<p>fork返回，<span style="color: #8080FF;">开始调度器调度</span></p>
+<p>子进程从fork()之后的代码开始执行</p>
+</li>
+</ul>
+</blockquote>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012202954410.png"
+	width="966"
+	height="409"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012202954410_hu_1ee4c704a651ec6f.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012202954410_hu_c690f2c6415f2c01.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012202954410"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="236"
+		data-flex-basis="566px"
+	
+></p>
+<h2 id="12写时拷贝">1.2写时拷贝
+</h2><p>fork创建的子进程要拷贝父进程的代码和数据，是浅拷贝，也就是子进程和父进程共要享数据。当子进程要修改数据的时候，子进程再重新开一块空间做修改</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012203337432.png"
+	width="1073"
+	height="425"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012203337432_hu_bbadfe4fe6f4940b.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012203337432_hu_d37d443ef0486b0c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251012203337432"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="252"
+		data-flex-basis="605px"
+	
+></p>
+<p><strong>为什么要有写实拷贝？</strong></p>
+<p>1.减少创建时间</p>
+<p>2.减少内存浪费</p>
+<h2 id="13fork常规用法">1.3fork常规用法
+</h2><p>我们创建一个子进程，是希望这个子进程帮我们完成一些事情</p>
+<ul>
+<li>
+<p>我们创建子进程，想让子进程帮我执行我自己代码的一部分</p>
+<p>让子进程通过if-else分流，让父和子各自执行后序代码的一部分</p>
+</li>
+<li>
+<p>创建子进程，希望子进程去执行全新的程序</p>
+<ul>
+<li>比如我们在命令行输入命令，其实相当于bash创建子进程，但是我们子进程不是执行bash，而是执行我们新启动的命令/程序</li>
+</ul>
+</li>
+</ul>
+<h2 id="14fork调用失败">1.4fork调用失败
+</h2><blockquote>
+<ul>
+<li>系统中有太多进程</li>
+<li>实际用户的进程数超过了限制</li>
+</ul>
+</blockquote>
+<p>创建子进程可能会失败，进程=内核数据结构+代码和数据</p>
+<p>情况1：操作系统创建内核数据结构失败，PCB地址空间和页表对应的物理内存申请不出来了</p>
+<p>情况2：加载内存失败，比如加载代码和数据失败</p>
+<h1 id="二进程终止">二、.进程终止
+</h1><p>创建进程是要占用系统资源的，进程终止要释放系统资源（内核数据结构和对应的代码和数据）</p>
+<blockquote>
+<p>僵尸进程一旦终止，它的PCB会维持，方便获取信息</p>
+</blockquote>
+<h2 id="21进程退出的场景">2.1进程退出的场景
+</h2><ul>
+<li>代码运行完毕，结果正确</li>
+<li>代码运行完毕，结果不正确</li>
+<li>代码异常终止</li>
+</ul>
+<p>子进程也是进程 &ndash;&gt; 父进程创建 &ndash;&gt; 子进程执行结果</p>
+<p><span style="color: #8080FF;">子进程执行的结果要让父进程知道</span></p>
+<h2 id="22退出码">2.2退出码
+</h2><p>int main()</p>
+<h3 id="221程序执行的三种情况">2.2.1程序执行的三种情况
+</h3><p><strong>main函数也是函数，也要被调用，main函数的返回值返回给谁了？</strong></p>
+<p><span style="color: #8080FF;">main函数的返回值，通常表明你的程序的执行情况</span></p>
+<p>三种情况：</p>
+<blockquote>
+<ul>
+<li>代码运行完毕，结果正确</li>
+<li>代码运行完毕，结果不正确</li>
+<li>代码异常终止</li>
+</ul>
+</blockquote>
+<p>通常是前两种情况</p>
+<h3 id="222代码运行完毕">2.2.2代码运行完毕
+</h3><p><strong>main函数的返回值代表什么含义？</strong></p>
+<ul>
+<li>
+<p><strong>一般都是代码运行完毕的情况，结果正确返回0，结果错误返回非0</strong></p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017082147701.png"
+	width="248"
+	height="151"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017082147701_hu_6ef23b31e9ce7f74.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017082147701_hu_3a24a927563c3f6b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017082147701"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="164"
+		data-flex-basis="394px"
+	
+></p>
+<ul>
+<li>
+<p>为什么结果正确返回0，结果错误返回非0？</p>
+<ul>
+<li>代码运行结果不正确，要知道原因</li>
+<li><span style="color: #8080FF;">非0有1 2 3 &hellip;等不同的值，表明不同的出错原因</span></li>
+</ul>
+</li>
+<li>
+<p>返回值一般是返回给父进程的，<strong>代码运行完毕后的结果由进程的退出码决定</strong></p>
+<p>我们自己写的进程的父进程是bash，父进程需要得到子进程运行的结果，通过得到退出码</p>
+</li>
+<li>
+<p>如何查看退出码？<strong><span style="color: #FF0000;">echo $?</span></strong> <span style="color: #8080FF;">打印最近一个程序(进程)退出时的退出码</span></p>
+<ul>
+<li>main函数的返回值我们叫进程退出码，<span style="color: #FF8000;">退出码会写到你的进程的task_struct内部</span></li>
+<li>指令也是程序</li>
+</ul>
+</li>
+<li>
+<p>得到退出码后，我们如何知道退出码的含义？</p>
+<ul>
+<li>
+<p><code>man strerror</code>，strerror可以把错误码转成对应的字符串错误描述</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017114449958.png"
+	width="1104"
+	height="287"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017114449958_hu_b151bd9459bef2c3.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017114449958_hu_198929e5afe63e2c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017114449958"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="384"
+		data-flex-basis="923px"
+	
+></p>
+</li>
+<li>
+<p>以fopen为例</p>
+</li>
+</ul>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115641415.png"
+	width="1344"
+	height="155"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115641415_hu_d9d85dc69b79045e.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115641415_hu_e9443c4e8bda46d0.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017115641415"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="867"
+		data-flex-basis="2081px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="mi">200</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d-&gt;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">i</span><span class="err">，</span> <span class="nf">strerror</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行结果如下：<img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115345732.png"
+	width="850"
+	height="231"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115345732_hu_df267eb7ff1d92bd.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115345732_hu_11340f89dea5a9a8.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017115345732"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="367"
+		data-flex-basis="883px"
+	
+>
+<img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017120014396.png"
+	width="903"
+	height="857"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017120014396_hu_fa38e886f7fde06b.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017120014396_hu_faa214f36190307.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017120014396"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="105"
+		data-flex-basis="252px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>​</p>
+<h3 id="223代码异常终止">2.2.3代码异常终止
+</h3><p><strong>一旦代码出现异常，退出码无意义</strong></p>
+<p>一旦进程出现异常，一般是进程收到了信号</p>
+<h2 id="23-exit和_exit函数">2.3 exit和_exit函数
+</h2><h3 id="231exit函数">2.3.1exit函数
+</h3><p>main函数结束，进程结束，其它函数，只表示自己函数调用完成，返回</p>
+<p>进程退出的时候，除了main函数return，我们也可以<span style="color: #FF0000;">在代码的任意地方调用exit()，表示进程结束，并返回给父进程bash，子进程的退出码</span></p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017134013061.png"
+	width="1046"
+	height="490"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017134013061_hu_ae5709af32b9de34.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017134013061_hu_3d10a6738ddf86cf.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017134013061"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="512px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;func begin!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;fun end!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">funC</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printfC</span><span class="s">&#34;main</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong>：</p>
+<ol>
+<li>
+<p>在代码的任何地方调用exit，表示进程结束。1.函数后续代码不再执行 2.函数不返回</p>
+</li>
+<li>
+<p>return n 等同于执行 exit(n)，因为调用main的运行时函数会将main的返回值当做 exit的参数</p>
+</li>
+</ol>
+<h3 id="232_exit函数">2.3.2_exit函数
+</h3><p>_exit函数，终止一个调用进程<span style="color: #8080FF;">，哪个进程调 _exit函数，就把哪个进程终止</span></p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017135212887.png"
+	width="853"
+	height="293"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017135212887_hu_90b6819637f4c836.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017135212887_hu_4a08343957e75e5.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017135212887"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="291"
+		data-flex-basis="698px"
+	
+></p>
+<p><strong>exit是C语言提供的，_exit是系统提供的</strong></p>
+<ul>
+<li>
+<p>进程如果<span style="color: #8080FF;">exit退出</span>，exit()，进程退出时，<span style="color: #8080FF;">会进行缓冲区的刷新</span></p>
+</li>
+<li>
+<p>进程如果<span style="color: #8080FF;">_exit退出</span>，_exit()，进程退出时，<span style="color: #8080FF;">不会进行缓冲区的刷新</span></p>
+</li>
+</ul>
+<p>库函数和系统调用之间是上下层关系，即库函数会调用相关的系统调用来完成任务</p>
+<p>库函数封装了系统调用</p>
+<p>**我们之前谈论的缓冲区，应该在哪里？**库缓冲区，C语言提供的缓冲区</p>
+<p>**或者一定不在哪里？**一定不是操作系统内部的缓冲区</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017140625412.png"
+	width="601"
+	height="342"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017140625412_hu_567de56b34c2cbf3.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017140625412_hu_3efc66c4c31a6720.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017140625412"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="175"
+		data-flex-basis="421px"
+	
+></p>
+<h1 id="三进程等待">三、.进程等待
+</h1><h2 id="31基本介绍">3.1基本介绍
+</h2><p><strong>为什么要进程等待？</strong></p>
+<ul>
+<li>解决内存泄漏的问题</li>
+<li>父进程派给子进程任务，需要知道子进程运行完成的结果对还是不对</li>
+</ul>
+<p>1.父进程通过进程等待的方式<span style="color: #8080FF;">回收子进程资源</span>（重要）</p>
+<p>2.<span style="color: #8080FF;">获取子进程退出信息</span>(可选)</p>
+<h2 id="32wait-和-waitpid">3.2wait 和 waitpid
+</h2><p>父进程通过 接口 wait 或 waitpid 的方式来等待子进程</p>
+<h3 id="321wait">3.2.1<strong>wait</strong>
+</h3><p><strong>wait</strong>，<span style="color: #8080FF;">等待任意一个退出的子进程</span></p>
+<p>父进程如果创建多个子进程，wait就会阻塞，直到其中的任意一个子进程退出</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732415404249.png"
+	width="643"
+	height="139"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732415404249_hu_9fdd3c992c31fa55.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732415404249_hu_9f7c39c497ac9a3d.png 1024w"
+	loading="lazy"
+	
+		alt="73241540424"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="462"
+		data-flex-basis="1110px"
+	
+></p>
+<blockquote>
+<p>输出型参数，需要传一个整型变量的地址，未来调成功这个函数之后，这个接口会把子进程的退出信息放到status里，让父进程拿到</p>
+<p>wait的返回值</p>
+<ul>
+<li><span style="color: #FF8000;">成功的时候，表示回收成功的子进程的pid</span>，即目标Z进程的pid</li>
+<li>失败，返回-1</li>
+</ul>
+</blockquote>
+<p>等待子进程，子进程没有退出，父进程会阻塞在wait调用处（类比scanf）</p>
+<h3 id="322waitpid">3.2.2<strong>waitpid</strong>
+</h3><p>等待子进程，改变子进程的状态</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732416391517.png"
+	width="1140"
+	height="408"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732416391517_hu_4f27fe1b724f9c33.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732416391517_hu_bcc2b9bf7c046d5c.png 1024w"
+	loading="lazy"
+	
+		alt="73241639151"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="279"
+		data-flex-basis="670px"
+	
+></p>
+<blockquote>
+<p>返回值：成功，返回子进程的pid；失败，返回-1</p>
+<p>参数1：pid</p>
+<p>​			如果传大于0的数，表示你要等哪个子进程，就把哪个子进程的pid传进去</p>
+<p>​			如果传-1，表示等待任意一个子进程</p>
+<p>参数2：status输出型参数</p>
+<p>参数3：options进行阻塞控制</p>
+</blockquote>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732416467985.png"
+	width="1458"
+	height="429"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732416467985_hu_3680c1db0f82b03d.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732416467985_hu_d4e6394f0da5e775.png 1024w"
+	loading="lazy"
+	
+		alt="73241646798"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="339"
+		data-flex-basis="815px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;func begin!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;fun end!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//子进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个子进程，pid：%d，ppid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="nf">getpid</span><span class="p">()</span><span class="err">，</span><span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cnt</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">sLeep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//父进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">/</span><span class="mf">1.</span><span class="err">子进程退出</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//2.子进程没退出呢?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success，rid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="n">rid</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="323status参数">3.2.3status参数
+</h3><p>通过<strong>status输出型参数</strong>，获取子进程的退出码(退出信息)</p>
+<p>status可以当做位图来查看，低16位的次低八位表示退出状态</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017154246251.png"
+	width="771"
+	height="255"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017154246251_hu_61e9241c67ca371c.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017154246251_hu_bf4eab502b668512.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017154246251"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="302"
+		data-flex-basis="725px"
+	
+></p>
+<p>(status&raquo;8)&amp;0xFF</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;func begin!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">40</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;fun end!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="nf">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//子进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个子进程，pid：%d，ppid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="nf">getpid</span><span class="p">()</span><span class="err">，</span><span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cnt</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//父进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">/</span><span class="mf">1.</span><span class="err">子进程退出</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//2.子进程没退出呢?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success, rid: %d，status：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait failed: %d: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">errno</span><span class="p">,</span> <span class="nf">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>代码异常终止</strong></p>
+<p>Linux系统里，存在很多信号，<code>kill -l</code> 可以查看Linux里所有的信号</p>
+<blockquote>
+<p>vim /usr/include/asm/signal.h</p>
+<p>没有0号信号</p>
+</blockquote>
+<p>一个进程一旦异常终止，那么它的status的低7位会保存异常时对应的信号编号</p>
+<p>没有异常呢？低7个比特位，0</p>
+<p>一旦低7个比特位非0，表示异常退出，退出码无意义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success, rid: %d，exit code：%d, exit signal: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">,</span> <span class="n">status</span><span class="o">&amp;</span><span class="mh">0x7F</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>wait和waitpid是从哪拿到的信息？</strong></p>
+<p>当一个子进程退出，它自己要进入僵尸，僵尸最终是把代码数据、地址空间、页表释放，但PCB不能释放</p>
+<p>子进程的退出信息只能放在僵尸的task_struct</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017162747293.png"
+	width="999"
+	height="416"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017162747293_hu_7f45e62283b94ed9.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017162747293_hu_fb46beeac789b45f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017162747293"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="240"
+		data-flex-basis="576px"
+	
+></p>
+<p><strong>status我们自己做位图来查看子进程的退出码，比较麻烦，系统有对应的宏可以帮助我们直接提取</strong></p>
+<ul>
+<li>
+<p><strong>WIFEXITED(status)</strong>：若为正常终止子进程返回的状态，则为真。（<span style="color: #FF0000;">查看进程是否是正常退出</span>）</p>
+<blockquote>
+<p>其实就是检测信号的值为0就是真，否则就是假</p>
+</blockquote>
+</li>
+<li>
+<p><strong>WEXITSTATUS(status)</strong>：若WIFEXITED非零，提取子进程退出码。（<span style="color: #FF0000;">查看进程的退出码</span>）</p>
+<blockquote>
+<p>其实就是用宏封装了位操作</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success, rid: %d，exit code：%d, exit signal: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="nf">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">),</span> <span class="n">status</span><span class="o">&amp;</span><span class="mh">0x7F</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="33阻塞与非阻塞等待">3.3阻塞与非阻塞等待
+</h2><p><strong>option参数</strong></p>
+<ul>
+<li>
+<p>默认为0，表示阻塞等待</p>
+</li>
+<li>
+<p>如果设置成WNOHANG，就表示 如果子进程还没有结束，我们立即返回。我们把这种特性叫做非阻塞调用</p>
+<blockquote>
+<p>W：wait</p>
+<p>NO：不要</p>
+<p>HANG：如果计算机卡死了，我们输什么都没反应，那么我们就称这台计算机被夯住了</p>
+<p>所以，WNOHANG 表示等待的时候不要夯住，即非阻塞</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017170514460.png"
+	width="1180"
+	height="456"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017170514460_hu_a322648d72b6a7b4.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017170514460_hu_200bac0771f0ee6b.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017170514460"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="621px"
+	
+></p>
+<p><strong>阻塞调用和非阻塞调用</strong></p>
+<ul>
+<li>
+<p><strong>非阻塞(Non Block)调用</strong></p>
+<p>张三给李四打多个电话，问李四下楼了没有</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172309584.png"
+	width="588"
+	height="403"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172309584_hu_f910778368bfeff2.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172309584_hu_77e1ad140f3ff6d6.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017172309584"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="350px"
+	
+></p>
+<p>非阻塞调用可以让等待方，做做自己的事情</p>
+</li>
+<li>
+<p><strong>阻塞调用</strong>：一调用，必须把它调用完才会返回</p>
+<p>张三给李四打一次电话，让李四不要挂电话，直到李四说我要下楼了再挂断电话</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172236655.png"
+	width="606"
+	height="358"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172236655_hu_66b5b49eb9a934f5.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172236655_hu_1145892736fef162.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017172236655"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="406px"
+	
+></p>
+</li>
+</ul>
+<p><strong>waited返回值</strong></p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172445392.png"
+	width="855"
+	height="59"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172445392_hu_bc9871ec99283b29.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172445392_hu_86969c256f13f2c1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251017172445392"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1449"
+		data-flex-basis="3477px"
+	
+></p>
+<ul>
+<li>大于0，表示等待结束（子进程退了）</li>
+<li>等于0，表示waited调用结束，但是子进程没有退出</li>
+<li>小于0，表示等待失败</li>
+</ul>
+<p>非阻塞调用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">forkC</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//子进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个子进程，pid：%d，ppid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="n">getpidC</span><span class="p">)</span><span class="err">，</span><span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cnt</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//父进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="n">WNOHANG</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success，rid：%d，exit code:%d，exit signal：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="n">rid</span><span class="err">，</span><span class="nf">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="err">，</span><span class="n">status</span><span class="o">&amp;</span><span class="n">ox7F</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;本轮调用结束，子进程没有退出</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;等待失败</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>非阻塞调用可以让等待方，做做自己的事情</p>
+<p>如何让父进程做其它事情呢？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//函数指针类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="kt">func_t</span><span class="p">)();</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define NUM 5
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">func_t</span> <span class="n">handlers</span><span class="p">[</span><span class="n">NUM</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//任务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">DownLoad</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个下载的任务...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Flush</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个刷新的任务...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Log</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个登录的任务...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//注册
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">registerHander</span><span class="p">(</span><span class="kt">func_t</span> <span class="n">h</span><span class="p">[],</span> <span class="kt">func_t</span> <span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">]</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">NUM</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">           
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">registerHander</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">DownLoad</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">registerHander</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">Flush</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">registerHander</span><span class="p">(</span><span class="n">handlers</span><span class="p">,</span> <span class="n">Log</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">forkC</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//子进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个子进程，pid：%d，ppid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="nf">getpid</span><span class="p">(</span><span class="err">），</span><span class="nf">getppid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cnt</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                   
+</span></span><span class="line"><span class="cl">    <span class="c1">//父进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="n">WNOHANG</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success， rid:%d， exit code: %d， exit signal:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">rid</span><span class="p">,</span> <span class="nf">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="err">，</span> <span class="n">status</span><span class="o">&amp;</span><span class="n">ox7F</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">//函数指针进行回调处理
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(;</span> <span class="n">handlers</span><span class="p">[</span><span class="n">il</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;本轮调用结束，子进程没有退出</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">             <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;等待失败</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>           
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="四进程程序替换">四、进程程序替换
+</h1><p>fork（）之后，父子各自执行父进程代码的一部分如果子进程就想执行一个全新的程序呢？</p>
+<p>进程的程序替换来完成这个功能！</p>
+<p>程序替换是通过特定的接口，加载磁盘上的一个全新的程序(代码和数据)，加载到调用进程的地址空间中！</p>
+<h2 id="41快速见一见效果">4.1快速见一见效果
+</h2><p>程序替换的接口 execl</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021205648916.png"
+	width="845"
+	height="311"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021205648916_hu_fbbd68bf3986f75d.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021205648916_hu_737f370032951e83.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251021205648916"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="271"
+		data-flex-basis="652px"
+	
+></p>
+<p>通过我们自己写的程序，可以把系统指令跑起来</p>
+<h2 id="42进程替换原理---fork">4.2进程替换原理 - fork
+</h2><p>进程=内核数据结构+代码和数据</p>
+<p>当我们的程序跑起来后，执行的是我们自己的代码，但是当执行到 execl 这个函数时，新的程序(代码和数据)会覆盖当前进程的代码和数据（没有创建新进程）</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021210404413.png"
+	width="998"
+	height="411"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021210404413_hu_beb849caf2228ad5.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021210404413_hu_db17e364ee22c474.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251021210404413"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="242"
+		data-flex-basis="582px"
+	
+></p>
+<p>在程序替换的过程中，并没有创建新的进程</p>
+<h2 id="43认识全部接口">4.3认识全部接口
+</h2><p>==接口1==</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execl</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span> <span class="o">//</span> <span class="o">...</span><span class="err">是可变参数</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>要执行谁</li>
+<li>要怎么执行它</li>
+</ol>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732619193974.png"
+	width="1486"
+	height="424"
+	srcset="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732619193974_hu_4f4e12e11b1bd864.png 480w, /p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732619193974_hu_36aafe0762564302.png 1024w"
+	loading="lazy"
+	
+		alt="73261919397"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="350"
+		data-flex-basis="841px"
+	
+></p>
+<p>为什么没有影响父进程呢？</p>
+<ol>
+<li>进程具有独立性</li>
+<li>数据和代码都要发生写实拷贝</li>
+</ol>
+<p><strong>程序要跑，就是进程，只要是进程，就能进行程序替换</strong></p>
+<p>==接口2==</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execlp</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span> <span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>p &mdash; PATH，只能执行系统指令</p>
+<p>file 只需要告诉需要执行的文件名，因为execlp会自动在环境变量中查找指定的命令</p>
+<p>==接口3==</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execv</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="k">const</span> <span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>==接口4==</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execvpe</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="n">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="o">//</span>                                                  <span class="err">环境变量</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="五自主shell命令行解释器">五、自主Shell命令行解释器
+</h1>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-instruction/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】01初始Linux&#43;基础指令"
+                        data-key="linux-basic-instruction" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】01初始Linux&#43;基础指令</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-permission-development-tool/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】02基础权限开发工具"
+                        data-key="linux-basic-permission-development-tool" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】02基础权限开发工具</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-process-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】03进程的概念"
+                        data-key="linux-process-basic" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】03进程的概念</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

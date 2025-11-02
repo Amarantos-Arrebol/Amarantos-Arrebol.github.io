@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="理清内存分布与动态分配：new/delete 的底层逻辑">
+<title>【C&#43;&#43;初阶】05内存管理</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/c-memory-management/'>
+
+<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【C++初阶】05内存管理">
+<meta property='og:description' content="理清内存分布与动态分配：new/delete 的底层逻辑">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/c-memory-management/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/c-memory-management/aa.png' />
+<meta name="twitter:title" content="【C++初阶】05内存管理">
+<meta name="twitter:description" content="理清内存分布与动态分配：new/delete 的底层逻辑"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/c-memory-management/aa.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_c3bef4dff24cf0d9.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🌿</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">PursUnre的博客</a></h1>
+            <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343'
+                        target="_blank"
+                        title="CSDN"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://gitee.com/green-citrus'
+                        target="_blank"
+                        title="Gitee"
+                        rel="me"
+                    >
+                        
+                        
+                            <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/Amarantos-Arrebol'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%8F%8B%E9%93%BE/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>友链</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1cc内存分布">1、C/C++内存分布</a></li>
+    <li><a href="#2c语言中动态内存管理方式">2、C语言中动态内存管理方式</a></li>
+    <li><a href="#3c内存管理方式">3、C++内存管理方式</a>
+      <ul>
+        <li><a href="#31newdelete操作内置类型">3.1new/delete操作内置类型</a></li>
+        <li><a href="#32newdelete操作自定义类型">3.2new/delete操作自定义类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#4operator-new-与-operator-delete函数">4、operator new 与 operator delete函数</a></li>
+    <li><a href="#5new和delete的实现原理">5、new和delete的实现原理</a>
+      <ul>
+        <li><a href="#51内置类型">5.1内置类型</a></li>
+        <li><a href="#52自定义类型">5.2自定义类型</a></li>
+      </ul>
+    </li>
+    <li><a href="#6定位new表达式placement-new">6、定位new表达式(placement-new)</a></li>
+    <li><a href="#题目">题目</a></li>
+    <li><a href="#7mallocfree和newdelete的区别">7、malloc/free和new/delete的区别</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/c-memory-management/">
+                <img src="/p/c-memory-management/aa_hu_f8a80488315bd5f9.png"
+                        srcset="/p/c-memory-management/aa_hu_f8a80488315bd5f9.png 800w, /p/c-memory-management/aa_hu_a76c8c5ca0be0093.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】05内存管理" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/c&#43;&#43;/" style="background-color: #FF8F8F; color: #fff;">
+                C&#43;&#43;
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/c-memory-management/">【C&#43;&#43;初阶】05内存管理</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            理清内存分布与动态分配：new/delete 的底层逻辑
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-02</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1cc内存分布">1、C/C++内存分布
+</h1><p>栈、堆、静态区(数据段)、常量区(代码段)  &mdash;虚拟进程地址空间</p>
+<p>程序 &mdash;&ndash; &gt;编译（）&mdash;-&gt;可执行程序，运行起来叫进程</p>
+<p>代码          二进制的机器</p>
+<p>多线程&ndash;每个线程都有一个栈</p>
+<p>一个进程里可能有多个线程</p>
+<p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659796461.png"
+	width="819"
+	height="565"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659796461_hu_f321d88cc66b1018.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659796461_hu_ef57dd695c67263f.png 1024w"
+	loading="lazy"
+	
+		alt="73865979646"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="347px"
+	
+></p>
+<p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659825961.png"
+	width="706"
+	height="506"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659825961_hu_3eb5ba7f622fe51a.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659825961_hu_7fa2b92012f6baf3.png 1024w"
+	loading="lazy"
+	
+		alt="73865982596"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="334px"
+	
+></p>
+<p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659838368.png"
+	width="640"
+	height="667"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659838368_hu_dbdaeaa3563093ee.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738659838368_hu_aa2d41f3f967a8c6.png 1024w"
+	loading="lazy"
+	
+		alt="73865983836"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="95"
+		data-flex-basis="230px"
+	
+></p>
+<h1 id="2c语言中动态内存管理方式">2、C语言中动态内存管理方式
+</h1><p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916152347331.png"
+	width="1029"
+	height="745"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916152347331_hu_139f52d914128340.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916152347331_hu_bc7f4d6b33757fa9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250916152347331"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="331px"
+	
+></p>
+<p><strong>malloc/calloc/realloc/free</strong></p>
+<h1 id="3c内存管理方式">3、C++内存管理方式
+</h1><p>C++又提出了自己的内存管理方式：通过new和delete操作符进行动态内存管理。</p>
+<h2 id="31newdelete操作内置类型">3.1new/delete操作内置类型
+</h2><p><code>new</code>是C++中动态申请空间的关键字，申请的空间在堆中，需要程序员自己释放。</p>
+<p>释放堆区的数据使用关键字<code>delete</code></p>
+<p><strong>1.new的基本语法</strong></p>
+<p>new返回的是==该数据类型的指针==</p>
+<ul>
+<li>
+<p>动态申请int类型的空间<code>new 数据类型</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请int类型的空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr4</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>动态申请int类型的空间并初始化<code>new 数据类型()</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请int类型的空间并初始化为10
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr5</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>动态申请int类型的数组空间<code>new 数据类型[]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请10个int类型的空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr6</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>动态申请数组空间并初始化 <code>new 数据类型[]{}</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请一个数组并初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr7</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr8</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">5</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span><span class="c1">//可以不完全初始化
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<ol start="2">
+<li><strong>delete的基本语法</strong></li>
+</ol>
+<ul>
+<li>
+<p>释放动态申请的基本数据类型的空间 <code>delete 变量名</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">delete</span> <span class="n">pr4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">delete</span> <span class="n">ptr5</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>释放动态申请的数组空间 <code>delete[] 数组名</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span> <span class="n">ptr7</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span> <span class="n">ptr8</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="32newdelete操作自定义类型">3.2new/delete操作自定义类型
+</h2><ul>
+<li>
+<p>使用malloc只会申请空间，不会调用构造函数来初始化这块空间</p>
+<p>使用new不仅会申请空间，还会调用构造函数初始化这块空间</p>
+</li>
+<li>
+<p>使用free只会释放空间，不会调用析构函数来清理资源</p>
+<p>使用delete不仅会释放空间，还会调用析构函数清理资源</p>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 只申请空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 申请空间+构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">;</span><span class="c1">//有默认构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//没有默认构造，可以传参
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//只释放空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">free</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//析构函数+释放空间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">delete</span> <span class="n">p2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">p3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用new创建对象数组，会调用多次构造函数</p>
+<p>delete[] 时会调用多次析构函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//申请空间+10次构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p6</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span><span class="p">[]</span> <span class="n">p6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//使用有名对象初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span> <span class="n">aa1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">aa2</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p7</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">]{</span> <span class="n">aa1</span><span class="p">,</span> <span class="n">aa2</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span><span class="p">[]</span> <span class="n">p6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//使用隐式类型转换初始化对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p8</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">]{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span><span class="p">[]</span> <span class="n">p8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用new和delete创建单链表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">ListNode</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ListNode</span><span class="o">*</span> <span class="n">_next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">ListNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">_val</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">,</span><span class="n">_next</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ListNode</span><span class="o">*</span> <span class="n">n1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ListNode</span><span class="o">*</span> <span class="n">n2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ListNode</span><span class="o">*</span> <span class="n">n3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">ListNode</span><span class="o">*</span> <span class="n">n4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">n1</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">n2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">n2</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">n3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">n3</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">n4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">n1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">delete</span> <span class="n">n2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">delete</span> <span class="n">n3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">delete</span> <span class="n">n4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="4operator-new-与-operator-delete函数">4、operator new 与 operator delete函数
+</h1><p><strong>operator new 与 operator delete不是运算符重载，就是库里面的一个函数</strong></p>
+<ul>
+<li>operator new本质是==对malloc的封装==。成功就返回对应指针，失败就抛异常</li>
+<li>malloc是失败就返回空</li>
+<li>==operator new和operator delete 都是库里面全局的函数==</li>
+</ul>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">operator new：该函数实际通过malloc来申请空间，当malloc申请空间成功时直接返回；申请空间失败，尝试执行空间不足应对措施，如果改应对措施用户设置了，则继续申请，否则抛异常。
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="n">__CRTDECL</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="n">_THROW1</span><span class="p">(</span><span class="n">_STD</span> <span class="n">bad_alloc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// try to allocate size bytes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">_callnewh</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// report no memory
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 如果申请内存失败了，这里会抛出bad_alloc 类型异常
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span> <span class="n">nomem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_RAISE</span><span class="p">(</span><span class="n">nomem</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>   
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916163205306.png"
+	width="867"
+	height="606"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916163205306_hu_1c710b0a3fed0b56.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916163205306_hu_149202be775f6540.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250916163205306"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="343px"
+	
+></p>
+<ul>
+<li>
+<p>operator delete是为了跟operator进行配对</p>
+<p>封装了一个<code>free_dbg</code>的函数，该函数就是free</p>
+<p>因为库里面的free就是一个宏函数，free的底层就是调free_dbg</p>
+</li>
+</ul>
+<blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">operator delete: 该函数最终是通过free来释放空间的
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">pUserData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_CrtMemBlockHeader</span> <span class="o">*</span> <span class="n">pHead</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RTCCALLBACK</span><span class="p">(</span><span class="n">_RTC_Free_hook</span><span class="p">,</span> <span class="p">(</span><span class="n">pUserData</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">pUserData</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    	<span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">_mlock</span><span class="p">(</span><span class="n">_HEAP_LOCK</span><span class="p">);</span> <span class="cm">/* block other threads */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__TRY</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="cm">/* get a pointer to memory block header */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pHead</span> <span class="o">=</span> <span class="n">pHdr</span><span class="p">(</span><span class="n">pUserData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* verify block type */</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_ASSERTE</span><span class="p">(</span><span class="n">_BLOCK_TYPE_IS_VALID</span><span class="p">(</span><span class="n">pHead</span><span class="o">-&gt;</span><span class="n">nBlockUse</span><span class="p">));</span> 
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="n">_free_dbg</span><span class="p">(</span> <span class="n">pUserData</span><span class="p">,</span> <span class="n">pHead</span><span class="o">-&gt;</span><span class="n">nBlockUse</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">__FINALLY</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_munlock</span><span class="p">(</span><span class="n">_HEAP_LOCK</span><span class="p">);</span> <span class="cm">/* release other threads */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">__END_TRY_FINALLY</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">free的实现
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define free(p)  _free_dbg(p, _NORMAL_BLOCK)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916163434103.png"
+	width="833"
+	height="274"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916163434103_hu_5ca9257dd3102f6c.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/image-20250916163434103_hu_11c99911ecbf99df.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250916163434103"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="304"
+		data-flex-basis="729px"
+	
+></p>
+<p>总结：</p>
+<p>通过上述两个全局函数的实现知道，==operator new 实际也是通过malloc来申请空间，==</p>
+<p>如果malloc申请空间成功就直接返回，否则执行用户提供的<strong>空间不足应对措施</strong>，</p>
+<p>如果用户提供该措施就继续申请，否则就抛异常。==operator delete 最终是通过free来释放空间的。==</p>
+<h1 id="5new和delete的实现原理">5、new和delete的实现原理
+</h1><p>一切代码编译后都是对应的指令</p>
+<h2 id="51内置类型">5.1内置类型
+</h2><blockquote>
+<p>如果申请的是内置类型的空间，new和malloc，delete和free基本类似</p>
+<p><strong>不同的地方是：</strong></p>
+<p>new/delete申请和释放的是单个元素的空间，new[] 和delete[]申请的是==连续空间==，</p>
+<p>而且==new在申请空间失败时会抛异常==，malloc会返回NULL</p>
+</blockquote>
+<h2 id="52自定义类型">5.2自定义类型
+</h2><blockquote>
+<p><strong>new的原理</strong></p>
+<ol>
+<li>调用operator new函数==申请空间==</li>
+<li>在申请的空间上执行==构造函数==，完成对象的构造</li>
+</ol>
+</blockquote>
+<p>我们也可以直接使用operator new ，operator new 是库里面全局的函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A(int a)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">aa</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span><span class="n">_a1</span><span class="p">(</span><span class="n">aa</span><span class="p">.</span><span class="n">_a1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A(const A&amp; aa)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">A</span><span class="o">&amp;</span> <span class="n">aa</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A&amp; operator=(const A&amp; aa)&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">aa</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">_a1</span> <span class="o">=</span> <span class="n">aa</span><span class="p">.</span><span class="n">_a1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~A()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">_a1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span> <span class="c1">// 失败会抛异常
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>delete的原理</strong></p>
+<ol>
+<li>在空间上执行==析构函数==，完成对象中资源的清理工作</li>
+<li>调用==operator delete函数==释放对象的空间</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>new T[N]的原理</strong></p>
+<p>oprator new 是 malloc的封装，operator new[] 是operator new 的封装</p>
+<ol>
+<li>调用operator new[]函数，在operator new[]中实际==调用operator new函数==完成N个对象空间的申请</li>
+<li>在申请的空间上执行N次构造函数</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>delete[]的原理</strong></p>
+<ol>
+<li>在释放的对象空间上执行N次析构函数，完成N个对象中资源的清理</li>
+<li>调用operator delete[]释放空间，实际在operator delete[]中调==用operator delete==来释放空间</li>
+</ol>
+</blockquote>
+<h1 id="6定位new表达式placement-new">6、定位new表达式(placement-new)
+</h1><blockquote>
+<p>定位new表达式是在==已分配==的原始内存空间中==调用构造函数初始化==一个对象。</p>
+<p>使用格式：</p>
+<p><code>new (place_address) type</code>即：<code>new (地址/要初始化的那块空间) 类型(初始化的参数) </code></p>
+<p>place_address必须是一个指针，initializer-list是类型的初始化列表</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//new是库里面的一个全局的函数，返回值是void*
+</span></span></span><span class="line"><span class="cl"><span class="c1">//失败了会抛异常，所以不用检查返回值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span><span class="c1">//不会调构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//构造函数不支持显示调用
+</span></span></span><span class="line"><span class="cl"><span class="c1">//p1-&gt;A(1);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//会对p1指向的那块空间当成A对象调用构造函数初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">new</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="c1">//如果没有参数，new(p1)A;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//析构函数支持显示调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p1</span><span class="o">-&gt;~</span><span class="n">A</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>==构造函数不支持显示调用，要使用定位new==</p>
+<p>==析构函数支持显示调用，完成资源清理，之后还需要调用operator delete 完成空间的释放==</p>
+<p>定位new和显示调用析构是为了支持有的地方为了提高效率，</p>
+<p>申请内存的时候，如果直接使用new，<strong>new的底层是operator new 调 malloc，效率比较低</strong>。</p>
+<p>自己会去写一个<strong>内存池</strong>，如果我的空间是<strong>从我自己定制的内存池出来的</strong>，那就开好空间了</p>
+<p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1739171195690.png"
+	width="1734"
+	height="745"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1739171195690_hu_75740f32b584a207.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1739171195690_hu_6bd84bbc43b1a704.png 1024w"
+	loading="lazy"
+	
+		alt="73917119569"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="558px"
+	
+></p>
+<blockquote>
+<p>**注意：**不要交叉申请释放</p>
+<p>比如：new和delete是一对的，operator new和operator delete是一对的，</p>
+<p>而不要让new和opertaor delete一对等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//对
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">A</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">new</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p2</span><span class="o">-&gt;~</span><span class="n">A</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1739172080943.png"
+	width="620"
+	height="728"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1739172080943_hu_a3e63651dd426b09.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1739172080943_hu_d86558bffb85b063.png 1024w"
+	loading="lazy"
+	
+		alt="73917208094"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="85"
+		data-flex-basis="204px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//operator new不会初始化，所以指针是随机值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">p1</span><span class="p">;</span><span class="c1">//~A()释放了一块随机地址的空间   
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h1 id="题目">题目
+</h1><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span> <span class="n">_a</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;A():&#34;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="o">~</span><span class="n">A</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~A():&#34;</span> <span class="o">&lt;&lt;</span> <span class="k">this</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">delete</span> <span class="n">_p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">_p</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>下面这段代码运行时，程序会崩溃，因为==operator new 只开空间==，不调用构造初始化，_p也就没有在指向堆上的一块空间，是野指针。因此，当delete调用析构函数时，清理的是野指针</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span><span class="c1">//只开了空间，没有初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">delete</span> <span class="n">p1</span><span class="p">;</span> <span class="c1">// 清理了野指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1731739078631.png"
+	width="674"
+	height="427"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1731739078631_hu_657724c11d386367.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1731739078631_hu_cecbdf00c1b95416.png 1024w"
+	loading="lazy"
+	
+		alt="73173907863"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="378px"
+	
+></p>
+<ul>
+<li>下面这段代码运行时，程序不会崩溃，因为new会开空间并调用构造完成初始化。虽然我们的A类中没有写_p指针的初始化，但是在类的声明位置给了缺省参数，所以__p指向堆中的一块空间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//如果只使用free()，会内存泄露
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//free(p1);//只会把p1这块空间释放，但是_P指向的那块空间没有释放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">delete</span> <span class="n">p1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1729939867548.png"
+	width="985"
+	height="469"
+	srcset="/p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1729939867548_hu_a931ee84c4d6ec9b.png 480w, /p/c-memory-management/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1729939867548_hu_33b41ce48f3a1bb5.png 1024w"
+	loading="lazy"
+	
+		alt="72993986754"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="210"
+		data-flex-basis="504px"
+	
+></p>
+<p><strong>总结：</strong></p>
+<ol>
+<li>不要忘记释放</li>
+<li>不要交错使用</li>
+</ol>
+<h1 id="7mallocfree和newdelete的区别">7、malloc/free和new/delete的区别
+</h1><p>从用法和功能</p>
+<blockquote>
+<p>malloc/free和new/delete的共同点是：都是<strong>从堆上申请空间</strong>，并且需要用户手动释放。</p>
+<p>不同的地方是：</p>
+<ol>
+<li>
+<p>malloc和free是<strong>函数</strong>，new和delete是<strong>操作符</strong></p>
+</li>
+<li>
+<p>malloc申请的空间不会初始化，<strong>new可以初始化</strong></p>
+</li>
+<li>
+<p>malloc申请空间时，需要<strong>手动计算空间大小</strong>并传递，new只需在其后跟上空间的类型即可，如果是多个对象，[]中指定对象个数即可</p>
+</li>
+<li>
+<p>malloc的返回值为void*, 在<strong>使用时必须强转</strong>，new不需要，因为new后跟的是<strong>空间的类型</strong></p>
+</li>
+<li>
+<p>malloc申请空间失败时，返回的是NULL，因此使用时<strong>必须判空</strong>，new不需要，但是==new需要<strong>捕获异常</strong>==</p>
+</li>
+<li>
+<p>申请自定义类型对象时，malloc/free只会开辟空间，不会调用构造函数与析构函数，而new在申请空间后会<strong>调用构造函数完成对象的初始化</strong>，delete在释放空间前会<strong>调用析构函数完成空间中资源的清理释放</strong></p>
+</li>
+</ol>
+</blockquote>
+<p>总结：</p>
+<ul>
+<li>
+<p>malloc和free是函数，new和delete是操作符</p>
+</li>
+<li>
+<p>new申请空间后会初始化</p>
+</li>
+<li>
+<p>new申请空间不需要手动计算字节数，如果有多个对象，[]指定对象个数</p>
+</li>
+<li>
+<p>new申请空间失败，需要捕获异常</p>
+</li>
+<li>
+<p>new在申请空间时会调用构造函数完成对象的初始化</p>
+<p>delete在释放空间前会调用析构函数完成空间中资源的清理释放</p>
+</li>
+<li>
+<p>malloc返回值是void*，需要强转，new不需要，new后面跟的是空间类型</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/start-c-/">
+        
+        
+            <div class="article-image">
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-01/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）"
+                        data-key="class-with-object-01" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】02类和对象（上）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-02/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】03类和对象（中）"
+                        data-key="class-with-object-02" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】03类和对象（中）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/class-with-object-03/">
+        
+        
+            <div class="article-image">
+                <img src="/p/class-with-object-03/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】04类和对象（下）"
+                        data-key="class-with-object-03" 
+                        data-hash="md5-04dgGemtcS7VUDDr1C498w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】04类和对象（下）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/template-basics-and-stl-introduction/">
+        
+        
+            <div class="article-image">
+                <img src="/p/template-basics-and-stl-introduction/bz.47b526136610e95223e241a5408c4dbf_hu_e7b33b5de769db40.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】06模版初阶&#43;STL简介"
+                        data-key="template-basics-and-stl-introduction" 
+                        data-hash="md5-R7UmE2YQ6VIj4kGlQIxNvw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】06模版初阶&#43;STL简介</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

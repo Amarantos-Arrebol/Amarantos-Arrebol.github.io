@@ -1409,7 +1409,7 @@
 &lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;不能加分号的原因&lt;/span&gt;：cout &amp;laquo; ADD(1,2) &amp;laquo; endl;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;必须加外面的括号原因&lt;/span&gt;：cout &amp;laquo; ADD(3, 5) * 2 &amp;laquo; endl; //(3)+(5)*2&lt;/p&gt;
 &lt;p&gt;本来应该先算3+5，但是如果不加外面的括号就会先算5*2&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;必须加里面的括号原因&lt;/span&gt;：cout &amp;laquo; ADD(x&amp;amp;y, x|y) &amp;laquo; endl; //x&amp;amp;y+x|y&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;必须加里面的括号原因&lt;/span&gt;：cout &amp;laquo; ADD(x&amp;y, x|y) &amp;laquo; endl; //x&amp;amp;y+x|y&lt;/p&gt;
 &lt;p&gt;由于运算符优先级，所以会先计算y+x&lt;/p&gt;
 &lt;p&gt;缺点：复杂很容易出错，且不方便调试&lt;/p&gt;
 &lt;p&gt;**优点：**宏本质是一种替换，&lt;span style=&#34;color: #FF0000;&#34;&gt;调用时不用建立栈帧&lt;/span&gt;（函数调用是要建立栈帧的）&lt;/p&gt;
@@ -5067,7 +5067,7 @@
 &lt;li&gt;调用operator delete[]释放空间，实际在operator delete[]中调==用operator delete==来释放空间&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&#34;6定位new表达式placement-new&#34;&gt;6、定位new表达式(placement-new)
+&lt;h1 id=&#34;6定位new表达式&#34;&gt;6、定位new表达式(placement-new)
 &lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;定位new表达式是在==已分配==的原始内存空间中==调用构造函数初始化==一个对象。&lt;/p&gt;
 &lt;p&gt;使用格式：&lt;/p&gt;
@@ -6152,7 +6152,7 @@
           &lt;td&gt;构造空的string类对象，即空字符串&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;string(const string&amp;amp;s) ;&lt;/td&gt;
+          &lt;td&gt;string(const string&amp;s) ;&lt;/td&gt;
           &lt;td&gt;用已经存在的string对象拷贝给要初始化的string对象&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
@@ -6168,7 +6168,7 @@
           &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
-          &lt;td&gt;string(const string&amp;amp;s, size_t pos, size_t len = npos);&lt;/td&gt;
+          &lt;td&gt;string(const string&amp;s, size_t pos, size_t len = npos);&lt;/td&gt;
           &lt;td&gt;&lt;/td&gt;
       &lt;/tr&gt;
       &lt;tr&gt;
@@ -10096,12 +10096,12 @@ int k(2);&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;33迭代器失效insert和erase&#34;&gt;3.3迭代器失效(insert和erase)
+&lt;/div&gt;&lt;h2 id=&#34;33迭代器失效&#34;&gt;3.3迭代器失效(insert和erase)
 &lt;/h2&gt;&lt;p&gt;使用typeid查看迭代器真正的类型&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;typeid可以获取一个类型或对象的真实类型&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;typeid(vector&amp;lt;int&amp;gt;::iterator).name()&lt;/p&gt;
+&lt;p&gt;typeid(vector\&lt;int&gt;::iterator).name()&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/vector/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91vector.assets/image-20251002192758053.png&#34;
 	width=&#34;1214&#34;
 	height=&#34;45&#34;
@@ -17627,7 +17627,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;运行时多态&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;具体点就是完成某个行为(函数)，可以&lt;span style=&#34;color: #8080FF;&#34;&gt;传不同的对象就会完成不同的行为&lt;/span&gt;，就达到多种形态&lt;/p&gt;
 &lt;p&gt;比如买票这个行为，当普通人买票时，是全价买票；学生买票时，是优惠买票(5折或75折)；军人买票时是优先买票&lt;/p&gt;
-&lt;p&gt;再比如，同样是动物叫的一个行为(函数)，传猫对象过去，就是”(&amp;gt;^w^&amp;lt;)&amp;ldquo;喵“，传狗对象过去，就是&amp;quot;汪汪&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;再比如，同样是动物叫的一个行为(函数)，传猫对象过去，就是”(&gt;\^w^&lt;)&amp;ldquo;喵“，传狗对象过去，就是&amp;quot;汪汪&amp;rdquo;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;我们主要谈运行时多态，&lt;strong&gt;构成运行时多态的前提&lt;/strong&gt;：&lt;/p&gt;
@@ -18199,8 +18199,7 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;p&gt;目的：指向谁，调用谁的对应虚函数&lt;/p&gt;
 &lt;p&gt;父类指针/引用既可以指向父类对象也可以指向子类对象，指向父类对象，运行时就到父类的虚函数表中找到对应的虚函数进行调用；指向子类对象，运行时就到从子类对象中切出来的被子类重写的虚函数表中找到虚函数进行调用&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;编译期间，编译器主要检测代码是否违反语法规则，此时无法知道父类的指针或者引用到底引用那个类的对象，也就无法知道调用那个类的虚函数&lt;/p&gt;
-&lt;p&gt;在程序运行时，才知道具体指向那个类的对象，然后通过虚表调用对应的虚函数，从而实现多态&lt;/p&gt;
+&lt;p&gt;编译期间，编译器主要检测代码是否违反语法规则，此时无法知道父类的指针或者引用到底引用那个类的对象，也就无法知道调用那个类的虚函数，在程序运行时，才知道具体指向那个类的对象，然后通过虚表调用对应的虚函数，从而实现多态&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024142522897.png&#34;
 	width=&#34;1692&#34;
@@ -18319,7 +18318,7 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;p&gt;取出一个对象头4/8个字节的地址：&lt;/p&gt;
 &lt;p&gt;Base b;&lt;/p&gt;
 &lt;p&gt;Base* p = &amp;amp;b;&lt;/p&gt;
-&lt;p&gt;printf(&amp;ldquo;Base虚表地址：%p\n&amp;rdquo;, *(int*)p); // 强转成int，解引用就取出4个字节&lt;/p&gt;
+&lt;p&gt;printf(&#34;Base虚表地址：%p\n&#34;, \*(int*)p); // 强转成int，解引用就取出4个字节&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;规定：取成员函数的地址要加上取地址符 &amp;amp;，例如 &amp;amp;Person::func1&lt;/p&gt;

@@ -6811,7 +6811,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;24迭代器iterator遍历字符串&#34;&gt;2.4迭代器(iterator)遍历字符串
+&lt;/div&gt;&lt;h3 id=&#34;24迭代器遍历字符串&#34;&gt;2.4迭代器(iterator)遍历字符串
 &lt;/h3&gt;&lt;p&gt;迭代器是一种对象，他可以用来&lt;strong&gt;遍历容器&lt;/strong&gt;（比如string）&lt;strong&gt;中的元素&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;迭代器的作用&lt;strong&gt;类似于指针或者数组下标&lt;/strong&gt;，通过迭代器就可以逐个去找到它的元素&lt;/p&gt;
 &lt;p&gt;不过，&lt;strong&gt;访问迭代器指向的值的时候，需要解引用&lt;code&gt;*&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
@@ -8505,7 +8505,7 @@
 &lt;p&gt;​	如果流的状态良好（即没有发生错误），流对象的布尔值为true&lt;/p&gt;
 &lt;p&gt;​	如果发生错误（如遇到输入结束符或类型不匹配），布尔值为false&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;在while(cin &amp;raquo; s)语句中，循环的条件部分检查cin流的状态。&lt;/p&gt;
+&lt;p&gt;在while(cin &gt;&gt; s)语句中，循环的条件部分检查cin流的状态。&lt;/p&gt;
 &lt;p&gt;如果流成功读取到一个值，cin&amp;raquo;s返回的流对象cin将被转换为true，循环将继续。&lt;/p&gt;
 &lt;p&gt;如果读取失败（例如遇到输入结束符或无法读取到一个值），cin &amp;raquo; s返回的流&lt;/p&gt;
 &lt;p&gt;对象cin将被转换为false，循环将停止&lt;/p&gt;
@@ -8528,7 +8528,7 @@
 &lt;p&gt;1.输入字符串 - string
 2.输入带空格的字符串 getline
 3.循环处理字符串中的每个字符，解密
-如果是b&lt;del&gt;z(B&lt;/del&gt;Z)的字母，直接-1，就是解密后的字符
+如果是b~z(B~Z)的字母，直接-1，就是解密后的字符
 如果是a/A &amp;ndash;&amp;gt; z/Z
 其余字符不变&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码&lt;/strong&gt;&lt;/p&gt;
@@ -10121,7 +10121,7 @@
 &lt;p&gt;&lt;strong&gt;思路：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;输入M、N&lt;/li&gt;
-&lt;li&gt;产生[M，N]之间的数 for(int i = m; i &amp;lt;= n; i++)&lt;/li&gt;
+&lt;li&gt;产生[M，N]之间的数 for(int i = m; i &lt;= n; i++)&lt;/li&gt;
 &lt;li&gt;判断i是否是真素数
 &lt;ol&gt;
 &lt;li&gt;i是素数&lt;/li&gt;
@@ -11136,8 +11136,8 @@
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;规律2：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;(x &amp;amp; 1) == 0，说明x是偶数&lt;/li&gt;
-&lt;li&gt;(x &amp;amp; 1) == 1，说明x是奇数&lt;/li&gt;
+&lt;li&gt;(x &amp; 1) == 0，说明x是偶数&lt;/li&gt;
+&lt;li&gt;(x &amp; 1) == 1，说明x是奇数&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/learning-c-from-scratch-bit-operator/%E3%80%90%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6C&amp;#43;&amp;#43;%E3%80%9104%E4%BD%8D%E8%BF%90%E7%AE%97%E5%92%8C%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%B1%9E%E6%80%A7.assets/1737638869003.png&#34;
 	width=&#34;956&#34;
@@ -11356,7 +11356,7 @@
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;我们希望获得一个==整数x二进制中的第i位==（其实就是确定==第i位是0还是1==），&lt;/p&gt;
-&lt;p&gt;就可以 (x &amp;raquo; i) &amp;amp; 1，结果是0，那么第i位就是0，结果是1，那么第i位就是1&lt;/p&gt;
+&lt;p&gt;就可以 (x &gt;&gt; i) &amp;amp; 1，结果是0，那么第i位就是0，结果是1，那么第i位就是1&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;x &amp;raquo; i 使得x的&lt;strong&gt;第i位来到最低位&lt;/strong&gt;，然后&lt;strong&gt;再按位与&amp;amp;1&lt;/strong&gt;就能获得第i位是1还是0&lt;/p&gt;
 &lt;blockquote&gt;
@@ -11615,7 +11615,7 @@
 &lt;/h3&gt;&lt;p&gt;将一个整数x的二进制中第i位取反（0变1,1变0）&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;x ^= (1&amp;lt;&amp;lt;i);&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;比如：将x的二进制表示00101011的第2位反转，其余位保持原来的值不&lt;/p&gt;
-&lt;p&gt;变，只需要将m = (1 &amp;laquo; 2) 和x异或&lt;/p&gt;
+&lt;p&gt;变，只需要将m = (1 &lt;&lt; 2) 和x异或&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/learning-c-from-scratch-bit-operator/%E3%80%90%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6C&amp;#43;&amp;#43;%E3%80%9104%E4%BD%8D%E8%BF%90%E7%AE%97%E5%92%8C%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%B1%9E%E6%80%A7.assets/1737981289121.png&#34;
 	width=&#34;268&#34;
 	height=&#34;186&#34;

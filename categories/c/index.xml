@@ -442,7 +442,7 @@ variable-list：变量列表&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;间接访问&lt;/strong&gt;
-如果我们拿到的是指向结构体变量的&lt;strong&gt;指针&lt;/strong&gt;(地址)，那么我们就可以通过结构体访问操作符 (-&amp;gt;) 加成员名的方式，来访问结构体成员&lt;/p&gt;
+如果我们拿到的是指向结构体变量的&lt;strong&gt;指针&lt;/strong&gt;(地址)，那么我们就可以通过结构体访问操作符 (-&gt;) 加成员名的方式，来访问结构体成员&lt;/p&gt;
 &lt;p&gt;同时，这种方式也可以用来修改结构体成员里保存的值&lt;/p&gt;
 &lt;p&gt;语法：&lt;code&gt;结构体指针-&amp;gt;成员名&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;例如：
@@ -2409,7 +2409,7 @@ variable-list：变量列表&lt;/p&gt;
 	
 	
 &gt;int (*pf) (int, int) 的含义：&lt;/p&gt;
-&lt;p&gt;（1）( *pf ) ： pf是变量名 ，* 说明 pf 是指针变量&lt;/p&gt;
+&lt;p&gt;（1）( \*pf ) ： pf是变量名 ，* 说明 pf 是指针变量&lt;/p&gt;
 &lt;p&gt;（2）(int, int)：pf 指向的是函数，该函数有两个int类型的参数，&lt;/p&gt;
 &lt;p&gt;​                        只需要交代函数参数的个数和类型，参数名可以不写&lt;/p&gt;
 &lt;p&gt;（3）int：说明该函数的返回类型是 int 类型&lt;/p&gt;
@@ -3548,7 +3548,7 @@ variable-list：变量列表&lt;/p&gt;
 &lt;p&gt;void* base 使用void*接收目标数组的起始位置，这样可以排任意类型的数据&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;int(*compare)(const void* elem1, const void* elem2)&lt;/p&gt;
+&lt;p&gt;int(\*compare)(const void* elem1, const void* elem2)&lt;/p&gt;
 &lt;p&gt;中compare这个指针可以接收要比较的两个元素的地址，由于不知道要比较的两个元素的类型，&lt;/p&gt;
 &lt;p&gt;所以使用void*来接收&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -4027,7 +4027,7 @@ variable-list：变量列表&lt;/p&gt;
 &lt;p&gt;分析：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;strlen返回的是无符号整型，两个无符号整型相减的结果也应为无符号整型
-所以应该将strlen(&amp;ldquo;abc&amp;rdquo;) - strlen(&amp;ldquo;abcdef&amp;rdquo;)的到的结果 -3 转为无符号整型，&lt;/p&gt;
+所以应该将strlen(&#34;abc&#34;) - strlen(&#34;abcdef&#34;)的到的结果 -3 转为无符号整型，&lt;/p&gt;
 &lt;p&gt;由于整型在内存中是以补码方式进行存储的，所以要先得到-3的补码，&lt;/p&gt;
 &lt;p&gt;然后再将补码的符号位改为0。&lt;/p&gt;
 &lt;p&gt;-3的原码为     10000000 00000000 00000000 00000011&lt;/p&gt;

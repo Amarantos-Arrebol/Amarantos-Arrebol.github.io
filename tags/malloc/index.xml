@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Malloc on PursUnre的博客</title>
+        <link>https://Amarantos-Arrebol.github.io/tags/malloc/</link>
+        <description>Recent content in Malloc on PursUnre的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>PursUnre</copyright>
+        <lastBuildDate>Sun, 02 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/malloc/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>【C语言基础】动态内存管理</title>
+        <link>https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/</link>
+        <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/04.png" alt="Featured image of post 【C语言基础】动态内存管理" /&gt;&lt;h1 id=&#34;1为什么要有动态内存管理&#34;&gt;1、为什么要有动态内存管理
+&lt;/h1&gt;&lt;p&gt;向内存申请一块空间存放数据的方法&lt;/p&gt;
+&lt;p&gt;1）创建一个变量&lt;/p&gt;
+&lt;p&gt;2）创建一个数组，数组编译时开辟空间&lt;/p&gt;
+&lt;p&gt;**缺陷：**1.空间开辟的大小是固定的&lt;/p&gt;
+&lt;p&gt;​           2.数组在声明的时候，必须指定数组的长度，数组空间一旦确定了大小不能调整&lt;/p&gt;
+&lt;p&gt;但对于空间的需求，有时候我们需要的空间大小在==程序运行==的时候才能知道&lt;/p&gt;
+&lt;p&gt;所以我们引入动态内存开辟，让程序员自己可以申请和释放空间&lt;/p&gt;
+&lt;p&gt;动态内存管理的头文件stdlib.h&lt;/p&gt;
+&lt;h1 id=&#34;2malloc和free&#34;&gt;2、malloc和free
+&lt;/h1&gt;&lt;h2 id=&#34;21-基本介绍&#34;&gt;2.1 基本介绍
+&lt;/h2&gt;&lt;p&gt;memory:内存&lt;/p&gt;
+&lt;p&gt;alloc:空间开辟&lt;/p&gt;
+&lt;p&gt;向内存申请一块连续可用的空间（大小是字节），并返回指向这块空间的指针&lt;/p&gt;
+&lt;p&gt;返回值void*：将这块空间起始地址返回，malloc函数并不知道开辟空间的类型&lt;/p&gt;
+&lt;p&gt;​                     具体使用的时候，应该将其强转为我们期望的类型的指针&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1、参数的单位是字节&lt;/p&gt;
+&lt;p&gt;2、对malloc返回的指针做判断&lt;/p&gt;
+&lt;p&gt;​     申请空间成功的话，返回起始地址；申请失败，返回NULL&lt;/p&gt;
+&lt;p&gt;3、如果参数size为0，malloc的行为是标准是未定义的，取决于编译器&lt;/p&gt;
+&lt;h2 id=&#34;23-malloc申请空间和数组的空间有什么区别呢&#34;&gt;2.3 malloc申请空间和数组的空间有什么区别呢？
+&lt;/h2&gt;&lt;p&gt;1、动态内存的大小是可以调整的&lt;/p&gt;
+&lt;p&gt;2、开辟空间的位置不一样&lt;/p&gt;
+&lt;h2 id=&#34;24-内存中数据的存储划分&#34;&gt;2.4 内存中数据的存储划分
+&lt;/h2&gt;&lt;p&gt;1）栈区：局部变量，局部的数组，函数的形式参数&lt;/p&gt;
+&lt;p&gt;2）堆区：动态内存malloc，free，calloc，realloc&lt;/p&gt;
+&lt;p&gt;3）静态区：全局变量，static修饰的静态变量&lt;/p&gt;
+&lt;h2 id=&#34;25-free&#34;&gt;2.5 free
+&lt;/h2&gt;&lt;p&gt;malloc申请的这块空间，使用完后，不想要了，需要释放&lt;/p&gt;
+&lt;p&gt;free是将申请的那块空间的使用权限还给操作系统了&lt;/p&gt;
+&lt;p&gt;是通过代码的方式释放内存，如果不释放，程序结束的时候也会被操作系统自动回收&lt;/p&gt;
+&lt;p&gt;但是指向这块空间的指针p，指向的空间不属于当前程序，但还是找得到&lt;/p&gt;
+&lt;p&gt;这块空间（p是野指针，所以要将p置为空）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1、如果参数ptr指向的空间不是动态开辟的，那free函数的行为是未定义的&lt;/p&gt;
+&lt;p&gt;2、如果参数ptr是NULL指针，则函数什么事都不做&lt;/p&gt;
+&lt;p&gt;3、free释放的空间一定是动态申请的&lt;/p&gt;
+&lt;p&gt;malloc和free最好成对使用&lt;/p&gt;
+&lt;h1 id=&#34;3calloc和realloc&#34;&gt;3、calloc和realloc
+&lt;/h1&gt;&lt;h2 id=&#34;31calloc&#34;&gt;3.1calloc
+&lt;/h2&gt;&lt;p&gt;开辟num个大小为size的空间，并用0初始化数组，返回地址&lt;/p&gt;
+&lt;p&gt;malloc不会把申请的空间初始化，calloc会初始化，因此calloc函数效率要低一些&lt;/p&gt;
+&lt;h2 id=&#34;32-realloc&#34;&gt;3.2 realloc
+&lt;/h2&gt;&lt;p&gt;==realloc 不仅能调整空间，还可以申请空间==&lt;/p&gt;
+&lt;p&gt;把已经通过malloc或realloc开辟的空间进行调整，&lt;/p&gt;
+&lt;p&gt;ptr：要调整的内存空间的起始地址&lt;/p&gt;
+&lt;p&gt;size：需要调整多大的空间&lt;/p&gt;
+&lt;p&gt;返回值为调整后内存的起始地址&lt;/p&gt;
+&lt;h2 id=&#34;33-realloc是如何扩容空间的&#34;&gt;3.3 realloc是如何扩容空间的
+&lt;/h2&gt;&lt;p&gt;realloc函数在调整空间时，有两种情况&lt;/p&gt;
+&lt;p&gt;可以扩容的情况&lt;/p&gt;
+&lt;p&gt;情况1：原有空间后，尚未分配的空间足够&lt;/p&gt;
+&lt;p&gt;情况2：原有空间后，尚未分配的空间不够&lt;/p&gt;
+&lt;p&gt;1）realloc直接在内存的堆区找到一块新的满足大小的空间&lt;/p&gt;
+&lt;p&gt;2）将旧的数据，拷贝到新的空间&lt;/p&gt;
+&lt;p&gt;3）释放旧空间&lt;/p&gt;
+&lt;p&gt;4）返回新的地址&lt;/p&gt;
+&lt;p&gt;所以realloc函数可能返回新的地址，也可能返回旧地址，还可能返回NULL指针&lt;/p&gt;
+&lt;p&gt;因为可能开辟失败，为了避免返回NULL指针，使原有的数据也丢失，所以&lt;/p&gt;
+&lt;p&gt;需要新创建一个指针变量接收，如果该指针变量不为NULL，再将它的值赋给原有的&lt;/p&gt;
+&lt;p&gt;指针变量&lt;/p&gt;
+&lt;h1 id=&#34;4常见的动态内存的错误&#34;&gt;4、常见的动态内存的错误
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;对NULL指针的解引用操作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对动态申请的空间返回的的指针先要判断是否为NULL&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对动态开辟空间的越界访问&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对非动态开辟内存使用free释放&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用free释放一块动态开辟内存的一部分&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;p[i] = i相当于  *（p+i），此时free(p)正确&lt;/p&gt;
+&lt;p&gt;*p = i; p++;  此时free(p)会报错&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;对同一块内存空间的多次释放&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;动态内存开辟忘记释放，可能导致内存泄漏的问题&lt;/p&gt;
+&lt;p&gt;服务器的程序，7*24一直在运行&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;内存管理是一把双刃剑&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1、提供灵活的内存管理方式&lt;/p&gt;
+&lt;p&gt;2、带来风险&lt;/p&gt;
+&lt;h1 id=&#34;5经典笔试题分析&#34;&gt;5、经典笔试题分析
+&lt;/h1&gt;&lt;h1 id=&#34;6柔性数组&#34;&gt;6、柔性数组
+&lt;/h1&gt;&lt;h2 id=&#34;61-基本介绍&#34;&gt;6.1 基本介绍
+&lt;/h2&gt;&lt;p&gt;C99中，结构中最后一个元素允许是未知大小的数组，这就叫【柔性数组】成员&lt;/p&gt;
+&lt;p&gt;1、结构体中&lt;/p&gt;
+&lt;p&gt;2、最后一个成员&lt;/p&gt;
+&lt;p&gt;3、未知大小的数组&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86&#34;
+	width=&#34;842&#34;
+	height=&#34;372&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 480w, https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;72857032141&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;226&#34;
+		data-flex-basis=&#34;543px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;62-柔性数组的特点&#34;&gt;6.2 柔性数组的特点
+&lt;/h2&gt;&lt;p&gt;1、结构中的柔性数组成员前面必须至少一个其它成员&lt;/p&gt;
+&lt;p&gt;2、sizeof返回的这种结构大小不包括柔性数组的内容&lt;/p&gt;
+&lt;p&gt;3、包含柔性数组成员的结构用malloc()函数进行内存的动态分配，并且分配的内存应该&lt;/p&gt;
+&lt;p&gt;​      大于结构的大小，以适应柔性数组的预期大小&lt;/p&gt;
+&lt;p&gt;​     内存大小=结构大小+柔性数组大小&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86&#34;
+	width=&#34;873&#34;
+	height=&#34;468&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 480w, https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;72857034475&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;186&#34;
+		data-flex-basis=&#34;447px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/assets/1728570355498.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;72857035549&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;因为n和arr都是malloc来的，所以后面可以通过realloc来调整这块空间&lt;/p&gt;
+&lt;p&gt;一旦使用realloc来调整这块空间，那么后面的数组的空间大小就可以可大可小&lt;/p&gt;
+&lt;h2 id=&#34;63与变长数组的区别&#34;&gt;6.3与变长数组的区别
+&lt;/h2&gt;&lt;p&gt;变长数组：指用整型变量或表达式声明或定义的数组&lt;/p&gt;
+&lt;p&gt;数组的大小可以由变量来进行指定，并不是数组的大小可变&lt;/p&gt;
+&lt;p&gt;变长数组大小一旦开辟好空间，就不能变&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86&#34;
+	width=&#34;566&#34;
+	height=&#34;352&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 480w, https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;72857038543&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;160&#34;
+		data-flex-basis=&#34;385px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;64-使用柔性数组的优势&#34;&gt;6.4 使用柔性数组的优势
+&lt;/h2&gt;&lt;p&gt;1）方便内存释放，一次free就搞定&lt;/p&gt;
+&lt;p&gt;如果我们的代码是在一个给别人的函数中，你做了二次内存分配，并返回结构体的地址给&lt;/p&gt;
+&lt;p&gt;用户。用户调用free可以释放结构体，但用户不知道这个结构体里的成员也需要free.&lt;/p&gt;
+&lt;p&gt;所以，我们尽量把结构体的内存以及成员要的内存一次性分配好&lt;/p&gt;
+&lt;p&gt;2）有利于访问速度（连续的内存有益于提高访问速度，也有益于减少内存碎片）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86&#34;
+	width=&#34;1600&#34;
+	height=&#34;573&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 480w, https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;72857042950&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;279&#34;
+		data-flex-basis=&#34;670px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;注意最后要释放动态开辟的空间&lt;/p&gt;
+&lt;h2 id=&#34;7总结cc中程序内存区域划分&#34;&gt;7、总结C/C++中程序内存区域划分
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;内核空间：用户代码不能读写&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;栈（向下增长）：运行函数而分配的局部变量，函数的形式参数，返回数据，返回地址等&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内存映射段：文件映射、动态库、匿名映射&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;堆（向上增长）：动态申请的内存，都在堆区&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;静态区（数据段）：全局数据、静态数据&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;代码段：可执行代码/只读常量，不能修改&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86&#34;
+	width=&#34;1102&#34;
+	height=&#34;760&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 480w, https://Amarantos-Arrebol.github.io/p/c-dynamic-memory-management/%E3%80%90C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E3%80%91%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;72857046901&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;145&#34;
+		data-flex-basis=&#34;348px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;C/C++程序内存分配的几个区域：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;栈区&lt;/strong&gt;，执行函数时，函数局部变量的存储单元都在栈上创建，函数执行结束时这些存储单元&lt;/p&gt;
+&lt;p&gt;自动被释放。栈内存分配运算内置于处理器的指令集中，效率很高，但分配的内存容量有限&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;堆区&lt;/strong&gt;一般由程序员分配释放，若程序员不释放，程序结束可能由OS（操作系统）回收&lt;/p&gt;
+&lt;p&gt;分配方式类似于链表&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据段（静态区）&lt;/strong&gt;：(static)存放全局变量、静态数据。程序结束后由系统释放&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;代码段&lt;/strong&gt;：存放函数体（类成员函数和全局函数）的二进制代码&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

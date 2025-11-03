@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Set容器 on PursUnre的博客</title>
+        <link>https://Amarantos-Arrebol.github.io/tags/set%E5%AE%B9%E5%99%A8/</link>
+        <description>Recent content in Set容器 on PursUnre的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>PursUnre</copyright>
+        <lastBuildDate>Sun, 02 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/set%E5%AE%B9%E5%99%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>【C&#43;&#43;进阶】04map和set的使用</title>
+        <link>https://Amarantos-Arrebol.github.io/p/map-and-set/</link>
+        <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/p/map-and-set/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/map-and-set/10.jpg" alt="Featured image of post 【C&#43;&#43;进阶】04map和set的使用" /&gt;&lt;h1 id=&#34;1序列容器和关联式容器&#34;&gt;1.序列容器和关联式容器
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;序列式容器&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;逻辑结构为&lt;strong&gt;线性&lt;/strong&gt;序列的数据结构，两个位置存储的值之间一般&lt;strong&gt;没有紧密的关联&lt;/strong&gt;关系(比如交换一下，他依旧是序列式容器)&lt;/p&gt;
+&lt;p&gt;顺序容器中的元素是按他们在容器中的&lt;strong&gt;存储位置&lt;/strong&gt;来&lt;strong&gt;顺序保存和访问&lt;/strong&gt;的&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;序列式容器有string、vector、list、deque、array、forward_list等&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;关联式容器&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关联式容器逻辑结构通常是&lt;strong&gt;非线性&lt;/strong&gt;结构，两个位置&lt;strong&gt;有紧密的关联&lt;/strong&gt;关系，比如交换一下，他的存储结构就被破坏了&lt;/p&gt;
+&lt;p&gt;顺序容器中的元素是按&lt;strong&gt;关键字&lt;/strong&gt;来保存和访问的&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关联式容器有map/set(底层红黑树)系列和 unordered_map/unordered_set(底层哈希表) 系列&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;map和set底层是红黑树，红黑树是一颗平衡二叉搜索树&lt;/p&gt;
+&lt;p&gt;set是key搜索场景的结构，map是key/value搜索场景的结构&lt;/p&gt;
+&lt;h1 id=&#34;2set--multiset&#34;&gt;2.set / multiset
+&lt;/h1&gt;&lt;h2 id=&#34;21基本介绍&#34;&gt;2.1基本介绍
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;set类的介绍&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/map-and-set/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9104map%E5%92%8Cset%E7%9A%84%E4%BD%BF%E7%94%A8.assets/image-20251025155415483.png&#34;
+	width=&#34;882&#34;
+	height=&#34;155&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/map-and-set/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9104map%E5%92%8Cset%E7%9A%84%E4%BD%BF%E7%94%A8.assets/image-20251025155415483_hu_b752bd20265bf8da.png 480w, https://Amarantos-Arrebol.github.io/p/map-and-set/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9104map%E5%92%8Cset%E7%9A%84%E4%BD%BF%E7%94%A8.assets/image-20251025155415483_hu_113a4bb0cf0983a3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251025155415483&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;569&#34;
+		data-flex-basis=&#34;1365px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;set和multiset的区别&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;set不能存相同元素，multiset可以存相同元素&lt;/span&gt;，其余使用方式完全一致&lt;/p&gt;
+&lt;p&gt;因此，我们可以使用set帮助我们给数据去重&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;例如如果在set里存10个1，那么在set容器里只会存1个1，而如果在multiset里存10个1，那么multiset容器里会存10个1，也就是如果我们往这个容器里插入已经存在的元素的话，就会插入失败&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;22-set的构造和选代器&#34;&gt;2.2 set的构造和选代器
+&lt;/h2&gt;&lt;h2 id=&#34;23set的增删查&#34;&gt;2.3set的增删查
+&lt;/h2&gt;&lt;h2 id=&#34;24insert和选代器遍历&#34;&gt;2.4insert和选代器遍历
+&lt;/h2&gt;&lt;h2 id=&#34;25find和erase&#34;&gt;2.5find和erase
+&lt;/h2&gt;&lt;h2 id=&#34;26multiset的使用&#34;&gt;2.6multiset的使用
+&lt;/h2&gt;&lt;p&gt;349.两个数组的交集-力扣(LeetCode)
+142.环形链表lI-力扣(LeetCode)&lt;/p&gt;
+&lt;h1 id=&#34;3map--multimap&#34;&gt;3.map / multimap
+&lt;/h1&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

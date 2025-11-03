@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>封装 on PursUnre的博客</title>
+        <link>https://Amarantos-Arrebol.github.io/tags/%E5%B0%81%E8%A3%85/</link>
+        <description>Recent content in 封装 on PursUnre的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>PursUnre</copyright>
+        <lastBuildDate>Sun, 02 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E5%B0%81%E8%A3%85/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>【C&#43;&#43;初阶】02类和对象（上）</title>
+        <link>https://Amarantos-Arrebol.github.io/p/class-with-object-01/</link>
+        <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/p/class-with-object-01/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.png" alt="Featured image of post 【C&#43;&#43;初阶】02类和对象（上）" /&gt;&lt;h1 id=&#34;1类的定义&#34;&gt;1、类的定义
+&lt;/h1&gt;&lt;h2 id=&#34;11类的定义格式&#34;&gt;1.1类的定义格式
+&lt;/h2&gt;&lt;p&gt;语法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Stack&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;//类的成员
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;1）&lt;/p&gt;
+&lt;p&gt;calss为定义类的关键字，Stack是类的名字{ }中是类的主体，类定义结束时后面的分号不能省略&lt;/p&gt;
+&lt;p&gt;2）&lt;/p&gt;
+&lt;p&gt;类的成员：类中的&lt;span style=&#34;color: #8080FF;&#34;&gt;变量&lt;/span&gt;称为&lt;span style=&#34;color: #FF0000;&#34;&gt;成员变量或类的属性&lt;/span&gt;；类中的&lt;span style=&#34;color: #8080FF;&#34;&gt;函数&lt;/span&gt;称为&lt;span style=&#34;color: #FF0000;&#34;&gt;类的方法或成员函数&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;类里面可以定义函数，类名就是类型&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;成员变量一般以 _ 或 m_ 开头&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;3）&lt;/p&gt;
+&lt;p&gt;定义在类里面的&lt;span style=&#34;color: #FF0000;&#34;&gt;成员函数默认为inline&lt;/span&gt;。短小的函数就在类里定义，默认是内联&lt;/p&gt;
+&lt;p&gt;4）&lt;/p&gt;
+&lt;p&gt;C++中struct也可以定义类，&lt;span style=&#34;color: #FF0000;&#34;&gt;类名就是类型&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;访问类里的成员，&lt;code&gt;对象.方法或属性&lt;/code&gt;，&lt;code&gt;类型的指针-&amp;gt;方法或属性&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;12访问限定符&#34;&gt;1.2访问限定符
+&lt;/h2&gt;&lt;p&gt;访问修饰符是C++实现封装的方式，用类将对象的&lt;span style=&#34;color: #FF0000;&#34;&gt;属性和方法结合在一块&lt;/span&gt;，让对象更加完善&lt;/p&gt;
+&lt;p&gt;通过&lt;span style=&#34;color: #FF0000;&#34;&gt;访问权限&lt;/span&gt;选择性的将其&lt;span style=&#34;color: #FF0000;&#34;&gt;接口&lt;/span&gt;提供给外部的用户使用&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;访问限定符限定的是在外部进行的访问，内部都可以访问&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;1）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;public修饰的成员在类外可以直接访问&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;protected和private修饰的成员在&lt;span style=&#34;color: #FF0000;&#34;&gt;类外&lt;/span&gt;不能直接被访问（相当于一把锁，锁的是外面的人，自家人不锁）&lt;/p&gt;
+&lt;p&gt;在继承章节protected和private才能体现它们的区别&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2）&lt;/p&gt;
+&lt;p&gt;访问权限的作用域从该访问限定符出现的位置开始，直到下一个访问限定符出现为止&lt;/p&gt;
+&lt;p&gt;如果后面没有访问限定符，作用域就到该类的结束&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;规定：成员变量一般都被限定为private/protected，成员函数大多是公有的&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;3）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;C++中struct也可以定义类，C++兼容C中struct的用法，同时struct升级成了类（类名就是类型，有访问修饰符），明显的变化是 struct中可以定义函数，但一般情况下，我们还是推荐用class定义类&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;class&lt;/span&gt;定义成员没有被访问限定符修饰时&lt;span style=&#34;color: #FF0000;&#34;&gt;默认为private&lt;/span&gt;，&lt;span style=&#34;color: #FF0000;&#34;&gt;struct默认为public&lt;/span&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;​		惯例：一个类如果全部是公有，一般用struct&lt;/p&gt;
+&lt;h1 id=&#34;2类域&#34;&gt;2、类域
+&lt;/h1&gt;&lt;p&gt;类定义了一个新的作用域，类的所有成员都在类的作用域中&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;在类体外定义成员时，需要使用 &lt;code&gt;::&lt;/code&gt; 作用域操作符指明成员属于哪个类域。&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;.h文件放成员变量，成员函数的声明&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203206085.png&#34;
+	width=&#34;631&#34;
+	height=&#34;583&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203206085_hu_e538375c54e7700f.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203206085_hu_663474676060a2b9.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250904203206085&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;108&#34;
+		data-flex-basis=&#34;259px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;.cpp文件放类的定义，要指定类域&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203229175.png&#34;
+	width=&#34;804&#34;
+	height=&#34;532&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203229175_hu_471da1609a8bf3db.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203229175_hu_682c9eab1580bee0.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250904203229175&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;151&#34;
+		data-flex-basis=&#34;362px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;3类的实例化&#34;&gt;3、类的实例化
+&lt;/h1&gt;&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;变量的声明和定义区分，分配空间的地方才是变量的定义&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;用类类型在物理内存中创建对象的过程，称为类的实例化出的对象&lt;/p&gt;
+&lt;p&gt;一个类可以实例化n个对象&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203338743.png&#34;
+	width=&#34;354&#34;
+	height=&#34;130&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203338743_hu_84c4512991881fe8.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250904203338743_hu_eba8a96f5a218410.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250904203338743&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;272&#34;
+		data-flex-basis=&#34;653px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;类只是声明，实例化出的对象才会开辟空间。类相当于房子的设计图，实例化的&lt;span style=&#34;color: #FF0000;&#34;&gt;对象才是房子实体&lt;/span&gt;，可以住人（才能存储有效数据）&lt;/p&gt;
+&lt;h1 id=&#34;4类的大小&#34;&gt;4、类的大小
+&lt;/h1&gt;&lt;p&gt;1、&lt;span style=&#34;color: #FF0000;&#34;&gt;只存成员变量&lt;/span&gt;，遵循内存对齐规则，&lt;span style=&#34;color: #FF0000;&#34;&gt;不存成员函数的指针&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;2、调用的都是同一个成员函数，==成员函数存放在一个公共的区域==&lt;/p&gt;
+&lt;p&gt;3、&lt;span style=&#34;color: #8080FF;&#34;&gt;函数被编译完后是一段指令，需要存储起来执行，第一句指令的地址就是函数的地址&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;4、成员函数的指针/地址是在编译时就确定的，没有存在对象中&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193320212.png&#34;
+	width=&#34;885&#34;
+	height=&#34;1183&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193320212_hu_ae2bf9a51ae9ca8d.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193320212_hu_9ac2c1dff788f139.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907193320212&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;74&#34;
+		data-flex-basis=&#34;179px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;41内存对齐&#34;&gt;4.1内存对齐
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;对齐规则：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1、结构体的第一个成员对齐到结构体变量偏移量为0的地址处&lt;/p&gt;
+&lt;p&gt;2、==&lt;span style=&#34;color: #FF0000;&#34;&gt;其它成员变量&lt;/span&gt;要对齐到某个数字&lt;span style=&#34;color: #FF0000;&#34;&gt;（对齐数）的整数倍的地址处&lt;/span&gt;==&lt;/p&gt;
+&lt;p&gt;==对齐数 = 编译器默认的对齐数与该成员大小的较小值==&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;VS中对齐数的默认值为8&lt;/span&gt;，Linux gcc 没有默认对齐数&lt;/p&gt;
+&lt;p&gt;3、==结构体&lt;span style=&#34;color: #FF0000;&#34;&gt;总&lt;/span&gt;大小为&lt;span style=&#34;color: #FF0000;&#34;&gt;最大对齐数&lt;/span&gt;（每个成员变量都有一个对齐数）&lt;span style=&#34;color: #FF0000;&#34;&gt;的整数倍&lt;/span&gt;==&lt;/p&gt;
+&lt;p&gt;4、如果嵌套了结构体的情况，嵌套的结构体对齐到&lt;span style=&#34;color: #FF0000;&#34;&gt;自己的最大对齐数&lt;/span&gt;的整数倍处，结构体的整体&lt;/p&gt;
+&lt;p&gt;大小就是所有最大对齐数（含嵌套结构体的对齐数）的整数倍&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;A&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;private&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_ch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//没有成员变量的类对象，开1byte，占位，不存储有效数据
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//标识对象的存在
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;B&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;//...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;C&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;B&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;C&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;sizeof&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907195951487.png&#34;
+	width=&#34;368&#34;
+	height=&#34;157&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907195951487_hu_28af1a3a1f3c0aeb.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907195951487_hu_2d7179fb106e41c1.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907195951487&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;234&#34;
+		data-flex-basis=&#34;562px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;C++中新增：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1、&lt;span style=&#34;color: #FF0000;&#34;&gt;没有成员变量&lt;/span&gt;的类对象，&lt;span style=&#34;color: #FF0000;&#34;&gt;开1Byte&lt;/span&gt;，占位，只是为了&lt;span style=&#34;color: #FF0000;&#34;&gt;标识对象的存在&lt;/span&gt;，但不存储有效数据。&lt;/p&gt;
+&lt;p&gt;​		开了空间才能证明该对象定义出来了，可以取地址&lt;/p&gt;
+&lt;p&gt;2、仿函数类没有成员变量&lt;/p&gt;
+&lt;h2 id=&#34;42为什么要内存对齐&#34;&gt;4.2为什么要内存对齐？
+&lt;/h2&gt;&lt;p&gt;1、平台原因（移植原因）&lt;/p&gt;
+&lt;p&gt;不是所有硬件平台都能访问任意地址上的任意数据的；&lt;/p&gt;
+&lt;p&gt;某些硬件平台&lt;span style=&#34;color: #FF0000;&#34;&gt;只能在某些地址处取某些特定类型的数据&lt;/span&gt;，否则抛出异常&lt;/p&gt;
+&lt;p&gt;（例如：关于整型类型的数据，只能在地址为4的倍数的地址处访问）&lt;/p&gt;
+&lt;p&gt;2、性能原因&lt;/p&gt;
+&lt;p&gt;数据结构（尤其是栈）应该尽可能地在自然边界上对齐。&lt;/p&gt;
+&lt;p&gt;原因在于，为了访问未对齐的内存，处理器需要做两次内存访问；而对齐的内存访问仅需要一次访问&lt;/p&gt;
+&lt;p&gt;例如：假设32位平台下，未对齐的情况下读int a可能需要读两次，但在对齐的情况下只用读一次&lt;/p&gt;
+&lt;p&gt;为了既满足对齐，又要节省空间&lt;/p&gt;
+&lt;p&gt;在设计结构体的时候：&lt;span style=&#34;color: #FF0000;&#34;&gt;让占用空间小的成员尽量集中在一起&lt;/span&gt;（不一定放前面，尽量集中在一起就行）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193811160.png&#34;
+	width=&#34;427&#34;
+	height=&#34;93&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193811160_hu_31433191039a5df7.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193811160_hu_2e1e7bff0d69a34e.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907193811160&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;459&#34;
+		data-flex-basis=&#34;1101px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193757663.png&#34;
+	width=&#34;1692&#34;
+	height=&#34;364&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193757663_hu_40ceeb15c51ffc7b.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193757663_hu_bf8d3a2afeac48f6.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907193757663&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;464&#34;
+		data-flex-basis=&#34;1115px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;5this指针&#34;&gt;5、this指针
+&lt;/h1&gt;&lt;p&gt;Data类中有Init与Print两个成员函数，函数中没有关于不同对象的区分，也就是&lt;span style=&#34;color: #FF0000;&#34;&gt;几个对象都调用的是同一个函数&lt;/span&gt;，那么当d1调用Init和Print函数时，该函数是怎么知道是d1对象的年月日还是d2对象的年月日呢？&lt;/p&gt;
+&lt;p&gt;C++给了一个隐含的this指针解决这里的问题&lt;/p&gt;
+&lt;h2 id=&#34;51-this指针介绍&#34;&gt;5.1 this指针介绍
+&lt;/h2&gt;&lt;p&gt;编译器编译后，类的成员函数默认都会在形参的第一个位置，增加一个&lt;span style=&#34;color: #FF0000;&#34;&gt;当前类类型的指针&lt;/span&gt;，&lt;/p&gt;
+&lt;p&gt;即this指针，this是一个&lt;span style=&#34;color: #FF0000;&#34;&gt;隐含的形参&lt;/span&gt;。【形参是在栈区】&lt;/p&gt;
+&lt;p&gt;调用的时候，相当于在实参的第一个位置隐含传了一个当前对象的地址/指针&lt;/p&gt;
+&lt;p&gt;类的==成员函数中访问成员变==量，本质都是==通过this指针访问==的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194017034.png&#34;
+	width=&#34;1267&#34;
+	height=&#34;920&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194017034_hu_ce8f0ff74626906f.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194017034_hu_fff009ef72dc4ea.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907194017034&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;137&#34;
+		data-flex-basis=&#34;330px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194023624.png&#34;
+	width=&#34;467&#34;
+	height=&#34;458&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194023624_hu_437b070f92442854.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194023624_hu_bef5acd7d057d60c.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907194023624&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;101&#34;
+		data-flex-basis=&#34;244px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;52-this指针的注意事项&#34;&gt;5.2 this指针的注意事项
+&lt;/h2&gt;&lt;p&gt;1、this指针由const修饰，是不能修改的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194040836.png&#34;
+	width=&#34;650&#34;
+	height=&#34;296&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194040836_hu_9eed54dad16e6cf6.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194040836_hu_12fb0a78e11aeee7.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907194040836&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;219&#34;
+		data-flex-basis=&#34;527px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;2、C++规定，&lt;span style=&#34;color: #FF0000;&#34;&gt;不能在实参和形参的位置显示的写this指针&lt;/span&gt;，但可以在函数体内显示使用this指针&lt;/p&gt;
+&lt;p&gt;3、==&lt;span style=&#34;color: #FF0000;&#34;&gt;成员函数调用的本质就是传递this指针&lt;/span&gt;==&lt;/p&gt;
+&lt;p&gt;4、this指针存在内存的哪个区域的？栈&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt; this指针在非静态的成员函数里面，成员函数没有存储在对象里面，对象不存在&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;vs系列编译器，this通过寄存器ecx传递&lt;/p&gt;
+&lt;h2 id=&#34;53练习题&#34;&gt;5.3练习题
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202201742.png&#34;
+	width=&#34;934&#34;
+	height=&#34;740&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202201742_hu_62270e17f300f7a.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202201742_hu_b85b4a94bf456b0c.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907202201742&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;126&#34;
+		data-flex-basis=&#34;302px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;注意：编译错误是语法错误，编译器检查的是语法&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202428045.png&#34;
+	width=&#34;806&#34;
+	height=&#34;599&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202428045_hu_6516443896e18ed4.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202428045_hu_e7a7273bc4afb9b4.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907202428045&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;134&#34;
+		data-flex-basis=&#34;322px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;要在p指向的那块空间上访问_a，但p是空指针，解引用会运行崩溃&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;成员函数的调用本质是传递this指针&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202501468.png&#34;
+	width=&#34;532&#34;
+	height=&#34;123&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202501468_hu_8650965da4aee927.png 480w, https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907202501468_hu_8fe59bbede1b762d.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250907202501468&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;432&#34;
+		data-flex-basis=&#34;1038px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;this指针是一个隐含的形参&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;this指针在非静态的成员函数里面，成员函数没有存储在对象里面，对象不存在&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;函数调用要建立栈帧，函数里要用到的局部变量就要存在栈帧里&lt;/p&gt;
+&lt;p&gt;函数参数也是存在栈帧里的&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;栈：局部变量，函数参数&lt;/p&gt;
+&lt;p&gt;堆：动态内存管理&lt;/p&gt;
+&lt;p&gt;静态区：全局变量，静态变量&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;6c和c语言实现stack对比&#34;&gt;6、C++和C语言实现Stack对比
+&lt;/h1&gt;&lt;p&gt;面向对象三大特性：封装，继承，多态&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;封装&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;C++中&lt;span style=&#34;color: #FF0000;&#34;&gt;数据和方法都放到类里面&lt;/span&gt;，可以通过访问限定符&lt;span style=&#34;color: #FF0000;&#34;&gt;进行了限制&lt;/span&gt;，不能再随意通过对象直接修改数据&lt;/p&gt;
+&lt;p&gt;封装本质是一种更严格规范的管理，避免出现乱访问修改的问题&lt;/p&gt;
+&lt;p&gt;C语言中，数据和方法是分离的，通过方法访问数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方便的语法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;C++中有一些相对方便的语法，比如 Init 给的&lt;span style=&#34;color: #FF0000;&#34;&gt;缺省参数&lt;/span&gt;会方便很多，成员函数每次不需要传&lt;span style=&#34;color: #FF0000;&#34;&gt;对象地址&lt;/span&gt;，因为&lt;span style=&#34;color: #FF0000;&#34;&gt;this指针隐含的传递了&lt;/span&gt;；使用类型 不再需要typedef &lt;span style=&#34;color: #FF0000;&#34;&gt;用类名&lt;/span&gt;就很方便&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

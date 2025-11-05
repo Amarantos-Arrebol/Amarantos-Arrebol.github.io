@@ -10,7 +10,7 @@
 <meta property='og:description' content="学习笔记">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-11-02T00:00:00&#43;00:00 '/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E7%A9%BF%E8%B6%8A%E6%97%B6%E7%A9%BA-%E9%A3%8E%E9%93%83%E5%A5%B3%E5%AD%A9.png' />
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-11-05T15:57:43&#43;00:00 '/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E7%A9%BF%E8%B6%8A%E6%97%B6%E7%A9%BA-%E9%A3%8E%E9%93%83%E5%A5%B3%E5%AD%A9.png' />
 <meta name="twitter:title" content="Category: 学习笔记 - PursUnre的博客">
 <meta name="twitter:description" content="学习笔记"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E7%A9%BF%E8%B6%8A%E6%97%B6%E7%A9%BA-%E9%A3%8E%E9%93%83%E5%A5%B3%E5%AD%A9.png' /><link rel="alternate" type="application/rss&#43;xml" href="https://Amarantos-Arrebol.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.xml"><link rel="stylesheet" href="/css/custom.min.css">
@@ -56,6 +56,60 @@ th {
     cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/IBeam.cur), auto;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+    
+    
+    function processTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            
+            const regex = /==([^=\n`]+?)==/g;
+            
+            if (regex.test(text)) {
+                const parent = node.parentNode;
+                
+                if (parent && !['CODE', 'PRE', 'KBD', 'SAMP'].includes(parent.tagName)) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(/==([^=\n`]+?)==/g, function(match, content, offset) {
+                        
+                        if (offset > lastIndex) {
+                            fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                        }
+                        
+                        
+                        const mark = document.createElement('mark');
+                        mark.textContent = content;
+                        fragment.appendChild(mark);
+                        
+                        lastIndex = offset + match.length;
+                        return match;
+                    });
+                    
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                    }
+                    
+                    parent.replaceChild(fragment, node);
+                }
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && 
+                   !['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP'].includes(node.tagName)) {
+            
+            Array.from(node.childNodes).forEach(processTextNode);
+        }
+    }
+    
+    processTextNode(articleContent);
+});
+</script>
 
     </head>
     <body class="">
@@ -518,7 +572,32 @@ th {
         <div class="article-details">
             <h2 class="article-title">【Linux】04进程控制</h2>
             <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    </div>
+                    
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
+                        <time datetime='2025-11-05T15:57:43Z'>2025-11-05</time>
+                    </div>
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                        <span class="article-time--wordcount">5078 字
+                        </span>
+                    </div>
+                
             </footer>
         </div>
             <div class="article-image">
@@ -532,13 +611,39 @@ th {
         
     </a>
 </article>
+
         
             <article>
     <a href="/p/learning-markdown/">
         <div class="article-details">
             <h2 class="article-title">【Markdown语法】Md语法学习</h2>
             <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    </div>
+                    
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
+                        <time datetime='2025-11-05T15:57:43Z'>2025-11-05</time>
+                    </div>
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                        <span class="article-time--wordcount">2585 字
+                        </span>
+                    </div>
+                
             </footer>
         </div>
             <div class="article-image">
@@ -552,13 +657,39 @@ th {
         
     </a>
 </article>
+
         
             <article>
     <a href="/p/learning-c-from-scratch-io-and-circulation/">
         <div class="article-details">
             <h2 class="article-title">【从零开始学C&#43;&#43;】01输入输出&#43;循环</h2>
             <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    </div>
+                    
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
+                        <time datetime='2025-11-05T15:57:43Z'>2025-11-05</time>
+                    </div>
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                        <span class="article-time--wordcount">14799 字
+                        </span>
+                    </div>
+                
             </footer>
         </div>
             <div class="article-image">
@@ -572,13 +703,39 @@ th {
         
     </a>
 </article>
+
         
             <article>
     <a href="/p/learning-c-from-scratch-array-and-string/">
         <div class="article-details">
             <h2 class="article-title">【从零开始学C&#43;&#43;】02数组&#43;string</h2>
             <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    </div>
+                    
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
+                        <time datetime='2025-11-05T15:57:43Z'>2025-11-05</time>
+                    </div>
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                        <span class="article-time--wordcount">12147 字
+                        </span>
+                    </div>
+                
             </footer>
         </div>
             <div class="article-image">
@@ -592,13 +749,39 @@ th {
         
     </a>
 </article>
+
         
             <article>
     <a href="/p/learning-c-from-scratch-io-and-function/">
         <div class="article-details">
             <h2 class="article-title">【从零开始学C&#43;&#43;】03输入输出（下）&#43; 函数</h2>
             <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
+                    </div>
+                    
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
+                        <time datetime='2025-11-05T15:57:43Z'>2025-11-05</time>
+                    </div>
+                    <span class="article-time-divider">|</span>
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                        <span class="article-time--wordcount">7591 字
+                        </span>
+                    </div>
+                
             </footer>
         </div>
             <div class="article-image">
@@ -612,6 +795,7 @@ th {
         
     </a>
 </article>
+
         
     </section>
     <nav class='pagination'>

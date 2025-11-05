@@ -10,7 +10,7 @@
 <meta property='og:description' content="">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/%E6%8A%80%E6%9C%AF%E9%93%BE%E6%8E%A5/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' />
+<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:modified_time' content='2025-11-05T15:57:43&#43;00:00'/>
 <meta name="twitter:title" content="技术链接">
 <meta name="twitter:description" content=""><link rel="stylesheet" href="/css/custom.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -55,6 +55,60 @@ th {
     cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/IBeam.cur), auto;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+    
+    
+    function processTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            
+            const regex = /==([^=\n`]+?)==/g;
+            
+            if (regex.test(text)) {
+                const parent = node.parentNode;
+                
+                if (parent && !['CODE', 'PRE', 'KBD', 'SAMP'].includes(parent.tagName)) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(/==([^=\n`]+?)==/g, function(match, content, offset) {
+                        
+                        if (offset > lastIndex) {
+                            fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                        }
+                        
+                        
+                        const mark = document.createElement('mark');
+                        mark.textContent = content;
+                        fragment.appendChild(mark);
+                        
+                        lastIndex = offset + match.length;
+                        return match;
+                    });
+                    
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                    }
+                    
+                    parent.replaceChild(fragment, node);
+                }
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && 
+                   !['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP'].includes(node.tagName)) {
+            
+            Array.from(node.childNodes).forEach(processTextNode);
+        }
+    }
+    
+    processTextNode(articleContent);
+});
+</script>
 
     </head>
     <body class="
@@ -305,7 +359,8 @@ th {
     <footer class="article-footer">
     
 
-    </footer>
+    
+</footer>
 
 
     

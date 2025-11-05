@@ -10,7 +10,7 @@
 <meta property='og:description' content="欢迎来到我的网站，此博客由【Hugo+Stack】来进行搭建，主要分享个人学习笔记">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/categories/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-11-02T00:00:00&#43;00:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-11-05T15:57:43&#43;00:00 '/>
 <meta name="twitter:title" content="Categories">
 <meta name="twitter:description" content="欢迎来到我的网站，此博客由【Hugo+Stack】来进行搭建，主要分享个人学习笔记"><link rel="alternate" type="application/rss&#43;xml" href="https://Amarantos-Arrebol.github.io/categories/index.xml"><link rel="stylesheet" href="/css/custom.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -55,6 +55,60 @@ th {
     cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/IBeam.cur), auto;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+    
+    
+    function processTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            
+            const regex = /==([^=\n`]+?)==/g;
+            
+            if (regex.test(text)) {
+                const parent = node.parentNode;
+                
+                if (parent && !['CODE', 'PRE', 'KBD', 'SAMP'].includes(parent.tagName)) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(/==([^=\n`]+?)==/g, function(match, content, offset) {
+                        
+                        if (offset > lastIndex) {
+                            fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                        }
+                        
+                        
+                        const mark = document.createElement('mark');
+                        mark.textContent = content;
+                        fragment.appendChild(mark);
+                        
+                        lastIndex = offset + match.length;
+                        return match;
+                    });
+                    
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                    }
+                    
+                    parent.replaceChild(fragment, node);
+                }
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && 
+                   !['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP'].includes(node.tagName)) {
+            
+            Array.from(node.childNodes).forEach(processTextNode);
+        }
+    }
+    
+    processTextNode(articleContent);
+});
+</script>
 
     </head>
     <body class="">
@@ -503,71 +557,24 @@ th {
     <section class="article-list--compact">
         
             <article>
-    <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
-        <div class="article-details">
-            <h2 class="article-title">数据结构</h2>
-            <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
-            </footer>
-        </div>
-            <div class="article-image">
-                <img src="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E7%BE%8E%E5%A5%B3_hu_a0558270c685596d.png" 
-                        width="120"
-                        height="120" 
-                        alt="数据结构"
-                        loading="lazy">
-                
-            </div>
-        
-    </a>
-</article>
-        
-            <article>
-    <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-        <div class="article-details">
-            <h2 class="article-title">学习笔记</h2>
-            <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
-            </footer>
-        </div>
-            <div class="article-image">
-                <img src="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E7%A9%BF%E8%B6%8A%E6%97%B6%E7%A9%BA-%E9%A3%8E%E9%93%83%E5%A5%B3%E5%AD%A9_hu_dd89634deebccccd.png" 
-                        width="120"
-                        height="120" 
-                        alt="学习笔记"
-                        loading="lazy">
-                
-            </div>
-        
-    </a>
-</article>
-        
-            <article>
-    <a href="/categories/%E6%B8%B8%E6%88%8F/">
-        <div class="article-details">
-            <h2 class="article-title">游戏</h2>
-            <footer class="article-time">
-                <time datetime='2025-11-02T00:00:00Z'>2025-11-02</time>
-            </footer>
-        </div>
-            <div class="article-image">
-                <img src="/categories/%E6%B8%B8%E6%88%8F/06_hu_f45abe1b46c1dae9.png" 
-                        width="120"
-                        height="120" 
-                        alt="游戏"
-                        loading="lazy">
-                
-            </div>
-        
-    </a>
-</article>
-        
-            <article>
     <a href="/categories/maxmspjitter/">
         <div class="article-details">
             <h2 class="article-title">MaxMSPJitter</h2>
             <footer class="article-time">
-                <time datetime='2024-09-02T00:00:00Z'>2024-09-02</time>
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='0001-01-01T00:00:00Z'>0001-01-01</time>
+                    </div>
+                
             </footer>
         </div>
             <div class="article-image">
@@ -581,26 +588,143 @@ th {
         
     </a>
 </article>
+
         
             <article>
-    <a href="/categories/ai/">
+    <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6c&#43;&#43;/">
         <div class="article-details">
-            <h2 class="article-title">AI</h2>
+            <h2 class="article-title">从零开始学C&#43;&#43;</h2>
             <footer class="article-time">
-                <time datetime='0001-01-01T00:00:00Z'>0001-01-01</time>
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='0001-01-01T00:00:00Z'>0001-01-01</time>
+                    </div>
+                
             </footer>
         </div>
             <div class="article-image">
-                <img src="/categories/ai/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1_hu_58809c74293089fa.png" 
+                <img src="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6c&#43;&#43;/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E7%BE%8E%E5%A5%B3-%E5%8A%A8%E6%BC%AB_hu_ca6ce88864ce256.png" 
                         width="120"
                         height="120" 
-                        alt="AI"
+                        alt="从零开始学C&#43;&#43;"
                         loading="lazy">
                 
             </div>
         
     </a>
 </article>
+
+        
+            <article>
+    <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+        <div class="article-details">
+            <h2 class="article-title">数据结构</h2>
+            <footer class="article-time">
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='0001-01-01T00:00:00Z'>0001-01-01</time>
+                    </div>
+                
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E7%BE%8E%E5%A5%B3_hu_a0558270c685596d.png" 
+                        width="120"
+                        height="120" 
+                        alt="数据结构"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+
+        
+            <article>
+    <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <div class="article-details">
+            <h2 class="article-title">学习笔记</h2>
+            <footer class="article-time">
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='0001-01-01T00:00:00Z'>0001-01-01</time>
+                    </div>
+                
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E7%A9%BF%E8%B6%8A%E6%97%B6%E7%A9%BA-%E9%A3%8E%E9%93%83%E5%A5%B3%E5%AD%A9_hu_dd89634deebccccd.png" 
+                        width="120"
+                        height="120" 
+                        alt="学习笔记"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+
+        
+            <article>
+    <a href="/categories/%E6%B8%B8%E6%88%8F/">
+        <div class="article-details">
+            <h2 class="article-title">游戏</h2>
+            <footer class="article-time">
+                    
+                    <div class="article-time-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                        <time datetime='0001-01-01T00:00:00Z'>0001-01-01</time>
+                    </div>
+                
+            </footer>
+        </div>
+            <div class="article-image">
+                <img src="/categories/%E6%B8%B8%E6%88%8F/06_hu_f45abe1b46c1dae9.png" 
+                        width="120"
+                        height="120" 
+                        alt="游戏"
+                        loading="lazy">
+                
+            </div>
+        
+    </a>
+</article>
+
         
     </section>
     <nav class='pagination'>

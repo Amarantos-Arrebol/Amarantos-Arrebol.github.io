@@ -10,7 +10,7 @@
 <meta property='og:description' content="初识关联式容器：set 与 map 的基本用法">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/map-and-set/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='STL' /><meta property='article:tag' content='map容器' /><meta property='article:tag' content='set容器' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/map-and-set/10.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='STL' /><meta property='article:tag' content='map容器' /><meta property='article:tag' content='set容器' /><meta property='article:published_time' content='2025-11-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-05T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/map-and-set/10.jpg' />
 <meta name="twitter:title" content="【C++进阶】04map和set的使用">
 <meta name="twitter:description" content="初识关联式容器：set 与 map 的基本用法"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/map-and-set/10.jpg' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -56,6 +56,60 @@ th {
     cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/IBeam.cur), auto;
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+    
+    
+    function processTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            
+            const regex = /==([^=\n`]+?)==/g;
+            
+            if (regex.test(text)) {
+                const parent = node.parentNode;
+                
+                if (parent && !['CODE', 'PRE', 'KBD', 'SAMP'].includes(parent.tagName)) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(/==([^=\n`]+?)==/g, function(match, content, offset) {
+                        
+                        if (offset > lastIndex) {
+                            fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                        }
+                        
+                        
+                        const mark = document.createElement('mark');
+                        mark.textContent = content;
+                        fragment.appendChild(mark);
+                        
+                        lastIndex = offset + match.length;
+                        return match;
+                    });
+                    
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                    }
+                    
+                    parent.replaceChild(fragment, node);
+                }
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && 
+                   !['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP'].includes(node.tagName)) {
+            
+            Array.from(node.childNodes).forEach(processTextNode);
+        }
+    }
+    
+    processTextNode(articleContent);
+});
+</script>
 
     </head>
     <body class="
@@ -295,8 +349,8 @@ th {
     <li><a href="#2set--multiset">2.set / multiset</a>
       <ul>
         <li><a href="#21-基本介绍">2.1 基本介绍</a></li>
-        <li><a href="#22-set的构造和迭代器">2.2 set的构造和迭代器</a></li>
-        <li><a href="#23-set的增删查">2.3 set的增删查</a>
+        <li><a href="#22-set-的构造和迭代器">2.2 set 的构造和迭代器</a></li>
+        <li><a href="#23-set-的增删查">2.3 set 的增删查</a>
           <ul>
             <li><a href="#insert">insert</a></li>
             <li><a href="#erase">erase</a></li>
@@ -304,16 +358,38 @@ th {
             <li><a href="#lower_bound-和-upper_bound">lower_bound 和 upper_bound</a></li>
           </ul>
         </li>
-        <li><a href="#24-multiset的使用">2.4 multiset的使用</a></li>
+        <li><a href="#24-multiset-的使用">2.4 multiset 的使用</a></li>
         <li><a href="#25-算法题">2.5 算法题</a>
           <ul>
             <li><a href="#1两个数组的交集">1.两个数组的交集</a></li>
-            <li><a href="#2环形链表li">2.环形链表lI</a></li>
+            <li><a href="#2环形链表-li">2.环形链表 lI</a></li>
           </ul>
         </li>
       </ul>
     </li>
-    <li><a href="#3map--multimap">3.map / multimap</a></li>
+    <li><a href="#3map--multimap">3.map / multimap</a>
+      <ul>
+        <li><a href="#31-基本介绍">3.1 基本介绍</a></li>
+        <li><a href="#32-pair-类型介绍">3.2 pair 类型介绍</a></li>
+        <li><a href="#33-map-的构造">3.3 map 的构造</a></li>
+        <li><a href="#35-map-的增删查">3.5 map 的增删查</a>
+          <ul>
+            <li><a href="#insert-1">insert</a></li>
+            <li><a href="#erase-1">erase</a></li>
+            <li><a href="#find-和-count-1">find 和 count</a></li>
+          </ul>
+        </li>
+        <li><a href="#36-operator">3.6 operator[]</a></li>
+        <li><a href="#38-map-的迭代器和功能样例">3.8 map 的迭代器和[]功能样例</a></li>
+        <li><a href="#39-multimap-和-map-的差异">3.9 multimap 和 map 的差异</a></li>
+        <li><a href="#310-算法题">3.10 算法题</a>
+          <ul>
+            <li><a href="#随机链表的复制">随机链表的复制</a></li>
+            <li><a href="#前-k-个高频单词">前 K 个高频单词</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
         </div>
@@ -406,7 +482,7 @@ th {
     
     <footer class="article-time">
         
-            <div>
+            <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -416,7 +492,16 @@ th {
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-11-02</time>
+                <time class="article-time--published">2025-11-04</time>
+            </div><span class="article-time-divider">|</span>
+            <div class="article-time-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
+                <time class="article-time--updated">2025-11-05</time>
+            </div><span class="article-time-divider">|</span>
+            <div class="article-time-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                <span class="article-time--wordcount">5606 字
+                </span>
             </div>
         
 
@@ -440,7 +525,7 @@ th {
 </blockquote>
 <p>顺序容器中的元素是按他们在容器中的<strong>存储位置</strong>来<strong>顺序保存和访问</strong>的</p>
 <blockquote>
-<p>序列式容器有string、vector、list、deque、array、forward_list等</p>
+<p>序列式容器有 string、vector、list、deque、array、forward_list 等</p>
 </blockquote>
 <p><strong>关联式容器</strong></p>
 <p>关联式容器逻辑结构通常是<strong>非线性</strong>结构，两个位置<strong>有紧密的关联</strong>关系</p>
@@ -449,25 +534,25 @@ th {
 </blockquote>
 <p>顺序容器中的元素是按<strong>关键字</strong>来保存和访问的</p>
 <blockquote>
-<p>关联式容器有map/set(底层红黑树)系列和 unordered_map/unordered_set(底层哈希表) 系列</p>
+<p>关联式容器有 map/set(底层红黑树)系列和 unordered_map/unordered_set(底层哈希表) 系列</p>
 </blockquote>
-<p>map和set底层是红黑树，红黑树是一颗平衡二叉搜索树</p>
+<p>map 和 set 底层是红黑树，红黑树是一颗平衡二叉搜索树</p>
 <ul>
 <li>
-<p>set里面存的是一个单独的关键字</p>
+<p>set 里面存的是一个单独的关键字</p>
 </li>
 <li>
-<p>map里面存的是一个pair&lt;key, value&gt;（k-v模型），不仅有一个关键字，还会有一个与关键字绑定的值，比较方式是按照key的值来比较（排序是按照第一个关键字来比较的）</p>
+<p>map 里面存的是一个 pair&lt;key, value&gt;（k-v 模型），不仅有一个关键字，还会有一个与关键字绑定的值，比较方式是按照 key 的值来比较（排序是按照第一个关键字来比较的）</p>
 </li>
 <li>
-<p>set和map不能存重复的元素，multiset和multimap可以存重复的元素</p>
+<p>set 和 map 不能存重复的元素，multiset 和 multimap 可以存重复的元素</p>
 </li>
 </ul>
 <h1 id="2set--multiset">2.set / multiset
 </h1><h2 id="21-基本介绍">2.1 基本介绍
-</h2><p>set底层是用红黑树实现，增删查效率是O(logN）</p>
+</h2><p>set 底层是用红黑树实现，增删查效率是 O(logN）</p>
 <p>迭代器遍历是走的搜索树的中序，因此是一个有序序列</p>
-<p>set不能存重复元素，multiset可以存重复元素，所以可以用set来去重</p>
+<p>set 不能存重复元素，multiset 可以存重复元素，所以可以用 set 来去重</p>
 <p><a class="link" href="https://legacy.cplusplus.com/reference/set/set/"  target="_blank" rel="noopener"
     >文档</a></p>
 <p><img src="/p/map-and-set/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9104map%E5%92%8Cset%E7%9A%84%E4%BD%BF%E7%94%A8.assets/image-20251025155415483.png"
@@ -484,14 +569,14 @@ th {
 		data-flex-basis="1365px"
 	
 ></p>
-<p>&lt;set底层关键字的类型，仿函数，空间配置器&gt;</p>
+<p>&lt;set 底层关键字的类型，仿函数，空间配置器&gt;</p>
 <p>（1）一般情况下，我们只需要传第一个模版参数</p>
 <p>（2）需要传仿函数的场景：</p>
-<p>​		T不支持比较大小，需要自己写仿函数来支持</p>
-<p>​		T支持比较大小，但不符合我们的需求</p>
-<p>（3）set底层存储数据的内存是从空间配置器申请的，如果需要，可以自己实现内存池传给set的第三个参数</p>
-<h2 id="22-set的构造和迭代器">2.2 set的构造和迭代器
-</h2><p>（1）set支持默认构造、拷贝构造、迭代器区间构造，initializer_list构造等</p>
+<p>T 不支持比较大小，需要自己写仿函数来支持</p>
+<p>T 支持比较大小，但不符合我们的需求</p>
+<p>（3）set 底层存储数据的内存是从空间配置器申请的，如果需要，可以自己实现内存池传给 set 的第三个参数</p>
+<h2 id="22-set-的构造和迭代器">2.2 set 的构造和迭代器
+</h2><p>（1）set 支持默认构造、拷贝构造、迭代器区间构造，initializer_list 构造等</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -529,19 +614,19 @@ th {
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp2</span><span class="p">(</span><span class="n">mp1</span><span class="p">);</span> <span class="c1">// 拷贝构造
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp3</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">};</span> <span class="c1">// initializer_list构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">nums</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp4</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">// 迭代器区间构造
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//指定降序
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">mp5</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>（2）set的支持正向和反向迭代遍历，遍历默认按升序顺序。因为底层是二叉搜索树，迭代器遍历走的中序</p>
-<p>（3）set的iterator和const_iterator都不支持迭代器修改数据。因为修改关键字数据，会破坏底层搜索树的结构</p>
+</div><p>（2）set 的支持正向和反向迭代遍历，遍历默认按升序顺序。因为底层是二叉搜索树，迭代器遍历走的中序</p>
+<p>（3）set 的 iterator 和 const_iterator 都不支持迭代器修改数据。因为修改关键字数据，会破坏底层搜索树的结构</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -604,7 +689,7 @@ th {
 		data-flex-basis="541px"
 	
 ></p>
-<h2 id="23-set的增删查">2.3 set的增删查
+<h2 id="23-set-的增删查">2.3 set 的增删查
 </h2><h3 id="insert">insert
 </h3><p><img src="/p/map-and-set/index.assets/image-20251105013212733.png"
 	width="1077"
@@ -620,7 +705,7 @@ th {
 		data-flex-basis="828px"
 	
 ></p>
-<p>可以插入一个值、一段迭代器区间，initializer_list等</p>
+<p>可以插入一个值、一段迭代器区间，initializer_list 等</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -652,7 +737,7 @@ th {
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">mp</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">mp</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">mp</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span> <span class="p">});</span>
@@ -662,7 +747,7 @@ th {
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -696,7 +781,7 @@ th {
 		data-flex-basis="885px"
 	
 ></p>
-<p><strong>（1）可以删除pos位置的值，传迭代器</strong></p>
+<p><strong>（1）可以删除 pos 位置的值，传迭代器</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -765,7 +850,7 @@ th {
 		data-flex-basis="446px"
 	
 ></p>
-<p>一般和find配合使用，find返回的是迭代器，先用find查，查到了再删</p>
+<p>一般和 find 配合使用，find 返回的是迭代器，先用 find 查，查到了再删</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -822,7 +907,7 @@ th {
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//先用find查找，找到了再删
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">auto</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
@@ -860,7 +945,7 @@ th {
 		data-flex-basis="218px"
 	
 ></p>
-<p><strong>（2）还可以直接给一个值进行删除，返回删除元素的个数，如果为0表示没有删除</strong></p>
+<p><strong>（2）还可以直接给一个值进行删除，返回删除元素的个数，如果为 0 表示没有删除</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -913,7 +998,7 @@ th {
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//直接删除x
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
@@ -1018,13 +1103,13 @@ th {
 </h3><ul>
 <li>
 <p>**find：**查找一个元素，返回的是迭代器</p>
-<p>算法库中的find查找O(N)，set自己实现的find查找O(logN)</p>
+<p>算法库中的 find 查找 O(N)，set 自己实现的 find 查找 O(logN)</p>
 </li>
 <li>
 <p>**count：**查询元素出现的次数，一般用来判断元素是否存在红黑树中</p>
 </li>
 </ul>
-<p>如果想查找元素是否在set中，我们一般不使用find，而是count。因为find的返回值是一个迭代器，判断起来不方便</p>
+<p>如果想查找元素是否在 set 中，我们一般不使用 find，而是 count。因为 find 的返回值是一个迭代器，判断起来不方便</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1076,7 +1161,7 @@ th {
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">auto</span> <span class="n">pos1</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">mp</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">mp</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//set自己实现的查找，O(logN)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">auto</span> <span class="n">pos2</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">auto</span> <span class="n">pos2</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//使用count快速判断元素是否存在红黑树中
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="n">mp</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;2&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -1120,7 +1205,7 @@ th {
 ></p>
 <p>使用场景：删掉某个迭代器区间</p>
 <blockquote>
-<p>由于迭代器区间一般要求左闭右开，所以lower_bound的返回值可以作为&quot;左闭&quot;，upperbound的返回值可以作为&quot;右开&quot;</p>
+<p>由于迭代器区间一般要求左闭右开，所以 lower_bound 的返回值可以作为&quot;左闭&quot;，upperbound 的返回值可以作为&quot;右开&quot;</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1196,18 +1281,18 @@ th {
 		data-flex-basis="705px"
 	
 ></p>
-<h2 id="24-multiset的使用">2.4 multiset的使用
-</h2><p>multiset和set的使用基本完全一致。</p>
-<p><strong>multiset和set的区别：</strong></p>
+<h2 id="24-multiset-的使用">2.4 multiset 的使用
+</h2><p>multiset 和 set 的使用基本完全一致。</p>
+<p><strong>multiset 和 set 的区别：</strong></p>
 <ul>
 <li>
-<p>multiset里面可以存重复的元素，所以元素放到multiset里面相当于只排序了，没有去重。</p>
+<p>multiset 里面可以存重复的元素，所以元素放到 multiset 里面相当于只排序了，没有去重。</p>
 </li>
 <li>
-<p>multiset中erase删除时如果传的是某个元素，那么会将multiset中所有等于该元素的值都删掉</p>
+<p>multiset 中 erase 删除时如果传的是某个元素，那么会将 multiset 中所有等于该元素的值都删掉</p>
 </li>
 <li>
-<p>multiset中find查找的值x可能有多个，返回的是中序的第一个</p>
+<p>multiset 中 find 查找的值 x 可能有多个，返回的是中序的第一个</p>
 </li>
 </ul>
 <div class="highlight"><div class="chroma">
@@ -1301,7 +1386,7 @@ th {
 	
 ></p>
 <ul>
-<li>multiset中count返回元素实际出现的次数，而set中不会存相同的元素，所以set中count的结果只会是1或0</li>
+<li>multiset 中 count 返回元素实际出现的次数，而 set 中不会存相同的元素，所以 set 中 count 的结果只会是 1 或 0</li>
 </ul>
 <h2 id="25-算法题">2.5 算法题
 </h2><h3 id="1两个数组的交集">1.两个数组的交集
@@ -1355,7 +1440,7 @@ th {
 </span></span><span class="line"><span class="cl">        <span class="c1">//排序+去重
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp1</span><span class="p">(</span><span class="n">nums1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums1</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">        <span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp2</span><span class="p">(</span><span class="n">nums2</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums2</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//依次比较，小的++，相等的就是交集
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">auto</span> <span class="n">it1</span> <span class="o">=</span> <span class="n">mp1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">it2</span> <span class="o">=</span> <span class="n">mp2</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
@@ -1363,19 +1448,19 @@ th {
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="n">it1</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">it2</span><span class="p">)</span> <span class="n">it1</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="o">*</span><span class="n">it1</span> <span class="o">&gt;</span> <span class="o">*</span><span class="n">it2</span><span class="p">)</span> <span class="n">it2</span><span class="o">++</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">else</span> 
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
 </span></span><span class="line"><span class="cl">            <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="n">ret</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="o">*</span><span class="n">it1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">                <span class="n">it1</span><span class="o">++</span><span class="p">;</span> <span class="n">it2</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span> 
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>补充：算法库中提供了求并集、交集、差值等集合运算的方法</p>
+</div><p><strong>补充：算法库中提供了求并集、交集、差值等集合运算的方法</strong></p>
 <p><img src="/p/map-and-set/index.assets/image-20251105105100992.png"
 	width="955"
 	height="321"
@@ -1404,10 +1489,10 @@ th {
 		data-flex-basis="922px"
 	
 ></p>
-<p>求并集、交集，差集的思路</p>
+<p><strong>求并集、交集，差集的思路</strong></p>
 <ul>
 <li>
-<p>求并集：放到set中，最后留下来的就是并集</p>
+<p>求并集：放到 set 中，最后留下来的就是并集</p>
 </li>
 <li>
 <p>求交集：</p>
@@ -1424,7 +1509,22 @@ th {
 <p>(3）其中一个结束就结束了</p>
 </li>
 </ul>
-<h3 id="2环形链表li">2.环形链表lI
+<p><strong>应用场景：本地和云端的同步</strong></p>
+<p><img src="/p/map-and-set/index.assets/image-20251105113247577.png"
+	width="1507"
+	height="647"
+	srcset="/p/map-and-set/index.assets/image-20251105113247577_hu_548b0a1c3301478f.png 480w, /p/map-and-set/index.assets/image-20251105113247577_hu_e49e8b68b95cab76.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251105113247577"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="232"
+		data-flex-basis="559px"
+	
+></p>
+<h3 id="2环形链表-li">2.环形链表 lI
 </h3><p><a class="link" href="https://leetcode.cn/problems/linked-list-cycle-ii/description/"  target="_blank" rel="noopener"
     >题目</a></p>
 <p><img src="/p/map-and-set/index.assets/image-20251105103611038.png"
@@ -1441,8 +1541,676 @@ th {
 		data-flex-basis="109px"
 	
 ></p>
-<h1 id="3map--multimap">3.map / multimap
-</h1>
+<p>思路：遍历链表的同时把结点的指针存到 set 中，如果发现该指针已经在 set 中了，说明该指针就是入环的第一个结点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Definition for singly-linked list.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * struct ListNode {
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     int val;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     ListNode *next;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * };
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ListNode</span> <span class="o">*</span><span class="n">detectCycle</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">set</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">*&gt;</span> <span class="n">mp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ListNode</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">cur</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">auto</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">mp</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">cur</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">ret</span><span class="p">.</span><span class="n">second</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span> <span class="k">return</span> <span class="n">cur</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3map--multimap">3.map / multimap
+</h1><h2 id="31-基本介绍">3.1 基本介绍
+</h2><p><a class="link" href="https://legacy.cplusplus.com/reference/map/map/"  target="_blank" rel="noopener"
+    >文档</a></p>
+<p><img src="/p/map-and-set/index.assets/image-20251105182958830.png"
+	width="946"
+	height="186"
+	srcset="/p/map-and-set/index.assets/image-20251105182958830_hu_b4d23ee550813213.png 480w, /p/map-and-set/index.assets/image-20251105182958830_hu_4ec9915aba3c931f.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251105182958830"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="508"
+		data-flex-basis="1220px"
+	
+></p>
+<blockquote>
+<ul>
+<li>
+<p>Key：map 底层关键字的类型</p>
+</li>
+<li>
+<p>T：map 底层 value 的类型</p>
+</li>
+<li>
+<p>Compare：仿函数，默认是按 Key 小于比较</p>
+<p>如果 Key 不支持小于比较或者有别的需求的话，可以自己实现仿函数并传给第二个模版参数</p>
+</li>
+<li>
+<p>map 底层存储数据的内存是从空间配置器申请的</p>
+</li>
+</ul>
+<p>一般情况下，我们都不需要传后两个模版参数</p>
+</blockquote>
+<p>map 底层是用红黑树实现，增删查改效率是 O(logN)</p>
+<p>map 里面存的是一个 pair&lt;key, value&gt;（k-v 模型），不仅有一个关键字，还会有一个与关键字绑定的值，比较方式是按照 key 的值来比较（排序是按照第一个关键字来比较的）</p>
+<h2 id="32-pair-类型介绍">3.2 pair 类型介绍
+</h2><blockquote>
+<p>pair 是 C++标准库中的一个模版类，用于将两个值组合成一个单一对象</p>
+<p>通常用于存储键值对或返回多个值</p>
+<p>它有两个公有成员 first 和 second ，分别表示第一个值和第二个值</p>
+</blockquote>
+<p>我们可以把 pair 理解成 C++为我们提供的一个结构体，里面有两个变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">pair</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">type</span> <span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">type</span> <span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用的时候，可以指定 first 和 second 为我们想要的任意类型</p>
+<p>pair&lt;第一个关键字的类型， 第二个关键字的类型&gt;</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">p1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">p2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">p3</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解读：</p>
+<p>变量 p1 里面相当于是一个结构体，它里面有两个成员，分别是 first 和 second</p>
+<p>如果我想拿出第一个的值的话，只需要 p1.first</p>
+<p>如果我想拿出第二个的值的话，只需要 p1.second</p>
+<p>但是一般在使用 pair 时会<strong>使用</strong> <strong>typedef 将类型简化</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">PII</span><span class="p">;</span> <span class="c1">// 意思是pair的一个参数和第二个参数都是int类型的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">PII</span> <span class="n">p1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="n">PLL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">PLL</span> <span class="n">p2</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果一个函数的返回类型是 pair 类型，那么函数的返回值书写形式为 {值 1，值 2}</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">PII</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">PII</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="33-map-的构造">3.3 map 的构造
+</h2><p><img src="/p/map-and-set/index.assets/image-20251105185046390.png"
+	width="1057"
+	height="481"
+	srcset="/p/map-and-set/index.assets/image-20251105185046390_hu_67221073680b4db.png 480w, /p/map-and-set/index.assets/image-20251105185046390_hu_e317ecf1f391e60d.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251105185046390"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="219"
+		data-flex-basis="527px"
+	
+></p>
+<p>map支持拷贝构造、迭代器区间构造、initializer_list构造等</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">mp2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">mp4</span><span class="p">;</span> <span class="c1">// 甚至可以挂一个vector
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">kv1</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#34;left&#34;</span><span class="p">,</span> <span class="s">&#34;左边&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//initializer_list构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="p">{</span> <span class="n">kv1</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;right&#34;</span><span class="p">,</span> <span class="s">&#34;右边&#34;</span><span class="p">},</span> <span class="p">{</span><span class="s">&#34;insert&#34;</span><span class="p">,</span> <span class="s">&#34;插入&#34;</span><span class="p">}</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>（1) map 的支持正向和反向迭代遍历</strong></p>
+<p>遍历默认按 key 的升序顺序，因为底层是二叉搜索树，迭代器遍历走的中序</p>
+<p>支持迭代器就意味着支持范围 for</p>
+<p><strong>（2）map 支持修改 value 数据，不支持修改 key 数据</strong></p>
+<p>因为修改关键字数据，会破坏底层搜索树的结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="p">{{</span> <span class="s">&#34;left&#34;</span><span class="p">,</span> <span class="s">&#34;左边&#34;</span> <span class="p">},</span> <span class="p">{</span><span class="s">&#34;right&#34;</span><span class="p">,</span> <span class="s">&#34;右边&#34;</span><span class="p">},</span> <span class="p">{</span><span class="s">&#34;insert&#34;</span><span class="p">,</span> <span class="s">&#34;插入&#34;</span><span class="p">}};</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">dict</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">dict</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//cout &lt;&lt; (*it).first &lt;&lt; &#34; &#34; &lt;&lt; (*it).second &lt;&lt; endl;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//cout &lt;&lt; it.operator-&gt;()-&gt;first &lt;&lt; &#34; &#34; &lt;&lt; it.operator-&gt;()-&gt;second &lt;&lt; endl;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="o">++</span><span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//范围for遍历
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">dict</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/map-and-set/index.assets/image-20251105203332557.png"
+	width="349"
+	height="266"
+	srcset="/p/map-and-set/index.assets/image-20251105203332557_hu_15a95ef544fe0469.png 480w, /p/map-and-set/index.assets/image-20251105203332557_hu_2f8326c7192d0631.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251105203332557"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="131"
+		data-flex-basis="314px"
+	
+></p>
+<p>C++17以后还支持下面这种方式遍历</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="p">{{</span><span class="s">&#34;right&#34;</span><span class="p">,</span> <span class="s">&#34;右边&#34;</span><span class="p">},</span> <span class="p">{</span><span class="s">&#34;insert&#34;</span><span class="p">,</span> <span class="s">&#34;插入&#34;</span><span class="p">}};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">]</span> <span class="o">:</span> <span class="n">dict</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="35-map-的增删查">3.5 map 的增删查
+</h2><blockquote>
+<p>map 增接口，插入的 pair 键值对数据，跟 set 所有不同，但是查和删的接口只用关键字 key 跟 set 是完全类似的，不过 find 返回 iterator，不仅仅可以确认 key 在不在，还找到 key 映射的 value，同时通过迭代还可以修改 value</p>
+</blockquote>
+<h3 id="insert-1">insert
+</h3><p>insert 向红黑树中插入一个元素，这里需要插入一个pair键值对数据。</p>
+<p>有以下几种插入的方式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">dict</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//方式一：定义一个pair的有名对象进行插入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">kv1</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#34;first&#34;</span><span class="p">,</span> <span class="s">&#34;第一个&#34;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">	<span class="n">dict</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">kv1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//方式二：插入pair匿名对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">dict</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span><span class="p">{</span><span class="s">&#34;second&#34;</span><span class="p">,</span> <span class="s">&#34;第二个&#34;</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//方式三：插入 函数模版 make_pair 返回的匿名pair对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">dict</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="s">&#34;sort&#34;</span><span class="p">,</span> <span class="s">&#34;排序&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//方式四：C++11以后，多参数的构造也支持隐式类型转换，写法是使用{}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">dict</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">&#34;auto&#34;</span><span class="p">,</span> <span class="s">&#34;自动的&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用{}的方式最方便</p>
+<blockquote>
+<p>make_pair底层是一个函数模版，传两个参数给它，会自动推导类型，构造并返回匿名的pair对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span><span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span><span class="n">T2</span><span class="o">&gt;</span> <span class="n">make_pair</span> <span class="p">(</span><span class="n">T1</span> <span class="n">x</span><span class="p">,</span> <span class="n">T2</span> <span class="n">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span> <span class="n">pair</span><span class="o">&lt;</span><span class="n">T1</span><span class="p">,</span><span class="n">T2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h3 id="erase-1">erase
+</h3><p>erase 可以删除pos位置（迭代器）的一个元素，可以直接给一个值进行删除，可以删除一段迭代器区间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="c1">//插入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">mp</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;张三&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">});</span> 
+</span></span><span class="line"><span class="cl">	<span class="n">mp</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;李四&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">	<span class="n">mp</span><span class="p">.</span><span class="n">insert</span><span class="p">({</span><span class="s">&#34;王五&#34;</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">p</span> <span class="p">:</span> <span class="n">mp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//删除
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">mp</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="s">&#34;张三&#34;</span><span class="p">);</span> <span class="c1">// 只用传一个关键字 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/map-and-set/index.assets/1742302163928-068aa8b9-cbfb-473e-9083-1df1cef8819d.png"
+	width="348"
+	height="195"
+	srcset="/p/map-and-set/index.assets/1742302163928-068aa8b9-cbfb-473e-9083-1df1cef8819d_hu_6603f49046f7f24f.png 480w, /p/map-and-set/index.assets/1742302163928-068aa8b9-cbfb-473e-9083-1df1cef8819d_hu_12d28b0ced109ae7.png 1024w"
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="178"
+		data-flex-basis="428px"
+	
+></p>
+<h3 id="find-和-count-1">find 和 count
+</h3><blockquote>
+<p>find 查找一个元素，返回的是迭代器</p>
+<p>count 查询元素出现的次数，一般用来判断当前元素是否在map中</p>
+</blockquote>
+<p>给find一个key，既能判断key是否存在map中，如果存在，还能取key对应的value</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;map&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="n">string</span><span class="o">&gt;</span> <span class="n">dict</span> <span class="o">=</span> <span class="p">{</span> <span class="p">{</span><span class="s">&#34;first&#34;</span><span class="p">,</span> <span class="s">&#34;第一个&#34;</span><span class="p">},</span> <span class="p">{</span><span class="s">&#34;second&#34;</span><span class="p">,</span> <span class="s">&#34;第二个&#34;</span><span class="p">},</span> <span class="p">{</span><span class="s">&#34;auto&#34;</span><span class="p">,</span> <span class="s">&#34;自动的&#34;</span><span class="p">}</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">dict</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">auto</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">dict</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="n">dict</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="c1">// 判断key在不在
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;-&gt;&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ret</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 找到value
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;无此单词，请重新输入&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/map-and-set/index.assets/image-20251105221401932.png"
+	width="319"
+	height="423"
+	srcset="/p/map-and-set/index.assets/image-20251105221401932_hu_af28aa1629289840.png 480w, /p/map-and-set/index.assets/image-20251105221401932_hu_90299df894015b3a.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251105221401932"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="75"
+		data-flex-basis="180px"
+	
+></p>
+<h2 id="36-operator">3.6 operator[]
+</h2><p>map重载了operator[]，使得 map 可以像数组一样使用，下标是第一个关键字。</p>
+<p>底层是调用了 insert 函数，并返回 val 的引用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 下标是第一个关键字
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mp</span><span class="p">[</span><span class="s">&#34;张三&#34;</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">mp</span><span class="p">[</span><span class="s">&#34;张三&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">110</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mp</span><span class="p">[</span><span class="s">&#34;张三&#34;</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意事项：</strong></p>
+<p>operator[]有可能会向 map 中插入不想插入的元素</p>
+<p>[]里面的内容如果不存在 map 中，会先插入，然后再拿值</p>
+<p>插入的时候，第一个关键字就是[]里面的内容，第二个关键字是一个默认值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">mp</span><span class="p">[</span><span class="s">&#34;赵六&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;yes&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;no&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="n">mp</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/map-and-set/index.assets/1742301856497-17142f79-b582-461d-8bb9-78b3f7dccefc.png"
+	width="423"
+	height="273"
+	srcset="/p/map-and-set/index.assets/1742301856497-17142f79-b582-461d-8bb9-78b3f7dccefc_hu_41884720a0282fbc.png 480w, /p/map-and-set/index.assets/1742301856497-17142f79-b582-461d-8bb9-78b3f7dccefc_hu_7299ebe794a8db3b.png 1024w"
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="371px"
+	
+></p>
+<p>所以我们调用 operator[]的时候，一定要<strong>先判断这个值存不存在 mp 里面(先调用 count)</strong></p>
+<p>正确写法如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">mp</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#34;赵六&#34;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">mp</span><span class="p">[</span><span class="s">&#34;赵六&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;yes&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;no&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="n">mp</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/map-and-set/index.assets/1742302033008-0443c953-7c2b-4c06-85c8-4a8a1addfe4a.png"
+	width="332"
+	height="242"
+	srcset="/p/map-and-set/index.assets/1742302033008-0443c953-7c2b-4c06-85c8-4a8a1addfe4a_hu_a13547d2ad7778e9.png 480w, /p/map-and-set/index.assets/1742302033008-0443c953-7c2b-4c06-85c8-4a8a1addfe4a_hu_1b20e45422c671d8.png 1024w"
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="329px"
+	
+></p>
+<h2 id="38-map-的迭代器和功能样例">3.8 map 的迭代器和[]功能样例
+</h2><h2 id="39-multimap-和-map-的差异">3.9 multimap 和 map 的差异
+</h2><h2 id="310-算法题">3.10 算法题
+</h2><h3 id="随机链表的复制">随机链表的复制
+</h3><h3 id="前-k-个高频单词">前 K 个高频单词
+</h3>
 </section>
 
 
@@ -1461,7 +2229,8 @@ th {
     </section>
 
 
-    </footer>
+    
+</footer>
 
 
     

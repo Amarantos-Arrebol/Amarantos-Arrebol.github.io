@@ -555,7 +555,7 @@ th {
 <p>输出设备：把内存的数据输出到外设中</p>
 </li>
 <li>
-<p>==磁盘和网卡== 既是输入设备也是输出设备：</p>
+<p><mark>磁盘和网卡</mark> 既是输入设备也是输出设备：</p>
 <p>读取文件就是把磁盘中的数据读到内存里；</p>
 <p>写文件就是把内存里的数据写到磁盘上</p>
 <p>Input/Output &mdash;&gt;IO</p>
@@ -582,11 +582,11 @@ th {
 <p>磁盘。程序就是一个文件，是编译好的在磁盘特定路径下的二进制文件</p>
 </li>
 <li>
-<p><strong>为什么程序运行的时候要==先将程序加载到内存==？</strong> &mdash;&ndash;&gt; 体系结构规定</p>
+<p><strong>为什么程序运行的时候要<mark>先将程序加载到内存</mark>？</strong> &mdash;&ndash;&gt; 体系结构规定</p>
 <p>CPU获取，写入，只能从内存中来进行</p>
 </li>
 <li>
-<p><strong>==软件运行 实际上是CPU执行我们的代码，访问我们的数据==</strong></p>
+<p><strong><mark>软件运行 实际上是CPU执行我们的代码，访问我们的数据</mark></strong></p>
 <p>CPU无法直接从外设读取数据，所以必须先将数据加载到内存</p>
 <p>这时，我们的程序才能被CPU访问到</p>
 <blockquote>
@@ -598,7 +598,7 @@ th {
 <p>体系结构的效率：由设备的拷贝效率决定</p>
 </li>
 </ol>
-<p>==<strong>结论：在数据层面，CPU只和内存打交道，外设只和内存打交道</strong>==</p>
+<p><mark><strong>结论：在数据层面，CPU只和内存打交道，外设只和内存打交道</strong></mark></p>
 <p><strong>存储分级：离CPU越近，效率越高，容量越小</strong></p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732629388338.png"
 	width="1824"
@@ -699,7 +699,7 @@ th {
 <h3 id="114-操作系统">1.1.4 操作系统
 </h3><h4 id="操作系统基本介绍">操作系统基本介绍
 </h4><p>一个基本的程序集合，称为操作系统（OS）</p>
-<p>操作系统是一款<strong>进行软硬件管理</strong>的==软件==</p>
+<p>操作系统是一款<strong>进行软硬件管理</strong>的<mark>软件</mark></p>
 <p><strong>操作系统包括：</strong></p>
 <p><strong>内核</strong>（进程管理，内存管理，文件管理，驱动管理）</p>
 <p><strong>其它程序</strong>（例如函数库，shell程序）</p>
@@ -814,7 +814,7 @@ th {
 <p>1.描述起来，用struct结构体
 2.组织起来，用链表或其他高效的数据结构</p>
 </blockquote>
-<p>每一个硬件都有硬件名，操作系统在内部，==先描述，再组织==。</p>
+<p>每一个硬件都有硬件名，操作系统在内部，<mark>先描述，再组织</mark>。</p>
 <p>把网卡、硬盘、显卡、键盘、显示器等统一使用struct device定义一个结构</p>
 <p>类里面可以包含每一种硬件的各种属性（硬件名称、状态、相关链接信息..）</p>
 <p>每一个硬件都对应一个struct device对象，把对象管理起来。</p>
@@ -856,7 +856,7 @@ th {
 <li>输入参数：用户给操作系统</li>
 <li>返回值：操作系统给用户</li>
 </ul>
-<p>==系统调用的本质：用户和操作系统之间，进行某种数据交互==</p>
+<p><mark>系统调用的本质：用户和操作系统之间，进行某种数据交互</mark></p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736733937738.png"
 	width="867"
 	height="423"
@@ -1000,7 +1000,7 @@ th {
 		data-flex-basis="260px"
 	
 ></p>
-<p>我们历史上执行的所有==指令，工具，自己的程序==，<strong>运行起来，全部都是进程</strong></p>
+<p>我们历史上执行的所有<mark>指令，工具，自己的程序</mark>，<strong>运行起来，全部都是进程</strong></p>
 <h4 id="getpid查看进程id">getpid()查看进程id
 </h4><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736925739600.png"
 	width="753"
@@ -1022,7 +1022,7 @@ th {
 <ul>
 <li>man 3号手册是库调用，2号手册是系统调用</li>
 <li>task_stuct结构体里有个属性叫pid</li>
-<li>==getpid是系统调用，为了获得进程自己的pid==，pid在当前进程task_struct里对应的标志符里</li>
+<li><mark>getpid是系统调用，为了获得进程自己的pid</mark>，pid在当前进程task_struct里对应的标志符里</li>
 </ul>
 </blockquote>
 <p><strong>只要是一个进程，就有自己的ID信息</strong></p>
@@ -1109,7 +1109,7 @@ th {
 		data-flex-basis="1819px"
 	
 ></p>
-<p>在Linux中，如果想==同时执行两条命令==，==可以使用分号或者&amp;&amp;==</p>
+<p>在Linux中，如果想<mark>同时执行两条命令</mark>，<mark>可以使用分号或者&amp;&amp;</mark></p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926804631.png"
 	width="1187"
 	height="190"
@@ -1478,7 +1478,7 @@ th {
 <p><strong>为什么fork给父子返回各自的不同返回值？</strong></p>
 <p>父：子 = 1：n</p>
 <p>任何一个父进程都可以有多个子进程，任何一个子进程都只会有一个父进程</p>
-<p>所以未来创建子进程的时候，一定要把子进程的pid返回给父进程，因为父进程要通过不同的pid来区分不同的子进程，而子进程不需要获得父进程的pid，因为它自己能getpid()</p>
+<p>所以未来创建子进程的时候，一定要把子进程的pid返回给父进程，因为<strong>父进程要通过不同的pid来区分不同的子进程</strong>，而子进程不需要获得父进程的pid，因为它自己能getpid()</p>
 </li>
 <li>
 <p><strong>为什么一个函数会返回两次？</strong></p>
@@ -1525,7 +1525,7 @@ th {
 ></p>
 </li>
 <li>
-<p><strong>为什么一个变量，既==0，又大于0？导致if else 同时成立</strong>?</p>
+<p><strong>为什么一个变量，既==0，又大于0？导致if else 同时成立</strong>? 写时拷贝</p>
 </li>
 </ol>
 <p><strong>进程具有独立性</strong></p>
@@ -1555,7 +1555,7 @@ th {
 	
 ></p>
 <blockquote>
-<p><strong>写实拷贝</strong></p>
+<p><strong>写时拷贝</strong></p>
 <p>通常，父子代码共享，父子再不写入时，数据也是共享的，当任意一方试图写入，便以写时拷贝的方式各自一份副本</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251029105929375.png"
 	width="989"
@@ -1578,6 +1578,43 @@ th {
 </h2><h3 id="631进程状态基本介绍">6.3.1进程状态基本介绍
 </h3><p>一个进程可以有几个状态（在Linux内核里，进程有时候也叫做任务）</p>
 <p>进程状态就是task_struct内的一个整数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">*The task state array is a strange &#34;bitmap&#34; of
+</span></span></span><span class="line"><span class="cl"><span class="cm">*reasons to sleep. Thus &#34;running&#34; is zero, and
+</span></span></span><span class="line"><span class="cl"><span class="cm">*you can test for combinations of others with
+</span></span></span><span class="line"><span class="cl"><span class="cm">*simple bit tests.
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">task_state_array</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;R (running)&#34;</span><span class="p">,</span> <span class="cm">/*0 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;S (sleeping)&#34;</span><span class="p">,</span> <span class="cm">/*1 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;D (disk sleep)&#34;</span><span class="p">,</span> <span class="cm">/*2 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;T (stopped)&#34;</span><span class="p">,</span> <span class="cm">/*4 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;t (tracing stop)&#34;</span><span class="p">,</span> <span class="cm">/*8 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;X (dead)&#34;</span><span class="p">,</span> <span class="cm">/*16 */</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;Z (zombie)&#34;</span><span class="p">,</span> <span class="cm">/*32 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进程状态很多，这些状态间可以相互进行转换</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918103847327.png"
 	width="1274"
 	height="795"
@@ -1592,10 +1629,9 @@ th {
 		data-flex-basis="384px"
 	
 ></p>
-<p>进程状态很多</p>
-<p>这些状态间可以相互进行转换</p>
 <h4 id="运行阻塞挂起">运行&amp;&amp;阻塞&amp;&amp;挂起
-</h4><p>CPU调度就是在这个队列中，按照顺序，依次选择一个task_struct来选择执行</p>
+</h4><p>一个CPU，一个调度队列。这个队列在Linux内核里叫runqueue</p>
+<p>CPU调度就是在这个队列中，按照顺序，依次选择一个task_struct来选择执行</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918104655266.png"
 	width="1372"
 	height="418"
@@ -2604,7 +2640,7 @@ th {
 		data-flex-basis="1375px"
 	
 ></p>
-<p><strong>==main函数的命令行参数，是实现程序不同子功能的方法（指令带选项）==</strong></p>
+<p><strong><mark>main函数的命令行参数，是实现程序不同子功能的方法（指令带选项）</mark></strong></p>
 <blockquote>
 <p>我们在命令行输入带选项的命令，本质上是字符串，被bash切分</p>
 </blockquote>

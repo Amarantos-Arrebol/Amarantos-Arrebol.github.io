@@ -19,7 +19,7 @@
 &lt;p&gt;2）创建一个数组，数组编译时开辟空间&lt;/p&gt;
 &lt;p&gt;**缺陷：**1.空间开辟的大小是固定的&lt;/p&gt;
 &lt;p&gt;​           2.数组在声明的时候，必须指定数组的长度，数组空间一旦确定了大小不能调整&lt;/p&gt;
-&lt;p&gt;但对于空间的需求，有时候我们需要的空间大小在==程序运行==的时候才能知道&lt;/p&gt;
+&lt;p&gt;但对于空间的需求，有时候我们需要的空间大小在&lt;mark&gt;程序运行&lt;/mark&gt;的时候才能知道&lt;/p&gt;
 &lt;p&gt;所以我们引入动态内存开辟，让程序员自己可以申请和释放空间&lt;/p&gt;
 &lt;p&gt;动态内存管理的头文件stdlib.h&lt;/p&gt;
 &lt;h1 id=&#34;2malloc和free&#34;&gt;2、malloc和free
@@ -57,7 +57,7 @@
 &lt;/h2&gt;&lt;p&gt;开辟num个大小为size的空间，并用0初始化数组，返回地址&lt;/p&gt;
 &lt;p&gt;malloc不会把申请的空间初始化，calloc会初始化，因此calloc函数效率要低一些&lt;/p&gt;
 &lt;h2 id=&#34;32-realloc&#34;&gt;3.2 realloc
-&lt;/h2&gt;&lt;p&gt;==realloc 不仅能调整空间，还可以申请空间==&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;mark&gt;realloc 不仅能调整空间，还可以申请空间&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;把已经通过malloc或realloc开辟的空间进行调整，&lt;/p&gt;
 &lt;p&gt;ptr：要调整的内存空间的起始地址&lt;/p&gt;
 &lt;p&gt;size：需要调整多大的空间&lt;/p&gt;
@@ -1845,7 +1845,7 @@ variable-list：变量列表&lt;/p&gt;
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;5二级指针&#34;&gt;5.二级指针
-&lt;/h2&gt;&lt;p&gt;==二级指针：用来存放一级指针变量的地址==&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;mark&gt;二级指针：用来存放一级指针变量的地址&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;代码示例：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1928,7 +1928,7 @@ variable-list：变量列表&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;2.字符指针变量 存放的是==常量字符串==,**不能被修改，**使用const修饰&lt;/p&gt;
+&lt;p&gt;2.字符指针变量 存放的是&lt;mark&gt;常量字符串&lt;/mark&gt;,**不能被修改，**使用const修饰&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -2029,8 +2029,8 @@ variable-list：变量列表&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;数组指针&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1. 数组名的理解&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;（1）数组名是数组首元素的地址&lt;/p&gt;
-&lt;p&gt;​      例如：&lt;strong&gt;arr&lt;/strong&gt; ， &lt;strong&gt;&amp;amp; arr[0]&lt;/strong&gt; 都表示==数组首元素的地址==，==类型 int*==，指针类型&lt;/p&gt;
-&lt;p&gt;（2）&lt;strong&gt;&amp;amp;数组名&lt;/strong&gt;：其中数组名表示==整个数组==；数组的地址与数组首元素的地址值相同&lt;/p&gt;
+&lt;p&gt;​      例如：&lt;strong&gt;arr&lt;/strong&gt; ， &lt;strong&gt;&amp;amp; arr[0]&lt;/strong&gt; 都表示&lt;mark&gt;数组首元素的地址&lt;/mark&gt;，&lt;mark&gt;类型 int*&lt;/mark&gt;，指针类型&lt;/p&gt;
+&lt;p&gt;（2）&lt;strong&gt;&amp;amp;数组名&lt;/strong&gt;：其中数组名表示&lt;mark&gt;整个数组&lt;/mark&gt;；数组的地址与数组首元素的地址值相同&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -2082,7 +2082,7 @@ variable-list：变量列表&lt;/p&gt;
 	
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;==指针类型决定了指针+-整数跳过几个字节==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;指针类型决定了指针+-整数跳过几个字节&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;arr &amp;mdash; int*           &amp;amp;arr[0] &amp;mdash; int*       &amp;amp;arr &amp;mdash; int ( * )[ ] 数组指针类型&lt;/p&gt;
 &lt;p&gt;（4）arr[ i ] 等价于 *(arr + i)                       arr[ i ] 等价于 i[ arr ]，[ ] 只是操作符&lt;/p&gt;
 &lt;p&gt;（5）sizeof (数组名) ：计算整个数组的大小（字节）&lt;/p&gt;
@@ -2453,8 +2453,8 @@ variable-list：变量列表&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;void(*)()是一个函数指针类型&lt;/p&gt;
-&lt;p&gt;( 函数指针类型 )0 是强制类型转换，也就是==把0强制类型转换成函数指针类型==，0就是一个函数地址&lt;/p&gt;
-&lt;p&gt;(*(函数指针类型)0)( )  表示将0强转后再==解引用==找到这个函数，再==调用这个函数==&lt;/p&gt;
+&lt;p&gt;( 函数指针类型 )0 是强制类型转换，也就是&lt;mark&gt;把0强制类型转换成函数指针类型&lt;/mark&gt;，0就是一个函数地址&lt;/p&gt;
+&lt;p&gt;(*(函数指针类型)0)( )  表示将0强转后再&lt;mark&gt;解引用&lt;/mark&gt;找到这个函数，再&lt;mark&gt;调用这个函数&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;（类型）是强制类型转换&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2469,7 +2469,7 @@ variable-list：变量列表&lt;/p&gt;
 &lt;/div&gt;&lt;p&gt;signal是一个函数声明&lt;/p&gt;
 &lt;p&gt;signal函数有两个参数，分别是整型的和函数指针类型的，该函数指针指向的函数参数是int，返回类型是void&lt;/p&gt;
 &lt;p&gt;signal函数的返回类型是void(*)(int)，也就是函数指针类型：该函数指针指向的函数参数是int，返回类型是void&lt;/p&gt;
-&lt;p&gt;==函数声明是告诉我们函数名，函数参数，函数返回类型==，所以这是一个函数声明&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;函数声明是告诉我们函数名，函数参数，函数返回类型&lt;/mark&gt;，所以这是一个函数声明&lt;/p&gt;
 &lt;h4 id=&#34;typedef给类型重命名&#34;&gt;&lt;strong&gt;typedef给类型重命名&lt;/strong&gt;
 &lt;/h4&gt;&lt;p&gt;我们发现上面的代码中，函数的返回类型是函数指针类型，这样不仅繁琐，而且可读性差&lt;/p&gt;
 &lt;p&gt;所以我们可以使用typedef来给该类型重命名&lt;/p&gt;

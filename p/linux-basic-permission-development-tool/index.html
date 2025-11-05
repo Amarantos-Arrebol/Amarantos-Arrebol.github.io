@@ -544,8 +544,8 @@ th {
 		data-flex-basis="1469px"
 	
 ></p>
-<p>==软件包==相当于 <strong>app</strong></p>
-<p>==软件包管理器==相当于<strong>应用商店</strong></p>
+<p><mark>软件包</mark>相当于 <strong>app</strong></p>
+<p><mark>软件包管理器</mark>相当于<strong>应用商店</strong></p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731419676014.png"
 	width="1041"
 	height="363"
@@ -1096,7 +1096,7 @@ th {
 <h4 id="215-补充">2.1.5 补充
 </h4><ol>
 <li>
-<p>批量化注释：ctrl+v &ndash;&gt; hjkl选择区域&ndash;&gt;shift+i 输入双斜杠==（也可以插入其它的文字）==&ndash;&gt;Esc</p>
+<p>批量化注释：ctrl+v &ndash;&gt; hjkl选择区域&ndash;&gt;shift+i 输入双斜杠<mark>（也可以插入其它的文字）</mark>&ndash;&gt;Esc</p>
 <blockquote>
 <p><strong>ctrl+v进入视图模式</strong></p>
 <p><strong>shift+i直接切换到插入模式</strong></p>
@@ -1359,13 +1359,13 @@ th {
 <h3 id="33动静态库和静态链接操作部分">3.3动静态库和静态链接&mdash;操作部分
 </h3><p>源文件经过预处理、编译、汇编后形成的二进制文件是不可执行的，还需要和库文件进行连接，形成可执行文件</p>
 <p><strong>库分为：静态库，动态库</strong></p>
-<p><strong>==Linux：动态库（libXXX.so），静态库（libXXX.a）==</strong></p>
+<p><strong><mark>Linux：动态库（libXXX.so），静态库（libXXX.a）</mark></strong></p>
 <blockquote>
 <p>去掉前缀lib，去掉后缀.so  .a ，剩下的就是库的名称。</p>
 <p>例如：libXXX.so 那么库的名字就是XXX</p>
 <p>​            libc-2.17.so库的名字是c-2.17</p>
 </blockquote>
-<p>==Windows：XXXX.dll      XXXX.lib==</p>
+<p><mark>Windows：XXXX.dll      XXXX.lib</mark></p>
 <p>直接<code>gcc -c code.c</code>就是执行前三步然后停下来，形成同名的<code>.o</code>文件</p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731915698494.png"
 	width="817"
@@ -1536,7 +1536,7 @@ th {
 		data-flex-basis="714px"
 	
 ></p>
-<p>==动态库是共享的，所以不能丢失==，一旦丢失，所有依赖动态库都会运行出错</p>
+<p><mark>动态库是共享的，所以不能丢失</mark>，一旦丢失，所有依赖动态库都会运行出错</p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731920507779.png"
 	width="1801"
 	height="574"
@@ -1551,7 +1551,7 @@ th {
 		data-flex-basis="753px"
 	
 ></p>
-<p>**静态链接：**把我们要的库方法实现，==直接拷贝到我们的可执行程序中==</p>
+<p>**静态链接：**把我们要的库方法实现，<mark>直接拷贝到我们的可执行程序中</mark></p>
 <p>​		一旦形成可执行程序，即使把静态库删了，程序照样能跑</p>
 <p><strong>总结：</strong></p>
 <p>动静态链接，首先系统里要有动态库，静态库，都有的情况下就可以对程序进行链接</p>
@@ -1692,17 +1692,17 @@ th {
 ></p>
 <ul>
 <li>
-<p>==冒号左边==，比如上图中的clean和mytest都是一个==目标文件==</p>
+<p><mark>冒号左边</mark>，比如上图中的clean和mytest都是一个<mark>目标文件</mark></p>
 </li>
 <li>
-<p>==冒号右边==，比如上图中的test.c是==依赖文件==，如果依赖文件有很多个，那么叫依赖文件列表</p>
+<p><mark>冒号右边</mark>，比如上图中的test.c是<mark>依赖文件</mark>，如果依赖文件有很多个，那么叫依赖文件列表</p>
 <p>而clean没有依赖文件</p>
 </li>
 <li>
 <p><strong>目标文件和依赖文件合起来叫依赖关系</strong></p>
 </li>
 <li>
-<p>make会自动向下扫描makefile文件，==形成第一个目标文件==</p>
+<p>make会自动向下扫描makefile文件，<mark>形成第一个目标文件</mark></p>
 <p>如果想指定形成，<code>make 指定名称</code></p>
 </li>
 <li>
@@ -1760,7 +1760,7 @@ th {
 <p>所以只要我们touch一下源文件，那么源文件的M时间一定比可执行程序的时间新</p>
 <p>这时再make就又可以编译了</p>
 </blockquote>
-<p>所以<code>.PHONY</code>修饰一个符号后，总是被执行的原因就是==忽略对比时间，下面这条命令总是执行==</p>
+<p>所以<code>.PHONY</code>修饰一个符号后，总是被执行的原因就是<mark>忽略对比时间，下面这条命令总是执行</mark></p>
 <h4 id="413-第二部分-依赖关系推导">4.1.3 第二部分-依赖关系推导
 </h4><p>Makefile 是<code>#</code>来注释</p>
 <p>实际依赖了下面这些文件</p>
@@ -2063,7 +2063,7 @@ th {
 <p>带了\n，数据也一定先放到缓冲区，只不过这个缓冲区是给显示器提供的</p>
 </blockquote>
 <p>不带\n再执行时，我们发现在显示器上是先卡了两秒，然后才打印</p>
-<p>但是在C语言中，==代码是从上到下依次执行的==，所以也就是说，我们发现</p>
+<p>但是在C语言中，<mark>代码是从上到下依次执行的</mark>，所以也就是说，我们发现</p>
 <p>显示器卡了两秒（执行sleep(2)）时就已经执行prinf("hello bit")这段代码了</p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1732596724107.png"
 	width="379"
@@ -2283,7 +2283,7 @@ th {
 <h4 id="版本2根据进度动态刷新一次进度条">版本2：根据进度，动态刷新一次进度条
 </h4><p>为了让下载业务或上传业务安心做自己的事，而让刷新行为单独来做，所以我们这里将<span style="color: #8080FF;">下载</span>的逻辑和<span style="color: #8080FF;">进度条刷新</span>的逻辑进行解耦</p>
 <p>这样的话，回调函数不需要知道具体的刷新函数的名称</p>
-<p>==process.h==</p>
+<p><mark>process.h</mark></p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301097456.png"
 	width="1113"
 	height="348"
@@ -2298,7 +2298,7 @@ th {
 		data-flex-basis="767px"
 	
 ></p>
-<p>==process.c==</p>
+<p><mark>process.c</mark></p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301048684.png"
 	width="1383"
 	height="2356"
@@ -2313,7 +2313,7 @@ th {
 		data-flex-basis="140px"
 	
 ></p>
-<p>==main.c==</p>
+<p><mark>main.c</mark></p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735301145014.png"
 	width="1258"
 	height="2713"
@@ -2476,7 +2476,7 @@ th {
 		data-flex-basis="3762px"
 	
 ></p>
-<p>==git提交的时候，只会提交变化的部分==</p>
+<p><mark>git提交的时候，只会提交变化的部分</mark></p>
 <h4 id="3-将我们的文件添加到git里的暂存区">3. 将我们的文件添加到.git里的暂存区
 </h4><p>.git所在的目录：当前工作区</p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367375104.png"

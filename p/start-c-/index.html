@@ -504,13 +504,13 @@ th {
 <p>​     访问的语法：</p>
 <ol>
 <li>
-<p>==空间名::变量名==</p>
+<p><mark>空间名::变量名</mark></p>
 </li>
 <li>
-<p>结构体 ==struct bit::Node node==</p>
+<p>结构体 <mark>struct bit::Node node</mark></p>
 </li>
 <li>
-<p>函数 返回类型 ==命名空间名::Add(1, 2);==</p>
+<p>函数 返回类型 <mark>命名空间名::Add(1, 2);</mark></p>
 </li>
 </ol>
 <div class="highlight"><div class="chroma">
@@ -586,7 +586,7 @@ th {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
-<li>访问全局变量  ==: :全局变量==</li>
+<li>访问全局变量  <mark>: :全局变量</mark></li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -649,7 +649,7 @@ th {
 </div><p>3）本质是定义一个域，做<span style="color: #FF0000;">隔离，解决命名冲突的问题</span>，默认不会去里面查找，不同的域可以定义同名的</p>
 <p>4）不会影响生命周期，<span style="color: #8080FF;">命名空间里成员的生命周期是全局的</span>，也就是在各个地方都可以用</p>
 <p>5）<span style="color: #FF0000;">命名空间只能定义在全局</span>，本质是将全局的进行隔离</p>
-<p>6）namespace<span style="color: #FF0000;">可以嵌套</span>，访问时 ==命名空间1::命名空间2::变量名==</p>
+<p>6）namespace<span style="color: #FF0000;">可以嵌套</span>，访问时 <mark>命名空间1::命名空间2::变量名</mark></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -735,7 +735,7 @@ th {
 <p>4）C++<span style="color: #FF0000;">标准库</span>都放在一个叫<span style="color: #FF0000;">std</span>(standard)的命名空间中</p>
 <p>5）查找不到变量/定义，就编译报错：error C2065:&ldquo;a&rdquo;:未声明的标志符</p>
 <h2 id="14命名空间的使用"><strong>1.4</strong>命名空间的使用
-</h2><p><span style="color: #8080FF;">语法1：</span>==空间名::变量名==</p>
+</h2><p><span style="color: #8080FF;">语法1：</span><mark>空间名::变量名</mark></p>
 <p><span style="color: #FF0000;">指定命名空间访问</span>，项目中推荐这种方式</p>
 <p>默认先在局部找，局部找不到，再在全局找，全局找不到，最后还会在命名空间找</p>
 <div class="highlight"><div class="chroma">
@@ -772,7 +772,7 @@ th {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><span style="color: #8080FF;">语法2：</span>==using namespace 空间名==</p>
+</div><p><span style="color: #8080FF;">语法2：</span><mark>using namespace 空间名</mark></p>
 <p>展开命名空间，将该域里的东西全部<span style="color: #FF0000;">暴露到全局域</span>里面去，同时也就有<span style="color: #FF0000;">命名冲突问题的风险</span></p>
 <p><span style="color: #FF0000;">展开命名空间的全部成员</span>，不推荐，日常小练习中为了方便推荐使用</p>
 <div class="highlight"><div class="chroma">
@@ -817,7 +817,7 @@ th {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><span style="color: #8080FF;">语法3： </span>==using 空间名::某个变量名等==</p>
+</div><p><span style="color: #8080FF;">语法3： </span><mark>using 空间名::某个变量名等</mark></p>
 <p>展开某个经常访问，且不存在冲突的成员</p>
 <p>使用using将命名空间中某个成员展开，用于项目中经常访问，且不存在冲突</p>
 <div class="highlight"><div class="chroma">
@@ -1649,7 +1649,7 @@ th {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span><span class="c1">//ok
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>==只有引用和指针存在权限的放大和缩小==</p>
+</div><p><mark>只有引用和指针存在权限的放大和缩小</mark></p>
 <h2 id="55-const与临时对象">5.5 const与临时对象
 </h2><p><strong>传值传参返回的是临时对象</strong></p>
 <p>注意：像int&amp; rb = a * 3; double d = 12.34; int&amp; rb = d;这样一些场景下 ，</p>
@@ -1844,7 +1844,7 @@ th {
 <p>define 宏可以定义，<span style="color: #8080FF;">宏本质是一种替换</span>，ADD(a, b)会替换成((a) + (b))</p>
 <p>#define ADD(a, b) a + b;</p>
 <p>#define ADD(a, b) (a + b);</p>
-<p>==正确写法：#define ADD(a, b) ((a) + (b))不能加分号==</p>
+<p><mark>正确写法：#define ADD(a, b) ((a) + (b))不能加分号</mark></p>
 <p>int ret = ADD(1,2) ;//int ret = ((1) + (2));</p>
 <p><span style="color: #8080FF;">不能加分号的原因</span>：cout &laquo; ADD(1,2) &laquo; endl;</p>
 <p><span style="color: #8080FF;">必须加外面的括号原因</span>：cout &laquo; ADD(3, 5) * 2 &laquo; endl; //(3)+(5)*2</p>
@@ -1922,7 +1922,7 @@ th {
 <p><span style="color: #FF0000;">应该将内联函数的声明和定义直接放到.h文件中</span></p>
 <p><span style="color: #8080FF;">链接就是只有声明的函数去其它文件找他的地址</span></p>
 <h1 id="7nullptr">7、nullptr
-</h1><p>==NULL实际是一个宏，在C++里面被定义成0，在C语言中被定义成((void*)0)==</p>
+</h1><p><mark>NULL实际是一个宏，在C++里面被定义成0，在C语言中被定义成((void*)0)</mark></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1

@@ -200,7 +200,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;116输入与输出&#34;&gt;1.1.6输入与输出
-&lt;/h3&gt;&lt;p&gt;==在Max中信号总是从outlets到inlets，一直到对象末尾==&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;mark&gt;在Max中信号总是从outlets到inlets，一直到对象末尾&lt;/mark&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;inlets就是object inputs对象输入&lt;/li&gt;
 &lt;li&gt;outlets就是object outputs对象输出&lt;/li&gt;
@@ -358,7 +358,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;在上面这个程序中，我们发现更改连接冷输入口的数字框里的数字是时，计算的结果&lt;/p&gt;
-&lt;p&gt;是==先前==存储在&lt;strong&gt;冷&lt;/strong&gt;输入口的数字和存储在&lt;strong&gt;热&lt;/strong&gt;输入口的数字相加&lt;/p&gt;
+&lt;p&gt;是&lt;mark&gt;先前&lt;/mark&gt;存储在&lt;strong&gt;冷&lt;/strong&gt;输入口的数字和存储在&lt;strong&gt;热&lt;/strong&gt;输入口的数字相加&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/max-msp-jitter-basic/MaxMSPJitter.assets/1731891647682.png&#34;
 	width=&#34;605&#34;
 	height=&#34;417&#34;
@@ -679,7 +679,7 @@ jit.movie需要bang来驱动，我们可以使用	metro&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;在Max中使用GPU的强大功能来实现视觉效果&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;==jitter Matrix停留在我们计算机的随机存取存储器RAM中==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;jitter Matrix停留在我们计算机的随机存取存储器RAM中&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;jit.movie发送的matrix信息是jit_matrix加上矩阵的名称&lt;/p&gt;
 &lt;p&gt;然后每个接收到这个信息的对象就会去计算机的RAM中去找&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/max-msp-jitter-basic/MaxMSPJitter.assets/1733578899664.png&#34;
@@ -698,7 +698,7 @@ jit.movie需要bang来驱动，我们可以使用	metro&lt;/p&gt;
 &gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;==Textures 工作需要OpenGL Context==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;Textures 工作需要OpenGL Context&lt;/mark&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;当我们想向GPU发送指令时，我们需要使用类似opengl的东西&lt;/p&gt;
 &lt;p&gt;OpenGL是一组与GPU通信的命令，也被称为应用程序编程接口即API&lt;/p&gt;
@@ -721,7 +721,7 @@ jit.movie需要bang来驱动，我们可以使用	metro&lt;/p&gt;
 		data-flex-basis=&#34;391px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;==texture不在RAM中，而是在显存vRAM（video random axis memory中，速度更快==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;texture不在RAM中，而是在显存vRAM（video random axis memory中，速度更快&lt;/mark&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如果用矩阵的方式播放，视频数据需要从主内存（RAM）传输到显存（VRAM）才能被 GPU 处理。&lt;/li&gt;
 &lt;li&gt;如果用纹理的方式播放，数据已经在显存中，省去了传输过程，大幅提升了性能。&lt;/li&gt;
@@ -768,9 +768,9 @@ jit.movie需要bang来驱动，我们可以使用	metro&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;12程序的运行方向&#34;&gt;1.2程序的运行方向
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;横向&lt;/strong&gt;排列运行规则：max遵循==从右向左==运行的原则&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;纵向&lt;/strong&gt;排列运行规则：max遵循==从下往上==运行的原则&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;斜向&lt;/strong&gt;排列运行规则：max优先遵循==从右向左==运行的原则&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;横向&lt;/strong&gt;排列运行规则：max遵循&lt;mark&gt;从右向左&lt;/mark&gt;运行的原则&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;纵向&lt;/strong&gt;排列运行规则：max遵循&lt;mark&gt;从下往上&lt;/mark&gt;运行的原则&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;斜向&lt;/strong&gt;排列运行规则：max优先遵循&lt;mark&gt;从右向左&lt;/mark&gt;运行的原则&lt;/p&gt;
 &lt;h1 id=&#34;快捷键梳理&#34;&gt;快捷键梳理
 &lt;/h1&gt;&lt;p&gt;1、ctrl + 点击空白处：锁定/解锁&lt;/p&gt;
 &lt;p&gt;2、复制对象：alt+鼠标拖动&lt;/p&gt;

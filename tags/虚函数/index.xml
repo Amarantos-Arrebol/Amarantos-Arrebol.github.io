@@ -511,7 +511,23 @@ B的析构函数，就会导致内存泄漏问题，因为&lt;/del&gt;B()中在�
 &lt;h1 id=&#34;6多态的原理&#34;&gt;6.多态的原理
 &lt;/h1&gt;&lt;h2 id=&#34;61虚函数表指针&#34;&gt;6.1虚函数表指针
 &lt;/h2&gt;&lt;p&gt;__vfptr 虚函数表指针 (v 代表virtual，f 代表function)&lt;/p&gt;
-&lt;p&gt;一个含有虚函数的类中都至少都有一个虚函数表指针，因为一个类所有虚函数的地址要被放到这个类对象的虚函数表中，虚函数表也简称虚表&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（1）虚函数表本质是一个存虚函数地址/指针的指针数组&lt;/strong&gt;，虚函数表也简称虚表&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（2）一个类所有虚函数的地址要被放到这个类对象的虚函数表中&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（3）一个含有虚函数的类中都至少都有一个虚函数表指针&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103162426763.png&#34;
+	width=&#34;2251&#34;
+	height=&#34;678&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103162426763_hu_edcc85e233e52a22.png 480w, https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103162426763_hu_7ad995452fffa614.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251103162426763&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;332&#34;
+		data-flex-basis=&#34;796px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;下面编译为32位程序的运行结果是什么（)
 A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -676,7 +692,7 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;虚函数表&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color: #FF8000;&#34;&gt;&lt;strong&gt;同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表&lt;/strong&gt;&lt;/span&gt;，所以==父类和子类有各自独立的虚表==&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF8000;&#34;&gt;&lt;strong&gt;同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表&lt;/strong&gt;&lt;/span&gt;，所以&lt;mark&gt;父类和子类有各自独立的虚表&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;（1）父类对象的虚函数表中存放&lt;span style=&#34;color: #8080FF;&#34;&gt;父类所有虚函数的地址&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;（2）子类由两部分构成，&lt;span style=&#34;color: #8080FF;&#34;&gt;继承下来的父类和自己的成员&lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -684,24 +700,24 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;p&gt;但是要注意的&lt;strong&gt;这里继承下来的父类部分虚函数表指针和父类对象的虚函数表指针不是同一个&lt;/strong&gt;，就像父类对象的成员和子类对象中的父类对象成员也独立的&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;子类中重写的父类的虚函数，子类的虚函数表中对应的虚函数就会被&lt;strong&gt;覆盖&lt;/strong&gt;成子类重写的虚函数地址&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733.png&#34;
-	width=&#34;722&#34;
-	height=&#34;311&#34;
-	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_33049791a063661b.png 480w, https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_fffa2927c7908d6f.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251024154825733&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;232&#34;
-		data-flex-basis=&#34;557px&#34;
-	
-&gt;&lt;/p&gt;
 &lt;p&gt;子类的虚函数表中包含&lt;/p&gt;
 &lt;p&gt;（1）父类的虚函数地址&lt;/p&gt;
 &lt;p&gt;（2）子类重写的虚函数地址完成覆盖&lt;/p&gt;
 &lt;p&gt;（3）子类自己的虚函数地址三个部分&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103155813257.png&#34;
+	width=&#34;2312&#34;
+	height=&#34;1114&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103155813257_hu_ea94bb22cc8aabd3.png 480w, https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103155813257_hu_33b9bc985df6ce79.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251103155813257&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;207&#34;
+		data-flex-basis=&#34;498px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;虚函数表本质是一个&lt;span style=&#34;color: #8080FF;&#34;&gt;存虚函数指针的指针数组&lt;/span&gt;，一般情况这个数组最后面放了一个0x00000000标
 记&lt;/p&gt;
 &lt;blockquote&gt;
@@ -721,9 +737,9 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 		data-flex-basis=&#34;430px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;虚函数存在哪的？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**虚函数存在哪的？**代码段&lt;/p&gt;
 &lt;p&gt;虚函数和普通函数一样的，编译好后是一段指令，都是存在代码段的，只是虚函数的地址又存到了虚表中&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;虚函数表存在哪的？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**虚函数表存在哪的？**C++标准没有规定&lt;/p&gt;
 &lt;p&gt;这个问题严格说并没有标准答案C++标准并没有规定。Vs下是存在代码段(常量区)&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对象是在栈帧里面，虚表的地址一般是存在对象的头4/8个字节里&lt;/p&gt;
@@ -733,7 +749,7 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;p&gt;printf(&#34;Base虚表地址：%p\n&#34;, \*(int*)p); // 强转成int，解引用就取出4个字节&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;规定：取成员函数的地址要加上取地址符 &amp;amp;，例如 &amp;amp;Person::func1&lt;/p&gt;
+&lt;p&gt;注意：规定取成员函数的地址要加上取地址符 &amp;amp;，例如 &amp;amp;Person::func1  才是取出Person类中f成员函数func1的地址&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;总结-易混点&#34;&gt;总结-易混点
 &lt;/h1&gt;&lt;ul&gt;

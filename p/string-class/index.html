@@ -858,7 +858,7 @@ th {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="224-迭代器一">2.2.4 迭代器（一）
-</h3><p><strong>迭代器是==容器==通用的一种遍历方式</strong>，是像指针一样的对象</p>
+</h3><p><strong>迭代器是<mark>容器</mark>通用的一种遍历方式</strong>，是像指针一样的对象</p>
 <p>我们可以定义一个iterator的对象，接收begin()返回第一个字符的位置</p>
 <p>当该对象不等于该字符串有效数据的下一个位置时，我们就得到该字符*it1（有点像我们学过的指针解引用），然后++it1就可以到下一个位置</p>
 <p><img src="/p/string-class/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91string.assets/1731838530270.png"
@@ -920,7 +920,7 @@ th {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>为什么要使用迭代器？</strong></p>
-<p>我们一般喜欢使用下标加方括号的形式，但是==下标加方括号的这种方式只适用于string和vector==</p>
+<p>我们一般喜欢使用下标加方括号的形式，但是<mark>下标加方括号的这种方式只适用于string和vector</mark></p>
 <p>因为string和vector底层是连续的物理空间，才能重载[]</p>
 <p>迭代器是所有容器通用的方式，因为像链表这种，通过重载[]来遍历，效率低</p>
 <div class="highlight"><div class="chroma">
@@ -977,7 +977,7 @@ th {
 <p>注意：</p>
 <ol>
 <li>
-<p>迭代器的底层是指针，但是它不等于指针，==是运算符重载*==</p>
+<p>迭代器的底层是指针，但是它不等于指针，<mark>是运算符重载*</mark></p>
 </li>
 <li>
 <p>遍历的时候，循环条件最好写 s.begin() != s.end()</p>
@@ -1053,7 +1053,7 @@ th {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>总结：auto作用就是简化代码，替代写起来长的类型</strong></p>
-<p>==C++20开始支持auto做函数形参==</p>
+<p><mark>C++20开始支持auto做函数形参</mark></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1062,7 +1062,7 @@ th {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">(</span><span class="k">auto</span> <span class="n">x</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>==C++11开始支持auto做返回值==</p>
+</div><p><mark>C++11开始支持auto做返回值</mark></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1083,13 +1083,13 @@ th {
 </h3><h4 id="范围for基本介绍">范围for基本介绍
 </h4><ul>
 <li>
-<p>自动取容器的数据赋值给左边的值（==赋值是一种拷贝==）</p>
+<p>自动取容器的数据赋值给左边的值（<mark>赋值是一种拷贝</mark>）</p>
 </li>
 <li>
 <p>自动++，自动判断结束。</p>
 </li>
 </ul>
-<p>范围for是用来遍历==容器==的（也就是数据结构），底层是迭代器，==只有容器才支持迭代器==</p>
+<p>范围for是用来遍历<mark>容器</mark>的（也就是数据结构），底层是迭代器，<mark>只有容器才支持迭代器</mark></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1265,9 +1265,9 @@ th {
 ></p>
 <p>我们发现在范围for里修改后，在里面确实打印出来的是修改后的值，</p>
 <p>但是出了范围for再打印就是原来的值了。</p>
-<p>原因是，范围for是<strong>自动取容器里的数据==赋值==给左边的值</strong>，赋值是</p>
-<p>一种拷贝，所以==我们在范围for里修改后，不会影响外面的值==</p>
-<p>==要是想修改里面的值==，因为auto不能自动推导出引用，==所以我们需要使用<code>auto&amp;</code>==</p>
+<p>原因是，范围for是<strong>自动取容器里的数据<mark>赋值</mark>给左边的值</strong>，赋值是</p>
+<p>一种拷贝，所以<mark>我们在范围for里修改后，不会影响外面的值</mark></p>
+<p><mark>要是想修改里面的值</mark>，因为auto不能自动推导出引用，==所以我们需要使用<code>auto&amp;</code>==</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1336,11 +1336,11 @@ th {
 <li>容器里面存的是一些比较大的对象，减少拷贝</li>
 <li>==如果是一些比较大的对象使用引用但是不想修改，可以使用<code>const auto&amp;</code>==</li>
 </ol>
-<p>==<strong>范围for只适用于容器和数组</strong>==</p>
+<p><mark><strong>范围for只适用于容器和数组</strong></mark></p>
 <ol>
 <li>
 <p>数组可以使用范围for</p>
-<p>因为==<strong>范围for底层是迭代器</strong>==，迭代器的行为跟指针类似</p>
+<p>因为<mark><strong>范围for底层是迭代器</strong></mark>，迭代器的行为跟指针类似</p>
 </li>
 <li>
 <p>容器才能支持范围for</p>

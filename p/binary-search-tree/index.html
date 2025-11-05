@@ -440,29 +440,28 @@ th {
 <li>左右子树也是一棵二叉搜索树</li>
 </ul>
 <p>左 &lt; 根 &lt; 右</p>
-<p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024164523883.png"
-	width="904"
-	height="356"
-	srcset="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024164523883_hu_4bb0be89fb7c488b.png 480w, /p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024164523883_hu_7da60f792967c648.png 1024w"
+<p><img src="/p/binary-search-tree/index.assets/image-20251103164220991.png"
+	width="414"
+	height="343"
+	srcset="/p/binary-search-tree/index.assets/image-20251103164220991_hu_3736da4453db05ae.png 480w, /p/binary-search-tree/index.assets/image-20251103164220991_hu_78f6bdcf73f6b26f.png 1024w"
 	loading="lazy"
 	
-		alt="image-20251024164523883"
+		alt="image-20251103164220991"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="253"
-		data-flex-basis="609px"
+		data-flex-grow="120"
+		data-flex-basis="289px"
 	
 ></p>
 <p>中序遍历的结果是从小到大的</p>
-<blockquote>
-<p>map/set/multimap/multiset系列容器底层就是二叉搜索树</p>
+<p>但是，我们创建二叉搜索树主要是为了快速插入、删除以及查找元素，而不是排序</p>
+<p>map/set/multimap/multiset系列容器底层是二叉搜索树</p>
 <p>map/set不支持插入相等值，multimap/multiset支持插入相等值</p>
-</blockquote>
 <h1 id="2性能分析">2.性能分析
-</h1><p>一般情况下，在二叉搜索树中查找，最多查找高度次，O(logN)</p>
-<p>但在一些极端情况下，二叉搜索树会退化成单链表，并且各种操作的效率也会下降</p>
-<p>比如当给我们的序列是从小到大依次递增的排列的时候，查找以及插入操作的时间复杂度为O(N)</p>
+</h1><p><strong>一般情况下，在二叉搜索树中查找，最多查找高度次，时间复杂度为<span style="color: #FF0000;">O(logN)</span></strong></p>
+<p><strong>但在一些极端情况下，二叉搜索树会退化成单链表，查找以及插入操作的时间复杂度为<span style="color: #FF0000;">O(N)</span></strong></p>
+<p>比如当给我们的序列是从小到大依次递增的排列的时候</p>
 <p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024171249851.png"
 	width="1119"
 	height="412"
@@ -480,8 +479,13 @@ th {
 <blockquote>
 <p>二分查找也可以实现O(logN）级别的查找效率，但是二分查找有两大缺陷：</p>
 <ol>
-<li>需要存储在支持下标随机访问的结构中，并且有序。</li>
-<li>插入和删除数据效率很低，因为存储在下标随机访问的结构中，插入和删除数据一般需要挪动数据</li>
+<li>
+<p>要求有序</p>
+</li>
+<li>
+<p>插入和删除数据效率很低，因为底层结构要求是数组</p>
+<p>在数组的头部或中间插入数据时一般要挪动数据</p>
+</li>
 </ol>
 </blockquote>
 <h1 id="3模拟实现二叉搜索树">3.模拟实现二叉搜索树
@@ -578,15 +582,13 @@ th {
 <p><strong>插入的具体过程：</strong></p>
 <ol>
 <li>
-<p><strong>树为空</strong>，则直接新增结点，赋值给root指针</p>
+<p><strong>树为空</strong>，直接把新结点赋值给根节点</p>
 </li>
 <li>
-<p><strong>树不空</strong>，按二叉搜索树性质，插入值比当前结点大往右走，插入值比当前结点小往左走，找到空位
-置，插入新结点</p>
+<p><strong>树不空</strong>，新结点的值比当前结点大往右走，比当前结点小往左走，直到找到空位置，插入新结点</p>
 </li>
 <li>
-<p>如果支持<strong>插入相等的值</strong>，插入值跟当前结点相等的值可以往右走，也可以往左走，找到空位置，插
-入新结点。 (但注意要保持逻辑一致性，插入相等的值不要一会往右走，一会往左走)</p>
+<p>如果该二叉搜索树<strong>支持插入相同的值</strong>，那么当新结点的值和当前结点的值相等时，既可以往右走，也可以往左走（但要注意插入相等的值不要一会往右走，一会往左走)，然后找到空位置，插入新结点</p>
 </li>
 </ol>
 <div class="highlight"><div class="chroma">
@@ -678,10 +680,20 @@ th {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="32查找">3.2查找
-</h2><p>1.从根开始比较，查找x，×比根的值大则往右边走查找，x比根值小则往左边走查找。
-2.最多查找高度次，走到到空，还没找到，这个值不存在。
-3.如果不支持插入相等的值，找到x即可返回
-4.如果支持插入相等的值，意味着有多个x存在，一般要求<strong>查找中序的第一个x</strong>。如下图，查找3，要找到1的右孩子的那个3返回</p>
+</h2><p>要查找的值为x，从根开始查找</p>
+<ul>
+<li>如果x比根的值大，查找根的左子树</li>
+<li>如果x比根的值小，查找根的右子树</li>
+</ul>
+<p>一直查找，直到走到空或发现x和当前节点的值相等</p>
+<ul>
+<li>如果x和当前结点的值相等
+<ul>
+<li>如果该二叉搜索树不支持插入相等值，那么可以直接返回</li>
+<li>如果二叉搜索树支持插入相等值，那么和x有相同值的结点可能有多个，一般要求查找的是中序的第一个x，比如下图中如果查找3，那么就是返回1的右孩子的那个3返回</li>
+</ul>
+</li>
+</ul>
 <p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024201827333.png"
 	width="629"
 	height="443"
@@ -745,8 +757,11 @@ th {
 </div><h2 id="33删除">3.3删除
 </h2><p>首先查找元素是否在二叉搜索树中，如果不存在，则返回false</p>
 <p>如果查找元素在二叉搜索树中，那么要分以下三种情况分别处理</p>
+<p>1.要删除的节点没有左右孩子，即要删除的是叶子结点</p>
+<p>2.要删除的节点只有一个孩子（只有左子树或右子树）</p>
+<p>3.要删除的节点有两个孩子（有左子树和右子树）</p>
 <h3 id="1删除的结点为叶子节点">1.删除的结点为叶子节点
-</h3><p><strong>策略：直接删除</strong></p>
+</h3><p>如果删除的节点为叶子结点，也就是该结点没有左右孩子，那么直接删除即可</p>
 <p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024204314644.png"
 	width="566"
 	height="393"
@@ -762,8 +777,9 @@ th {
 	
 ></p>
 <h3 id="2删除的节点只有左子树或右子树">2.删除的节点只有左子树或右子树
-</h3><p><strong>策略：让左子树或右子树替代</strong></p>
-<p>例如删除结点只有右子树，就让右子树替代要删除的节点</p>
+</h3><p>如果要删除的结点只有右子树，那么就让右子树替代要删除的节点</p>
+<p>如果要删除结点只有左子树，就让左子树替代要删除的节点</p>
+<p>例子1：要删除的结点为10，该节点只有右子树</p>
 <p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024204213886.png"
 	width="562"
 	height="415"
@@ -778,7 +794,7 @@ th {
 		data-flex-basis="325px"
 	
 ></p>
-<p>如果删除结点只有左子树，就让左子树替代要删除的节点</p>
+<p>例子2：要删除的结点为14，该节点只有左子树</p>
 <p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024204100463.png"
 	width="568"
 	height="407"
@@ -794,7 +810,12 @@ th {
 	
 ></p>
 <h3 id="3删除的结点有左右子树">3.删除的结点有左右子树
-</h3><p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518.png"
+</h3><p>如果删除的结点有左右子树，那么替换的结点的值应该要么比左子树都大，比右子树都小，这样才能继续保持二叉搜索树的性质（左 &lt; 根 &lt; 右）。</p>
+<p>也就是要么用左子树中值最大结点来替换要删除的节点，要么用右子树中值最小的结点来替换</p>
+<p><strong>总结</strong></p>
+<p>策略一：用<span style="color: #8080FF;">左子树的最大结点</span>的值替换，删除左子树最大结点</p>
+<p>策略二：用<span style="color: #8080FF;">右子树的最小结点</span>的值替换，删除右子树最小结点</p>
+<p><img src="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518.png"
 	width="655"
 	height="553"
 	srcset="/p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518_hu_6fb717b2f6b48894.png 480w, /p/binary-search-tree/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518_hu_52f1d7a70c1f6cd1.png 1024w"
@@ -808,12 +829,6 @@ th {
 		data-flex-basis="284px"
 	
 ></p>
-<p><strong>策略一：</strong></p>
-<p>用<span style="color: #8080FF;">左子树的最大结点</span>的值替换
-删除左子树最大结点</p>
-<p><strong>策略二：</strong></p>
-<p>用<span style="color: #8080FF;">右子树的最小结点</span>的值替换
-删除右子树最小结点</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1

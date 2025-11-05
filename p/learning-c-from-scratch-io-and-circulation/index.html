@@ -727,7 +727,7 @@ th {
 <p>文件名的前面加上了前缀c 表示来自C语言</p>
 <blockquote>
 <p>例如C语言中和数学有关的头文件名字是<code>math.h</code>，在C++中就是cmath</p>
-<p>但是有时头文件的C语言版本和C++版本相同，而==有时候新版本做了一些修改==</p>
+<p>但是有时头文件的C语言版本和C++版本相同，而<mark>有时候新版本做了一些修改</mark></p>
 </blockquote>
 </li>
 </ol>
@@ -1022,9 +1022,9 @@ th {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>sizeof计算的结果是==无符号整型size_t类型==的，该类型可能是unsigned int、unsigned long</p>
+</div><p>sizeof计算的结果是<mark>无符号整型size_t类型</mark>的，该类型可能是unsigned int、unsigned long</p>
 <p>、unsigned long long，具体取决于编译器</p>
-<p><strong>sizeof后面跟的如果是==变量或表达式==时，可以不跟小括号</strong></p>
+<p><strong>sizeof后面跟的如果是<mark>变量或表达式</mark>时，可以不跟小括号</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1093,7 +1093,7 @@ th {
   </thead>
   <tbody>
       <tr>
-          <td>==char==</td>
+          <td><mark>char</mark></td>
           <td>-128~127</td>
           <td>CHAR_MIN-  27</td>
           <td>CHAR_MAX 27 - 1</td>
@@ -1105,7 +1105,7 @@ th {
           <td>UCHAR_MAX 28 -1</td>
       </tr>
       <tr>
-          <td>==short==</td>
+          <td><mark>short</mark></td>
           <td>-32878 ~   32767</td>
           <td>SHRT_MIN - 2^15</td>
           <td>SHRT_MAX2^15 -1</td>
@@ -1117,7 +1117,7 @@ th {
           <td>USHRT_MAX2^16-1</td>
       </tr>
       <tr>
-          <td>==int==</td>
+          <td><mark>int</mark></td>
           <td>-2147483648 ~2147483647</td>
           <td>INT_MIN-2^31</td>
           <td>INT_MAX2^31-1</td>
@@ -1141,13 +1141,13 @@ th {
           <td>ULONG_MAX2^32-1</td>
       </tr>
       <tr>
-          <td>==long long==</td>
+          <td><mark>long long</mark></td>
           <td>-9223372036854775808~  9223372036854775807</td>
           <td>LLONG_MIN- 2^63</td>
           <td>LLONG_MAX2^63-1</td>
       </tr>
       <tr>
-          <td>==unsigned long long==</td>
+          <td><mark>unsigned long long</mark></td>
           <td>0~18446744073709551615</td>
           <td>0</td>
           <td>ULLONG_MAX2^64-1</td>
@@ -1335,7 +1335,7 @@ th {
 <h3 id="33-变量的分类">3.3 变量的分类
 </h3><p><strong>全局变量</strong>：在大括号外面定义的变量</p>
 <p><strong>局部变量</strong>：在大括号内部定义的变量</p>
-<p>==当局部变量和全局变量同名且都可以使用的时候，局部变量会优先被使用==</p>
+<p><mark>当局部变量和全局变量同名且都可以使用的时候，局部变量会优先被使用</mark></p>
 <p>但是如果就是想使用全局的变量，可以在变量前加上<code>::</code></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1472,7 +1472,7 @@ th {
 <p><strong>注意：</strong></p>
 <ol>
 <li>
-<p>==常量在创建的时候最好给它一个值==，因为后面再想给它值就给不进去了</p>
+<p><mark>常量在创建的时候最好给它一个值</mark>，因为后面再想给它值就给不进去了</p>
 <p>因为常量不能被修改。</p>
 </li>
 <li>
@@ -1563,7 +1563,7 @@ th {
 <ol>
 <li><code>/</code>除法操作符，除数不能为0，如果除数为0，程序会崩溃</li>
 <li><code>%</code>取模操作符计算的结果是两个操作数进行除法运算后的余数</li>
-<li>==取模操作符的操作数只能是整型，不能是浮点型==，否则编译器会报错</li>
+<li><mark>取模操作符的操作数只能是整型，不能是浮点型</mark>，否则编译器会报错</li>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2071,7 +2071,7 @@ th {
 <li>**正数向下舍入：**12.3 强制类型转换成整数时，舍去小数部分，结果为 12 ，和12.3相比是变小了</li>
 <li><strong>负数向上舍入：</strong>-2.7 强制类型转换成整数时，舍去小数部分，结果为 -2，和-2.7相比是变大了</li>
 </ul>
-<p><strong>注意：</strong>==题目中说x的取值范围在-10^-15^ 到 -10^15^，不在整数的范围内==，因此我们需要把浮点数强转成</p>
+<p><strong>注意：</strong><mark>题目中说x的取值范围在-10^-15^ 到 -10^15^，不在整数的范围内</mark>，因此我们需要把浮点数强转成</p>
 <p>比int类型大的类型（比如long long)</p>
 <h2 id="7-单目操作符">7. 单目操作符
 </h2><h3 id="71-和">7.1 ++和&ndash;
@@ -2172,7 +2172,7 @@ th {
 		data-flex-basis="603px"
 	
 ></p>
-<p>==getchar()总是返回当前读取的第一个字符，无论是否为空格。==</p>
+<p><mark>getchar()总是返回当前读取的第一个字符，无论是否为空格。</mark></p>
 <p>如果读取失败，会返回常量EOF，EOF的值通常是-1，所以返回值的类型要设为int而不是char</p>
 <p>**注意：**我们输入一个字符后回车，其实回车也是一个字符<code>\n</code>，也就是当我们再次读取字符</p>
 <p>​	时，会读取 <code>\n</code></p>
@@ -2699,7 +2699,7 @@ th {
 <p>一般和<code>&gt;&gt;</code>（流提取运算符）配合使用</p>
 <p><code>cout</code>是C++提供的标准输出流对象，一般针对的控制台的窗口，将数据以字符流的形式输出到控制台窗口显示。一般和<code>&lt;&lt;</code>（流插入运算符）配合使用</p>
 <h4 id="32连续输入输出">3.2连续输入输出
-</h4><p>使用  cout  进行变量的输出，实质上是<strong>将变量插入到  cout  对象里</strong>，并==以  cout  对象作为返回值返回==。因此我们还可以用  &laquo;  在后面连续输出多个内容</p>
+</h4><p>使用  cout  进行变量的输出，实质上是<strong>将变量插入到  cout  对象里</strong>，并<mark>以  cout  对象作为返回值返回</mark>。因此我们还可以用  &laquo;  在后面连续输出多个内容</p>
 <p><img src="/p/learning-c-from-scratch-io-and-circulation/%E3%80%90%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6C&#43;&#43;%E3%80%9101%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA&#43;%E5%BE%AA%E7%8E%AF.assets/1731499894164.png"
 	width="686"
 	height="530"
@@ -3283,7 +3283,7 @@ th {
 		data-flex-basis="499px"
 	
 ></p>
-<p>==注意：关系操作符不宜连用==</p>
+<p><mark>注意：关系操作符不宜连用</mark></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3690,7 +3690,7 @@ th {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>注意是==任意==两条边之和大于第三边，要用且</p>
+</div><p>注意是<mark>任意</mark>两条边之和大于第三边，要用且</p>
 <h3 id="题目4">题目4
 </h3><p><img src="/p/learning-c-from-scratch-io-and-circulation/%E3%80%90%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6C&#43;&#43;%E3%80%9101%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA&#43;%E5%BE%AA%E7%8E%AF.assets/1732111951208.png"
 	width="833"
@@ -3831,13 +3831,13 @@ th {
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">	<span class="c1">//小B
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//条件表达式的结果是1或0 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">&lt;</span><span class="n">mark</span><span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;/</span><span class="n">mark</span><span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">	<span class="c1">//正妹
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span><span class="p">((</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="o">&amp;&amp;</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">&lt;</span><span class="n">mark</span><span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;/</span><span class="n">mark</span><span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span> 
@@ -5081,10 +5081,10 @@ th {
 <p>int类型最大可以表示到10的9次方</p>
 </li>
 <li>
-<p>==算不明白数据范围就用 long long==</p>
+<p><mark>算不明白数据范围就用 long long</mark></p>
 </li>
 <li>
-<p>注意：==结构体最后要加上分号==</p>
+<p>注意：<mark>结构体最后要加上分号</mark></p>
 </li>
 <li>
 <p>注意 if() 后面不要把 == 写成了 =</p>

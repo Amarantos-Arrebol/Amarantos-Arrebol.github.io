@@ -131,7 +131,7 @@
 &lt;p&gt;类只是声明，实例化出的对象才会开辟空间。类相当于房子的设计图，实例化的&lt;span style=&#34;color: #FF0000;&#34;&gt;对象才是房子实体&lt;/span&gt;，可以住人（才能存储有效数据）&lt;/p&gt;
 &lt;h1 id=&#34;4类的大小&#34;&gt;4、类的大小
 &lt;/h1&gt;&lt;p&gt;1、&lt;span style=&#34;color: #FF0000;&#34;&gt;只存成员变量&lt;/span&gt;，遵循内存对齐规则，&lt;span style=&#34;color: #FF0000;&#34;&gt;不存成员函数的指针&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;2、调用的都是同一个成员函数，==成员函数存放在一个公共的区域==&lt;/p&gt;
+&lt;p&gt;2、调用的都是同一个成员函数，&lt;mark&gt;成员函数存放在一个公共的区域&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;3、&lt;span style=&#34;color: #8080FF;&#34;&gt;函数被编译完后是一段指令，需要存储起来执行，第一句指令的地址就是函数的地址&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;4、成员函数的指针/地址是在编译时就确定的，没有存在对象中&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193320212.png&#34;
@@ -301,7 +301,7 @@
 &lt;/h2&gt;&lt;p&gt;编译器编译后，类的成员函数默认都会在形参的第一个位置，增加一个&lt;span style=&#34;color: #FF0000;&#34;&gt;当前类类型的指针&lt;/span&gt;，&lt;/p&gt;
 &lt;p&gt;即this指针，this是一个&lt;span style=&#34;color: #FF0000;&#34;&gt;隐含的形参&lt;/span&gt;。【形参是在栈区】&lt;/p&gt;
 &lt;p&gt;调用的时候，相当于在实参的第一个位置隐含传了一个当前对象的地址/指针&lt;/p&gt;
-&lt;p&gt;类的==成员函数中访问成员变==量，本质都是==通过this指针访问==的&lt;/p&gt;
+&lt;p&gt;类的&lt;mark&gt;成员函数中访问成员变&lt;/mark&gt;量，本质都是&lt;mark&gt;通过this指针访问&lt;/mark&gt;的&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194017034.png&#34;
 	width=&#34;1267&#34;
 	height=&#34;920&#34;
@@ -692,7 +692,7 @@
 		data-flex-basis=&#34;412px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;==&lt;strong&gt;C++规定：类类型的传值传参必须调用拷贝构造&lt;/strong&gt;==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;&lt;strong&gt;C++规定：类类型的传值传参必须调用拷贝构造&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;4、&lt;span style=&#34;color: #8080FF;&#34;&gt;如果没有显示定义拷贝构造函数，编译器会自动生成拷贝构造函数。&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;自动生成的拷贝构造，对&lt;span style=&#34;color: #FF0000;&#34;&gt;内置类型&lt;/span&gt;成员变量会完成&lt;span style=&#34;color: #FF0000;&#34;&gt;值拷贝/浅拷贝&lt;/span&gt;（一个字节一个字节地拷贝），对&lt;span style=&#34;color: #FF0000;&#34;&gt;自定义类型&lt;/span&gt;成员变量会&lt;span style=&#34;color: #FF0000;&#34;&gt;调用它的拷贝构造&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;**为什么自定义类型要调用拷贝构造？**原因：C语言传值传参是值/浅拷贝，对于指针可能会析构两次等问题&lt;/p&gt;
@@ -1182,7 +1182,7 @@
 		data-flex-basis=&#34;1239px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;总结：一个类的==成员函数==，==不修改成员变量==的都建议在函数参数列表后面加上const&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;总结：一个类的&lt;mark&gt;成员函数&lt;/mark&gt;，&lt;mark&gt;不修改成员变量&lt;/mark&gt;的都建议在函数参数列表后面加上const&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;242取地址运算符重载&#34;&gt;2.4.2取地址运算符重载
 &lt;/h3&gt;&lt;p&gt;分为&lt;span style=&#34;color: #FF0000;&#34;&gt;普通取地址重载&lt;/span&gt;和&lt;span style=&#34;color: #FF0000;&#34;&gt;const取地址运算符重载&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;这两个函数编译器自动生成的就够我们用了，不需要我们去显示实现&lt;/span&gt;&lt;/p&gt;
@@ -1656,7 +1656,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;//由于该函数会被高频调用，所以这个数组做成静态的
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;monthDayArray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;28&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;//先判断是不是2月，再判断是不是闰年
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;400&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;400&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;29&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
@@ -1955,7 +1955,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;//年小就小；年相等，月小则小；年月相等，天小则小
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -3994,7 +3994,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;73多继承中指针偏移问题&#34;&gt;7.3多继承中指针偏移问题
 &lt;/h2&gt;&lt;p&gt;多继承中指针偏移问题？下面说法正确的是( C )&lt;/p&gt;
-&lt;p&gt;A：p1 == p2 == p3  B：p1 &amp;lt; p2 &amp;lt; p3  C：p1 == p3 != p2  D：p1 != p2 != p3&lt;/p&gt;
+&lt;p&gt;A：p1 &lt;mark&gt; p2 &lt;/mark&gt; p3  B：p1 &amp;lt; p2 &amp;lt; p3  C：p1 == p3 != p2  D：p1 != p2 != p3&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -4689,7 +4689,23 @@ B的析构函数，就会导致内存泄漏问题，因为&lt;/del&gt;B()中在�
 &lt;h1 id=&#34;6多态的原理&#34;&gt;6.多态的原理
 &lt;/h1&gt;&lt;h2 id=&#34;61虚函数表指针&#34;&gt;6.1虚函数表指针
 &lt;/h2&gt;&lt;p&gt;__vfptr 虚函数表指针 (v 代表virtual，f 代表function)&lt;/p&gt;
-&lt;p&gt;一个含有虚函数的类中都至少都有一个虚函数表指针，因为一个类所有虚函数的地址要被放到这个类对象的虚函数表中，虚函数表也简称虚表&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（1）虚函数表本质是一个存虚函数地址/指针的指针数组&lt;/strong&gt;，虚函数表也简称虚表&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（2）一个类所有虚函数的地址要被放到这个类对象的虚函数表中&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;（3）一个含有虚函数的类中都至少都有一个虚函数表指针&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103162426763.png&#34;
+	width=&#34;2251&#34;
+	height=&#34;678&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103162426763_hu_edcc85e233e52a22.png 480w, https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103162426763_hu_7ad995452fffa614.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251103162426763&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;332&#34;
+		data-flex-basis=&#34;796px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;下面编译为32位程序的运行结果是什么（)
 A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -4854,7 +4870,7 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;虚函数表&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color: #FF8000;&#34;&gt;&lt;strong&gt;同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表&lt;/strong&gt;&lt;/span&gt;，所以==父类和子类有各自独立的虚表==&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #FF8000;&#34;&gt;&lt;strong&gt;同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表&lt;/strong&gt;&lt;/span&gt;，所以&lt;mark&gt;父类和子类有各自独立的虚表&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;（1）父类对象的虚函数表中存放&lt;span style=&#34;color: #8080FF;&#34;&gt;父类所有虚函数的地址&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;（2）子类由两部分构成，&lt;span style=&#34;color: #8080FF;&#34;&gt;继承下来的父类和自己的成员&lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -4862,24 +4878,24 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;p&gt;但是要注意的&lt;strong&gt;这里继承下来的父类部分虚函数表指针和父类对象的虚函数表指针不是同一个&lt;/strong&gt;，就像父类对象的成员和子类对象中的父类对象成员也独立的&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;子类中重写的父类的虚函数，子类的虚函数表中对应的虚函数就会被&lt;strong&gt;覆盖&lt;/strong&gt;成子类重写的虚函数地址&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733.png&#34;
-	width=&#34;722&#34;
-	height=&#34;311&#34;
-	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_33049791a063661b.png 480w, https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_fffa2927c7908d6f.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251024154825733&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;232&#34;
-		data-flex-basis=&#34;557px&#34;
-	
-&gt;&lt;/p&gt;
 &lt;p&gt;子类的虚函数表中包含&lt;/p&gt;
 &lt;p&gt;（1）父类的虚函数地址&lt;/p&gt;
 &lt;p&gt;（2）子类重写的虚函数地址完成覆盖&lt;/p&gt;
 &lt;p&gt;（3）子类自己的虚函数地址三个部分&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103155813257.png&#34;
+	width=&#34;2312&#34;
+	height=&#34;1114&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103155813257_hu_ea94bb22cc8aabd3.png 480w, https://Amarantos-Arrebol.github.io/p/c-polymorphic/index.assets/image-20251103155813257_hu_33b9bc985df6ce79.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251103155813257&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;207&#34;
+		data-flex-basis=&#34;498px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;p&gt;虚函数表本质是一个&lt;span style=&#34;color: #8080FF;&#34;&gt;存虚函数指针的指针数组&lt;/span&gt;，一般情况这个数组最后面放了一个0x00000000标
 记&lt;/p&gt;
 &lt;blockquote&gt;
@@ -4899,9 +4915,9 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 		data-flex-basis=&#34;430px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;虚函数存在哪的？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**虚函数存在哪的？**代码段&lt;/p&gt;
 &lt;p&gt;虚函数和普通函数一样的，编译好后是一段指令，都是存在代码段的，只是虚函数的地址又存到了虚表中&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;虚函数表存在哪的？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;**虚函数表存在哪的？**C++标准没有规定&lt;/p&gt;
 &lt;p&gt;这个问题严格说并没有标准答案C++标准并没有规定。Vs下是存在代码段(常量区)&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对象是在栈帧里面，虚表的地址一般是存在对象的头4/8个字节里&lt;/p&gt;
@@ -4911,7 +4927,7 @@ A.编译报错    B.运行报错   C.8    D.12&lt;/p&gt;
 &lt;p&gt;printf(&#34;Base虚表地址：%p\n&#34;, \*(int*)p); // 强转成int，解引用就取出4个字节&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;规定：取成员函数的地址要加上取地址符 &amp;amp;，例如 &amp;amp;Person::func1&lt;/p&gt;
+&lt;p&gt;注意：规定取成员函数的地址要加上取地址符 &amp;amp;，例如 &amp;amp;Person::func1  才是取出Person类中f成员函数func1的地址&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;总结-易混点&#34;&gt;总结-易混点
 &lt;/h1&gt;&lt;ul&gt;
@@ -6761,7 +6777,7 @@ return x &amp;gt; y;//降序
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;c1&#34;&gt;//年相同，月小就大 
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;			&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;c1&#34;&gt;//年月相同，天小就大 
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;			&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;

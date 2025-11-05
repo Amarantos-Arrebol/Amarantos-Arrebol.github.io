@@ -715,7 +715,7 @@ th {
 		data-flex-basis="412px"
 	
 ></p>
-<p>==<strong>C++规定：类类型的传值传参必须调用拷贝构造</strong>==</p>
+<p><mark><strong>C++规定：类类型的传值传参必须调用拷贝构造</strong></mark></p>
 <p>4、<span style="color: #8080FF;">如果没有显示定义拷贝构造函数，编译器会自动生成拷贝构造函数。</span></p>
 <p>自动生成的拷贝构造，对<span style="color: #FF0000;">内置类型</span>成员变量会完成<span style="color: #FF0000;">值拷贝/浅拷贝</span>（一个字节一个字节地拷贝），对<span style="color: #FF0000;">自定义类型</span>成员变量会<span style="color: #FF0000;">调用它的拷贝构造</span></p>
 <p>**为什么自定义类型要调用拷贝构造？**原因：C语言传值传参是值/浅拷贝，对于指针可能会析构两次等问题</p>
@@ -1205,7 +1205,7 @@ th {
 		data-flex-basis="1239px"
 	
 ></p>
-<p><strong>总结：一个类的==成员函数==，==不修改成员变量==的都建议在函数参数列表后面加上const</strong></p>
+<p><strong>总结：一个类的<mark>成员函数</mark>，<mark>不修改成员变量</mark>的都建议在函数参数列表后面加上const</strong></p>
 <h3 id="242取地址运算符重载">2.4.2取地址运算符重载
 </h3><p>分为<span style="color: #FF0000;">普通取地址重载</span>和<span style="color: #FF0000;">const取地址运算符重载</span></p>
 <p><span style="color: #8080FF;">这两个函数编译器自动生成的就够我们用了，不需要我们去显示实现</span></p>
@@ -1679,7 +1679,7 @@ th {
 </span></span><span class="line"><span class="cl">		<span class="c1">//由于该函数会被高频调用，所以这个数组做成静态的
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">static</span> <span class="kt">int</span> <span class="n">monthDayArray</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">31</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">//先判断是不是2月，再判断是不是闰年
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="p">(</span><span class="n">month</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="p">(</span><span class="n">month</span> <span class="o">&lt;</span><span class="n">mark</span><span class="o">&gt;</span> <span class="mi">2</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">&lt;/</span><span class="n">mark</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">year</span> <span class="o">%</span> <span class="mi">400</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="mi">29</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
@@ -1978,7 +1978,7 @@ th {
 </span></span><span class="line"><span class="cl">	<span class="c1">//年小就小；年相等，月小则小；年月相等，天小则小
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">_year</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">_year</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&amp;&amp;</span> <span class="n">_month</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">_year</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&amp;&amp;</span> <span class="n">_month</span> <span class="o">==</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&amp;&amp;</span> <span class="n">_day</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">_year</span> <span class="o">&lt;</span><span class="n">mark</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_year</span> <span class="o">&amp;&amp;</span> <span class="n">_month</span> <span class="o">&lt;/</span><span class="n">mark</span><span class="o">&gt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_month</span> <span class="o">&amp;&amp;</span> <span class="n">_day</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">.</span><span class="n">_day</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">

@@ -131,7 +131,7 @@
 &lt;p&gt;类只是声明，实例化出的对象才会开辟空间。类相当于房子的设计图，实例化的&lt;span style=&#34;color: #FF0000;&#34;&gt;对象才是房子实体&lt;/span&gt;，可以住人（才能存储有效数据）&lt;/p&gt;
 &lt;h1 id=&#34;4类的大小&#34;&gt;4、类的大小
 &lt;/h1&gt;&lt;p&gt;1、&lt;span style=&#34;color: #FF0000;&#34;&gt;只存成员变量&lt;/span&gt;，遵循内存对齐规则，&lt;span style=&#34;color: #FF0000;&#34;&gt;不存成员函数的指针&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;2、调用的都是同一个成员函数，==成员函数存放在一个公共的区域==&lt;/p&gt;
+&lt;p&gt;2、调用的都是同一个成员函数，&lt;mark&gt;成员函数存放在一个公共的区域&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;3、&lt;span style=&#34;color: #8080FF;&#34;&gt;函数被编译完后是一段指令，需要存储起来执行，第一句指令的地址就是函数的地址&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;4、成员函数的指针/地址是在编译时就确定的，没有存在对象中&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193320212.png&#34;
@@ -301,7 +301,7 @@
 &lt;/h2&gt;&lt;p&gt;编译器编译后，类的成员函数默认都会在形参的第一个位置，增加一个&lt;span style=&#34;color: #FF0000;&#34;&gt;当前类类型的指针&lt;/span&gt;，&lt;/p&gt;
 &lt;p&gt;即this指针，this是一个&lt;span style=&#34;color: #FF0000;&#34;&gt;隐含的形参&lt;/span&gt;。【形参是在栈区】&lt;/p&gt;
 &lt;p&gt;调用的时候，相当于在实参的第一个位置隐含传了一个当前对象的地址/指针&lt;/p&gt;
-&lt;p&gt;类的==成员函数中访问成员变==量，本质都是==通过this指针访问==的&lt;/p&gt;
+&lt;p&gt;类的&lt;mark&gt;成员函数中访问成员变&lt;/mark&gt;量，本质都是&lt;mark&gt;通过this指针访问&lt;/mark&gt;的&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194017034.png&#34;
 	width=&#34;1267&#34;
 	height=&#34;920&#34;

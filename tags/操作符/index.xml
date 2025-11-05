@@ -173,11 +173,11 @@
 &lt;p&gt;0的反码，都是0&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;==在计算机运算的时候，都是以补码的方式来运算的==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;在计算机运算的时候，都是以补码的方式来运算的&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;(补码把正数和负数统一起来了)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;==看运算结果，要看原码==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;看运算结果，要看原码&lt;/mark&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/learning-c-from-scratch-bit-operator/%E3%80%90%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6C&amp;#43;&amp;#43;%E3%80%9104%E4%BD%8D%E8%BF%90%E7%AE%97%E5%92%8C%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%B1%9E%E6%80%A7.assets/1737384446879.png&#34;
@@ -432,8 +432,8 @@
 &lt;p&gt;2进制序列中，最高位的1位是被当做符号位&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;符号位都是用0表示正”，用1表示负&lt;/li&gt;
-&lt;li&gt;对于==整形==来说：数据存放==内存中==其实存放的是==补码==。&lt;/li&gt;
-&lt;li&gt;==计算用补码，结果要看原码==（即用补码计算完后要把补码转为原码）&lt;/li&gt;
+&lt;li&gt;对于&lt;mark&gt;整形&lt;/mark&gt;来说：数据存放&lt;mark&gt;内存中&lt;/mark&gt;其实存放的是&lt;mark&gt;补码&lt;/mark&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;mark&gt;计算用补码，结果要看原码&lt;/mark&gt;（即用补码计算完后要把补码转为原码）&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;左移右移都不能移符号位&lt;/p&gt;
@@ -469,11 +469,11 @@
 &lt;/ol&gt;
 &lt;p&gt;​                                                                 负数：补1&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&amp;amp;按位与（二进制位的运算）&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;对应二进制位  同为1，才为1；==有0为0==&lt;/p&gt;
+&lt;p&gt;对应二进制位  同为1，才为1；&lt;mark&gt;有0为0&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;按位或（二进制位的计算）&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;==有1为1==；同时为0，才为0&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;有1为1&lt;/mark&gt;；同时为0，才为0&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;^按位异或（二进制位的运算）&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;==相同为0，相异为1==，不存在进位，不会溢出&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;相同为0，相异为1&lt;/mark&gt;，不存在进位，不会溢出&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;0 ^ 任何数 = 任何数本身&lt;/li&gt;
 &lt;li&gt;自身^自身 = 0&lt;/li&gt;
@@ -708,7 +708,7 @@
 &lt;/div&gt;&lt;h3 id=&#34;43获取二进制中的指定位&#34;&gt;4.3获取二进制中的指定位
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;场景&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;我们希望获得一个==整数x二进制中的第i位==（其实就是确定==第i位是0还是1==），&lt;/p&gt;
+&lt;p&gt;我们希望获得一个&lt;mark&gt;整数x二进制中的第i位&lt;/mark&gt;（其实就是确定&lt;mark&gt;第i位是0还是1&lt;/mark&gt;），&lt;/p&gt;
 &lt;p&gt;就可以 (x &gt;&gt; i) &amp;amp; 1，结果是0，那么第i位就是0，结果是1，那么第i位就是1&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;x &amp;raquo; i 使得x的&lt;strong&gt;第i位来到最低位&lt;/strong&gt;，然后&lt;strong&gt;再按位与&amp;amp;1&lt;/strong&gt;就能获得第i位是1还是0&lt;/p&gt;
@@ -845,7 +845,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;44将指定位设置为1&#34;&gt;4.4将指定位设置为1
-&lt;/h3&gt;&lt;p&gt;场景：有时候需要将一个整数&lt;code&gt;x&lt;/code&gt;的二进制位中的，==某几位设置为1==，其余位置&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;场景：有时候需要将一个整数&lt;code&gt;x&lt;/code&gt;的二进制位中的，&lt;mark&gt;某几位设置为1&lt;/mark&gt;，其余位置&lt;/p&gt;
 &lt;p&gt;保留原值，那么可以让&lt;code&gt;m&lt;/code&gt;的二进制对应位上是1，然后&lt;code&gt;x |= m&lt;/code&gt;就可以将x的指&lt;/p&gt;
 &lt;p&gt;定二进制位设置为1&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/learning-c-from-scratch-bit-operator/%E3%80%90%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6C&amp;#43;&amp;#43;%E3%80%9104%E4%BD%8D%E8%BF%90%E7%AE%97%E5%92%8C%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%B1%9E%E6%80%A7.assets/1737887529155.png&#34;

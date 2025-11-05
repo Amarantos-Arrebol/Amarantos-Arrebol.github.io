@@ -64,13 +64,13 @@
 &lt;p&gt;​     访问的语法：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;==空间名::变量名==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;空间名::变量名&lt;/mark&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;结构体 ==struct bit::Node node==&lt;/p&gt;
+&lt;p&gt;结构体 &lt;mark&gt;struct bit::Node node&lt;/mark&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;函数 返回类型 ==命名空间名::Add(1, 2);==&lt;/p&gt;
+&lt;p&gt;函数 返回类型 &lt;mark&gt;命名空间名::Add(1, 2);&lt;/mark&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -146,7 +146,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;访问全局变量  ==: :全局变量==&lt;/li&gt;
+&lt;li&gt;访问全局变量  &lt;mark&gt;: :全局变量&lt;/mark&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -209,7 +209,7 @@
 &lt;/div&gt;&lt;p&gt;3）本质是定义一个域，做&lt;span style=&#34;color: #FF0000;&#34;&gt;隔离，解决命名冲突的问题&lt;/span&gt;，默认不会去里面查找，不同的域可以定义同名的&lt;/p&gt;
 &lt;p&gt;4）不会影响生命周期，&lt;span style=&#34;color: #8080FF;&#34;&gt;命名空间里成员的生命周期是全局的&lt;/span&gt;，也就是在各个地方都可以用&lt;/p&gt;
 &lt;p&gt;5）&lt;span style=&#34;color: #FF0000;&#34;&gt;命名空间只能定义在全局&lt;/span&gt;，本质是将全局的进行隔离&lt;/p&gt;
-&lt;p&gt;6）namespace&lt;span style=&#34;color: #FF0000;&#34;&gt;可以嵌套&lt;/span&gt;，访问时 ==命名空间1::命名空间2::变量名==&lt;/p&gt;
+&lt;p&gt;6）namespace&lt;span style=&#34;color: #FF0000;&#34;&gt;可以嵌套&lt;/span&gt;，访问时 &lt;mark&gt;命名空间1::命名空间2::变量名&lt;/mark&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -295,7 +295,7 @@
 &lt;p&gt;4）C++&lt;span style=&#34;color: #FF0000;&#34;&gt;标准库&lt;/span&gt;都放在一个叫&lt;span style=&#34;color: #FF0000;&#34;&gt;std&lt;/span&gt;(standard)的命名空间中&lt;/p&gt;
 &lt;p&gt;5）查找不到变量/定义，就编译报错：error C2065:&amp;ldquo;a&amp;rdquo;:未声明的标志符&lt;/p&gt;
 &lt;h2 id=&#34;14命名空间的使用&#34;&gt;&lt;strong&gt;1.4&lt;/strong&gt;命名空间的使用
-&lt;/h2&gt;&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;语法1：&lt;/span&gt;==空间名::变量名==&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;语法1：&lt;/span&gt;&lt;mark&gt;空间名::变量名&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;指定命名空间访问&lt;/span&gt;，项目中推荐这种方式&lt;/p&gt;
 &lt;p&gt;默认先在局部找，局部找不到，再在全局找，全局找不到，最后还会在命名空间找&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -332,7 +332,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;语法2：&lt;/span&gt;==using namespace 空间名==&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;语法2：&lt;/span&gt;&lt;mark&gt;using namespace 空间名&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;展开命名空间，将该域里的东西全部&lt;span style=&#34;color: #FF0000;&#34;&gt;暴露到全局域&lt;/span&gt;里面去，同时也就有&lt;span style=&#34;color: #FF0000;&#34;&gt;命名冲突问题的风险&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;展开命名空间的全部成员&lt;/span&gt;，不推荐，日常小练习中为了方便推荐使用&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -377,7 +377,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;语法3： &lt;/span&gt;==using 空间名::某个变量名等==&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;语法3： &lt;/span&gt;&lt;mark&gt;using 空间名::某个变量名等&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;展开某个经常访问，且不存在冲突的成员&lt;/p&gt;
 &lt;p&gt;使用using将命名空间中某个成员展开，用于项目中经常访问，且不存在冲突&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1209,7 +1209,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//ok
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;==只有引用和指针存在权限的放大和缩小==&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;mark&gt;只有引用和指针存在权限的放大和缩小&lt;/mark&gt;&lt;/p&gt;
 &lt;h2 id=&#34;55-const与临时对象&#34;&gt;5.5 const与临时对象
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;传值传参返回的是临时对象&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;注意：像int&amp;amp; rb = a * 3; double d = 12.34; int&amp;amp; rb = d;这样一些场景下 ，&lt;/p&gt;
@@ -1404,7 +1404,7 @@
 &lt;p&gt;define 宏可以定义，&lt;span style=&#34;color: #8080FF;&#34;&gt;宏本质是一种替换&lt;/span&gt;，ADD(a, b)会替换成((a) + (b))&lt;/p&gt;
 &lt;p&gt;#define ADD(a, b) a + b;&lt;/p&gt;
 &lt;p&gt;#define ADD(a, b) (a + b);&lt;/p&gt;
-&lt;p&gt;==正确写法：#define ADD(a, b) ((a) + (b))不能加分号==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;正确写法：#define ADD(a, b) ((a) + (b))不能加分号&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;int ret = ADD(1,2) ;//int ret = ((1) + (2));&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;不能加分号的原因&lt;/span&gt;：cout &amp;laquo; ADD(1,2) &amp;laquo; endl;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;必须加外面的括号原因&lt;/span&gt;：cout &amp;laquo; ADD(3, 5) * 2 &amp;laquo; endl; //(3)+(5)*2&lt;/p&gt;
@@ -1482,7 +1482,7 @@
 &lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;应该将内联函数的声明和定义直接放到.h文件中&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;链接就是只有声明的函数去其它文件找他的地址&lt;/span&gt;&lt;/p&gt;
 &lt;h1 id=&#34;7nullptr&#34;&gt;7、nullptr
-&lt;/h1&gt;&lt;p&gt;==NULL实际是一个宏，在C++里面被定义成0，在C语言中被定义成((void*)0)==&lt;/p&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;mark&gt;NULL实际是一个宏，在C++里面被定义成0，在C语言中被定义成((void*)0)&lt;/mark&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -1656,7 +1656,7 @@
 &lt;p&gt;类只是声明，实例化出的对象才会开辟空间。类相当于房子的设计图，实例化的&lt;span style=&#34;color: #FF0000;&#34;&gt;对象才是房子实体&lt;/span&gt;，可以住人（才能存储有效数据）&lt;/p&gt;
 &lt;h1 id=&#34;4类的大小&#34;&gt;4、类的大小
 &lt;/h1&gt;&lt;p&gt;1、&lt;span style=&#34;color: #FF0000;&#34;&gt;只存成员变量&lt;/span&gt;，遵循内存对齐规则，&lt;span style=&#34;color: #FF0000;&#34;&gt;不存成员函数的指针&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;2、调用的都是同一个成员函数，==成员函数存放在一个公共的区域==&lt;/p&gt;
+&lt;p&gt;2、调用的都是同一个成员函数，&lt;mark&gt;成员函数存放在一个公共的区域&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;3、&lt;span style=&#34;color: #8080FF;&#34;&gt;函数被编译完后是一段指令，需要存储起来执行，第一句指令的地址就是函数的地址&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;4、成员函数的指针/地址是在编译时就确定的，没有存在对象中&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907193320212.png&#34;
@@ -1826,7 +1826,7 @@
 &lt;/h2&gt;&lt;p&gt;编译器编译后，类的成员函数默认都会在形参的第一个位置，增加一个&lt;span style=&#34;color: #FF0000;&#34;&gt;当前类类型的指针&lt;/span&gt;，&lt;/p&gt;
 &lt;p&gt;即this指针，this是一个&lt;span style=&#34;color: #FF0000;&#34;&gt;隐含的形参&lt;/span&gt;。【形参是在栈区】&lt;/p&gt;
 &lt;p&gt;调用的时候，相当于在实参的第一个位置隐含传了一个当前对象的地址/指针&lt;/p&gt;
-&lt;p&gt;类的==成员函数中访问成员变==量，本质都是==通过this指针访问==的&lt;/p&gt;
+&lt;p&gt;类的&lt;mark&gt;成员函数中访问成员变&lt;/mark&gt;量，本质都是&lt;mark&gt;通过this指针访问&lt;/mark&gt;的&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/class-with-object-01/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%8A%EF%BC%89.assets/image-20250907194017034.png&#34;
 	width=&#34;1267&#34;
 	height=&#34;920&#34;
@@ -2217,7 +2217,7 @@
 		data-flex-basis=&#34;412px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;==&lt;strong&gt;C++规定：类类型的传值传参必须调用拷贝构造&lt;/strong&gt;==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;&lt;strong&gt;C++规定：类类型的传值传参必须调用拷贝构造&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;4、&lt;span style=&#34;color: #8080FF;&#34;&gt;如果没有显示定义拷贝构造函数，编译器会自动生成拷贝构造函数。&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;自动生成的拷贝构造，对&lt;span style=&#34;color: #FF0000;&#34;&gt;内置类型&lt;/span&gt;成员变量会完成&lt;span style=&#34;color: #FF0000;&#34;&gt;值拷贝/浅拷贝&lt;/span&gt;（一个字节一个字节地拷贝），对&lt;span style=&#34;color: #FF0000;&#34;&gt;自定义类型&lt;/span&gt;成员变量会&lt;span style=&#34;color: #FF0000;&#34;&gt;调用它的拷贝构造&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;**为什么自定义类型要调用拷贝构造？**原因：C语言传值传参是值/浅拷贝，对于指针可能会析构两次等问题&lt;/p&gt;
@@ -2707,7 +2707,7 @@
 		data-flex-basis=&#34;1239px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;总结：一个类的==成员函数==，==不修改成员变量==的都建议在函数参数列表后面加上const&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;总结：一个类的&lt;mark&gt;成员函数&lt;/mark&gt;，&lt;mark&gt;不修改成员变量&lt;/mark&gt;的都建议在函数参数列表后面加上const&lt;/strong&gt;&lt;/p&gt;
 &lt;h3 id=&#34;242取地址运算符重载&#34;&gt;2.4.2取地址运算符重载
 &lt;/h3&gt;&lt;p&gt;分为&lt;span style=&#34;color: #FF0000;&#34;&gt;普通取地址重载&lt;/span&gt;和&lt;span style=&#34;color: #FF0000;&#34;&gt;const取地址运算符重载&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;这两个函数编译器自动生成的就够我们用了，不需要我们去显示实现&lt;/span&gt;&lt;/p&gt;
@@ -3181,7 +3181,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;//由于该函数会被高频调用，所以这个数组做成静态的
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;k&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;monthDayArray&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;28&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;c1&#34;&gt;//先判断是不是2月，再判断是不是闰年
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;400&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;		&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;400&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;29&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
@@ -3480,7 +3480,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;c1&#34;&gt;//年小就小；年相等，月小则小；年月相等，天小则小
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -4537,7 +4537,7 @@
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;new&lt;/code&gt;是C++中动态申请空间的关键字，申请的空间在堆中，需要程序员自己释放。&lt;/p&gt;
 &lt;p&gt;释放堆区的数据使用关键字&lt;code&gt;delete&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1.new的基本语法&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;new返回的是==该数据类型的指针==&lt;/p&gt;
+&lt;p&gt;new返回的是&lt;mark&gt;该数据类型的指针&lt;/mark&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;动态申请int类型的空间&lt;code&gt;new 数据类型&lt;/code&gt;&lt;/p&gt;
@@ -4790,9 +4790,9 @@
 &lt;/div&gt;&lt;h1 id=&#34;4operator-new-与-operator-delete函数&#34;&gt;4、operator new 与 operator delete函数
 &lt;/h1&gt;&lt;p&gt;&lt;strong&gt;operator new 与 operator delete不是运算符重载，就是库里面的一个函数&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;operator new本质是==对malloc的封装==。成功就返回对应指针，失败就抛异常&lt;/li&gt;
+&lt;li&gt;operator new本质是&lt;mark&gt;对malloc的封装&lt;/mark&gt;。成功就返回对应指针，失败就抛异常&lt;/li&gt;
 &lt;li&gt;malloc是失败就返回空&lt;/li&gt;
-&lt;li&gt;==operator new和operator delete 都是库里面全局的函数==&lt;/li&gt;
+&lt;li&gt;&lt;mark&gt;operator new和operator delete 都是库里面全局的函数&lt;/mark&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -4944,24 +4944,24 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;总结：&lt;/p&gt;
-&lt;p&gt;通过上述两个全局函数的实现知道，==operator new 实际也是通过malloc来申请空间，==&lt;/p&gt;
+&lt;p&gt;通过上述两个全局函数的实现知道，&lt;mark&gt;operator new 实际也是通过malloc来申请空间，&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;如果malloc申请空间成功就直接返回，否则执行用户提供的&lt;strong&gt;空间不足应对措施&lt;/strong&gt;，&lt;/p&gt;
-&lt;p&gt;如果用户提供该措施就继续申请，否则就抛异常。==operator delete 最终是通过free来释放空间的。==&lt;/p&gt;
+&lt;p&gt;如果用户提供该措施就继续申请，否则就抛异常。&lt;mark&gt;operator delete 最终是通过free来释放空间的。&lt;/mark&gt;&lt;/p&gt;
 &lt;h1 id=&#34;5new和delete的实现原理&#34;&gt;5、new和delete的实现原理
 &lt;/h1&gt;&lt;p&gt;一切代码编译后都是对应的指令&lt;/p&gt;
 &lt;h2 id=&#34;51内置类型&#34;&gt;5.1内置类型
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;如果申请的是内置类型的空间，new和malloc，delete和free基本类似&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;不同的地方是：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;new/delete申请和释放的是单个元素的空间，new[] 和delete[]申请的是==连续空间==，&lt;/p&gt;
-&lt;p&gt;而且==new在申请空间失败时会抛异常==，malloc会返回NULL&lt;/p&gt;
+&lt;p&gt;new/delete申请和释放的是单个元素的空间，new[] 和delete[]申请的是&lt;mark&gt;连续空间&lt;/mark&gt;，&lt;/p&gt;
+&lt;p&gt;而且&lt;mark&gt;new在申请空间失败时会抛异常&lt;/mark&gt;，malloc会返回NULL&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;52自定义类型&#34;&gt;5.2自定义类型
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;new的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;调用operator new函数==申请空间==&lt;/li&gt;
-&lt;li&gt;在申请的空间上执行==构造函数==，完成对象的构造&lt;/li&gt;
+&lt;li&gt;调用operator new函数&lt;mark&gt;申请空间&lt;/mark&gt;&lt;/li&gt;
+&lt;li&gt;在申请的空间上执行&lt;mark&gt;构造函数&lt;/mark&gt;，完成对象的构造&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;我们也可以直接使用operator new ，operator new 是库里面全局的函数&lt;/p&gt;
@@ -5048,15 +5048,15 @@
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;delete的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;在空间上执行==析构函数==，完成对象中资源的清理工作&lt;/li&gt;
-&lt;li&gt;调用==operator delete函数==释放对象的空间&lt;/li&gt;
+&lt;li&gt;在空间上执行&lt;mark&gt;析构函数&lt;/mark&gt;，完成对象中资源的清理工作&lt;/li&gt;
+&lt;li&gt;调用&lt;mark&gt;operator delete函数&lt;/mark&gt;释放对象的空间&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;new T[N]的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;oprator new 是 malloc的封装，operator new[] 是operator new 的封装&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;调用operator new[]函数，在operator new[]中实际==调用operator new函数==完成N个对象空间的申请&lt;/li&gt;
+&lt;li&gt;调用operator new[]函数，在operator new[]中实际&lt;mark&gt;调用operator new函数&lt;/mark&gt;完成N个对象空间的申请&lt;/li&gt;
 &lt;li&gt;在申请的空间上执行N次构造函数&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
@@ -5064,12 +5064,12 @@
 &lt;p&gt;&lt;strong&gt;delete[]的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;在释放的对象空间上执行N次析构函数，完成N个对象中资源的清理&lt;/li&gt;
-&lt;li&gt;调用operator delete[]释放空间，实际在operator delete[]中调==用operator delete==来释放空间&lt;/li&gt;
+&lt;li&gt;调用operator delete[]释放空间，实际在operator delete[]中调&lt;mark&gt;用operator delete&lt;/mark&gt;来释放空间&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;6定位new表达式&#34;&gt;6、定位new表达式(placement-new)
 &lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;定位new表达式是在==已分配==的原始内存空间中==调用构造函数初始化==一个对象。&lt;/p&gt;
+&lt;p&gt;定位new表达式是在&lt;mark&gt;已分配&lt;/mark&gt;的原始内存空间中&lt;mark&gt;调用构造函数初始化&lt;/mark&gt;一个对象。&lt;/p&gt;
 &lt;p&gt;使用格式：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;new (place_address) type&lt;/code&gt;即：&lt;code&gt;new (地址/要初始化的那块空间) 类型(初始化的参数) &lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;place_address必须是一个指针，initializer-list是类型的初始化列表&lt;/p&gt;
@@ -5106,8 +5106,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;delete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;==构造函数不支持显示调用，要使用定位new==&lt;/p&gt;
-&lt;p&gt;==析构函数支持显示调用，完成资源清理，之后还需要调用operator delete 完成空间的释放==&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;mark&gt;构造函数不支持显示调用，要使用定位new&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;析构函数支持显示调用，完成资源清理，之后还需要调用operator delete 完成空间的释放&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;定位new和显示调用析构是为了支持有的地方为了提高效率，&lt;/p&gt;
 &lt;p&gt;申请内存的时候，如果直接使用new，&lt;strong&gt;new的底层是operator new 调 malloc，效率比较低&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;自己会去写一个&lt;strong&gt;内存池&lt;/strong&gt;，如果我的空间是&lt;strong&gt;从我自己定制的内存池出来的&lt;/strong&gt;，那就开好空间了&lt;/p&gt;
@@ -5226,7 +5226,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;下面这段代码运行时，程序会崩溃，因为==operator new 只开空间==，不调用构造初始化，_p也就没有在指向堆上的一块空间，是野指针。因此，当delete调用析构函数时，清理的是野指针&lt;/li&gt;
+&lt;li&gt;下面这段代码运行时，程序会崩溃，因为&lt;mark&gt;operator new 只开空间&lt;/mark&gt;，不调用构造初始化，_p也就没有在指向堆上的一块空间，是野指针。因此，当delete调用析构函数时，清理的是野指针&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -5327,7 +5327,7 @@
 &lt;p&gt;malloc的返回值为void*, 在&lt;strong&gt;使用时必须强转&lt;/strong&gt;，new不需要，因为new后跟的是&lt;strong&gt;空间的类型&lt;/strong&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;malloc申请空间失败时，返回的是NULL，因此使用时&lt;strong&gt;必须判空&lt;/strong&gt;，new不需要，但是==new需要&lt;strong&gt;捕获异常&lt;/strong&gt;==&lt;/p&gt;
+&lt;p&gt;malloc申请空间失败时，返回的是NULL，因此使用时&lt;strong&gt;必须判空&lt;/strong&gt;，new不需要，但是&lt;mark&gt;new需要&lt;strong&gt;捕获异常&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;申请自定义类型对象时，malloc/free只会开辟空间，不会调用构造函数与析构函数，而new在申请空间后会&lt;strong&gt;调用构造函数完成对象的初始化&lt;/strong&gt;，delete在释放空间前会&lt;strong&gt;调用析构函数完成空间中资源的清理释放&lt;/strong&gt;&lt;/p&gt;
@@ -5419,7 +5419,7 @@
 &lt;p&gt;我们原先是根据具体的类型来编程的，而现在我们只需要写一个通用的函数模版出来就可以&lt;strong&gt;处理不同类型&lt;/strong&gt;的数据。我们把这种根据广泛数据类型的编程就叫做&lt;strong&gt;泛型编程&lt;/strong&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;泛型编程：编写==与类型无关==的通用代码，是代码复用的一种手段。模板是泛型编程的基础&lt;/p&gt;
+&lt;p&gt;泛型编程：编写&lt;mark&gt;与类型无关&lt;/mark&gt;的通用代码，是代码复用的一种手段。模板是泛型编程的基础&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;2-函数模版&#34;&gt;2. 函数模版
 &lt;/h1&gt;&lt;h2 id=&#34;21-函数模版概念&#34;&gt;2.1 函数模版概念
@@ -5500,10 +5500,10 @@
 &lt;ol&gt;
 &lt;li&gt;不同类型的参数，调用的不同的函数&lt;/li&gt;
 &lt;li&gt;模版本质是让编译器当牛马，实例化生成对应的函数&lt;/li&gt;
-&lt;li&gt;==模版不是函数，编译器根据模版实例化生成的才是函数==&lt;/li&gt;
+&lt;li&gt;&lt;mark&gt;模版不是函数，编译器根据模版实例化生成的才是函数&lt;/mark&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;23-函数模版的原理&#34;&gt;2.3 函数模版的原理
-&lt;/h2&gt;&lt;p&gt;函数模版是一个蓝图，它本身不是一个函数，是==编译器用使用方式产生特定具体类型函数的模具==。所以其实模板就是将本来应该我们做的重复的事情交给了编译器&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;函数模版是一个蓝图，它本身不是一个函数，是&lt;mark&gt;编译器用使用方式产生特定具体类型函数的模具&lt;/mark&gt;。所以其实模板就是将本来应该我们做的重复的事情交给了编译器&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/template-basics-and-stl-introduction/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/1730097917108.png&#34;
 	width=&#34;1050&#34;
 	height=&#34;533&#34;
@@ -5520,7 +5520,7 @@
 &gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;==模版是在编译阶段生成对应函数的==，编译器编译成指令后，就没有模版这个概念了，只有对应生成的函数实例了&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;模版是在编译阶段生成对应函数的&lt;/mark&gt;，编译器编译成指令后，就没有模版这个概念了，只有对应生成的函数实例了&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在编译器&lt;strong&gt;编译&lt;/strong&gt;阶段，对于模板函数的使用，编译器需要根据传入的实参类型来&lt;strong&gt;推演生成对应类型的函数&lt;/strong&gt;以供调用。&lt;/p&gt;
@@ -5827,7 +5827,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;使用类的模版后，我们就可以==创建多个存有不同数据类型==的栈了。&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;使用类的模版后，我们就可以&lt;mark&gt;创建多个存有不同数据类型&lt;/mark&gt;的栈了。&lt;/p&gt;
 &lt;p&gt;而使用typedef或using就只能创建存有同一种数据类型的栈&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;C++中喜欢用using替代typedef。&lt;/p&gt;
@@ -5835,7 +5835,7 @@
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;32-类模版的实例化&#34;&gt;3.2 类模版的实例化
 &lt;/h2&gt;&lt;p&gt;类模版一般是显示实例化，即&lt;code&gt;类名&amp;lt;显示传类型&amp;gt; 对象&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;==类模板名字不是真正的类，而实例化的结果才是真正的类==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;类模板名字不是真正的类，而实例化的结果才是真正的类&lt;/mark&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -5862,11 +5862,11 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;注意：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;==模版一般不会声明和定义分离==&lt;/li&gt;
+&lt;li&gt;&lt;mark&gt;模版一般不会声明和定义分离&lt;/mark&gt;&lt;/li&gt;
 &lt;li&gt;要么全写在.h要么全写在.cpp&lt;/li&gt;
 &lt;li&gt;==&lt;span style=&#34;color: #FF0000;&#34;&gt;类模版不能用类名代表类型&lt;/span&gt;==，必须加上模版参数才是类型（也就是必须显示调用模版）&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;如果类模版中的成员函数声明和定义分离写，那么指定类域应该这样写==类名&lt;T&gt;::==&lt;/p&gt;
+&lt;p&gt;如果类模版中的成员函数声明和定义分离写，那么指定类域应该这样写&lt;mark&gt;类名&lt;T&gt;::&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;例如：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -5925,8 +5925,8 @@
 &lt;/div&gt;&lt;p&gt;类模板中的成员函数都是函数模板&lt;/p&gt;
 &lt;h1 id=&#34;4stl简介&#34;&gt;4.STL简介
 &lt;/h1&gt;&lt;h2 id=&#34;41什么是stl&#34;&gt;4.1什么是STL
-&lt;/h2&gt;&lt;p&gt;STL（standard template libaray 标准模版库）：==是C++标准库的重要组成部分==。&lt;/p&gt;
-&lt;p&gt;不仅是一个可复用的组件库，而且是一个==包罗数据结构与算法的软件框架==。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;STL（standard template libaray 标准模版库）：&lt;mark&gt;是C++标准库的重要组成部分&lt;/mark&gt;。&lt;/p&gt;
+&lt;p&gt;不仅是一个可复用的组件库，而且是一个&lt;mark&gt;包罗数据结构与算法的软件框架&lt;/mark&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/template-basics-and-stl-introduction/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91%E6%A8%A1%E7%89%88%E5%88%9D%E9%98%B6.assets/image-20250919142430740.png&#34;
 	width=&#34;909&#34;
 	height=&#34;655&#34;
@@ -6406,7 +6406,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;224-迭代器一&#34;&gt;2.2.4 迭代器（一）
-&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;迭代器是==容器==通用的一种遍历方式&lt;/strong&gt;，是像指针一样的对象&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;迭代器是&lt;mark&gt;容器&lt;/mark&gt;通用的一种遍历方式&lt;/strong&gt;，是像指针一样的对象&lt;/p&gt;
 &lt;p&gt;我们可以定义一个iterator的对象，接收begin()返回第一个字符的位置&lt;/p&gt;
 &lt;p&gt;当该对象不等于该字符串有效数据的下一个位置时，我们就得到该字符*it1（有点像我们学过的指针解引用），然后++it1就可以到下一个位置&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/string-class/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91string.assets/1731838530270.png&#34;
@@ -6468,7 +6468,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;为什么要使用迭代器？&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;我们一般喜欢使用下标加方括号的形式，但是==下标加方括号的这种方式只适用于string和vector==&lt;/p&gt;
+&lt;p&gt;我们一般喜欢使用下标加方括号的形式，但是&lt;mark&gt;下标加方括号的这种方式只适用于string和vector&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;因为string和vector底层是连续的物理空间，才能重载[]&lt;/p&gt;
 &lt;p&gt;迭代器是所有容器通用的方式，因为像链表这种，通过重载[]来遍历，效率低&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -6525,7 +6525,7 @@
 &lt;p&gt;注意：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;迭代器的底层是指针，但是它不等于指针，==是运算符重载*==&lt;/p&gt;
+&lt;p&gt;迭代器的底层是指针，但是它不等于指针，&lt;mark&gt;是运算符重载*&lt;/mark&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;遍历的时候，循环条件最好写 s.begin() != s.end()&lt;/p&gt;
@@ -6601,7 +6601,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;总结：auto作用就是简化代码，替代写起来长的类型&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;==C++20开始支持auto做函数形参==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;C++20开始支持auto做函数形参&lt;/mark&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -6610,7 +6610,7 @@
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;func&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;auto&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;==C++11开始支持auto做返回值==&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;mark&gt;C++11开始支持auto做返回值&lt;/mark&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -6631,13 +6631,13 @@
 &lt;/h3&gt;&lt;h4 id=&#34;范围for基本介绍&#34;&gt;范围for基本介绍
 &lt;/h4&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;自动取容器的数据赋值给左边的值（==赋值是一种拷贝==）&lt;/p&gt;
+&lt;p&gt;自动取容器的数据赋值给左边的值（&lt;mark&gt;赋值是一种拷贝&lt;/mark&gt;）&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;自动++，自动判断结束。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;范围for是用来遍历==容器==的（也就是数据结构），底层是迭代器，==只有容器才支持迭代器==&lt;/p&gt;
+&lt;p&gt;范围for是用来遍历&lt;mark&gt;容器&lt;/mark&gt;的（也就是数据结构），底层是迭代器，&lt;mark&gt;只有容器才支持迭代器&lt;/mark&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -6813,9 +6813,9 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;我们发现在范围for里修改后，在里面确实打印出来的是修改后的值，&lt;/p&gt;
 &lt;p&gt;但是出了范围for再打印就是原来的值了。&lt;/p&gt;
-&lt;p&gt;原因是，范围for是&lt;strong&gt;自动取容器里的数据==赋值==给左边的值&lt;/strong&gt;，赋值是&lt;/p&gt;
-&lt;p&gt;一种拷贝，所以==我们在范围for里修改后，不会影响外面的值==&lt;/p&gt;
-&lt;p&gt;==要是想修改里面的值==，因为auto不能自动推导出引用，==所以我们需要使用&lt;code&gt;auto&amp;amp;&lt;/code&gt;==&lt;/p&gt;
+&lt;p&gt;原因是，范围for是&lt;strong&gt;自动取容器里的数据&lt;mark&gt;赋值&lt;/mark&gt;给左边的值&lt;/strong&gt;，赋值是&lt;/p&gt;
+&lt;p&gt;一种拷贝，所以&lt;mark&gt;我们在范围for里修改后，不会影响外面的值&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;要是想修改里面的值&lt;/mark&gt;，因为auto不能自动推导出引用，==所以我们需要使用&lt;code&gt;auto&amp;amp;&lt;/code&gt;==&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -6884,11 +6884,11 @@
 &lt;li&gt;容器里面存的是一些比较大的对象，减少拷贝&lt;/li&gt;
 &lt;li&gt;==如果是一些比较大的对象使用引用但是不想修改，可以使用&lt;code&gt;const auto&amp;amp;&lt;/code&gt;==&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;==&lt;strong&gt;范围for只适用于容器和数组&lt;/strong&gt;==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;&lt;strong&gt;范围for只适用于容器和数组&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;数组可以使用范围for&lt;/p&gt;
-&lt;p&gt;因为==&lt;strong&gt;范围for底层是迭代器&lt;/strong&gt;==，迭代器的行为跟指针类似&lt;/p&gt;
+&lt;p&gt;因为&lt;mark&gt;&lt;strong&gt;范围for底层是迭代器&lt;/strong&gt;&lt;/mark&gt;，迭代器的行为跟指针类似&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;容器才能支持范围for&lt;/p&gt;
@@ -11893,17 +11893,17 @@ int k(2);&lt;/p&gt;
 &lt;/h2&gt;&lt;p&gt;为什么list要自己有一个sort呢，算法库中不是有一个sort了吗？&lt;/p&gt;
 &lt;p&gt;从上到下，从父到子&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;==单向迭代器：只支持++==
+&lt;li&gt;&lt;mark&gt;单向迭代器：只支持++&lt;/mark&gt;
 &lt;ul&gt;
 &lt;li&gt;比如forwad_list/unordered_xxx&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;==双向迭代器：支持++和&amp;ndash;==
+&lt;li&gt;&lt;mark&gt;双向迭代器：支持++和&amp;ndash;&lt;/mark&gt;
 &lt;ul&gt;
 &lt;li&gt;比如list (底层是归并排序)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;==随机迭代器：支持++、&amp;ndash;、+和-==
+&lt;li&gt;&lt;mark&gt;随机迭代器：支持++、&amp;ndash;、+和-&lt;/mark&gt;
 &lt;ul&gt;
 &lt;li&gt;比如string/vector&lt;/li&gt;
 &lt;/ul&gt;
@@ -15065,14 +15065,14 @@ int k(2);&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;			&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;mark&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_day&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;friend&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ostream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ostream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_cout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Date&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;

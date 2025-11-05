@@ -83,7 +83,7 @@
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;new&lt;/code&gt;是C++中动态申请空间的关键字，申请的空间在堆中，需要程序员自己释放。&lt;/p&gt;
 &lt;p&gt;释放堆区的数据使用关键字&lt;code&gt;delete&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1.new的基本语法&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;new返回的是==该数据类型的指针==&lt;/p&gt;
+&lt;p&gt;new返回的是&lt;mark&gt;该数据类型的指针&lt;/mark&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;动态申请int类型的空间&lt;code&gt;new 数据类型&lt;/code&gt;&lt;/p&gt;
@@ -336,9 +336,9 @@
 &lt;/div&gt;&lt;h1 id=&#34;4operator-new-与-operator-delete函数&#34;&gt;4、operator new 与 operator delete函数
 &lt;/h1&gt;&lt;p&gt;&lt;strong&gt;operator new 与 operator delete不是运算符重载，就是库里面的一个函数&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;operator new本质是==对malloc的封装==。成功就返回对应指针，失败就抛异常&lt;/li&gt;
+&lt;li&gt;operator new本质是&lt;mark&gt;对malloc的封装&lt;/mark&gt;。成功就返回对应指针，失败就抛异常&lt;/li&gt;
 &lt;li&gt;malloc是失败就返回空&lt;/li&gt;
-&lt;li&gt;==operator new和operator delete 都是库里面全局的函数==&lt;/li&gt;
+&lt;li&gt;&lt;mark&gt;operator new和operator delete 都是库里面全局的函数&lt;/mark&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -490,24 +490,24 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;总结：&lt;/p&gt;
-&lt;p&gt;通过上述两个全局函数的实现知道，==operator new 实际也是通过malloc来申请空间，==&lt;/p&gt;
+&lt;p&gt;通过上述两个全局函数的实现知道，&lt;mark&gt;operator new 实际也是通过malloc来申请空间，&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;如果malloc申请空间成功就直接返回，否则执行用户提供的&lt;strong&gt;空间不足应对措施&lt;/strong&gt;，&lt;/p&gt;
-&lt;p&gt;如果用户提供该措施就继续申请，否则就抛异常。==operator delete 最终是通过free来释放空间的。==&lt;/p&gt;
+&lt;p&gt;如果用户提供该措施就继续申请，否则就抛异常。&lt;mark&gt;operator delete 最终是通过free来释放空间的。&lt;/mark&gt;&lt;/p&gt;
 &lt;h1 id=&#34;5new和delete的实现原理&#34;&gt;5、new和delete的实现原理
 &lt;/h1&gt;&lt;p&gt;一切代码编译后都是对应的指令&lt;/p&gt;
 &lt;h2 id=&#34;51内置类型&#34;&gt;5.1内置类型
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;如果申请的是内置类型的空间，new和malloc，delete和free基本类似&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;不同的地方是：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;new/delete申请和释放的是单个元素的空间，new[] 和delete[]申请的是==连续空间==，&lt;/p&gt;
-&lt;p&gt;而且==new在申请空间失败时会抛异常==，malloc会返回NULL&lt;/p&gt;
+&lt;p&gt;new/delete申请和释放的是单个元素的空间，new[] 和delete[]申请的是&lt;mark&gt;连续空间&lt;/mark&gt;，&lt;/p&gt;
+&lt;p&gt;而且&lt;mark&gt;new在申请空间失败时会抛异常&lt;/mark&gt;，malloc会返回NULL&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;52自定义类型&#34;&gt;5.2自定义类型
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;new的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;调用operator new函数==申请空间==&lt;/li&gt;
-&lt;li&gt;在申请的空间上执行==构造函数==，完成对象的构造&lt;/li&gt;
+&lt;li&gt;调用operator new函数&lt;mark&gt;申请空间&lt;/mark&gt;&lt;/li&gt;
+&lt;li&gt;在申请的空间上执行&lt;mark&gt;构造函数&lt;/mark&gt;，完成对象的构造&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;我们也可以直接使用operator new ，operator new 是库里面全局的函数&lt;/p&gt;
@@ -594,15 +594,15 @@
 &lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;delete的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;在空间上执行==析构函数==，完成对象中资源的清理工作&lt;/li&gt;
-&lt;li&gt;调用==operator delete函数==释放对象的空间&lt;/li&gt;
+&lt;li&gt;在空间上执行&lt;mark&gt;析构函数&lt;/mark&gt;，完成对象中资源的清理工作&lt;/li&gt;
+&lt;li&gt;调用&lt;mark&gt;operator delete函数&lt;/mark&gt;释放对象的空间&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;new T[N]的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;oprator new 是 malloc的封装，operator new[] 是operator new 的封装&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;调用operator new[]函数，在operator new[]中实际==调用operator new函数==完成N个对象空间的申请&lt;/li&gt;
+&lt;li&gt;调用operator new[]函数，在operator new[]中实际&lt;mark&gt;调用operator new函数&lt;/mark&gt;完成N个对象空间的申请&lt;/li&gt;
 &lt;li&gt;在申请的空间上执行N次构造函数&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
@@ -610,12 +610,12 @@
 &lt;p&gt;&lt;strong&gt;delete[]的原理&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;在释放的对象空间上执行N次析构函数，完成N个对象中资源的清理&lt;/li&gt;
-&lt;li&gt;调用operator delete[]释放空间，实际在operator delete[]中调==用operator delete==来释放空间&lt;/li&gt;
+&lt;li&gt;调用operator delete[]释放空间，实际在operator delete[]中调&lt;mark&gt;用operator delete&lt;/mark&gt;来释放空间&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;6定位new表达式&#34;&gt;6、定位new表达式(placement-new)
 &lt;/h1&gt;&lt;blockquote&gt;
-&lt;p&gt;定位new表达式是在==已分配==的原始内存空间中==调用构造函数初始化==一个对象。&lt;/p&gt;
+&lt;p&gt;定位new表达式是在&lt;mark&gt;已分配&lt;/mark&gt;的原始内存空间中&lt;mark&gt;调用构造函数初始化&lt;/mark&gt;一个对象。&lt;/p&gt;
 &lt;p&gt;使用格式：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;new (place_address) type&lt;/code&gt;即：&lt;code&gt;new (地址/要初始化的那块空间) 类型(初始化的参数) &lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;place_address必须是一个指针，initializer-list是类型的初始化列表&lt;/p&gt;
@@ -652,8 +652,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;operator&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;delete&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;==构造函数不支持显示调用，要使用定位new==&lt;/p&gt;
-&lt;p&gt;==析构函数支持显示调用，完成资源清理，之后还需要调用operator delete 完成空间的释放==&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;&lt;mark&gt;构造函数不支持显示调用，要使用定位new&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;析构函数支持显示调用，完成资源清理，之后还需要调用operator delete 完成空间的释放&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;定位new和显示调用析构是为了支持有的地方为了提高效率，&lt;/p&gt;
 &lt;p&gt;申请内存的时候，如果直接使用new，&lt;strong&gt;new的底层是operator new 调 malloc，效率比较低&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;自己会去写一个&lt;strong&gt;内存池&lt;/strong&gt;，如果我的空间是&lt;strong&gt;从我自己定制的内存池出来的&lt;/strong&gt;，那就开好空间了&lt;/p&gt;
@@ -772,7 +772,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;下面这段代码运行时，程序会崩溃，因为==operator new 只开空间==，不调用构造初始化，_p也就没有在指向堆上的一块空间，是野指针。因此，当delete调用析构函数时，清理的是野指针&lt;/li&gt;
+&lt;li&gt;下面这段代码运行时，程序会崩溃，因为&lt;mark&gt;operator new 只开空间&lt;/mark&gt;，不调用构造初始化，_p也就没有在指向堆上的一块空间，是野指针。因此，当delete调用析构函数时，清理的是野指针&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -873,7 +873,7 @@
 &lt;p&gt;malloc的返回值为void*, 在&lt;strong&gt;使用时必须强转&lt;/strong&gt;，new不需要，因为new后跟的是&lt;strong&gt;空间的类型&lt;/strong&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;malloc申请空间失败时，返回的是NULL，因此使用时&lt;strong&gt;必须判空&lt;/strong&gt;，new不需要，但是==new需要&lt;strong&gt;捕获异常&lt;/strong&gt;==&lt;/p&gt;
+&lt;p&gt;malloc申请空间失败时，返回的是NULL，因此使用时&lt;strong&gt;必须判空&lt;/strong&gt;，new不需要，但是&lt;mark&gt;new需要&lt;strong&gt;捕获异常&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;申请自定义类型对象时，malloc/free只会开辟空间，不会调用构造函数与析构函数，而new在申请空间后会&lt;strong&gt;调用构造函数完成对象的初始化&lt;/strong&gt;，delete在释放空间前会&lt;strong&gt;调用析构函数完成空间中资源的清理释放&lt;/strong&gt;&lt;/p&gt;
@@ -1444,7 +1444,7 @@
 &lt;p&gt;2）创建一个数组，数组编译时开辟空间&lt;/p&gt;
 &lt;p&gt;**缺陷：**1.空间开辟的大小是固定的&lt;/p&gt;
 &lt;p&gt;​           2.数组在声明的时候，必须指定数组的长度，数组空间一旦确定了大小不能调整&lt;/p&gt;
-&lt;p&gt;但对于空间的需求，有时候我们需要的空间大小在==程序运行==的时候才能知道&lt;/p&gt;
+&lt;p&gt;但对于空间的需求，有时候我们需要的空间大小在&lt;mark&gt;程序运行&lt;/mark&gt;的时候才能知道&lt;/p&gt;
 &lt;p&gt;所以我们引入动态内存开辟，让程序员自己可以申请和释放空间&lt;/p&gt;
 &lt;p&gt;动态内存管理的头文件stdlib.h&lt;/p&gt;
 &lt;h1 id=&#34;2malloc和free&#34;&gt;2、malloc和free
@@ -1482,7 +1482,7 @@
 &lt;/h2&gt;&lt;p&gt;开辟num个大小为size的空间，并用0初始化数组，返回地址&lt;/p&gt;
 &lt;p&gt;malloc不会把申请的空间初始化，calloc会初始化，因此calloc函数效率要低一些&lt;/p&gt;
 &lt;h2 id=&#34;32-realloc&#34;&gt;3.2 realloc
-&lt;/h2&gt;&lt;p&gt;==realloc 不仅能调整空间，还可以申请空间==&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;mark&gt;realloc 不仅能调整空间，还可以申请空间&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;把已经通过malloc或realloc开辟的空间进行调整，&lt;/p&gt;
 &lt;p&gt;ptr：要调整的内存空间的起始地址&lt;/p&gt;
 &lt;p&gt;size：需要调整多大的空间&lt;/p&gt;
@@ -1775,7 +1775,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pa&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//pa就是一个存放地址的变量 -- 指针变量
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;//编号 == 地址 == 指针
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;c1&#34;&gt;//编号 &amp;lt;mark&amp;gt; 地址 &amp;lt;/mark&amp;gt; 指针
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
@@ -1947,7 +1947,7 @@
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;133void指针&#34;&gt;1.3.3void*指针
 &lt;/h3&gt;&lt;p&gt;void类型的指针是一种&lt;code&gt;无具体类型&lt;/code&gt;的指针，或者叫&lt;code&gt;泛型指针&lt;/code&gt;。&lt;/p&gt;
-&lt;p&gt;这种类型的指针可以用来==接受任意类型地址==，&lt;strong&gt;但是void*类型的指针不能直接进行&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这种类型的指针可以用来&lt;mark&gt;接受任意类型地址&lt;/mark&gt;，&lt;strong&gt;但是void*类型的指针不能直接进行&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;指针+-整数和解引用运算&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

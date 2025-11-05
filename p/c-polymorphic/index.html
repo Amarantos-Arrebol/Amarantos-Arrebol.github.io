@@ -930,7 +930,23 @@ B的析构函数，就会导致内存泄漏问题，因为</del>B()中在释放�
 <h1 id="6多态的原理">6.多态的原理
 </h1><h2 id="61虚函数表指针">6.1虚函数表指针
 </h2><p>__vfptr 虚函数表指针 (v 代表virtual，f 代表function)</p>
-<p>一个含有虚函数的类中都至少都有一个虚函数表指针，因为一个类所有虚函数的地址要被放到这个类对象的虚函数表中，虚函数表也简称虚表</p>
+<p><strong>（1）虚函数表本质是一个存虚函数地址/指针的指针数组</strong>，虚函数表也简称虚表</p>
+<p><strong>（2）一个类所有虚函数的地址要被放到这个类对象的虚函数表中</strong></p>
+<p><strong>（3）一个含有虚函数的类中都至少都有一个虚函数表指针</strong></p>
+<p><img src="/p/c-polymorphic/index.assets/image-20251103162426763.png"
+	width="2251"
+	height="678"
+	srcset="/p/c-polymorphic/index.assets/image-20251103162426763_hu_edcc85e233e52a22.png 480w, /p/c-polymorphic/index.assets/image-20251103162426763_hu_7ad995452fffa614.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251103162426763"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="332"
+		data-flex-basis="796px"
+	
+></p>
 <p>下面编译为32位程序的运行结果是什么（)
 A.编译报错    B.运行报错   C.8    D.12</p>
 <div class="highlight"><div class="chroma">
@@ -1095,7 +1111,7 @@ A.编译报错    B.运行报错   C.8    D.12</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>虚函数表</strong></p>
-<p><span style="color: #FF8000;"><strong>同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表</strong></span>，所以==父类和子类有各自独立的虚表==</p>
+<p><span style="color: #FF8000;"><strong>同类型的对象共用同一张虚表，不同类型的对象各自有独立的虚表</strong></span>，所以<mark>父类和子类有各自独立的虚表</mark></p>
 <p>（1）父类对象的虚函数表中存放<span style="color: #8080FF;">父类所有虚函数的地址</span></p>
 <p>（2）子类由两部分构成，<span style="color: #8080FF;">继承下来的父类和自己的成员</span></p>
 <blockquote>
@@ -1103,24 +1119,24 @@ A.编译报错    B.运行报错   C.8    D.12</p>
 <p>但是要注意的<strong>这里继承下来的父类部分虚函数表指针和父类对象的虚函数表指针不是同一个</strong>，就像父类对象的成员和子类对象中的父类对象成员也独立的</p>
 </blockquote>
 <p>子类中重写的父类的虚函数，子类的虚函数表中对应的虚函数就会被<strong>覆盖</strong>成子类重写的虚函数地址</p>
-<p><img src="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733.png"
-	width="722"
-	height="311"
-	srcset="/p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_33049791a063661b.png 480w, /p/c-polymorphic/%E3%80%90C&#43;&#43;%E8%BF%9B%E9%98%B6%E3%80%9102%E5%A4%9A%E6%80%81.assets/image-20251024154825733_hu_fffa2927c7908d6f.png 1024w"
-	loading="lazy"
-	
-		alt="image-20251024154825733"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="232"
-		data-flex-basis="557px"
-	
-></p>
 <p>子类的虚函数表中包含</p>
 <p>（1）父类的虚函数地址</p>
 <p>（2）子类重写的虚函数地址完成覆盖</p>
 <p>（3）子类自己的虚函数地址三个部分</p>
+<p><img src="/p/c-polymorphic/index.assets/image-20251103155813257.png"
+	width="2312"
+	height="1114"
+	srcset="/p/c-polymorphic/index.assets/image-20251103155813257_hu_ea94bb22cc8aabd3.png 480w, /p/c-polymorphic/index.assets/image-20251103155813257_hu_33b9bc985df6ce79.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251103155813257"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
 <p>虚函数表本质是一个<span style="color: #8080FF;">存虚函数指针的指针数组</span>，一般情况这个数组最后面放了一个0x00000000标
 记</p>
 <blockquote>
@@ -1140,9 +1156,9 @@ A.编译报错    B.运行报错   C.8    D.12</p>
 		data-flex-basis="430px"
 	
 ></p>
-<p><strong>虚函数存在哪的？</strong></p>
+<p>**虚函数存在哪的？**代码段</p>
 <p>虚函数和普通函数一样的，编译好后是一段指令，都是存在代码段的，只是虚函数的地址又存到了虚表中</p>
-<p><strong>虚函数表存在哪的？</strong></p>
+<p>**虚函数表存在哪的？**C++标准没有规定</p>
 <p>这个问题严格说并没有标准答案C++标准并没有规定。Vs下是存在代码段(常量区)</p>
 <blockquote>
 <p>对象是在栈帧里面，虚表的地址一般是存在对象的头4/8个字节里</p>
@@ -1152,7 +1168,7 @@ A.编译报错    B.运行报错   C.8    D.12</p>
 <p>printf("Base虚表地址：%p\n", \*(int*)p); // 强转成int，解引用就取出4个字节</p>
 </blockquote>
 <blockquote>
-<p>规定：取成员函数的地址要加上取地址符 &amp;，例如 &amp;Person::func1</p>
+<p>注意：规定取成员函数的地址要加上取地址符 &amp;，例如 &amp;Person::func1  才是取出Person类中f成员函数func1的地址</p>
 </blockquote>
 <h1 id="总结-易混点">总结-易混点
 </h1><ul>

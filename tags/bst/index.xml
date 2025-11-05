@@ -22,29 +22,28 @@
 &lt;li&gt;左右子树也是一棵二叉搜索树&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;左 &amp;lt; 根 &amp;lt; 右&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024164523883.png&#34;
-	width=&#34;904&#34;
-	height=&#34;356&#34;
-	srcset=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024164523883_hu_4bb0be89fb7c488b.png 480w, https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024164523883_hu_7da60f792967c648.png 1024w&#34;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/index.assets/image-20251103164220991.png&#34;
+	width=&#34;414&#34;
+	height=&#34;343&#34;
+	srcset=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/index.assets/image-20251103164220991_hu_3736da4453db05ae.png 480w, https://Amarantos-Arrebol.github.io/p/binary-search-tree/index.assets/image-20251103164220991_hu_78f6bdcf73f6b26f.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;image-20251024164523883&#34;
+		alt=&#34;image-20251103164220991&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;253&#34;
-		data-flex-basis=&#34;609px&#34;
+		data-flex-grow=&#34;120&#34;
+		data-flex-basis=&#34;289px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;中序遍历的结果是从小到大的&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;map/set/multimap/multiset系列容器底层就是二叉搜索树&lt;/p&gt;
+&lt;p&gt;但是，我们创建二叉搜索树主要是为了快速插入、删除以及查找元素，而不是排序&lt;/p&gt;
+&lt;p&gt;map/set/multimap/multiset系列容器底层是二叉搜索树&lt;/p&gt;
 &lt;p&gt;map/set不支持插入相等值，multimap/multiset支持插入相等值&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;h1 id=&#34;2性能分析&#34;&gt;2.性能分析
-&lt;/h1&gt;&lt;p&gt;一般情况下，在二叉搜索树中查找，最多查找高度次，O(logN)&lt;/p&gt;
-&lt;p&gt;但在一些极端情况下，二叉搜索树会退化成单链表，并且各种操作的效率也会下降&lt;/p&gt;
-&lt;p&gt;比如当给我们的序列是从小到大依次递增的排列的时候，查找以及插入操作的时间复杂度为O(N)&lt;/p&gt;
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;一般情况下，在二叉搜索树中查找，最多查找高度次，时间复杂度为&lt;span style=&#34;color: #FF0000;&#34;&gt;O(logN)&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;但在一些极端情况下，二叉搜索树会退化成单链表，查找以及插入操作的时间复杂度为&lt;span style=&#34;color: #FF0000;&#34;&gt;O(N)&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;比如当给我们的序列是从小到大依次递增的排列的时候&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024171249851.png&#34;
 	width=&#34;1119&#34;
 	height=&#34;412&#34;
@@ -62,8 +61,13 @@
 &lt;blockquote&gt;
 &lt;p&gt;二分查找也可以实现O(logN）级别的查找效率，但是二分查找有两大缺陷：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;需要存储在支持下标随机访问的结构中，并且有序。&lt;/li&gt;
-&lt;li&gt;插入和删除数据效率很低，因为存储在下标随机访问的结构中，插入和删除数据一般需要挪动数据&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要求有序&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;插入和删除数据效率很低，因为底层结构要求是数组&lt;/p&gt;
+&lt;p&gt;在数组的头部或中间插入数据时一般要挪动数据&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;3模拟实现二叉搜索树&#34;&gt;3.模拟实现二叉搜索树
@@ -160,15 +164,13 @@
 &lt;p&gt;&lt;strong&gt;插入的具体过程：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;树为空&lt;/strong&gt;，则直接新增结点，赋值给root指针&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;树为空&lt;/strong&gt;，直接把新结点赋值给根节点&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;树不空&lt;/strong&gt;，按二叉搜索树性质，插入值比当前结点大往右走，插入值比当前结点小往左走，找到空位
-置，插入新结点&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;树不空&lt;/strong&gt;，新结点的值比当前结点大往右走，比当前结点小往左走，直到找到空位置，插入新结点&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;如果支持&lt;strong&gt;插入相等的值&lt;/strong&gt;，插入值跟当前结点相等的值可以往右走，也可以往左走，找到空位置，插
-入新结点。 (但注意要保持逻辑一致性，插入相等的值不要一会往右走，一会往左走)&lt;/p&gt;
+&lt;p&gt;如果该二叉搜索树&lt;strong&gt;支持插入相同的值&lt;/strong&gt;，那么当新结点的值和当前结点的值相等时，既可以往右走，也可以往左走（但要注意插入相等的值不要一会往右走，一会往左走)，然后找到空位置，插入新结点&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -260,10 +262,20 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;32查找&#34;&gt;3.2查找
-&lt;/h2&gt;&lt;p&gt;1.从根开始比较，查找x，×比根的值大则往右边走查找，x比根值小则往左边走查找。
-2.最多查找高度次，走到到空，还没找到，这个值不存在。
-3.如果不支持插入相等的值，找到x即可返回
-4.如果支持插入相等的值，意味着有多个x存在，一般要求&lt;strong&gt;查找中序的第一个x&lt;/strong&gt;。如下图，查找3，要找到1的右孩子的那个3返回&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;要查找的值为x，从根开始查找&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果x比根的值大，查找根的左子树&lt;/li&gt;
+&lt;li&gt;如果x比根的值小，查找根的右子树&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一直查找，直到走到空或发现x和当前节点的值相等&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果x和当前结点的值相等
+&lt;ul&gt;
+&lt;li&gt;如果该二叉搜索树不支持插入相等值，那么可以直接返回&lt;/li&gt;
+&lt;li&gt;如果二叉搜索树支持插入相等值，那么和x有相同值的结点可能有多个，一般要求查找的是中序的第一个x，比如下图中如果查找3，那么就是返回1的右孩子的那个3返回&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024201827333.png&#34;
 	width=&#34;629&#34;
 	height=&#34;443&#34;
@@ -327,8 +339,11 @@
 &lt;/div&gt;&lt;h2 id=&#34;33删除&#34;&gt;3.3删除
 &lt;/h2&gt;&lt;p&gt;首先查找元素是否在二叉搜索树中，如果不存在，则返回false&lt;/p&gt;
 &lt;p&gt;如果查找元素在二叉搜索树中，那么要分以下三种情况分别处理&lt;/p&gt;
+&lt;p&gt;1.要删除的节点没有左右孩子，即要删除的是叶子结点&lt;/p&gt;
+&lt;p&gt;2.要删除的节点只有一个孩子（只有左子树或右子树）&lt;/p&gt;
+&lt;p&gt;3.要删除的节点有两个孩子（有左子树和右子树）&lt;/p&gt;
 &lt;h3 id=&#34;1删除的结点为叶子节点&#34;&gt;1.删除的结点为叶子节点
-&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;策略：直接删除&lt;/strong&gt;&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;如果删除的节点为叶子结点，也就是该结点没有左右孩子，那么直接删除即可&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024204314644.png&#34;
 	width=&#34;566&#34;
 	height=&#34;393&#34;
@@ -344,8 +359,9 @@
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;2删除的节点只有左子树或右子树&#34;&gt;2.删除的节点只有左子树或右子树
-&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;策略：让左子树或右子树替代&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;例如删除结点只有右子树，就让右子树替代要删除的节点&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;如果要删除的结点只有右子树，那么就让右子树替代要删除的节点&lt;/p&gt;
+&lt;p&gt;如果要删除结点只有左子树，就让左子树替代要删除的节点&lt;/p&gt;
+&lt;p&gt;例子1：要删除的结点为10，该节点只有右子树&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024204213886.png&#34;
 	width=&#34;562&#34;
 	height=&#34;415&#34;
@@ -360,7 +376,7 @@
 		data-flex-basis=&#34;325px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;如果删除结点只有左子树，就让左子树替代要删除的节点&lt;/p&gt;
+&lt;p&gt;例子2：要删除的结点为14，该节点只有左子树&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251024204100463.png&#34;
 	width=&#34;568&#34;
 	height=&#34;407&#34;
@@ -376,7 +392,12 @@
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;3删除的结点有左右子树&#34;&gt;3.删除的结点有左右子树
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518.png&#34;
+&lt;/h3&gt;&lt;p&gt;如果删除的结点有左右子树，那么替换的结点的值应该要么比左子树都大，比右子树都小，这样才能继续保持二叉搜索树的性质（左 &amp;lt; 根 &amp;lt; 右）。&lt;/p&gt;
+&lt;p&gt;也就是要么用左子树中值最大结点来替换要删除的节点，要么用右子树中值最小的结点来替换&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;总结&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;策略一：用&lt;span style=&#34;color: #8080FF;&#34;&gt;左子树的最大结点&lt;/span&gt;的值替换，删除左子树最大结点&lt;/p&gt;
+&lt;p&gt;策略二：用&lt;span style=&#34;color: #8080FF;&#34;&gt;右子树的最小结点&lt;/span&gt;的值替换，删除右子树最小结点&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518.png&#34;
 	width=&#34;655&#34;
 	height=&#34;553&#34;
 	srcset=&#34;https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518_hu_6fb717b2f6b48894.png 480w, https://Amarantos-Arrebol.github.io/p/binary-search-tree/%E3%80%90C&amp;#43;&amp;#43;%E8%BF%9B%E9%98%B6%E3%80%9103%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.assets/image-20251025131734518_hu_52f1d7a70c1f6cd1.png 1024w&#34;
@@ -390,12 +411,6 @@
 		data-flex-basis=&#34;284px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;策略一：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;用&lt;span style=&#34;color: #8080FF;&#34;&gt;左子树的最大结点&lt;/span&gt;的值替换
-删除左子树最大结点&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;策略二：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;用&lt;span style=&#34;color: #8080FF;&#34;&gt;右子树的最小结点&lt;/span&gt;的值替换
-删除右子树最小结点&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1

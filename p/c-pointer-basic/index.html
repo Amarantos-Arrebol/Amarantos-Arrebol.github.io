@@ -1177,7 +1177,7 @@ th {
 	
 ></p>
 <h2 id="5二级指针">5.二级指针
-</h2><p>==二级指针：用来存放一级指针变量的地址==</p>
+</h2><p><mark>二级指针：用来存放一级指针变量的地址</mark></p>
 <p>代码示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1260,7 +1260,7 @@ th {
 	
 	
 ></p>
-<p>2.字符指针变量 存放的是==常量字符串==,**不能被修改，**使用const修饰</p>
+<p>2.字符指针变量 存放的是<mark>常量字符串</mark>,**不能被修改，**使用const修饰</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1361,8 +1361,8 @@ th {
 <p><strong>数组指针</strong></p>
 <p><strong>1. 数组名的理解</strong></p>
 <p>（1）数组名是数组首元素的地址</p>
-<p>​      例如：<strong>arr</strong> ， <strong>&amp; arr[0]</strong> 都表示==数组首元素的地址==，==类型 int*==，指针类型</p>
-<p>（2）<strong>&amp;数组名</strong>：其中数组名表示==整个数组==；数组的地址与数组首元素的地址值相同</p>
+<p>​      例如：<strong>arr</strong> ， <strong>&amp; arr[0]</strong> 都表示<mark>数组首元素的地址</mark>，<mark>类型 int*</mark>，指针类型</p>
+<p>（2）<strong>&amp;数组名</strong>：其中数组名表示<mark>整个数组</mark>；数组的地址与数组首元素的地址值相同</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1414,7 +1414,7 @@ th {
 	
 	
 ></p>
-<p>==指针类型决定了指针+-整数跳过几个字节==</p>
+<p><mark>指针类型决定了指针+-整数跳过几个字节</mark></p>
 <p>arr &mdash; int*           &amp;arr[0] &mdash; int*       &amp;arr &mdash; int ( * )[ ] 数组指针类型</p>
 <p>（4）arr[ i ] 等价于 *(arr + i)                       arr[ i ] 等价于 i[ arr ]，[ ] 只是操作符</p>
 <p>（5）sizeof (数组名) ：计算整个数组的大小（字节）</p>
@@ -1785,8 +1785,8 @@ th {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>void(*)()是一个函数指针类型</p>
-<p>( 函数指针类型 )0 是强制类型转换，也就是==把0强制类型转换成函数指针类型==，0就是一个函数地址</p>
-<p>(*(函数指针类型)0)( )  表示将0强转后再==解引用==找到这个函数，再==调用这个函数==</p>
+<p>( 函数指针类型 )0 是强制类型转换，也就是<mark>把0强制类型转换成函数指针类型</mark>，0就是一个函数地址</p>
+<p>(*(函数指针类型)0)( )  表示将0强转后再<mark>解引用</mark>找到这个函数，再<mark>调用这个函数</mark></p>
 <p><strong>注意：</strong>（类型）是强制类型转换</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1801,7 +1801,7 @@ th {
 </div><p>signal是一个函数声明</p>
 <p>signal函数有两个参数，分别是整型的和函数指针类型的，该函数指针指向的函数参数是int，返回类型是void</p>
 <p>signal函数的返回类型是void(*)(int)，也就是函数指针类型：该函数指针指向的函数参数是int，返回类型是void</p>
-<p>==函数声明是告诉我们函数名，函数参数，函数返回类型==，所以这是一个函数声明</p>
+<p><mark>函数声明是告诉我们函数名，函数参数，函数返回类型</mark>，所以这是一个函数声明</p>
 <h4 id="typedef给类型重命名"><strong>typedef给类型重命名</strong>
 </h4><p>我们发现上面的代码中，函数的返回类型是函数指针类型，这样不仅繁琐，而且可读性差</p>
 <p>所以我们可以使用typedef来给该类型重命名</p>

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="初识关联式容器：set 与 map 的基本用法">
-<title>【C&#43;&#43;进阶】05AVL树实现</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n">
+<title>【C&#43;&#43;进阶】12异常</title>
 
 <link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/abnormal/'>
 
-<link rel="stylesheet" href="/scss/style.min.eeca29c6e6869044748b2d59d50cf6344dc1aead73435520d174adb026961698.css"><meta property='og:title' content="【C++进阶】05AVL树实现">
-<meta property='og:description' content="初识关联式容器：set 与 map 的基本用法">
+<link rel="stylesheet" href="/scss/style.min.f62fad6b64852a4093ae5ceb06b3f1a3f8409c5b5dd5c91806fbb732800ca9f9.css"><meta property='og:title' content="【C++进阶】12异常">
+<meta property='og:description' content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/abnormal/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='异常' /><meta property='article:published_time' content='2025-11-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-10T07:05:33&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/abnormal/11.png' />
-<meta name="twitter:title" content="【C++进阶】05AVL树实现">
-<meta name="twitter:description" content="初识关联式容器：set 与 map 的基本用法"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/abnormal/11.png' /><link rel="stylesheet" href="/css/custom.min.css">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='异常' /><meta property='article:published_time' content='2025-11-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-10T09:51:47&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' />
+<meta name="twitter:title" content="【C++进阶】12异常">
+<meta name="twitter:description" content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' /><link rel="stylesheet" href="/css/custom.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
 
@@ -405,12 +405,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/abnormal/">
-                <img src="/p/abnormal/11_hu_a626ae8bf0313ecd.png"
-                        srcset="/p/abnormal/11_hu_a626ae8bf0313ecd.png 800w, /p/abnormal/11_hu_47ee9397cec4410b.png 1600w"
+                <img src="/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7_hu_8939d74a2c1aaf3c.png"
+                        srcset="/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7_hu_8939d74a2c1aaf3c.png 800w, /p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7_hu_5c52b21f2476ef2a.png 1600w"
                         width="800" 
-                        height="400" 
+                        height="450" 
                         loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】05AVL树实现" />
+                        alt="Featured image of post 【C&#43;&#43;进阶】12异常" />
                 
             </a>
         </div>
@@ -433,13 +433,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/abnormal/">【C&#43;&#43;进阶】05AVL树实现</a>
+            <a href="/p/abnormal/">【C&#43;&#43;进阶】12异常</a>
         </h2>
     
-        
-        <h3 class="article-subtitle">
-            初识关联式容器：set 与 map 的基本用法
-        </h3>
         
     </div>
 
@@ -498,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><img src="/p/abnormal/index.assets/image-20251109170144446.png"
 	width="832"
 	height="530"
-	srcset="/p/abnormal/index.assets/image-20251109170144446_hu_b37925db8ba49f28.png 480w, /p/abnormal/index.assets/image-20251109170144446_hu_240bd9cc8f7a80b1.png 1024w"
+	
 	loading="lazy"
 	
 		alt="image-20251109170144446"
@@ -1509,7 +1505,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>​		<img src="/p/abnormal/index.assets/image-20251109223207211.png"
 	width="705"
 	height="349"
-	srcset="/p/abnormal/index.assets/image-20251109223207211_hu_fe5a016484ec57d8.png 480w, /p/abnormal/index.assets/image-20251109223207211_hu_185330b64cd15922.png 1024w"
+	
 	loading="lazy"
 	
 		alt="image-20251109223207211"
@@ -1670,7 +1666,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><img src="/p/abnormal/index.assets/image-20251109224244285.png"
 	width="651"
 	height="605"
-	srcset="/p/abnormal/index.assets/image-20251109224244285_hu_c43f5eddfc7a2482.png 480w, /p/abnormal/index.assets/image-20251109224244285_hu_1a393df9e6e836e5.png 1024w"
+	
 	loading="lazy"
 	
 		alt="image-20251109224244285"
@@ -1725,13 +1721,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/map-and-set/10.87dd18c16377019e99ab32d134eed77b_hu_55517334c974fd3f.jpg" 
+                <img src="/p/map-and-set/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8-%E5%8A%A8%E6%BC%AB%E5%A4%A9%E7%A9%BA.61389300f7e50cd4ca6d67c3c1ccedd2_hu_1eb3df9e72359bb6.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
                         alt="Featured image of post 【C&#43;&#43;进阶】04map和set的使用"
                         data-key="map-and-set" 
-                        data-hash="md5-h90YwWN3AZ6ZqzLRNO7Xew==">
+                        data-hash="md5-YTiTAPflDNTKbWfDwczt0g==">
                 
             </div>
         
@@ -1946,7 +1942,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.9c1a6570230d4822a0bae7b9729a4d803a1d6e81a2ebc4dbb042dd1c2902034a.js" defer></script>
 <script>
     (function () {
         const customFont = document.createElement('link');

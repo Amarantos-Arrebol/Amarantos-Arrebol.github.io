@@ -6,11 +6,11 @@
 
 <link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
 
-<link rel="stylesheet" href="/scss/style.min.56dee55d52da9700151ae7b7681e72fc3b45c8f61a70cebc3e499f821d178133.css"><meta property='og:title' content="【Linux】03进程的概念">
+<link rel="stylesheet" href="/scss/style.min.eeca29c6e6869044748b2d59d50cf6344dc1aead73435520d174adb026961698.css"><meta property='og:title' content="【Linux】03进程的概念">
 <meta property='og:description' content="理解进程、环境变量与地址空间">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-05T15:57:43&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-10T07:05:33&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux】03进程的概念">
 <meta name="twitter:description" content="理解进程、环境变量与地址空间"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -380,7 +380,9 @@ document.addEventListener('DOMContentLoaded', function() {
               <ul>
                 <li><a href="#运行阻塞挂起">运行&amp;&amp;阻塞&amp;&amp;挂起</a></li>
                 <li><a href="#理解内核链表">理解内核链表</a></li>
+                <li><a href="#进程状态查看的命令">进程状态查看的命令</a></li>
                 <li><a href="#linux的进程状态">Linux的进程状态</a></li>
+                <li><a href="#总结">总结</a></li>
               </ul>
             </li>
             <li><a href="#632僵尸进程">6.3.2僵尸进程</a></li>
@@ -392,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#641基本概念">6.4.1基本概念</a></li>
             <li><a href="#642查看系统进程">6.4.2查看系统进程</a></li>
             <li><a href="#643pri和ni">6.4.3PRI和NI</a></li>
-            <li><a href="#644补充概念-竞争独立并行并发">6.4.4补充概念-竞争、独立、并行、并发</a></li>
+            <li><a href="#644补充-进程四个特征">6.4.4补充: 进程四个特征</a></li>
           </ul>
         </li>
         <li><a href="#15进程切换">1.5进程切换</a>
@@ -406,21 +408,35 @@ document.addEventListener('DOMContentLoaded', function() {
           <ul>
             <li><a href="#活动队列">活动队列</a></li>
             <li><a href="#过期队列">过期队列</a></li>
-            <li><a href="#总结">总结</a></li>
+            <li><a href="#总结-1">总结</a></li>
           </ul>
         </li>
       </ul>
     </li>
     <li><a href="#二环境变量">二、环境变量</a>
       <ul>
-        <li><a href="#1-概念介绍">1. 概念介绍</a>
+        <li><a href="#1-引出环境变量">1. 引出环境变量</a>
           <ul>
             <li><a href="#11命令行参数">1.1命令行参数</a></li>
+            <li><a href="#12环境变量与命令查找">1.2环境变量与命令查找</a></li>
           </ul>
         </li>
-        <li><a href="#2-一个例子认识环境变量">2. 一个例子，认识环境变量</a></li>
-        <li><a href="#3认识更多的环境变量">3.认识更多的环境变量</a></li>
-        <li><a href="#4获取环境变量的方法">4.获取环境变量的方法</a>
+        <li><a href="#2环境变量初识">2.环境变量初识</a>
+          <ul>
+            <li><a href="#21显示系统中所有环境变量">2.1显示系统中所有环境变量</a></li>
+            <li><a href="#22查看某一个环境变量的内容">2.2查看某一个环境变量的内容</a></li>
+            <li><a href="#23path环境变量">2.3PATH环境变量</a></li>
+            <li><a href="#24设置一个新的环境变量">2.4设置一个新的环境变量</a></li>
+          </ul>
+        </li>
+        <li><a href="#2环境变量的理解">2.环境变量的理解</a>
+          <ul>
+            <li><a href="#21如何理解环境变量">2.1如何理解环境变量</a></li>
+            <li><a href="#22环境变量从哪来">2.2环境变量从哪来？</a></li>
+          </ul>
+        </li>
+        <li><a href="#3常见环境变量">3.常见环境变量</a></li>
+        <li><a href="#4获取环境变量">4.获取环境变量</a>
           <ul>
             <li>
               <ul>
@@ -431,12 +447,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </li>
           </ul>
         </li>
-        <li><a href="#5理解环境变量的特性">5.理解环境变量的特性</a>
-          <ul>
-            <li><a href="#51-环境变量具有全局特性">5.1 环境变量具有全局特性</a></li>
-            <li><a href="#52-补充两个概念">5.2 补充两个概念</a></li>
-          </ul>
-        </li>
+        <li><a href="#5本地变量与环境变量">5.本地变量与环境变量</a></li>
         <li><a href="#6-程序地址空间初识">6. 程序地址空间初识</a></li>
       </ul>
     </li>
@@ -565,11 +576,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-05</time>
+                <time class="article-time--updated">2025-11-10</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">13521 字
+                <span class="article-time--wordcount">15256 字
                 </span>
             </div>
         
@@ -898,8 +909,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>操作系统要向上提供对应的服务</li>
 <li>操作系统，不相信任何用户或者人</li>
 </ul>
-<p>我们未来访问操作系统、获取操作系统内的数据、设置自己的信息等都要</p>
-<p>通过系统调用来完成</p>
+<p>我们未来访问操作系统、获取操作系统内的数据、设置自己的信息等都要通过系统调用来完成</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1740052959285.png"
 	width="1177"
 	height="246"
@@ -1172,7 +1182,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="1819px"
 	
 ></p>
-<p>在Linux中，如果想<mark>同时执行两条命令</mark>，<mark>可以使用分号或者&amp;&amp;</mark></p>
+<p>在Linux中，如果想<mark>同时执行两条命令</mark>，<mark>可以使用分号或者&amp;&amp;连接</mark></p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1736926804631.png"
 	width="1187"
 	height="190"
@@ -1742,7 +1752,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <p>例子：</p>
-<p>CPU正在运行一个进程，运行的过程中操作系统发现这个进程要scanf进行读取，操作系统就去检查键盘的状态，发现键盘并没有被按下，操作系统就认为这个进程就无法继续往下运行，就把这个进程从CPU上拿下来，并把它从运行队列中移走并链入到<span style="color: #8080FF;">特定设备的等待队列</span>中，这个进程就<span style="color: #8080FF;">没有在运行队列</span>中，不会被调度，这个进程就处于<span style="color: #8080FF;">阻塞</span>状态了（只有在运行队列里的进程才会被CPU调度）</p>
+<p>CPU正在运行一个进程，运行的过程中操作系统发现这个进程要scanf进行读取，操作系统就去检查键盘的状态，发现键盘并没有被按下，操作系统就认为这个进程就无法继续往下运行，就把这个进程从CPU上拿下来，并把它从运行队列中移走并链入到<span style="color: #8080FF;">特定设备的等待队列</span>中，这个进程就<span style="color: #8080FF;">没有在运行队列</span>中，不会被调度，这个进程就处于<span style="color: #8080FF;">阻塞</span>状态了（<span style="color: #8080FF;">只有在运行队列里的进程才会被CPU调度</span>）</p>
 <p>当键盘被按下了即硬件就绪了，由于操作系统是硬件的管理者，操作系统知道了，于是直接去查看对应就绪设备的节点，将其状态设置为活跃的，并检查等待队列，发现不为空，就将等待队列中的进程设置为运行状态，然后将该进程重新链回运行队列</p>
 </blockquote>
 <ul>
@@ -1756,10 +1766,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>进程状态的变化，表现之一就是要在不同的队列中进行流动，本质都是数据结构的增删改查</p>
 </li>
 </ul>
-<p><strong>挂起：</strong></p>
+<p>**挂起：**本质是把进程换入换出到磁盘的swap交换分区</p>
 <blockquote>
-<p>在等待队列中，可能不止一个进程，这些进程没有被执行但是都需要占用内存空间，当内存空间严重不足时，操作系统就会将这些在等待队列的进程置换到磁盘中的swap分区中（在等待队列中只存PCB，而将对应的代码和数据唤出到swap分区中，等这些进程要运行了，再把代码和数据还回去），这些进程的状态就叫阻塞挂起</p>
-<p>如果内存特别紧张，操作系统可能把在运行队列中末端的一些进程置换到磁盘中——&gt;运行挂起状态</p>
+<p>在<code>等待队列</code>中，可能不止一个进程，这些进程没有被执行但是都需要占用内存空间，当内存空间严重不足时，操作系统就会将这些在等待队列的进程置换到磁盘中的swap分区中（在等待队列中只存PCB，而将对应的代码和数据唤出到swap分区中，等这些进程要运行了，再把代码和数据还回去），这些进程的状态就叫阻塞挂起</p>
+<p>如果内存特别紧张，操作系统可能把在<code>运行队列中末端的一些进程</code>置换到磁盘中——&gt;运行挂起状态</p>
 </blockquote>
 <h4 id="理解内核链表">理解内核链表
 </h4><p>我们以前学的链表，next指针会指向整个Node结点：</p>
@@ -1792,6 +1802,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="508px"
 	
 ></p>
+<p>==一个PCB在内核里只存在一份，一个PCB可以同时隶属于多个结构==</p>
+<blockquote>
+<p>我们内核中的数据结构不是单一的数据结构</p>
+</blockquote>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918161537954.png"
 	width="1251"
 	height="658"
@@ -1806,12 +1820,32 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="456px"
 	
 ></p>
-<p>一个PCB在内核里只存在一份，一个PCB可以同时隶属于多个结构</p>
-<blockquote>
-<p>我们内核中的数据结构不是单一的数据结构</p>
+<h4 id="进程状态查看的命令">进程状态查看的命令
+</h4><blockquote>
+<p>ps aux 和 ps axj</p>
+<ul>
+<li>a：显示一个终端所有的进程，包括其他用户的进程。</li>
+<li>x：显示没有控制终端的进程，例如后台运行的守护进程。</li>
+<li>j：显示进程归属的进程组ID、会话ID、父进程ID，以及与作业控制相关的信息</li>
+<li>u：以用户为中心的格式显示进程信息，提供进程的详细信息，如用户、CPU和内存使用情况等</li>
+</ul>
 </blockquote>
 <h4 id="linux的进程状态">Linux的进程状态
-</h4><div class="highlight"><div class="chroma">
+</h4><p><img src="/p/linux-process-basic/index.assets/image-20251106171043386.png"
+	width="1039"
+	height="702"
+	srcset="/p/linux-process-basic/index.assets/image-20251106171043386_hu_f4cebc7bbcf1ee9a.png 480w, /p/linux-process-basic/index.assets/image-20251106171043386_hu_9c727dfbab424ca2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251106171043386"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="355px"
+	
+></p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -1832,13 +1866,123 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;t(tracing stop)&#34;</span><span class="err">，</span><span class="cm">/*8 */</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;X (dead)&#34;</span><span class="err">，</span><span class="cm">/*16 */</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;Z (zombie)&#34;</span><span class="err">，</span><span class="cm">/*32 */</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span> 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>
 <p>**R运行状态（running  ）：**并不意味着进程一定在运行中，它表明进程要么是在运行中要么在运行队列里</p>
-<p>例如当代码中有printf时（有IO操作）：</p>
+<p>当我们不做IO相关的操作时：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;                                        </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693.png"
+	width="1092"
+	height="72"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693_hu_a681efc04eda458d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693_hu_3afc0381db3604ff.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918163503693"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1516"
+		data-flex-basis="3640px"
+	
+></p>
+<blockquote>
+<p>有加号的原因是因为进程是在前台启动的，把<code>&amp;</code>放到运行进程命令的后面就可以让进程在后台运行</p>
+<p>例如  <code>./myprocess &amp;</code> 表示将myprocess进程放在后台去运行<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637.png"
+	width="1107"
+	height="79"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637_hu_e610859320822697.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637_hu_d8f89ddab30da0d7.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918163817637"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1401"
+		data-flex-basis="3363px"
+	
+></p>
+</blockquote>
+</li>
+<li>
+<p><strong>S睡眠状态（sleeping)</strong>：意味着进程在等待事件完成（这里的睡眠有时候也叫做可中断睡眠
+(interruptible sleep)，浅睡眠）</p>
+<blockquote>
+<p>可中断休眠状态：如果一个进程自己处于S状态，我们可以直接杀掉这个进程，这个进程会响应我们杀掉它的动作</p>
+</blockquote>
+<p>当我们键盘一直没有输入时，进程状态就是S（阻塞状态）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;  </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;  </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>                                        
+</span></span><span class="line"><span class="cl"><span class="p">{</span>                                                 
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个进程，pid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">());</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>                                                     
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210.png"
+	width="1094"
+	height="75"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210_hu_66063309da05382e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210_hu_e3d9253e00244db1.png 1024w"
+	loading="lazy"
+	
+		alt="image-20250918165113210"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1458"
+		data-flex-basis="3500px"
+	
+></p>
+<p>当代码中有printf（有IO操作）时：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1879,91 +2023,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		class="gallery-image" 
 		data-flex-grow="1383"
 		data-flex-basis="3321px"
-	
-></p>
-<p>当我们不做IO相关的操作时：<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693.png"
-	width="1092"
-	height="72"
-	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693_hu_a681efc04eda458d.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163503693_hu_3afc0381db3604ff.png 1024w"
-	loading="lazy"
-	
-		alt="image-20250918163503693"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1516"
-		data-flex-basis="3640px"
-	
-></p>
-<blockquote>
-<p>有加号的原因是因为进程是在前台启动的</p>
-</blockquote>
-<p><code>./myprocess &amp;</code> 表示将myprocess进程放在后台去运行<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637.png"
-	width="1107"
-	height="79"
-	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637_hu_e610859320822697.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918163817637_hu_d8f89ddab30da0d7.png 1024w"
-	loading="lazy"
-	
-		alt="image-20250918163817637"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1401"
-		data-flex-basis="3363px"
-	
-></p>
-</li>
-<li>
-<p><strong>S睡眠状态（sleeping)</strong>：意味着进程在等待事件完成（这里的睡眠有时候也叫做可中断睡眠
-(interruptible sleep)，浅睡眠）</p>
-<blockquote>
-<p>可中断休眠状态：如果一个进程自己处于S状态，我们可以直接杀掉这个进程，这个进程会响应我们杀掉它的动作</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;  </span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;  </span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>                                        
-</span></span><span class="line"><span class="cl"><span class="p">{</span>                                                 
-</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个进程，pid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">());</span>  
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">);</span>                                                     
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>当我们键盘一直没有输入时，进程状态就是S（阻塞状态）</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210.png"
-	width="1094"
-	height="75"
-	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210_hu_66063309da05382e.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918165113210_hu_e3d9253e00244db1.png 1024w"
-	loading="lazy"
-	
-		alt="image-20250918165113210"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1458"
-		data-flex-basis="3500px"
 	
 ></p>
 </li>
@@ -2106,7 +2165,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </blockquote>
 </li>
 <li>
-<p><strong>D磁盘休眠状态（Disk sleep）</strong>：深睡眠，也可以叫不可中断睡眠状态（uninterruptible sleep），在这个状态的进程通常会等待IO的结束</p>
+<p><strong>D磁盘休眠状态（Disk sleep）</strong>：深睡眠，也可以叫不可中断睡眠状态（uninterruptible sleep），通常发生在同步I/O操作或某些内核操作（如内存换页）时。在这个状态的进程通常会等待IO的结束。</p>
+<p>处于D状态的进程有权不对任何杀掉的动作做出响应，也就是操作系统或者用户不管什么情况下都杀不死该进程，只能等该进程自己”醒来“</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250918172134624.png"
 	width="724"
 	height="516"
@@ -2122,37 +2182,58 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <blockquote>
+<p>注意：</p>
+<p>1.正常的用户程序（如复制文件）通常不会长时间处于D状态，因为操作系统使用了缓存。</p>
+<p>2.如果系统中有进程长时间处于D状态，这很可能意味着硬件（如磁盘）出现了故障，或者系统负载过高导致I/O响应极其缓慢（比如在内存不足时大量换页），从而使得进程无法在短时间内完成l/O操作。</p>
+</blockquote>
 <p>模拟D状态：dd命令</p>
 <p>dd if=/dev/zero of=~/test.txt bs=4096 count=100000</p>
-</blockquote>
 </li>
 <li>
 <p><strong>x死亡状态（dead）</strong>：这个状态只是一个返回状态，你不会在任务列表里看到这个状态</p>
 </li>
 <li>
-<p><a class="link" href="###6.3.3%e5%83%b5%e5%b0%b8%e8%bf%9b%e7%a8%8b" >Z僵尸状态（zombie）</a>：为了获取退出信息</p>
+<p><a class="link" href="###6.3.3%e5%83%b5%e5%b0%b8%e8%bf%9b%e7%a8%8b" >Z僵尸状态（zombie）</a>：子进程退出后，父进程还在运行，但父进程没有读取子进程退出信息，此时子进程就进入Z状态</p>
 </li>
 </ul>
-<p><strong>总结：</strong></p>
+<h4 id="总结">总结
+</h4><ul>
+<li>
+<p><strong>运行</strong></p>
 <ul>
-<li><strong>阻塞</strong>
+<li>R：运行状态，我们可以把 运行状态、就绪状态、创建状态 都当成运行状态</li>
+</ul>
+</li>
+<li>
+<p><strong>阻塞</strong>：</p>
 <ul>
 <li>S：可中断睡眠，浅睡眠。意味着进程在等待事件完成</li>
 <li>D：不可中断睡眠，深度睡眠。和磁盘的读取写入相关（如果被中断，可能会导致数据丢失）</li>
 </ul>
 </li>
-<li><strong>t，T</strong>
+<li>
+<p><strong>暂停状态 t / T</strong></p>
 <ul>
 <li>t：被debug，断点：进程被暂停了</li>
-<li>T：通过用户进行操作将进程暂停</li>
+<li>T：通过用户进行操作将进程暂停，比如通过发送信号 kill -19</li>
+</ul>
+</li>
+<li>
+<p><strong>结束状态</strong></p>
+<ul>
+<li>X：死亡状态</li>
+<li>Z：僵尸状态，子进程退出后，父进程还在运行，但父进程没有读取子进程退出信息</li>
 </ul>
 </li>
 </ul>
+<p>阻塞状态是进程自己等待某种设备或者资源就绪，比如进程等待 I/O 完成</p>
+<p>暂停状态是外部强制让进程停下来，比如调试过程中下断点和用户发送暂停信号</p>
+<p>挂起状态本质是系统内资源严重不足，操作系统为了节省内存，把一个进程的代码和数据换出到交换分区上，等需要调度/运行的时候再换入进来</p>
 <h3 id="632僵尸进程">6.3.2僵尸进程
 </h3><p><strong>Z僵尸状态（zombie）</strong>：为了获取退出信息</p>
 <blockquote>
-<p>我们现在所学的所有进程都是某个进程的子进程，我们创建子进程的目的是为了让子进程完成某种事情。所以当一个子进程退出，不能直接退出，子进程退出的结果信息得让父进程知道</p>
-<p>当一个进程退出时，它的代码和数据直接就被释放掉了，但是它的PCB必须一直维持（PCB就是操作系统内部的一个数据结构，父进程可以进行系统调用，获得子进程的信息）</p>
+<p>在Linux系统里，我们目前所学的所有进程都是某个进程的子进程，我们创建子进程的目的是为了让子进程完成某种事情。所以当一个子进程退出，不能直接退出，子进程退出的结果信息得让父进程知道</p>
+<p>当一个进程退出时，它的代码和数据直接就被释放掉了，但是它的PCB必须一直维持（PCB就是操作系统内部的一个数据结构，父进程可以进行系统调用，获得子进程的信息），直到父进程读取到子进程的退出信息</p>
 </blockquote>
 <p><strong>如何模拟Z状态？</strong></p>
 <p>1.需要有父子进程</p>
@@ -2186,12 +2267,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="2677px"
 	
 ></p>
-<p>如果父进程一直不管，不回收，不获取子进程的退出信息，那么Z状态会一直存在（内存泄漏问题）</p>
+<p>如果父进程一直不管，不回收，不获取子进程的退出信息，那么Z状态会一直存在</p>
 <blockquote>
-<p>如果父进程不管，子进程的Z状态一直存在，那么PCB就要一直维护，就要一直占用内存</p>
-</blockquote>
+<p>如果父进程不管，子进程的Z状态一直存在，那么PCB就要一直维护，就要一直占用内存，就会引发内存泄漏问题</p>
 <p>所以父进程未来获取子进程退出信息的时候，除了获取子进程的退出信息，还要把PCB释放掉（解决内存泄漏）</p>
-<blockquote>
+</blockquote>
 <p><strong>知识点1：</strong></p>
 <p>进程退出了，内存泄漏问题还在不在？不在</p>
 <p>什么样的进程具有内存泄漏问题，是比较麻烦的？常驻内存进程（一旦启动就不会退出）</p>
@@ -2211,9 +2291,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="402px"
 	
 ></p>
-</blockquote>
 <h3 id="633孤儿进程">6.3.3孤儿进程
-</h3><p>父进程先退出，子进程就称之为“孤儿进程”</p>
+</h3><p>父进程先退出，子进程就称为“孤儿进程”</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921192800700.png"
 	width="1431"
 	height="1158"
@@ -2228,8 +2307,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="296px"
 	
 ></p>
+<p>父子进程关系中，如果父进程先退出，子进程要被init / systemd 进程领养，由init / systemd进程回收，这个被领养的进程（子进程），叫做孤儿进程</p>
 <p><code>while :; do ps ajx | head -1 &amp;&amp; ps ajx | grep myprocess;sleep 1; done</code></p>
-<p>父子进程关系中，如果父进程先退出，子进程要被1号进程领养，这个被领养的进程（子进程），叫做孤儿进程</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193128329.png"
 	width="1102"
 	height="216"
@@ -2244,7 +2323,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="1224px"
 	
 ></p>
-<p>1号systemd/init进程——&gt;操作系统</p>
+<p>1号 systemd/init 进程——&gt;操作系统</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250921193719843.png"
 	width="1362"
 	height="248"
@@ -2282,19 +2361,41 @@ document.addEventListener('DOMContentLoaded', function() {
 </blockquote>
 <h2 id="14进程的优先级">1.4进程的优先级
 </h2><h3 id="641基本概念">6.4.1基本概念
-</h3><p><strong>是什么？</strong></p>
+</h3><p><strong>进程的优先级是什么？</strong></p>
 <p>是进程得到CPU资源的先后顺序</p>
-<p><strong>为什么？</strong></p>
+<p><strong>为什么要有优先级？</strong></p>
 <p>目标资源稀缺，导致要通过优先级确认谁先谁后的问题</p>
 <p><strong>优先级vs权限</strong></p>
 <p>优先级：能得到资源，先后问题</p>
-<p>权限：能否得到资源</p>
-<p><strong>怎么办？</strong></p>
+<p>权限：是否能得到资源</p>
+<p><strong>操作系统内优先级是如何实现的？</strong></p>
 <p>优先级也是一种数字，task_struct中的一种属性</p>
 <p>值越低，优先级越高，反之，优先级越低</p>
 <p>当代大部分操作系统都是基于时间片的分时操作系统，要考虑公平性，优先级可能变化，但是变化幅度不能太大</p>
 <h3 id="642查看系统进程">6.4.2查看系统进程
-</h3><p><code>ps -al | head -1 &amp;&amp; ps -al | grep myprocess</code></p>
+</h3><p><code>ps -l</code></p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251107101007169.png"
+	width="1130"
+	height="152"
+	srcset="/p/linux-process-basic/index.assets/image-20251107101007169_hu_346877ee815b32a3.png 480w, /p/linux-process-basic/index.assets/image-20251107101007169_hu_77510a2def13c0c2.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251107101007169"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="743"
+		data-flex-basis="1784px"
+	
+></p>
+<ul>
+<li>UID：user id</li>
+<li>PRI：代表这个进程可被执行的优先级，其值越小越早被执行</li>
+</ul>
+<ul>
+<li>NI：代表这个进程的nice值</li>
+</ul>
+<p><code>ps -al | head -1 &amp;&amp; ps -al | grep myprocess</code></p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926183023700.png"
 	width="1319"
 	height="163"
@@ -2309,25 +2410,40 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="1942px"
 	
 ></p>
-<p>UID：user id</p>
-<blockquote>
+<p><strong>小知识</strong></p>
 <p>Linux是通过用户id来识别用户的</p>
 <p>文件在创建的时候就写入了UID，即这个文件是谁创建的</p>
 <p>进程在启动的时候也会把UID保存起来，表明这个进程是谁启动的</p>
+<blockquote>
+<p>如何查看用户id？ls -ln</p>
+<p>n表示显示数字</p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251107105743703.png"
+	width="997"
+	height="385"
+	srcset="/p/linux-process-basic/index.assets/image-20251107105743703_hu_84493451e3b743e4.png 480w, /p/linux-process-basic/index.assets/image-20251107105743703_hu_2cc747b6146459b9.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251107105743703"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="621px"
+	
+></p>
 </blockquote>
-<p><strong>小知识</strong></p>
 <p>系统怎么知道我访问文件的时候，是拥有者，所属组，还是other</p>
 <p>当我们 touch ，cat，vim &hellip;访问文件的时候，<span style="color: #8080FF;">本质是进程在访问文件</span></p>
 <p>进程在启动的时候会保存启动它的UID</p>
 <p><strong>Linux系统中，访问任何资源，都是进程访问</strong>，进程就代表用户</p>
-<p>识别权限不是识别用户，是识别进程和文件之间的权限的</p>
+<p>识别权限不是识别用户，是<strong>识别进程和文件之间的权限</strong>的</p>
 <h3 id="643pri和ni">6.4.3PRI和NI
 </h3><p><strong><span style="color: #8080FF;">PRI：进程的优先级，默认：80</span></strong></p>
 <p><strong><span style="color: #8080FF;">NI：进程优先级的修正数据，nice值，默认为0</span></strong></p>
 <blockquote>
 <p>在Linux系统中，我们的进程优先级是可以被动态调整的，不管是进程启动前还是进程运行过程中</p>
 </blockquote>
-<p><strong><span style="color: #8080FF;">进程真实的优先级=PRI(默认) + NI</span></strong></p>
+<p><strong><span style="color: #8080FF;">进程真实的优先级=PRI(默认80) + NI</span></strong></p>
 <p><strong>改进程的优先级，<code>top</code>，再输入 <code>r</code></strong></p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926184346539.png"
 	width="1420"
@@ -2427,14 +2543,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>因为进程调度要考虑公平性</p>
 </blockquote>
 <p>进程优先级设立不合理，会导致优先级低的进程，长时间得不到CPU资源，进而导致：进程饥饿</p>
-<h3 id="644补充概念-竞争独立并行并发">6.4.4补充概念-竞争、独立、并行、并发
+<h3 id="644补充-进程四个特征">6.4.4补充: 进程四个特征
 </h3><ul>
 <li>
 <p>由于CPU资源是有限的，所以各个进程之间是具有<strong>竞争</strong>属性的</p>
 </li>
 <li>
 <p>进程之间具有<strong>独立性</strong></p>
-<p>进程=内核数据结构(task_struct)+代码和数据</p>
+<p><code>进程=内核数据结构(task_struct)+代码和数据</code></p>
 <p>每个进程都有自己独立的 task_struct，每个进程都有自己的代码和数据</p>
 </li>
 <li>
@@ -2487,7 +2603,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>寄存器就是CPU内部的临时空间</p>
 </li>
 <li>
-<p>寄存器！=寄存器里面的数据</p>
+<p>寄存器 != 寄存器里面的数据</p>
 </li>
 </ol>
 <p>​		寄存器是空间，寄存器里面的数据是内容！</p>
@@ -2529,10 +2645,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="545px"
 	
 ></p>
-<p>进程切换，最核心的，就是保存和恢复当前进程的硬件上下文的数据，即CPU内寄存器的内容！</p>
-<p><strong>1.所以：当前进程要把自己的进程硬件上下文数据，保存起来，保存到哪里了呢？</strong></p>
-<p>​	保存到进程的task_struc里面</p>
-<p>​	当代计算机给每个进程一个 TSS：任务状态段，能直接通过task_struct找到TSS</p>
+<p>进程切换，最核心的就是保存和恢复当前进程的硬件上下文的数据，即CPU内寄存器的内容！</p>
+<p><strong>1.当前进程要把自己的进程硬件上下文数据，保存起来。保存到哪里了呢？</strong></p>
+<p>保存到进程的task_struc里面</p>
+<p>当代计算机给每个进程一个 TSS：任务状态段，能直接通过task_struct找到TSS</p>
 <p>​	<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20250926201513761.png"
 	width="1351"
 	height="579"
@@ -2626,12 +2742,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="1116px"
 	
 ></p>
-<h3 id="总结">总结
+<h3 id="总结-1">总结
 </h3><p>在系统当中查找一个最合适调度的进程的时间复杂度是一个常数，不随着进程增多而导致时间成
 本增加，我们称之为进程调度0(1)算法</p>
 <h1 id="二环境变量">二、环境变量
-</h1><h2 id="1-概念介绍">1. 概念介绍
+</h1><h2 id="1-引出环境变量">1. 引出环境变量
 </h2><blockquote>
+<p>环境变量的概念</p>
 <ul>
 <li>
 <p>环境变量一般是指在操作系统中用来<span style="color: #8080FF;">指定操作系统运行环境的一些参数</span> —&gt;bash用—&gt;用户间接用了</p>
@@ -2645,7 +2762,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </blockquote>
 <h3 id="11命令行参数">1.1命令行参数
-</h3><p>main函数是有参数的，argv是一个指针数组，argc代表数组中的元素个数<img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642.png"
+</h3><p>我们自己的可执行程序的入口不是main函数，Linux中的入口函数是start函数</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093.png"
+	width="325"
+	height="390"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093_hu_2c8de60165de0b57.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093_hu_3a3f75471121273c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251008195652093"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="200px"
+	
+></p>
+<p>main函数是有参数的，argv是一个指针数组，argc代表数组中的元素个数</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642.png"
 	width="772"
 	height="410"
 	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642_hu_20e86f95cc7843de.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642_hu_dfe9f61be24e311e.png 1024w"
@@ -2708,8 +2841,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>我们在命令行输入带选项的命令，本质上是字符串，被bash切分</p>
 </blockquote>
 <p>进程拥有一张表，argv表，用来支持实现选项功能</p>
-<h2 id="2-一个例子认识环境变量">2. 一个例子，认识环境变量
-</h2><ul>
+<h3 id="12环境变量与命令查找">1.2环境变量与命令查找
+</h3><ul>
 <li><strong>要执行一个程序，必须先找到它，谁找？bash找，通过PATH(环境变量)找</strong></li>
 <li>执行我们自己写的程序，需要带./ 表示在当前路径下，但是<strong>为什么执行系统指令不需要带<code>./</code>呢？</strong>
 <ul>
@@ -2735,15 +2868,62 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="517px"
 	
 ></p>
-<p><strong>环境变量：名字+内容</strong></p>
-<ul>
-<li><code>env</code>查看系统中所有环境变量</li>
-<li><code>echo $某一个环境变量的名字</code>查看某一个环境变量的内容，例如：echo $PATH</li>
-</ul>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732017140374.png"
+<blockquote>
+<p>我们把自己写的二进制文件拷贝到 /usr/bin 路径下之后，也可以不带路径，直接执行<img src="/p/linux-process-basic/index.assets/image-20251110085644158.png"
+	width="1059"
+	height="149"
+	srcset="/p/linux-process-basic/index.assets/image-20251110085644158_hu_78a1f477004efc8a.png 480w, /p/linux-process-basic/index.assets/image-20251110085644158_hu_921e3fedfc6f66e7.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251110085644158"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="710"
+		data-flex-basis="1705px"
+	
+></p>
+<p>但是不建议这样做，因为我们自己写的二进制文件可能有bug，会污染系统本来的指令池</p>
+<p>移除我们拷贝到/usr/bin路径下的二进制文件：</p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251110090107289.png"
+	width="1015"
+	height="79"
+	srcset="/p/linux-process-basic/index.assets/image-20251110090107289_hu_f52fdf25e0a76d02.png 480w, /p/linux-process-basic/index.assets/image-20251110090107289_hu_ceafc33edff4082c.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251110090107289"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1284"
+		data-flex-basis="3083px"
+	
+></p>
+</blockquote>
+<h2 id="2环境变量初识">2.环境变量初识
+</h2><h3 id="21显示系统中所有环境变量">2.1显示系统中所有环境变量
+</h3><p><code>env</code></p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251110095002756.png"
+	width="1095"
+	height="408"
+	srcset="/p/linux-process-basic/index.assets/image-20251110095002756_hu_68d78c1f2da4652b.png 480w, /p/linux-process-basic/index.assets/image-20251110095002756_hu_9858e267d226c470.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251110095002756"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="268"
+		data-flex-basis="644px"
+	
+></p>
+<h3 id="22查看某一个环境变量的内容">2.2查看某一个环境变量的内容
+</h3><p><code>echo $某一个环境变量的名字</code></p>
+<p>例如查看环境变量PATH的内容：echo $PATH</p>
+<p><img src="/p/linux-process-basic/index.assets/1732017140374.png"
 	width="1489"
 	height="87"
-	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732017140374_hu_a51fb7357063f0b0.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732017140374_hu_fcb909231a3b291.png 1024w"
+	srcset="/p/linux-process-basic/index.assets/1732017140374_hu_a51fb7357063f0b0.png 480w, /p/linux-process-basic/index.assets/1732017140374_hu_fcb909231a3b291.png 1024w"
 	loading="lazy"
 	
 		alt="73201714037"
@@ -2754,9 +2934,40 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="4107px"
 	
 ></p>
-<p>在系统内找到某一个命令/二进制文件，操作系统默认去查PATH环境变量，PATH环境变量找的时候会以冒号作为分隔符，先在第一个路径下找，如果没有找到，就到下一个路径找，如果所有路径都没找到，就报Command not found</p>
-<p>直接覆盖添加环境变量：<code>PATH=路径</code></p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732408110926.png"
+<h3 id="23path环境变量">2.3PATH环境变量
+</h3><p>PATH环境变量里记录了多个路径，这些路径之间以冒号作为分隔符</p>
+<p>当系统在搜索某些命令/二进制文件时，默认会按顺序依次在这些路径下查找：</p>
+<ol>
+<li>先在第一个路径下找，如果找到就执行</li>
+<li>如果没有找到，就到下一个路径找</li>
+<li>如果所有路径都没找到，就报Command not found</li>
+</ol>
+<blockquote>
+<p>比如当我们要执行 ls 命令时，系统默认会去查环境变量PATH，从环境变量PATH中的第一个路径<code>/usr/local/bin</code>下开始找，如果没有找到，就到第二个路径 <code>/usr/bin</code>路径下去找，以此类推，直到遍历完所有路径。如果没有找到，就报 Command not found；如果找到了，就执行该命令</p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251110101617053.png"
+	width="1519"
+	height="125"
+	srcset="/p/linux-process-basic/index.assets/image-20251110101617053_hu_5faa808446f8b8de.png 480w, /p/linux-process-basic/index.assets/image-20251110101617053_hu_92e51d400d0b2fb7.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251110101617053"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1215"
+		data-flex-basis="2916px"
+	
+></p>
+</blockquote>
+<p>所以，如果我们想要<strong>不带路径，直接运行自己写的二进制文件</strong>，就有两种方法了</p>
+<p><strong>方法1：</strong> 将我们的二进制文件拷贝到PATH环境变量里的路径下</p>
+<blockquote>
+<p>比如我们把自己写的二进制文件拷贝到 /usr/bin 路径下之后，可以不带路径，直接执行</p>
+</blockquote>
+<p><strong>方法2：</strong> 把我们自己二进制文件所在的路径添加到环境变量PATH</p>
+<ul>
+<li>
+<p>直接覆盖添加环境变量：<code>PATH=路径</code><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732408110926.png"
 	width="1131"
 	height="123"
 	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732408110926_hu_8c13c58a1afae374.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732408110926_hu_33169d9dc79a126a.png 1024w"
@@ -2770,15 +2981,60 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="2206px"
 	
 ></p>
+<p>这种方式会覆盖原有的PATH，导致系统命令无法使用，不推荐</p>
+</li>
+<li>
 <p>不覆盖添加环境变量：<code>PATH=$PATH:要添加的路径</code></p>
-<p><strong>1.如何理解环境变量呢？存储的角度</strong></p>
-<p>当我们登录的时候，系统就会创建一个bash进程，bash就必须去系统中读取所有环境变量信息，在bash进程内部形成一张表，这张表叫做环境变量表——&gt; 从配置文件拷贝来</p>
-<blockquote>
-<p>bash内部有两张表，命令行参数表和环境变量表</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732016086077.png"
+<p><img src="/p/linux-process-basic/index.assets/image-20251110105122981.png"
+	width="2098"
+	height="346"
+	srcset="/p/linux-process-basic/index.assets/image-20251110105122981_hu_9da64d87c7f18fd9.png 480w, /p/linux-process-basic/index.assets/image-20251110105122981_hu_84bb5df3aff475d6.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251110105122981"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="606"
+		data-flex-basis="1455px"
+	
+></p>
+<p>这种方式会将新路径追加到原PATH末尾，不影响系统原有命令</p>
+</li>
+</ul>
+<p>注意：以上两种方式只是临时生效，关闭终端重新登录后会失效</p>
+<h3 id="24设置一个新的环境变量">2.4设置一个新的环境变量
+</h3><ul>
+<li>export 环境变量名=值</li>
+<li>export 环境变量名</li>
+</ul>
+<p><strong>取消环境变量</strong></p>
+<ul>
+<li>unset 环境变量名</li>
+</ul>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976.png"
+	width="1076"
+	height="156"
+	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976_hu_1b88f9d9faaacd31.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976_hu_ebbc2fec7a69cfa5.png 1024w"
+	loading="lazy"
+	
+		alt="image-20251008193603976"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="689"
+		data-flex-basis="1655px"
+	
+></p>
+<h2 id="2环境变量的理解">2.环境变量的理解
+</h2><h3 id="21如何理解环境变量">2.1如何理解环境变量
+</h3><p><strong>1.如何理解环境变量(存储的角度)？环境变量的值是被bash保存起来的，由bash来执行这些命令</strong></p>
+<p>当我们登录系统时，系统会创建一个bash进程，bash会从配置文件中读取所有环境变量信息，并在其内部构建一张环境变量表</p>
+<p>环境变量表其实就是一个<strong>指针数组</strong>，数组中的每个元素都指向一个<strong>key-value形式的长字符串</strong>，我们使用 <code>env</code> 命令看到的所有环境变量，都存储在这张表中</p>
+<p><img src="/p/linux-process-basic/index.assets/1732016086077.png"
 	width="912"
 	height="396"
-	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732016086077_hu_3981f006f2a8bc99.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732016086077_hu_23025ba66b15beef.png 1024w"
+	srcset="/p/linux-process-basic/index.assets/1732016086077_hu_3981f006f2a8bc99.png 480w, /p/linux-process-basic/index.assets/1732016086077_hu_23025ba66b15beef.png 1024w"
 	loading="lazy"
 	
 		alt="73201608607"
@@ -2789,10 +3045,31 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="552px"
 	
 ></p>
-<p>环境变量就是 key-value的长字符串</p>
+<p><strong>bash进程在运行时，内部维护着两张表：命令行参数表和环境变量表</strong></p>
+<ul>
+<li>环境变量表：启动时从配置文件读取构建，存储所有环境变量（如PATH、HOME等</li>
+<li>命令行参数表：每次执行命令时动态构建，存储当前命令的程序名和参数</li>
+</ul>
+<p><strong>bash执行命令的流程</strong></p>
+<blockquote>
+<p>bash进程在启动时，会从配置文件中读取环境变量信息，并在内部构建环境变量表。</p>
+<p>当用户输入命令（如 ls -a）时</p>
+<ol>
+<li>
+<p>bash首先接收这个字符串，然后按空格将其拆分成程序名和参数，构建出命令行参数表。</p>
+</li>
+<li>
+<p>接下来，bash从环境变量表中取出PATH，按照PATH中的路径顺序依次查找：</p>
+<ol>
+<li>将每个路径与程序名拼接（如 /usr/bin/ls），检查该位置是否存在可执行文件</li>
+<li>如果找到了，bash就使用 fork() 创建子进程来执行该程序，并将命令行参数表传递给子进程</li>
+<li>如果所有路径都查找完还没找到，就报错 Command not found</li>
+</ol>
+</li>
+</ol>
 </blockquote>
-<p><span style="color: #8080FF;">每个程序都会收到1张环境表</span>，环境表是⼀个<span style="color: #8080FF;">字符指针数组</span>，每个指针指向⼀个<span style="color: #8080FF;">以’\0’结尾的环境字符串</span></p>
-<p><strong>2.环境变量，最开始从哪里来的呢？是从系统的相关配置文件中来的</strong></p>
+<h3 id="22环境变量从哪来">2.2环境变量从哪来？
+</h3><p><strong>2.环境变量，最开始从哪里来的呢？是从系统的相关配置文件中来的</strong></p>
 <p>系统给每一个用户的家目录里存在两个隐藏文件，一个是.bash_profile，一个是.bashrc</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002113547303.png"
 	width="1329"
@@ -2828,8 +3105,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <p>如果Linux系统中有10个用户登录，就有10个bash，这10个bash进程都要从对应的配置文件中读到bash自己的上下文里，所以每一个bash都有存在两张表，命令行参数表和环境变量表</p>
-<h2 id="3认识更多的环境变量">3.认识更多的环境变量
-</h2><p>为什么我们输入 cd ~ 就能切换到当前用户的家目录呢？HOME环境变量表示当前用户所对应的家目录</p>
+<h2 id="3常见环境变量">3.常见环境变量
+</h2><p><strong>常见环境变量</strong></p>
+<ul>
+<li>PATH：指定命令的搜索路径</li>
+<li>HOME：指定用户的主工作目录（即用户登陆到Linux系统中时,默认的目录)</li>
+<li>SHELL :当前Shell,它的值通常是/bin/bash</li>
+</ul>
+<p>为什么我们输入 cd ~ 就能切换到当前用户的家目录呢？HOME环境变量表示当前用户所对应的家目录</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002122442600.png"
 	width="775"
 	height="74"
@@ -2867,50 +3150,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <p>为什么我们cd - 的时候可以回到上一次的路径下，原因是OLDPWD记录下来了</p>
 </blockquote>
-<h2 id="4获取环境变量的方法">4.获取环境变量的方法
-</h2><blockquote>
-<p><strong>查所有环境变量</strong></p>
-<p>env</p>
-<p><strong>查看单个环境变量</strong></p>
-<p>echo $环境变量名</p>
-<p><strong>我们自己可以导环境变量</strong></p>
-<p><span style="color: #FF8000;">export 环境变量名=值</span></p>
-<p><span style="color: #FF8000;">export 环境变量名</span></p>
-<p><strong>取消环境变量</strong></p>
-<p><span style="color: #8080FF;">unset 环境变量名</span></p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976.png"
-	width="1076"
-	height="156"
-	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976_hu_1b88f9d9faaacd31.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976_hu_ebbc2fec7a69cfa5.png 1024w"
-	loading="lazy"
-	
-		alt="image-20251008193603976"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="689"
-		data-flex-basis="1655px"
-	
-></p>
-</blockquote>
-<blockquote>
-<p>我们自己的可执行程序的入口不是main函数，Linux中的入口函数是start函数</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093.png"
-	width="325"
-	height="390"
-	srcset="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093_hu_2c8de60165de0b57.png 480w, /p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093_hu_3a3f75471121273c.png 1024w"
-	loading="lazy"
-	
-		alt="image-20251008195652093"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="83"
-		data-flex-basis="200px"
-	
-></p>
-</blockquote>
-<h4 id="方式1获取环境变量">方式1：获取环境变量
+<h2 id="4获取环境变量">4.获取环境变量
+</h2><h4 id="方式1获取环境变量">方式1：获取环境变量
 </h4><p>获取的是父进程（bash）的</p>
 <p><strong>环境变量可以被子进程继承</strong></p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732019967875.png"
@@ -3124,34 +3365,33 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">environ</span><span class="p">;</span>  
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">//main有参数吗？有
-</span></span></span><span class="line"><span class="cl"><span class="c1">//最多可以有几个？3个
-</span></span></span><span class="line"><span class="cl"><span class="c1">//是父进程传递给我们的
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argc</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argv</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="err">θ</span><span class="p">;</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;env[%d]-&gt; %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span> <span class="n">i</span><span class="p">,</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"> <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span> <span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span> <span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span> <span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span> 
+</span></span><span class="line"><span class="cl"> <span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">environ</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"> <span class="c1">//main有参数吗？有
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">//最多可以有几个？3个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">//是父进程传递给我们的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">     <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="err">θ</span><span class="p">;</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;env[%d]-&gt; %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span> <span class="n">i</span><span class="p">,</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="5理解环境变量的特性">5.理解环境变量的特性
-</h2><h3 id="51-环境变量具有全局特性">5.1 环境变量具有全局特性
-</h3><h3 id="52-补充两个概念">5.2 补充两个概念
-</h3><p><strong>a.本地变量</strong></p>
+</div><h2 id="5本地变量与环境变量">5.本地变量与环境变量
+</h2><p><strong>环境变量具有全局特性</strong></p>
+<p><strong>本地变量</strong></p>
 <p>在命令行定义<strong>本地</strong>变量</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021018651.png"
 	width="672"
@@ -3170,7 +3410,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <p>取消本地变量也是 unset 变量名</p>
 </blockquote>
-<p>查看本地变量：<code>set</code>，set会显示环境变量和本地变量</p>
+<p>显示本地定义的shell变量和环境变量：<code>set</code></p>
 <p>bash会记录两套变量：1.环境变量 2.本地变量</p>
 <ul>
 <li>本地变量不会被子进程继承，只在bash内部被使用</li>
@@ -3189,7 +3429,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="840px"
 	
 ></p>
-<p><strong>b.我们的环境变量在谁里面？bash</strong></p>
+<p><strong>我们的环境变量在谁里面？bash</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3589,6 +3829,30 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
+    <a href="/p/abnormal/">
+        
+        
+            <div class="article-image">
+                <img src="/p/abnormal/11.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;进阶】05AVL树实现"
+                        data-key="abnormal" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;进阶】05AVL树实现</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/map-and-set/">
         
         
@@ -3606,30 +3870,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【C&#43;&#43;进阶】04map和set的使用</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/start-c-/">
-        
-        
-            <div class="article-image">
-                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
-                        data-key="start-c&#43;&#43;" 
-                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
         </div>
     </a>
 </article>

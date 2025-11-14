@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/abnormal/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='异常' /><meta property='article:published_time' content='2025-11-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-10T09:51:47&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='异常' /><meta property='article:published_time' content='2025-11-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-14T11:49:09&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' />
 <meta name="twitter:title" content="【C++进阶】12异常">
 <meta name="twitter:description" content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -357,6 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </ul>
     </li>
     <li><a href="#2标准库的异常">2.标准库的异常</a></li>
+    <li><a href="#3注意">3.注意</a></li>
   </ul>
 </nav>
         </div>
@@ -459,11 +460,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-10</time>
+                <time class="article-time--updated">2025-11-14</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">4465 字
+                <span class="article-time--wordcount">4789 字
                 </span>
             </div>
         
@@ -985,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </h2><p>有时catch到一个异常对象后，需要对错误进行分类，其中的某种异常错误需要进行特殊的处理，其他错误则重新抛出异常给外层调用链处理。</p>
 <p>捕获异常后需要重新抛出，直接<code>throw;</code>就可以把捕获的对象直接抛出</p>
 <blockquote>
-<p>throw; 就是捕获到什么就抛出什么</p>
+<p><code>throw; </code>就是捕获到什么就抛出什么</p>
 </blockquote>
 <p><strong>例子1：</strong></p>
 <p>模拟发送消息的时候，可能因为网络的原因，发送失败，但是要求再尝试3次，如果3次后还是失败，就抛出异常</p>
@@ -1684,6 +1685,49 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>invalid_argument：有非法参数时可能会抛出的异常</p>
 <p>bad_cast：类型转换失败时可能会抛出的异常</p>
 </blockquote>
+<h1 id="3注意">3.注意
+</h1><ul>
+<li>异常是程序可能会有安全隐患，异常一旦发生，程序就是非法情况</li>
+<li>C++语言的异常处理机制通过3个保留字throw、try和catch实现</li>
+<li><strong>throw抛出的是某种类型的异常，捕获时要按照类型进行捕获</strong></li>
+<li><strong>只要程序中有异常存在，就必须要处理</strong></li>
+<li>有时捕获异常并不是为了处理异常，而是要做一些其他事情，做完后需要将异常重新抛出，交给该异常的处理位置去处理</li>
+<li>对于有可能会抛出异常的代码，都应该放在try中尝试进行捕获，只有放在try中，throw语句抛出的异常  才可能会捕获到</li>
+</ul>
+<p>如何捕获异常可以使得下面的代码通过编译？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">A</span><span class="p">(){}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">A</span><span class="p">;</span> <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>异常是按照类型来捕获的，throw后抛出的是A*类型的异常，因此要按照指针方式进行捕获：catch (A * x)</p>
 
 </section>
 
@@ -1714,6 +1758,30 @@ document.addEventListener('DOMContentLoaded', function() {
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/c-11/">
+        
+        
+            <div class="article-image">
+                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_3c313d6fab93eb2b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】11C&#43;&#43;11"
+                        data-key="c&#43;&#43;11" 
+                        data-hash="md5-8uwHpbiICzgWVh&#43;gprphgA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】11C&#43;&#43;11</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="has-image">
@@ -1806,30 +1874,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【C&#43;&#43;进阶】03二叉搜索树</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/avl/">
-        
-        
-            <div class="article-image">
-                <img src="/p/avl/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E7%BE%8E%E5%A5%B3-%E5%8A%A8%E6%BC%AB.a509418f2101ec0f85d18f0b65e36377_hu_943d64d8b0f6188e.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】05AVL树实现"
-                        data-key="avl" 
-                        data-hash="md5-pQlBjyEB7A&#43;F0Y8LZeNjdw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;进阶】05AVL树实现</h2>
         </div>
     </a>
 </article>

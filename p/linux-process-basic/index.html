@@ -10,7 +10,7 @@
 <meta property='og:description' content="理解进程、环境变量与地址空间">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-10T09:51:47&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-14T11:49:09&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux】03进程的概念">
 <meta name="twitter:description" content="理解进程、环境变量与地址空间"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#12环境变量与命令查找">1.2环境变量与命令查找</a></li>
           </ul>
         </li>
-        <li><a href="#2环境变量初识">2.环境变量初识</a>
+        <li><a href="#2查看新增环境变量">2.查看、新增环境变量</a>
           <ul>
             <li><a href="#21显示系统中所有环境变量">2.1显示系统中所有环境变量</a></li>
             <li><a href="#22查看某一个环境变量的内容">2.2查看某一个环境变量的内容</a></li>
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <ul>
             <li>
               <ul>
-                <li><a href="#方式1获取环境变量">方式1：获取环境变量</a></li>
+                <li><a href="#方法1main函数参数">方法1：main函数参数</a></li>
                 <li><a href="#方法2getenv">方法2：getenv</a></li>
                 <li><a href="#方法3environ">方法3：environ</a></li>
               </ul>
@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </ul>
         </li>
         <li><a href="#5本地变量与环境变量">5.本地变量与环境变量</a></li>
-        <li><a href="#6-程序地址空间初识">6. 程序地址空间初识</a></li>
+        <li><a href="#6-进程地址空间初识">6. 进程地址空间初识</a></li>
       </ul>
     </li>
     <li><a href="#三进程地址空间">三、进程地址空间</a>
@@ -576,11 +576,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-10</time>
+                <time class="article-time--updated">2025-11-14</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">15256 字
+                <span class="article-time--wordcount">15804 字
                 </span>
             </div>
         
@@ -1598,7 +1598,8 @@ document.addEventListener('DOMContentLoaded', function() {
 ></p>
 </li>
 <li>
-<p><strong>为什么一个变量，既==0，又大于0？导致if else 同时成立</strong>? 写时拷贝</p>
+<p><strong>为什么一个变量，既==0，又大于0？导致if else 同时成立</strong>?</p>
+<p>子进程修改变量时，会重新开一块空间。父子进程访问同一个变量时，拿的都是虚拟地址，但底层映射到了不同的物理地址</p>
 </li>
 </ol>
 <p><strong>进程具有独立性</strong></p>
@@ -2751,7 +2752,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>环境变量的概念</p>
 <ul>
 <li>
-<p>环境变量一般是指在操作系统中用来<span style="color: #8080FF;">指定操作系统运行环境的一些参数</span> —&gt;bash用—&gt;用户间接用了</p>
+<p>环境变量一般是指在操作系统中用来<span style="color: #8080FF;">指定操作系统运行环境的一些参数</span></p>
+<blockquote>
+<p>这些参数未来被bash用，bash用了就是用户间接用了</p>
+</blockquote>
 </li>
 <li>
 <p>如：我们在编写C/C++代码的时候，在链接的时候，从来不知道我们的所链接的动态静态库在哪里，但是照样可以链接成功，生成可执行程序，原因就是有相关环境变量帮助编译器进行查找。</p>
@@ -2762,22 +2766,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </blockquote>
 <h3 id="11命令行参数">1.1命令行参数
-</h3><p>我们自己的可执行程序的入口不是main函数，Linux中的入口函数是start函数</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093.png"
-	width="325"
-	height="390"
-	
-	loading="lazy"
-	
-		alt="image-20251008195652093"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="83"
-		data-flex-basis="200px"
-	
-></p>
-<p>main函数是有参数的，argv是一个指针数组，argc代表数组中的元素个数</p>
+</h3><p>main函数是有参数的，argv是一个指针数组，argc代表数组中的元素个数</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642.png"
 	width="772"
 	height="410"
@@ -2844,13 +2833,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <h3 id="12环境变量与命令查找">1.2环境变量与命令查找
 </h3><ul>
 <li><strong>要执行一个程序，必须先找到它，谁找？bash找，通过PATH(环境变量)找</strong></li>
-<li>执行我们自己写的程序，需要带./ 表示在当前路径下，但是<strong>为什么执行系统指令不需要带<code>./</code>呢？</strong>
+<li>执行我们自己写的程序，需要带./ 表示在当前路径下，但是为什么执行系统指令不需要带<code>./</code>呢？
 <ul>
-<li><span style="color: #8080FF;">系统中存在环境变量，来帮助系统找到目标二进制文件</span>
-<ul>
-<li>系统中存在环境变量PATH，告诉系统去哪查目标二进制文件</li>
-</ul>
-</li>
+<li>系统中存在环境变量<code>PATH</code>，来帮助系统找到目标二进制文件</li>
 </ul>
 </li>
 </ul>
@@ -2859,8 +2844,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	height="536"
 	
 	loading="lazy"
-	
-		alt="image-20251002110747633"
 	
 	
 		class="gallery-image" 
@@ -2900,7 +2883,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 </blockquote>
-<h2 id="2环境变量初识">2.环境变量初识
+<h2 id="2查看新增环境变量">2.查看、新增环境变量
 </h2><h3 id="21显示系统中所有环境变量">2.1显示系统中所有环境变量
 </h3><p><code>env</code></p>
 <p><img src="/p/linux-process-basic/index.assets/image-20251110095002756.png"
@@ -3002,15 +2985,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>这种方式会将新路径追加到原PATH末尾，不影响系统原有命令</p>
 </li>
 </ul>
-<p>注意：以上两种方式只是临时生效，关闭终端重新登录后会失效</p>
+<p>注意：以上两种方式只是临时生效，关闭终端重新登录后会失效。</p>
 <h3 id="24设置一个新的环境变量">2.4设置一个新的环境变量
-</h3><ul>
-<li>export 环境变量名=值</li>
-<li>export 环境变量名</li>
-</ul>
-<p><strong>取消环境变量</strong></p>
+</h3><p>设置一个新的环境变量</p>
 <ul>
-<li>unset 环境变量名</li>
+<li><strong>export 环境变量名=值</strong></li>
+<li><strong>export 环境变量名</strong></li>
+</ul>
+<p>取消一个环境变量</p>
+<ul>
+<li><strong>unset 环境变量名</strong></li>
 </ul>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976.png"
 	width="1076"
@@ -3028,7 +3012,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ></p>
 <h2 id="2环境变量的理解">2.环境变量的理解
 </h2><h3 id="21如何理解环境变量">2.1如何理解环境变量
-</h3><p><strong>1.如何理解环境变量(存储的角度)？环境变量的值是被bash保存起来的，由bash来执行这些命令</strong></p>
+</h3><p><strong>如何理解环境变量(存储的角度)？环境变量的值是被bash保存起来的，由bash来执行这些命令</strong></p>
 <p>当我们登录系统时，系统会创建一个bash进程，bash会从配置文件中读取所有环境变量信息，并在其内部构建一张环境变量表</p>
 <p>环境变量表其实就是一个<strong>指针数组</strong>，数组中的每个元素都指向一个<strong>key-value形式的长字符串</strong>，我们使用 <code>env</code> 命令看到的所有环境变量，都存储在这张表中</p>
 <p><img src="/p/linux-process-basic/index.assets/1732016086077.png"
@@ -3069,7 +3053,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ol>
 </blockquote>
 <h3 id="22环境变量从哪来">2.2环境变量从哪来？
-</h3><p><strong>2.环境变量，最开始从哪里来的呢？是从系统的相关配置文件中来的</strong></p>
+</h3><p><strong>环境变量最开始从哪里来的呢？是从系统的相关配置文件中来的</strong></p>
 <p>系统给每一个用户的家目录里存在两个隐藏文件，一个是.bash_profile，一个是.bashrc</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002113547303.png"
 	width="1329"
@@ -3088,89 +3072,130 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <p>.bash_profile要求用户去加载.bashrc，而.bashrc 会要求用户去加载 /etc/bashrc</p>
 </blockquote>
-<p>系统登录，bash拷贝配置文件，形成一张表</p>
-<p>我们把自己的路径加到配置文件中，那么登录时默认使用配置文件</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002115957665.png"
-	width="901"
-	height="280"
+<p>当我们登录系统时，系统会创建一个bash进程，bash会从配置文件（.bashrc 和 .bash_profile）中读取所有环境变量信息，并在其内部构建一张环境变量表。</p>
+<p>如果我们把自己二进制文件的路径添加到配置文件中，那么每次登录，我们的二进制文件都可以直接运行，这样就永久有效了</p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251110182338580.png"
+	width="1253"
+	height="544"
 	
 	loading="lazy"
 	
-		alt="image-20251002115957665"
+		alt="image-20251110182338580"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="321"
-		data-flex-basis="772px"
+		data-flex-grow="230"
+		data-flex-basis="552px"
 	
 ></p>
 <p>如果Linux系统中有10个用户登录，就有10个bash，这10个bash进程都要从对应的配置文件中读到bash自己的上下文里，所以每一个bash都有存在两张表，命令行参数表和环境变量表</p>
 <h2 id="3常见环境变量">3.常见环境变量
-</h2><p><strong>常见环境变量</strong></p>
+</h2><p><img src="/p/linux-process-basic/index.assets/image-20251110191545964.png"
+	width="1239"
+	height="1219"
+	
+	loading="lazy"
+	
+		alt="image-20251110191545964"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="243px"
+	
+></p>
 <ul>
-<li>PATH：指定命令的搜索路径</li>
-<li>HOME：指定用户的主工作目录（即用户登陆到Linux系统中时,默认的目录)</li>
-<li>SHELL :当前Shell,它的值通常是/bin/bash</li>
+<li>
+<p><strong><code>HOME</code> 环境变量表示当前用户所对应的家目录</strong></p>
+<blockquote>
+<p>这就是为什么我们输入 <code>cd ~</code> 就能切换到当前用户的家目录的原因</p>
+</blockquote>
+</li>
+<li>
+<p><strong><code>SHELL</code> 环境变量表示用户在登录时用的是哪一个版本的shell，它的值通常是/bin/bash</strong></p>
+</li>
+<li>
+<p><strong><code>LOGNAME</code> 环境变量表示当前登录用户是谁</strong></p>
+<blockquote>
+<p>这就是为什么我们输入 <code>whoami</code> 就能知道正在登录的用户是谁的原因</p>
+</blockquote>
+</li>
+<li>
+<p><strong><code>USER</code> 环境变量表示当前用户是谁</strong></p>
+<p><code>su</code> 切换用户，不会改变 LOGNAME 和 USER 的值</p>
+<p><code>su 用户名</code> 切换成普通用户，会改变 LOGNAME 和 USER 的值，切换成root不会改</p>
+<p><code>su -</code>  才能让LOGNAME 和 USER 的值 改成root，<code>su -</code>是让root用户重新登录</p>
+</li>
+<li>
+<p><strong>Linux会记录最新的 <code>HISTSIZE</code> 条历史命令</strong></p>
+<blockquote>
+<p>这就是为什么我们<code>ctrl+r</code>可以查到历史输入的命令的原因</p>
+</blockquote>
+</li>
+<li>
+<p><strong><code>PWD</code>记录当前的工作路径</strong></p>
+</li>
+<li>
+<p><strong><code>OLDPWD</code> 环境变量记录了上一次的路径</strong></p>
+<blockquote>
+<p>这就是为什么我们<code>cd -</code> 的时候可以回到上一次的路径下的原因</p>
+</blockquote>
+</li>
+<li>
+<p><strong><code>HOSTNAME</code>环境变量表示当前主机的主机名</strong></p>
+</li>
+<li>
+<p><strong><code>SSH_CONNECTION</code>表示当前是从哪个客户端登录的</strong></p>
+</li>
+<li>
+<p><strong><code>SSH_TTY</code>表示当前是哪一个设备</strong></p>
+</li>
 </ul>
-<p>为什么我们输入 cd ~ 就能切换到当前用户的家目录呢？HOME环境变量表示当前用户所对应的家目录</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002122442600.png"
-	width="775"
-	height="74"
-	
-	loading="lazy"
-	
-		alt="image-20251002122442600"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1047"
-		data-flex-basis="2513px"
-	
-></p>
-<p>echo $SHELL 表示用户在登录时用的是哪一个版本的shell</p>
-<p>echo $USER</p>
-<blockquote>
-<p>user</p>
-<p>logname</p>
-</blockquote>
-<p>echo $HISTSIZE</p>
-<blockquote>
-<p>Linux只会记录最新的HISTSIZE条历史命令</p>
-<p>ctrl+r历史命令搜索</p>
-</blockquote>
-<p>echo $HOSTNAME</p>
-<blockquote>
-<p>HOSTNAME主机名</p>
-</blockquote>
-<p>echo $PWD</p>
-<blockquote>
-<p>PWD记录当前的工作路径</p>
-</blockquote>
-<p>echo $OLDPWD</p>
-<blockquote>
-<p>为什么我们cd - 的时候可以回到上一次的路径下，原因是OLDPWD记录下来了</p>
-</blockquote>
 <h2 id="4获取环境变量">4.获取环境变量
-</h2><h4 id="方式1获取环境变量">方式1：获取环境变量
-</h4><p>获取的是父进程（bash）的</p>
-<p><strong>环境变量可以被子进程继承</strong></p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732019967875.png"
-	width="1588"
-	height="372"
+</h2><h4 id="方法1main函数参数">方法1：main函数参数
+</h4><p><strong>main函数最多有3个参数，命令行参数表argv和环境变量表env都是父进程传递给我们的</strong></p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251110194012735.png"
+	width="975"
+	height="675"
 	
 	loading="lazy"
 	
-		alt="73201996787"
+		alt="image-20251110194012735"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="426"
-		data-flex-basis="1024px"
+		data-flex-grow="144"
+		data-flex-basis="346px"
 	
 ></p>
-<p>环境变量在系统中通常具有全局特性</p>
+<blockquote>
+<p>我们自己的可执行程序的入口不是main函数，Linux中的入口函数是start函数</p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093.png"
+	width="325"
+	height="390"
+	
+	loading="lazy"
+	
+		alt="image-20251008195652093"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="200px"
+	
+></p>
+</blockquote>
+<p>我们自己export设置的环境变量是可以被子进程拿到的——&gt;</p>
+<ul>
+<li>
+<p><strong>环境变量可以被子进程继承</strong></p>
+</li>
+<li>
+<p><strong>环境变量在系统中通常具有全局特性</strong></p>
+</li>
+</ul>
 <h4 id="方法2getenv">方法2(推荐)：getenv
-</h4><p>getenv 会根据环境变量的名字获取环境变量的内容</p>
+</h4><p><code>getenv</code> 会根据环境变量的名字获取环境变量的内容</p>
 <p>如果获取成功了，就返回环境变量内容字符串的起始地址，否则就返回NULL</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732020219265.png"
 	width="1376"
@@ -3186,6 +3211,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="493px"
 	
 ></p>
+<p><strong>例子1：通过getenv获取环境变量PATH里的内容</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3206,17 +3232,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">16
 </span><span class="lnt">17
 </span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">//main有参数吗？有
-</span></span></span><span class="line"><span class="cl"><span class="c1">//最多可以有几个？3个
-</span></span></span><span class="line"><span class="cl"><span class="c1">//是父进程传递给我们的
+</span></span><span class="line"><span class="cl"><span class="c1">//main最多可以有3个参数，是父进程传递给我们的
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span><span class="o">*</span> <span class="n">env</span><span class="p">[])</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argc</span><span class="p">;</span>
@@ -3232,22 +3254,24 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008201342503.png"
-	width="1615"
-	height="76"
+</div><p><img src="/p/linux-process-basic/index.assets/image-20251110195536569.png"
+	width="1453"
+	height="119"
 	
 	loading="lazy"
 	
-		alt="image-20251008201342503"
+		alt="image-20251110195536569"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="2125"
-		data-flex-basis="5100px"
+		data-flex-grow="1221"
+		data-flex-basis="2930px"
 	
 ></p>
-<p>如果我们想写一个程序，只有我自己可以用</p>
+<p><strong>例子2：写一个程序，只有我自己可以用</strong></p>
+<blockquote>
 <p>整个系统中，只有bash知道登录用户是谁</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3309,7 +3333,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="方法3environ">方法3：environ
-</h4><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008210301372.png"
+</h4><p>全局变量 environ</p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251110200508365.png"
+	width="1249"
+	height="386"
+	
+	loading="lazy"
+	
+		alt="image-20251110200508365"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="323"
+		data-flex-basis="776px"
+	
+></p>
+<p>为什么environ的类型是char**的？因为环境变量表是 char* []类型的</p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251008210301372.png"
 	width="984"
 	height="261"
 	
@@ -3323,22 +3363,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="904px"
 	
 ></p>
-<p>全局变量 environ</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="kt">char</span> <span class="o">**</span><span class="n">environ</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><blockquote>
-<p>环境变量表是 char* []类型的</p>
-</blockquote>
+<p>例子：使用environ查看环境变量</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3360,9 +3385,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">17
 </span><span class="lnt">18
 </span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"> <span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -3372,10 +3394,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span> 
 </span></span><span class="line"><span class="cl"> <span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">environ</span><span class="p">;</span>  
 </span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl"> <span class="c1">//main有参数吗？有
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">//最多可以有几个？3个
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="c1">//是父进程传递给我们的
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"> <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
 </span></span><span class="line"><span class="cl"> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argc</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">argv</span><span class="p">;</span>
@@ -3392,7 +3411,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><h2 id="5本地变量与环境变量">5.本地变量与环境变量
 </h2><p><strong>环境变量具有全局特性</strong></p>
 <p><strong>本地变量</strong></p>
-<p>在命令行定义<strong>本地</strong>变量</p>
+<p>在命令行定义本地变量</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021018651.png"
 	width="672"
 	height="110"
@@ -3410,40 +3429,57 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <p>取消本地变量也是 unset 变量名</p>
 </blockquote>
-<p>显示本地定义的shell变量和环境变量：<code>set</code></p>
-<p>bash会记录两套变量：1.环境变量 2.本地变量</p>
 <ul>
-<li>本地变量不会被子进程继承，只在bash内部被使用</li>
+<li>
+<p>显示本地定义的shell变量和环境变量：<code>set</code></p>
+</li>
+<li>
+<p><strong>bash会记录两套变量：1.环境变量 2.本地变量</strong></p>
+</li>
 </ul>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021267124.png"
-	width="967"
-	height="276"
+<ul>
+<li><strong>本地变量不会被子进程继承，只在bash内部被使用</strong></li>
+</ul>
+<p><img src="/p/linux-process-basic/index.assets/image-20251112143458089.png"
+	width="1534"
+	height="449"
 	
 	loading="lazy"
 	
-		alt="73202126712"
+		alt="image-20251112143458089"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="350"
-		data-flex-basis="840px"
+		data-flex-grow="341"
+		data-flex-basis="819px"
 	
 ></p>
+<blockquote>
+<p>为什么要有本地变量？bash内部自己要用</p>
+<p>比如bash要记录下命令行提示符的格式</p>
+<p><img src="/p/linux-process-basic/index.assets/image-20251112143753496.png"
+	width="317"
+	height="113"
+	
+	loading="lazy"
+	
+		alt="image-20251112143753496"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="280"
+		data-flex-basis="673px"
+	
+></p>
+</blockquote>
 <p><strong>我们的环境变量在谁里面？bash</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">export</span> <span class="n">i</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>像export这种命令，我们叫做 <code>内建命令</code>，内建命令在执行时不需要创建子进程，而是bash自己亲自执行</p>
+<p>像export这种命令，我们叫做 <code>内建命令</code>，内建命令在执行时不需要创建子进程，而是bash自己亲自执行</p>
 <blockquote>
 <p>bash自己调函数，或者系统调用完成</p>
 </blockquote>
-<h2 id="6-程序地址空间初识">6. 程序地址空间初识
-</h2><p>代码是只读的，string常量也是只读的 <img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012162604220.png"
+<h2 id="6-进程地址空间初识">6. 进程地址空间初识
+</h2><p><strong>程序地址空间</strong></p>
+<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012162604220.png"
 	width="2236"
 	height="787"
 	
@@ -3457,9 +3493,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="681px"
 	
 ></p>
-<p><span style="color: #FF8000;">程序地址空间不是内存</span></p>
-<p><span style="color: #8080FF;">进程地址空间（虚拟地址空间）</span>，是一个系统概念，不是语言层的概念</p>
-<p>子进程和父进程都会读取全局变量，但是只有子进程修改了这个变量，子进程修改了这个变量，父进程能看到吗</p>
+<blockquote>
+<p>我们平时定义的字符串其实是被硬编码到代码的。因为代码是只读的，所以string常量也是只读的</p>
+</blockquote>
+<p>程序地址空间不是内存。</p>
+<p>程序地址空间应该叫进程地址空间（虚拟地址空间），是一个系统概念，不是语言层的概念</p>
+<p><strong>虚拟地址</strong></p>
+<p>子进程和父进程都会读取全局变量，但是只有子进程修改了这个变量，子进程修改了这个变量，父进程能看到吗？</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3528,7 +3568,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="515px"
 	
 ></p>
-<p>C/C++指针用到的地址，全部都是虚拟地址</p>
+<p>父子进程中全局变量gval的地址一样，但是父子进程读出的值不同！</p>
+<blockquote>
+<ul>
+<li>父子进程输出的变量不是同一个变量</li>
+<li>该地址不是物理地址</li>
+<li>在Linux地址下，这种地址叫做 虚拟地址</li>
+</ul>
+</blockquote>
+<p><strong>C/C++指针用到的地址，全部都是虚拟地址</strong></p>
 <h1 id="三进程地址空间">三、进程地址空间
 </h1><h2 id="1引入新概念">1.引入新概念
 </h2><p>虚拟地址空间不是物理内存</p>
@@ -3572,8 +3620,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="583px"
 	
 ></p>
-<p>一个进程，一套页表 ——&gt;子进程也有自己的虚拟地址空间和页表</p>
-<p>子进程的task_struct是拷贝的父进程的，虚拟地址空间、页表也是拷贝的父进程的</p>
+<p>一个进程，一套页表  =&gt; 子进程也有自己的虚拟地址空间和页表</p>
+<p>子进程的task_struct是拷贝的父进程的，虚拟地址空间、页表也是拷贝的父进程的（浅拷贝）</p>
+<blockquote>
+<p>父子进程默认代码共享，数据共享</p>
+</blockquote>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012174051549.png"
 	width="1116"
 	height="703"
@@ -3590,6 +3641,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ></p>
 <p><strong>子进程对变量要进行修改？写时拷贝</strong></p>
 <p>进程具有独立性，子进程会重新给这个变量开辟一块空间，并修改虚拟地址和物理地址的映射</p>
+<p>父子进程访问同一个变量时，拿的都是虚拟地址，但底层映射到了不同的物理地址</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012182658120.png"
 	width="1897"
 	height="751"
@@ -3829,23 +3881,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
-    <a href="/p/abnormal/">
+    <a href="/p/coze/">
         
         
             <div class="article-image">
-                <img src="/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.2e0edf8a3459053f94729b109ccbe96d_hu_60fa17c9e4c55ae7.png" 
+                <img src="/p/coze/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】12异常"
-                        data-key="abnormal" 
-                        data-hash="md5-Lg7fijRZBT&#43;UcpsQnMvpbQ==">
+                        alt="Featured image of post 【AI】AI智能体开发平台-coze"
+                        data-key="coze" 
+                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;进阶】12异常</h2>
+            <h2 class="article-title">【AI】AI智能体开发平台-coze</h2>
         </div>
     </a>
 </article>
@@ -3853,23 +3905,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
-    <a href="/p/map-and-set/">
+    <a href="/p/c-11/">
         
         
             <div class="article-image">
-                <img src="/p/map-and-set/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8-%E5%8A%A8%E6%BC%AB%E5%A4%A9%E7%A9%BA.61389300f7e50cd4ca6d67c3c1ccedd2_hu_1eb3df9e72359bb6.png" 
+                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_3c313d6fab93eb2b.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】04map和set的使用"
-                        data-key="map-and-set" 
-                        data-hash="md5-YTiTAPflDNTKbWfDwczt0g==">
+                        alt="Featured image of post 【C&#43;&#43;初阶】11C&#43;&#43;11"
+                        data-key="c&#43;&#43;11" 
+                        data-hash="md5-8uwHpbiICzgWVh&#43;gprphgA==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;进阶】04map和set的使用</h2>
+            <h2 class="article-title">【C&#43;&#43;初阶】11C&#43;&#43;11</h2>
         </div>
     </a>
 </article>

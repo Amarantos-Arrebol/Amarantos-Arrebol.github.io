@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Mon, 10 Nov 2025 09:51:47 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/linux%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 14 Nov 2025 11:49:09 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/linux%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【Linux】01初始Linux&#43;基础指令</title>
         <link>https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -6738,8 +6738,51 @@
 &lt;li&gt;D选项错误，进程本质上来说没有名字，它有所调度管理运行的程序的名称，它的标识是进程ID，可以理解进程ID是它的名字&lt;/li&gt;
 &lt;li&gt;因此只有B选项正确，&lt;strong&gt;在系统角度看来，进程就是对于程序运行的描述，就是PCB进程控制块&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;06孤儿进程的理解等&#34;&gt;06孤儿进程的理解等
-&lt;/h2&gt;</description>
+&lt;h2 id=&#34;06孤儿进程环境变量&#34;&gt;06孤儿进程、环境变量
+&lt;/h2&gt;&lt;h3 id=&#34;题&#34;&gt;题
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-exercises/index.assets/image-20251110201252870.png&#34;
+	width=&#34;454&#34;
+	height=&#34;405&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251110201252870&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;269px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;==A==&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;~/.bash_profile：用户级的环境配置文件，每个用户目录下都会具有各自的，在用户每次登录系统时被读取，里面所有命令都会被shell执行。包括环境变量的配置命令，因此A正确&lt;/li&gt;
+&lt;li&gt;~/.bash 以及 ~/bash 在linux的用户目录中默认是没有这两个文件的，因此也就不清楚其作用了，因此B和D都是错误的&lt;/li&gt;
+&lt;li&gt;/etc/progile.d 这是个目录或者说文件夹，其中包含了系统级的环境配置文件，任意用户登录时都会执行这个目录下的环境配置文件完成环境配置，但是要注意这个是目录并不是保存环境变量配置的配置文件，因此D错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;题-1&#34;&gt;题
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-exercises/index.assets/image-20251110201213981.png&#34;
+	width=&#34;459&#34;
+	height=&#34;402&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251110201213981&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;114&#34;
+		data-flex-basis=&#34;274px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;==ABC==&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;echo 用于输出打印一个变量的内容，包括环境变量&lt;/li&gt;
+&lt;li&gt;env 用于打印所有环境变量信息&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;set 用于输出打印所有环境配置以及变量信息，不限于环境变量&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;export用于设置环境变量&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         
     </channel>

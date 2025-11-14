@@ -7072,7 +7072,8 @@
 &gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;为什么一个变量，既==0，又大于0？导致if else 同时成立&lt;/strong&gt;? 写时拷贝&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为什么一个变量，既==0，又大于0？导致if else 同时成立&lt;/strong&gt;?&lt;/p&gt;
+&lt;p&gt;子进程修改变量时，会重新开一块空间。父子进程访问同一个变量时，拿的都是虚拟地址，但底层映射到了不同的物理地址&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;strong&gt;进程具有独立性&lt;/strong&gt;&lt;/p&gt;
@@ -8225,7 +8226,10 @@
 &lt;p&gt;环境变量的概念&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;环境变量一般是指在操作系统中用来&lt;span style=&#34;color: #8080FF;&#34;&gt;指定操作系统运行环境的一些参数&lt;/span&gt; —&amp;gt;bash用—&amp;gt;用户间接用了&lt;/p&gt;
+&lt;p&gt;环境变量一般是指在操作系统中用来&lt;span style=&#34;color: #8080FF;&#34;&gt;指定操作系统运行环境的一些参数&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这些参数未来被bash用，bash用了就是用户间接用了&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;如：我们在编写C/C++代码的时候，在链接的时候，从来不知道我们的所链接的动态静态库在哪里，但是照样可以链接成功，生成可执行程序，原因就是有相关环境变量帮助编译器进行查找。&lt;/p&gt;
@@ -8236,22 +8240,7 @@
 &lt;/ul&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;11命令行参数&#34;&gt;1.1命令行参数
-&lt;/h3&gt;&lt;p&gt;我们自己的可执行程序的入口不是main函数，Linux中的入口函数是start函数&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093.png&#34;
-	width=&#34;325&#34;
-	height=&#34;390&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251008195652093&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;83&#34;
-		data-flex-basis=&#34;200px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;main函数是有参数的，argv是一个指针数组，argc代表数组中的元素个数&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;main函数是有参数的，argv是一个指针数组，argc代表数组中的元素个数&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002103755642.png&#34;
 	width=&#34;772&#34;
 	height=&#34;410&#34;
@@ -8318,13 +8307,9 @@
 &lt;h3 id=&#34;12环境变量与命令查找&#34;&gt;1.2环境变量与命令查找
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;要执行一个程序，必须先找到它，谁找？bash找，通过PATH(环境变量)找&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;执行我们自己写的程序，需要带./ 表示在当前路径下，但是&lt;strong&gt;为什么执行系统指令不需要带&lt;code&gt;./&lt;/code&gt;呢？&lt;/strong&gt;
+&lt;li&gt;执行我们自己写的程序，需要带./ 表示在当前路径下，但是为什么执行系统指令不需要带&lt;code&gt;./&lt;/code&gt;呢？
 &lt;ul&gt;
-&lt;li&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;系统中存在环境变量，来帮助系统找到目标二进制文件&lt;/span&gt;
-&lt;ul&gt;
-&lt;li&gt;系统中存在环境变量PATH，告诉系统去哪查目标二进制文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;系统中存在环境变量&lt;code&gt;PATH&lt;/code&gt;，来帮助系统找到目标二进制文件&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -8333,8 +8318,6 @@
 	height=&#34;536&#34;
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251002110747633&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
@@ -8374,7 +8357,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;2环境变量初识&#34;&gt;2.环境变量初识
+&lt;h2 id=&#34;2查看新增环境变量&#34;&gt;2.查看、新增环境变量
 &lt;/h2&gt;&lt;h3 id=&#34;21显示系统中所有环境变量&#34;&gt;2.1显示系统中所有环境变量
 &lt;/h3&gt;&lt;p&gt;&lt;code&gt;env&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251110095002756.png&#34;
@@ -8476,15 +8459,16 @@
 &lt;p&gt;这种方式会将新路径追加到原PATH末尾，不影响系统原有命令&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;注意：以上两种方式只是临时生效，关闭终端重新登录后会失效&lt;/p&gt;
+&lt;p&gt;注意：以上两种方式只是临时生效，关闭终端重新登录后会失效。&lt;/p&gt;
 &lt;h3 id=&#34;24设置一个新的环境变量&#34;&gt;2.4设置一个新的环境变量
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;export 环境变量名=值&lt;/li&gt;
-&lt;li&gt;export 环境变量名&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;取消环境变量&lt;/strong&gt;&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;设置一个新的环境变量&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;unset 环境变量名&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;export 环境变量名=值&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;export 环境变量名&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;取消一个环境变量&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;unset 环境变量名&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008193603976.png&#34;
 	width=&#34;1076&#34;
@@ -8502,7 +8486,7 @@
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;2环境变量的理解&#34;&gt;2.环境变量的理解
 &lt;/h2&gt;&lt;h3 id=&#34;21如何理解环境变量&#34;&gt;2.1如何理解环境变量
-&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;1.如何理解环境变量(存储的角度)？环境变量的值是被bash保存起来的，由bash来执行这些命令&lt;/strong&gt;&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;如何理解环境变量(存储的角度)？环境变量的值是被bash保存起来的，由bash来执行这些命令&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;当我们登录系统时，系统会创建一个bash进程，bash会从配置文件中读取所有环境变量信息，并在其内部构建一张环境变量表&lt;/p&gt;
 &lt;p&gt;环境变量表其实就是一个&lt;strong&gt;指针数组&lt;/strong&gt;，数组中的每个元素都指向一个&lt;strong&gt;key-value形式的长字符串&lt;/strong&gt;，我们使用 &lt;code&gt;env&lt;/code&gt; 命令看到的所有环境变量，都存储在这张表中&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/1732016086077.png&#34;
@@ -8543,7 +8527,7 @@
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;22环境变量从哪来&#34;&gt;2.2环境变量从哪来？
-&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;2.环境变量，最开始从哪里来的呢？是从系统的相关配置文件中来的&lt;/strong&gt;&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;环境变量最开始从哪里来的呢？是从系统的相关配置文件中来的&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;系统给每一个用户的家目录里存在两个隐藏文件，一个是.bash_profile，一个是.bashrc&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002113547303.png&#34;
 	width=&#34;1329&#34;
@@ -8562,89 +8546,130 @@
 &lt;blockquote&gt;
 &lt;p&gt;.bash_profile要求用户去加载.bashrc，而.bashrc 会要求用户去加载 /etc/bashrc&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;系统登录，bash拷贝配置文件，形成一张表&lt;/p&gt;
-&lt;p&gt;我们把自己的路径加到配置文件中，那么登录时默认使用配置文件&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002115957665.png&#34;
-	width=&#34;901&#34;
-	height=&#34;280&#34;
+&lt;p&gt;当我们登录系统时，系统会创建一个bash进程，bash会从配置文件（.bashrc 和 .bash_profile）中读取所有环境变量信息，并在其内部构建一张环境变量表。&lt;/p&gt;
+&lt;p&gt;如果我们把自己二进制文件的路径添加到配置文件中，那么每次登录，我们的二进制文件都可以直接运行，这样就永久有效了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251110182338580.png&#34;
+	width=&#34;1253&#34;
+	height=&#34;544&#34;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;image-20251002115957665&#34;
+		alt=&#34;image-20251110182338580&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;321&#34;
-		data-flex-basis=&#34;772px&#34;
+		data-flex-grow=&#34;230&#34;
+		data-flex-basis=&#34;552px&#34;
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;如果Linux系统中有10个用户登录，就有10个bash，这10个bash进程都要从对应的配置文件中读到bash自己的上下文里，所以每一个bash都有存在两张表，命令行参数表和环境变量表&lt;/p&gt;
 &lt;h2 id=&#34;3常见环境变量&#34;&gt;3.常见环境变量
-&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;常见环境变量&lt;/strong&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251110191545964.png&#34;
+	width=&#34;1239&#34;
+	height=&#34;1219&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251110191545964&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;101&#34;
+		data-flex-basis=&#34;243px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;PATH：指定命令的搜索路径&lt;/li&gt;
-&lt;li&gt;HOME：指定用户的主工作目录（即用户登陆到Linux系统中时,默认的目录)&lt;/li&gt;
-&lt;li&gt;SHELL :当前Shell,它的值通常是/bin/bash&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;HOME&lt;/code&gt; 环境变量表示当前用户所对应的家目录&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这就是为什么我们输入 &lt;code&gt;cd ~&lt;/code&gt; 就能切换到当前用户的家目录的原因&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;SHELL&lt;/code&gt; 环境变量表示用户在登录时用的是哪一个版本的shell，它的值通常是/bin/bash&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;LOGNAME&lt;/code&gt; 环境变量表示当前登录用户是谁&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这就是为什么我们输入 &lt;code&gt;whoami&lt;/code&gt; 就能知道正在登录的用户是谁的原因&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;USER&lt;/code&gt; 环境变量表示当前用户是谁&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;su&lt;/code&gt; 切换用户，不会改变 LOGNAME 和 USER 的值&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;su 用户名&lt;/code&gt; 切换成普通用户，会改变 LOGNAME 和 USER 的值，切换成root不会改&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;su -&lt;/code&gt;  才能让LOGNAME 和 USER 的值 改成root，&lt;code&gt;su -&lt;/code&gt;是让root用户重新登录&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Linux会记录最新的 &lt;code&gt;HISTSIZE&lt;/code&gt; 条历史命令&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这就是为什么我们&lt;code&gt;ctrl+r&lt;/code&gt;可以查到历史输入的命令的原因&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;PWD&lt;/code&gt;记录当前的工作路径&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;OLDPWD&lt;/code&gt; 环境变量记录了上一次的路径&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这就是为什么我们&lt;code&gt;cd -&lt;/code&gt; 的时候可以回到上一次的路径下的原因&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;HOSTNAME&lt;/code&gt;环境变量表示当前主机的主机名&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;SSH_CONNECTION&lt;/code&gt;表示当前是从哪个客户端登录的&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;SSH_TTY&lt;/code&gt;表示当前是哪一个设备&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;为什么我们输入 cd ~ 就能切换到当前用户的家目录呢？HOME环境变量表示当前用户所对应的家目录&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251002122442600.png&#34;
-	width=&#34;775&#34;
-	height=&#34;74&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251002122442600&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;1047&#34;
-		data-flex-basis=&#34;2513px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;echo $SHELL 表示用户在登录时用的是哪一个版本的shell&lt;/p&gt;
-&lt;p&gt;echo $USER&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;user&lt;/p&gt;
-&lt;p&gt;logname&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;echo $HISTSIZE&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Linux只会记录最新的HISTSIZE条历史命令&lt;/p&gt;
-&lt;p&gt;ctrl+r历史命令搜索&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;echo $HOSTNAME&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;HOSTNAME主机名&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;echo $PWD&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;PWD记录当前的工作路径&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;echo $OLDPWD&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;为什么我们cd - 的时候可以回到上一次的路径下，原因是OLDPWD记录下来了&lt;/p&gt;
-&lt;/blockquote&gt;
 &lt;h2 id=&#34;4获取环境变量&#34;&gt;4.获取环境变量
-&lt;/h2&gt;&lt;h4 id=&#34;方式1获取环境变量&#34;&gt;方式1：获取环境变量
-&lt;/h4&gt;&lt;p&gt;获取的是父进程（bash）的&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;环境变量可以被子进程继承&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732019967875.png&#34;
-	width=&#34;1588&#34;
-	height=&#34;372&#34;
+&lt;/h2&gt;&lt;h4 id=&#34;方法1main函数参数&#34;&gt;方法1：main函数参数
+&lt;/h4&gt;&lt;p&gt;&lt;strong&gt;main函数最多有3个参数，命令行参数表argv和环境变量表env都是父进程传递给我们的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251110194012735.png&#34;
+	width=&#34;975&#34;
+	height=&#34;675&#34;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;73201996787&#34;
+		alt=&#34;image-20251110194012735&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;426&#34;
-		data-flex-basis=&#34;1024px&#34;
+		data-flex-grow=&#34;144&#34;
+		data-flex-basis=&#34;346px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;环境变量在系统中通常具有全局特性&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们自己的可执行程序的入口不是main函数，Linux中的入口函数是start函数&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008195652093.png&#34;
+	width=&#34;325&#34;
+	height=&#34;390&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251008195652093&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;83&#34;
+		data-flex-basis=&#34;200px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们自己export设置的环境变量是可以被子进程拿到的——&amp;gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;环境变量可以被子进程继承&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;环境变量在系统中通常具有全局特性&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&#34;方法2getenv&#34;&gt;方法2(推荐)：getenv
-&lt;/h4&gt;&lt;p&gt;getenv 会根据环境变量的名字获取环境变量的内容&lt;/p&gt;
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;getenv&lt;/code&gt; 会根据环境变量的名字获取环境变量的内容&lt;/p&gt;
 &lt;p&gt;如果获取成功了，就返回环境变量内容字符串的起始地址，否则就返回NULL&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732020219265.png&#34;
 	width=&#34;1376&#34;
@@ -8660,6 +8685,7 @@
 		data-flex-basis=&#34;493px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;例子1：通过getenv获取环境变量PATH里的内容&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -8680,17 +8706,13 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//main有参数吗？有
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//最多可以有几个？3个
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//是父进程传递给我们的
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//main最多可以有3个参数，是父进程传递给我们的
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[],&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[])&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -8706,22 +8728,24 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008201342503.png&#34;
-	width=&#34;1615&#34;
-	height=&#34;76&#34;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251110195536569.png&#34;
+	width=&#34;1453&#34;
+	height=&#34;119&#34;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;image-20251008201342503&#34;
+		alt=&#34;image-20251110195536569&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;2125&#34;
-		data-flex-basis=&#34;5100px&#34;
+		data-flex-grow=&#34;1221&#34;
+		data-flex-basis=&#34;2930px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;如果我们想写一个程序，只有我自己可以用&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;例子2：写一个程序，只有我自己可以用&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;整个系统中，只有bash知道登录用户是谁&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -8783,7 +8807,23 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h4 id=&#34;方法3environ&#34;&gt;方法3：environ
-&lt;/h4&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251008210301372.png&#34;
+&lt;/h4&gt;&lt;p&gt;全局变量 environ&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251110200508365.png&#34;
+	width=&#34;1249&#34;
+	height=&#34;386&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251110200508365&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;323&#34;
+		data-flex-basis=&#34;776px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;为什么environ的类型是char**的？因为环境变量表是 char* []类型的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251008210301372.png&#34;
 	width=&#34;984&#34;
 	height=&#34;261&#34;
 	
@@ -8797,22 +8837,7 @@
 		data-flex-basis=&#34;904px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;全局变量 environ&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;extern&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;environ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;环境变量表是 char* []类型的&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;例子：使用environ查看环境变量&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -8834,9 +8859,6 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
-&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
@@ -8846,10 +8868,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;k&#34;&gt;extern&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;**&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;environ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;  
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;c1&#34;&gt;//main有参数吗？有
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//最多可以有几个？3个
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//是父进程传递给我们的
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[])&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
@@ -8866,7 +8885,7 @@
 &lt;/div&gt;&lt;h2 id=&#34;5本地变量与环境变量&#34;&gt;5.本地变量与环境变量
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;环境变量具有全局特性&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;本地变量&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在命令行定义&lt;strong&gt;本地&lt;/strong&gt;变量&lt;/p&gt;
+&lt;p&gt;在命令行定义本地变量&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021018651.png&#34;
 	width=&#34;672&#34;
 	height=&#34;110&#34;
@@ -8884,40 +8903,57 @@
 &lt;blockquote&gt;
 &lt;p&gt;取消本地变量也是 unset 变量名&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;显示本地定义的shell变量和环境变量：&lt;code&gt;set&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;bash会记录两套变量：1.环境变量 2.本地变量&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;本地变量不会被子进程继承，只在bash内部被使用&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;显示本地定义的shell变量和环境变量：&lt;code&gt;set&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;bash会记录两套变量：1.环境变量 2.本地变量&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/1732021267124.png&#34;
-	width=&#34;967&#34;
-	height=&#34;276&#34;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;本地变量不会被子进程继承，只在bash内部被使用&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251112143458089.png&#34;
+	width=&#34;1534&#34;
+	height=&#34;449&#34;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;73202126712&#34;
+		alt=&#34;image-20251112143458089&#34;
 	
 	
 		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;350&#34;
-		data-flex-basis=&#34;840px&#34;
+		data-flex-grow=&#34;341&#34;
+		data-flex-basis=&#34;819px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为什么要有本地变量？bash内部自己要用&lt;/p&gt;
+&lt;p&gt;比如bash要记录下命令行提示符的格式&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251112143753496.png&#34;
+	width=&#34;317&#34;
+	height=&#34;113&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251112143753496&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;280&#34;
+		data-flex-basis=&#34;673px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;strong&gt;我们的环境变量在谁里面？bash&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;像export这种命令，我们叫做 &lt;code&gt;内建命令&lt;/code&gt;，内建命令在执行时不需要创建子进程，而是bash自己亲自执行&lt;/p&gt;
+&lt;p&gt;像export这种命令，我们叫做 &lt;code&gt;内建命令&lt;/code&gt;，内建命令在执行时不需要创建子进程，而是bash自己亲自执行&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;bash自己调函数，或者系统调用完成&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;6-程序地址空间初识&#34;&gt;6. 程序地址空间初识
-&lt;/h2&gt;&lt;p&gt;代码是只读的，string常量也是只读的 &lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012162604220.png&#34;
+&lt;h2 id=&#34;6-进程地址空间初识&#34;&gt;6. 进程地址空间初识
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;程序地址空间&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012162604220.png&#34;
 	width=&#34;2236&#34;
 	height=&#34;787&#34;
 	
@@ -8931,9 +8967,13 @@
 		data-flex-basis=&#34;681px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color: #FF8000;&#34;&gt;程序地址空间不是内存&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;进程地址空间（虚拟地址空间）&lt;/span&gt;，是一个系统概念，不是语言层的概念&lt;/p&gt;
-&lt;p&gt;子进程和父进程都会读取全局变量，但是只有子进程修改了这个变量，子进程修改了这个变量，父进程能看到吗&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们平时定义的字符串其实是被硬编码到代码的。因为代码是只读的，所以string常量也是只读的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;程序地址空间不是内存。&lt;/p&gt;
+&lt;p&gt;程序地址空间应该叫进程地址空间（虚拟地址空间），是一个系统概念，不是语言层的概念&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;虚拟地址&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;子进程和父进程都会读取全局变量，但是只有子进程修改了这个变量，子进程修改了这个变量，父进程能看到吗？&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -9002,7 +9042,15 @@
 		data-flex-basis=&#34;515px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;C/C++指针用到的地址，全部都是虚拟地址&lt;/p&gt;
+&lt;p&gt;父子进程中全局变量gval的地址一样，但是父子进程读出的值不同！&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;父子进程输出的变量不是同一个变量&lt;/li&gt;
+&lt;li&gt;该地址不是物理地址&lt;/li&gt;
+&lt;li&gt;在Linux地址下，这种地址叫做 虚拟地址&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;C/C++指针用到的地址，全部都是虚拟地址&lt;/strong&gt;&lt;/p&gt;
 &lt;h1 id=&#34;三进程地址空间&#34;&gt;三、进程地址空间
 &lt;/h1&gt;&lt;h2 id=&#34;1引入新概念&#34;&gt;1.引入新概念
 &lt;/h2&gt;&lt;p&gt;虚拟地址空间不是物理内存&lt;/p&gt;
@@ -9046,8 +9094,11 @@
 		data-flex-basis=&#34;583px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;一个进程，一套页表 ——&amp;gt;子进程也有自己的虚拟地址空间和页表&lt;/p&gt;
-&lt;p&gt;子进程的task_struct是拷贝的父进程的，虚拟地址空间、页表也是拷贝的父进程的&lt;/p&gt;
+&lt;p&gt;一个进程，一套页表  =&amp;gt; 子进程也有自己的虚拟地址空间和页表&lt;/p&gt;
+&lt;p&gt;子进程的task_struct是拷贝的父进程的，虚拟地址空间、页表也是拷贝的父进程的（浅拷贝）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;父子进程默认代码共享，数据共享&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012174051549.png&#34;
 	width=&#34;1116&#34;
 	height=&#34;703&#34;
@@ -9064,6 +9115,7 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;子进程对变量要进行修改？写时拷贝&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;进程具有独立性，子进程会重新给这个变量开辟一块空间，并修改虚拟地址和物理地址的映射&lt;/p&gt;
+&lt;p&gt;父子进程访问同一个变量时，拿的都是虚拟地址，但底层映射到了不同的物理地址&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012182658120.png&#34;
 	width=&#34;1897&#34;
 	height=&#34;751&#34;
@@ -11082,8 +11134,51 @@
 &lt;li&gt;D选项错误，进程本质上来说没有名字，它有所调度管理运行的程序的名称，它的标识是进程ID，可以理解进程ID是它的名字&lt;/li&gt;
 &lt;li&gt;因此只有B选项正确，&lt;strong&gt;在系统角度看来，进程就是对于程序运行的描述，就是PCB进程控制块&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;06孤儿进程的理解等&#34;&gt;06孤儿进程的理解等
-&lt;/h2&gt;</description>
+&lt;h2 id=&#34;06孤儿进程环境变量&#34;&gt;06孤儿进程、环境变量
+&lt;/h2&gt;&lt;h3 id=&#34;题&#34;&gt;题
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-exercises/index.assets/image-20251110201252870.png&#34;
+	width=&#34;454&#34;
+	height=&#34;405&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251110201252870&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;112&#34;
+		data-flex-basis=&#34;269px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;==A==&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;~/.bash_profile：用户级的环境配置文件，每个用户目录下都会具有各自的，在用户每次登录系统时被读取，里面所有命令都会被shell执行。包括环境变量的配置命令，因此A正确&lt;/li&gt;
+&lt;li&gt;~/.bash 以及 ~/bash 在linux的用户目录中默认是没有这两个文件的，因此也就不清楚其作用了，因此B和D都是错误的&lt;/li&gt;
+&lt;li&gt;/etc/progile.d 这是个目录或者说文件夹，其中包含了系统级的环境配置文件，任意用户登录时都会执行这个目录下的环境配置文件完成环境配置，但是要注意这个是目录并不是保存环境变量配置的配置文件，因此D错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;题-1&#34;&gt;题
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-exercises/index.assets/image-20251110201213981.png&#34;
+	width=&#34;459&#34;
+	height=&#34;402&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251110201213981&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;114&#34;
+		data-flex-basis=&#34;274px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;==ABC==&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;echo 用于输出打印一个变量的内容，包括环境变量&lt;/li&gt;
+&lt;li&gt;env 用于打印所有环境变量信息&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;set 用于输出打印所有环境配置以及变量信息，不限于环境变量&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;export用于设置环境变量&lt;/li&gt;
+&lt;/ul&gt;
+</description>
         </item>
         
     </channel>

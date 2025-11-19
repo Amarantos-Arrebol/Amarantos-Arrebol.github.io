@@ -10,7 +10,7 @@
 <meta property='og:description' content="掌握进程创建、等待与替换的核心机制">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-14T11:49:09&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-19T08:55:11&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux】04进程控制">
 <meta name="twitter:description" content="掌握进程创建、等待与替换的核心机制"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="#11fork函数初识">1.1fork函数初识</a></li>
         <li><a href="#12写时拷贝">1.2写时拷贝</a></li>
         <li><a href="#13fork常规用法">1.3fork常规用法</a></li>
-        <li><a href="#14fork调用失败">1.4fork调用失败</a></li>
+        <li><a href="#14fork调用失败的原因">1.4fork调用失败的原因</a></li>
       </ul>
     </li>
     <li><a href="#二进程终止">二、.进程终止</a>
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#223代码异常终止">2.2.3代码异常终止</a></li>
           </ul>
         </li>
-        <li><a href="#23-exit和_exit函数">2.3 exit和_exit函数</a>
+        <li><a href="#23-进程常见退出方法">2.3 进程常见退出方法</a>
           <ul>
             <li><a href="#231exit函数">2.3.1exit函数</a></li>
             <li><a href="#232_exit函数">2.3.2_exit函数</a></li>
@@ -498,11 +498,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-14</time>
+                <time class="article-time--updated">2025-11-19</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">5078 字
+                <span class="article-time--wordcount">5612 字
                 </span>
             </div>
         
@@ -532,7 +532,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>返回值：自进程中返回θ，父进程返回子进程id，出错返回-1</p>
+</div><p>返回值：</p>
+<ul>
+<li>如果创建成功，子进程中返回θ，父进程返回子进程id</li>
+<li>子进程创建失败，返回-1给父进程</li>
+</ul>
 <p>进程调用fork，当控制转移到内核中的fork代码后，内核做</p>
 <blockquote>
 <ul>
@@ -551,22 +555,24 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 </ul>
 </blockquote>
-<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012202954410.png"
-	width="966"
-	height="409"
+<p><img src="/p/linux-process-control/index.assets/image-20251118093459794.png"
+	width="1014"
+	height="364"
 	
 	loading="lazy"
 	
-		alt="image-20251012202954410"
+		alt="image-20251118093459794"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="236"
-		data-flex-basis="566px"
+		data-flex-grow="278"
+		data-flex-basis="668px"
 	
 ></p>
+<p>fork之前父进程独立执行，fork之后，父子两个执行流分别执行。</p>
+<p>注意，fork之后，谁先执行完全由调度器决定</p>
 <h2 id="12写时拷贝">1.2写时拷贝
-</h2><p>fork创建的子进程要拷贝父进程的代码和数据，是浅拷贝，也就是子进程和父进程共要享数据。当子进程要修改数据的时候，子进程再重新开一块空间做修改</p>
+</h2><p>fork创建的子进程要拷贝父进程的代码和数据，是浅拷贝，也就是子进程和父进程要共享代码和数据。当父子进程任意一方要修改数据的时候，便以写时拷贝的方式各自一份副本</p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251012203337432.png"
 	width="1073"
 	height="425"
@@ -581,33 +587,26 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="605px"
 	
 ></p>
-<p><strong>为什么要有写实拷贝？</strong></p>
+<p><strong>为什么要有写时拷贝？</strong></p>
 <p>1.减少创建时间</p>
 <p>2.减少内存浪费</p>
+<blockquote>
+<p>写时拷贝，是一种延时申请技术，可以提高整机内存的使用率</p>
+</blockquote>
 <h2 id="13fork常规用法">1.3fork常规用法
 </h2><p>我们创建一个子进程，是希望这个子进程帮我们完成一些事情</p>
-<ul>
-<li>
-<p>我们创建子进程，想让子进程帮我执行我自己代码的一部分</p>
+<p>1）我们创建子进程，想让子进程帮我执行我自己代码的一部分</p>
 <p>让子进程通过if-else分流，让父和子各自执行后序代码的一部分</p>
-</li>
-<li>
-<p>创建子进程，希望子进程去执行全新的程序</p>
-<ul>
-<li>比如我们在命令行输入命令，其实相当于bash创建子进程，但是我们子进程不是执行bash，而是执行我们新启动的命令/程序</li>
-</ul>
-</li>
-</ul>
-<h2 id="14fork调用失败">1.4fork调用失败
-</h2><blockquote>
-<ul>
-<li>系统中有太多进程</li>
-<li>实际用户的进程数超过了限制</li>
-</ul>
-</blockquote>
-<p>创建子进程可能会失败，进程=内核数据结构+代码和数据</p>
+<p>2）创建子进程，希望子进程去执行全新的程序</p>
+<p>比如我们在命令行输入命令，其实相当于bash创建子进程，但是我们子进程不是执行bash，而是执行我们新启动的命令/程序</p>
+<h2 id="14fork调用失败的原因">1.4fork调用失败的原因
+</h2><p>创建子进程可能会失败，进程=内核数据结构+代码和数据</p>
 <p>情况1：操作系统创建内核数据结构失败，PCB地址空间和页表对应的物理内存申请不出来了</p>
 <p>情况2：加载内存失败，比如加载代码和数据失败</p>
+<blockquote>
+<p>系统中有太多进程</p>
+<p>实际用户的进程数超过了限制</p>
+</blockquote>
 <h1 id="二进程终止">二、.进程终止
 </h1><p>创建进程是要占用系统资源的，进程终止要释放系统资源（内核数据结构和对应的代码和数据）</p>
 <blockquote>
@@ -616,27 +615,19 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="21进程退出的场景">2.1进程退出的场景
 </h2><ul>
 <li>代码运行完毕，结果正确</li>
-<li>代码运行完毕，结果不正确</li>
-<li>代码异常终止</li>
+<li>代码运行完毕，结果不正确（比如触发了异常）</li>
+<li>代码异常终止（比如野指针了，0作为除数了等）</li>
 </ul>
-<p>子进程也是进程 &ndash;&gt; 父进程创建 &ndash;&gt; 子进程执行结果</p>
-<p><span style="color: #8080FF;">子进程执行的结果要让父进程知道</span></p>
+<p>子进程也是进程，子进程是父进程创建出来的，子进程的执行结果要让父进程知道，而子进程的执行结果无非就是上面的三种情况</p>
 <h2 id="22退出码">2.2退出码
-</h2><p>int main()</p>
-<h3 id="221程序执行的三种情况">2.2.1程序执行的三种情况
+</h2><h3 id="221程序执行的三种情况">2.2.1程序执行的三种情况
 </h3><p><strong>main函数也是函数，也要被调用，main函数的返回值返回给谁了？</strong></p>
-<p><span style="color: #8080FF;">main函数的返回值，通常表明你的程序的执行情况</span></p>
-<p>三种情况：</p>
+<p><span style="color: #8080FF;">main函数的返回值，通常表明你的程序的执行情况</span>，通常是进程退出的前两种情况</p>
 <blockquote>
-<ul>
-<li>代码运行完毕，结果正确</li>
-<li>代码运行完毕，结果不正确</li>
-<li>代码异常终止</li>
-</ul>
+<p>进程退出的三种情况：1.代码运行完毕，结果正确 2.代码运行完毕，结果不正确 3.代码没跑完，异常终止了</p>
 </blockquote>
-<p>通常是前两种情况</p>
 <h3 id="222代码运行完毕">2.2.2代码运行完毕
-</h3><p><strong>main函数的返回值代表什么含义？</strong></p>
+</h3><p><strong>main函数的返回值代表什么含义？</strong>（我们这里只谈进程退出的前两种情况）</p>
 <ul>
 <li>
 <p><strong>一般都是代码运行完毕的情况，结果正确返回0，结果错误返回非0</strong></p>
@@ -656,7 +647,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ></p>
 <ul>
 <li>
-<p>为什么结果正确返回0，结果错误返回非0？</p>
+<p><strong>为什么结果正确返回0，结果错误返回非0？</strong></p>
 <ul>
 <li>代码运行结果不正确，要知道原因</li>
 <li><span style="color: #8080FF;">非0有1 2 3 &hellip;等不同的值，表明不同的出错原因</span></li>
@@ -667,16 +658,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>我们自己写的进程的父进程是bash，父进程需要得到子进程运行的结果，通过得到退出码</p>
 </li>
 <li>
-<p>如何查看退出码？<strong><span style="color: #FF0000;">echo $?</span></strong> <span style="color: #8080FF;">打印最近一个程序(进程)退出时的退出码</span></p>
+<p>如何查看退出码？<strong><span style="color: #FF0000;">echo $?</span></strong> <strong>打印最近一个程序(进程)退出时的退出码</strong></p>
 <ul>
-<li>main函数的返回值我们叫进程退出码，<span style="color: #FF8000;">退出码会写到你的进程的task_struct内部</span></li>
+<li><strong>main函数的返回值我们叫进程退出码</strong>，<span style="color: #FF8000;">退出码会写到你的进程的task_struct内部</span></li>
 <li>指令也是程序</li>
 </ul>
 </li>
 <li>
 <p>得到退出码后，我们如何知道退出码的含义？</p>
-<ul>
-<li>
 <p><code>man strerror</code>，strerror可以把错误码转成对应的字符串错误描述</p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017114449958.png"
 	width="1104"
@@ -692,25 +681,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="923px"
 	
 ></p>
-</li>
-<li>
-<p>以fopen为例</p>
-</li>
-</ul>
-<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115641415.png"
-	width="1344"
-	height="155"
-	
-	loading="lazy"
-	
-		alt="image-20251017115641415"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="867"
-		data-flex-basis="2081px"
-	
-></p>
+<blockquote>
+<p>我们可以通过下面的代码，将错误码对应的描述都打印出来：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -726,35 +698,60 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;strerror.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="mi">200</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d-&gt;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">i</span><span class="err">，</span> <span class="nf">strerror</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">     <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d-&gt;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">i</span><span class="err">，</span> <span class="nf">strerror</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>运行结果如下：<img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115345732.png"
-	width="850"
-	height="231"
+</div><p>Linux Shell中主要退出码：</p>
+<p><img src="/p/linux-process-control/index.assets/image-20251118103858935.png"
+	width="1017"
+	height="476"
 	
 	loading="lazy"
 	
-		alt="image-20251017115345732"
+		alt="image-20251118103858935"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="367"
-		data-flex-basis="883px"
+		data-flex-grow="213"
+		data-flex-basis="512px"
+	
+></p>
+<ul>
+<li>退出码为0，表示命令执行无误，这是完成命令的理想状态。</li>
+<li>退出码1，我们也可以将其解释为“不被允许的操作”。例如在没有sudo权限的情况下使yum；再例如除以① 等操作也会返回错误码l，对应的命令为let a=1/θ</li>
+<li>130（SIGINT 或 ^C）和143）（SIGTERM）等终止信号是非常典型的，它们属于128+n 信号，其中 n 代表终止码。</li>
+<li>可以使用strerror函数来获取退出码对应的描述。</li>
+</ul>
+</blockquote>
+<p>以fopen为例</p>
+<p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017115641415.png"
+	width="1344"
+	height="155"
+	
+	loading="lazy"
+	
+		alt="image-20251017115641415"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="867"
+		data-flex-basis="2081px"
 	
 >
 <img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017120014396.png"
@@ -771,18 +768,41 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="252px"
 	
 ></p>
+<p>打开文件失败：
+<img src="/p/linux-process-control/index.assets/image-20251118103217486.png"
+	width="833"
+	height="112"
+	
+	loading="lazy"
+	
+		alt="image-20251118103217486"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="743"
+		data-flex-basis="1785px"
+	
+></p>
 </li>
 </ul>
 </li>
 </ul>
-<p>​</p>
 <h3 id="223代码异常终止">2.2.3代码异常终止
 </h3><p><strong>一旦代码出现异常，退出码无意义</strong></p>
 <p>一旦进程出现异常，一般是进程收到了信号</p>
-<h2 id="23-exit和_exit函数">2.3 exit和_exit函数
-</h2><h3 id="231exit函数">2.3.1exit函数
-</h3><p>main函数结束，进程结束，其它函数，只表示自己函数调用完成，返回</p>
-<p>进程退出的时候，除了main函数return，我们也可以<span style="color: #FF0000;">在代码的任意地方调用exit()，表示进程结束，并返回给父进程bash，子进程的退出码</span></p>
+<h2 id="23-进程常见退出方法">2.3 进程常见退出方法
+</h2><blockquote>
+<p>（1）正常终止（可以通过 echo$？查看进程退出码）：</p>
+<ul>
+<li>从main的return返回</li>
+<li>调用exit(status)</li>
+<li>_exit</li>
+</ul>
+<p>（2）异常退出：ctrl +c，信号终止</p>
+</blockquote>
+<h3 id="231exit函数">2.3.1exit函数
+</h3><p>main函数结束，表示进程结束；其它函数，只表示自己函数调用完成，返回</p>
+<p>进程退出的时候，除了main函数return，我们也可以<span style="color: #FF0000;">在代码的任意地方调用exit()，表示进程结束，并将子进程的退出码返回给父进程bash</span>。</p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017134013061.png"
 	width="1046"
 	height="490"
@@ -797,6 +817,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="512px"
 	
 ></p>
+<blockquote>
+<p>在代码中调status，等价于main函数的return</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -841,7 +864,21 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>注意</strong>：</p>
+</div><p><img src="/p/linux-process-control/index.assets/image-20251118105912522.png"
+	width="835"
+	height="147"
+	
+	loading="lazy"
+	
+		alt="image-20251118105912522"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="568"
+		data-flex-basis="1363px"
+	
+></p>
+<p><strong>说明</strong>：</p>
 <ol>
 <li>
 <p>在代码的任何地方调用exit，表示进程结束。1.函数后续代码不再执行 2.函数不返回</p>
@@ -851,7 +888,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 </ol>
 <h3 id="232_exit函数">2.3.2_exit函数
-</h3><p>_exit函数，终止一个调用进程<span style="color: #8080FF;">，哪个进程调 _exit函数，就把哪个进程终止</span></p>
+</h3><p>_exit函数，终止一个调用进程，即<span style="color: #8080FF;">哪个进程调 _exit函数，就把哪个进程终止</span></p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017135212887.png"
 	width="853"
 	height="293"
@@ -1762,6 +1799,30 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
+    <a href="/p/linux-interprocess-communication/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】08进程间通信"
+                        data-key="linux-interprocess-communication" 
+                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】08进程间通信</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/linux-process-basic/">
         
         
@@ -1779,6 +1840,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【Linux】03进程的概念</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-io/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】05基础IO"
+                        data-key="linux-basic-io" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】05基础IO</h2>
         </div>
     </a>
 </article>
@@ -1827,54 +1912,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【Linux】02基础权限开发工具</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/coze/">
-        
-        
-            <div class="article-image">
-                <img src="/p/coze/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【AI】AI智能体开发平台-coze"
-                        data-key="coze" 
-                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【AI】AI智能体开发平台-coze</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/c-11/">
-        
-        
-            <div class="article-image">
-                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_3c313d6fab93eb2b.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;初阶】11C&#43;&#43;11"
-                        data-key="c&#43;&#43;11" 
-                        data-hash="md5-8uwHpbiICzgWVh&#43;gprphgA==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;初阶】11C&#43;&#43;11</h2>
         </div>
     </a>
 </article>

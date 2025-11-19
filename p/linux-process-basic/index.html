@@ -10,7 +10,7 @@
 <meta property='og:description' content="理解进程、环境变量与地址空间">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-14T11:49:09&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-19T08:55:11&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux】03进程的概念">
 <meta name="twitter:description" content="理解进程、环境变量与地址空间"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -465,9 +465,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#21虚拟地址空间是什么">2.1虚拟地址空间是什么？</a></li>
             <li><a href="#22如何描述虚拟地址空间">2.2如何描述虚拟地址空间</a></li>
             <li><a href="#23为什么要有进程地址空间">2.3为什么要有进程地址空间</a></li>
+            <li><a href="#总结-2">总结</a></li>
           </ul>
         </li>
-        <li><a href="#3地址空间的扩展知识">3.地址空间的扩展知识</a></li>
+        <li><a href="#3地址空间的组织方式">3.地址空间的组织方式</a></li>
       </ul>
     </li>
   </ul>
@@ -576,11 +577,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-14</time>
+                <time class="article-time--updated">2025-11-19</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">15804 字
+                <span class="article-time--wordcount">17028 字
                 </span>
             </div>
         
@@ -3640,8 +3641,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <p><strong>子进程对变量要进行修改？写时拷贝</strong></p>
-<p>进程具有独立性，子进程会重新给这个变量开辟一块空间，并修改虚拟地址和物理地址的映射</p>
-<p>父子进程访问同一个变量时，拿的都是虚拟地址，但底层映射到了不同的物理地址</p>
+<p>进程具有独立性，当父子进程中任何一方要对变量做修改时，都会新开一块空间做修改，并将页表中虚拟地址映射到的物理地址修改成新开的那块空间的物理地址，而虚拟地址不变。</p>
+<p>因此，之所以父子进程访问同一个变量时地址相同，是因为拿到的都是虚拟地址，内容不同，是因为虚拟地址底层映射到了不同的物理地址</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012182658120.png"
 	width="1897"
 	height="751"
@@ -3658,15 +3659,56 @@ document.addEventListener('DOMContentLoaded', function() {
 ></p>
 <h2 id="2虚拟地址与进程地址空间">2.虚拟地址与进程地址空间
 </h2><h3 id="21虚拟地址空间是什么">2.1虚拟地址空间是什么？
-</h3><p>操作系统让每一个进程都认为自己有4GB的物理内存（每一个进程都认为自己在独占物理内存），操作系统需要管理虚拟地址空间</p>
-<p><span style="color: #FF0000;">虚拟地址空间本质是一个数据结构（结构体）</span></p>
-<p>1.我们可以不加载代码和数据，只有task_struct, mm_struct，页表</p>
-<p>2.创建进程，先有task_struct, mm_struct等，还是先加载代码和数据？</p>
-<p>3.如何理解进程挂起？</p>
+</h3><p>操作系统让每一个进程都认为自己有4GB的物理内存（每一个进程都认为自己在独占物理内存），操作系统需要管理虚拟地址空间。<strong>虚拟地址空间本质是一个数据结构（结构体）</strong></p>
+<p>描述Linux下进程的地址空间的所有信息的结构体是<code>mm_struct</code>(内存描述符)。<strong>每个进程只有一个mm_struct，在每个进程的task_struct结构体中，有一个指向该进程的结构</strong></p>
+<blockquote>
+<p>可以说 mm_struct 结构是对整个用户空间的描述。<strong>每一个进程都会有自己独立的mm_struct</strong>，这样每一个进程都会有自己独立的地址空间才能互不干扰。</p>
+</blockquote>
+<p><img src="/p/linux-process-basic/index.assets/image-20251114230535125.png"
+	width="1113"
+	height="426"
+	
+	loading="lazy"
+	
+		alt="image-20251114230535125"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="261"
+		data-flex-basis="627px"
+	
+></p>
 <h3 id="22如何描述虚拟地址空间">2.2如何描述虚拟地址空间
 </h3><p>区域划分——&gt;只需要确认区域的开始和结束即可</p>
+<blockquote>
+<p>操作系统对于进程的虚拟地址空间要做管理，<strong>虚拟地址空间是内核的一种结构体</strong>，<strong>这个结构体里的大部分属性都是各个区域的开始、结束</strong></p>
+</blockquote>
 <p>调整区域——&gt;只需要对整数变量进行加或减</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012190721903.png"
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">mm_struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">total_vm</span><span class="p">,</span> <span class="n">locked_vm</span><span class="p">,</span> <span class="n">shared_vm</span><span class="p">,</span> <span class="n">exec_vm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">stack_vm</span><span class="p">,</span> <span class="n">reserved_vm</span><span class="p">,</span> <span class="n">def_flags</span><span class="p">,</span> <span class="n">nr_ptes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">start_code</span><span class="p">,</span> <span class="n">end_code</span><span class="p">,</span> <span class="n">start_data</span><span class="p">,</span> <span class="n">end_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">start_brk</span><span class="p">,</span> <span class="n">brk</span><span class="p">,</span> <span class="n">start_stack</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">arg_start</span><span class="p">,</span> <span class="n">arg_end</span><span class="p">,</span> <span class="n">env_start</span><span class="p">,</span> <span class="n">env_end</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/index.assets/image-20251012190721903.png"
 	width="1586"
 	height="550"
 	
@@ -3680,21 +3722,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="692px"
 	
 ></p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012191640269.png"
-	width="571"
-	height="242"
-	
-	loading="lazy"
-	
-		alt="image-20251012191640269"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="235"
-		data-flex-basis="566px"
-	
-></p>
-<p>物理地址转化成为虚拟地址，虚拟地址提供给上层用户使用</p>
+<p>要把一个程序加载到内存需要做三件事：</p>
 <ol>
 <li>
 <p>在虚拟地址空间中申请指定大小的空间</p>
@@ -3702,9 +3730,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>
 <p>加载程序，申请物理空间</p>
 </li>
+<li>
+<p>页表映射</p>
+</li>
 </ol>
-<p>​	1&lt;&ndash;&gt;2-&gt;页表进行映射</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012192401762.png"
+<p><img src="/p/linux-process-basic/index.assets/image-20251012192401762.png"
 	width="1643"
 	height="760"
 	
@@ -3718,16 +3748,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="518px"
 	
 ></p>
+<p>物理地址转化成为虚拟地址，虚拟地址提供给上层用户使用</p>
 <h3 id="23为什么要有进程地址空间">2.3为什么要有进程地址空间
 </h3><p><strong>1.将地址从无序变有序</strong></p>
 <p>可执行程序未来可以加载到物理内存的任意位置，通过页表的映射关系把无序的物理地址变有序（虚拟地址空间）</p>
 <p><strong>2.转化过程中，也可以对你的地址和操作进行合法性判定，进而保护物理内存</strong></p>
 <p>页表里面除了保存了物理地址和虚拟地址的映射关系，还有这个区域的权限</p>
-<p>a.什么是野指针</p>
-<p>b.char* str = &ldquo;hello world&rdquo;; str = &ldquo;H&rdquo;</p>
-<p>为什么在字符常量区写入，就会崩溃？查找页表的时候，权限拦截了</p>
+<p>a. 什么是野指针</p>
+<p>b. char* str = &ldquo;hello world&rdquo;; str = &ldquo;H&rdquo;</p>
+<p><span style="color: #8080FF;">为什么在字符常量区写入，就会崩溃？查找页表的时候，权限拦截了</span></p>
 <p><strong>3.让进程管理和内存管理，进行一定程度的解耦合</strong></p>
-<p>缺页中断</p>
+<p>缺页中断（虚拟地址申请的空间不会一次性分配物理内存，仅在实际使用对应部分时，才动态向物理空间申请）</p>
+<p>在创建一个进程时，可以只创建PCB、地址空间和页表，先把虚拟地址空间初始化，不加载数据，只需要知道可执行程序代码多大、数据多大&hellip;</p>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012200018226.png"
 	width="1662"
 	height="879"
@@ -3742,9 +3774,36 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="453px"
 	
 ></p>
-<h2 id="3地址空间的扩展知识">3.地址空间的扩展知识
-</h2><p>堆区不止一个起始虚拟地址</p>
-<p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201039762.png"
+<h3 id="总结-2">总结
+</h3><p><strong>1.我们可以不加载代码和数据，只有task_struct, mm_struct，页表</strong></p>
+<p><strong>2.创建进程，先有task_struct, mm_struct等，还是先加载代码和数据？</strong></p>
+<p>先有内核数据结构，然后再加载代码和数据</p>
+<p><strong>3.如何理解进程挂起？</strong></p>
+<blockquote>
+<p>当内存空间严重不足时，操作系统就会将这些在等待队列的进程置换到磁盘中的swap分区中（在等待队列中只存PCB，而<span style="color: #8080FF;">将对应的代码和数据唤出到swap分区中</span>，等这些进程要运行了，再把代码和数据还回去），这些进程的状态就叫阻塞挂起</p>
+</blockquote>
+<p>当系统内存严重不足时，操作系统会优先选择已处于阻塞状态（暂时无需占用CPU和物理内存运行）的进程进行处理。它会先查询该进程的页表，确认其虚拟地址已分配且对应着实际的物理内存（即虚拟地址与物理地址存在有效映射）；随后，将页表中该虚拟地址对应的物理内存里的进程代码、数据，完整换出到磁盘的swap分区暂存，并清空页表中该虚拟地址的物理地址映射（释放对应的物理内存空间）。 需要注意的是，挂起操作仅迁移了进程的代码和数据，进程的核心控制信息（PCB，进程控制块）依然保留在内存中——因此，这个进程在操作系统中并未消失，只是状态从“阻塞”变为了“阻塞挂起（s状态）”</p>
+<h2 id="3地址空间的组织方式">3.地址空间的组织方式
+</h2><p>堆区并不是只有一个起始虚拟地址。进程的虚拟地址空间中，除了有 mm_struct 结构，还存在 vm_area_struct 结构 —— 它是在 mm_struct 中构建的链表，会将堆区拆分为多个独立部分，而每个堆区部分都对应一个 vm_area_struct。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">vm_area_struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="n">mm_struct</span> <span class="o">*</span> <span class="n">vm_mm</span><span class="p">;</span>	<span class="cm">/* The address space we belong to. */</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">vm_start</span><span class="p">;</span>		<span class="cm">/* Our start address within vm_mm. */</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">vm_end</span><span class="p">;</span>		<span class="cm">/* The first byte after our end address
+</span></span></span><span class="line"><span class="cl"><span class="cm">					   within vm_mm. */</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201039762.png"
 	width="937"
 	height="631"
 	
@@ -3758,6 +3817,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="356px"
 	
 ></p>
+<blockquote>
+<p>虚拟空间的组织方式有两种：</p>
+<ol>
+<li>当虚拟区较少时采取单链表，由mmap指针指向这个链表；</li>
+<li>当虚拟区间多时采取红黑树进⾏管理，由mm_rb指向这棵树。</li>
+</ol>
+<p>linux内核使用 vm_area_struct 结构来表示一个独立的虚拟内存区域(VMA)，由于每个不同质的虚拟内存区域功能和内部机制都不同，因此一个进程使用多个vm_area_struct结构来分别表示不同类型的虚拟内存区域。上面提到的两种组织方式使用的就是vm_area_struct结构来连接各个VMA，方便进程快速访问</p>
+</blockquote>
 <p><img src="/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201058852.png"
 	width="1140"
 	height="770"
@@ -3772,6 +3839,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="355px"
 	
 ></p>
+<p>进程具有独立性：</p>
+<ol>
+<li><span style="color: #8080FF;">内核数据结构</span>独立</li>
+<li>加载进入内存的<span style="color: #8080FF;">代码和数据</span>独立</li>
+</ol>
 
 </section>
 
@@ -3809,6 +3881,30 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
+    <a href="/p/linux-interprocess-communication/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】08进程间通信"
+                        data-key="linux-interprocess-communication" 
+                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】08进程间通信</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/linux-process-control/">
         
         
@@ -3826,6 +3922,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【Linux】04进程控制</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-basic-io/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux】05基础IO"
+                        data-key="linux-basic-io" 
+                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux】05基础IO</h2>
         </div>
     </a>
 </article>
@@ -3874,54 +3994,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【Linux】02基础权限开发工具</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/coze/">
-        
-        
-            <div class="article-image">
-                <img src="/p/coze/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【AI】AI智能体开发平台-coze"
-                        data-key="coze" 
-                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【AI】AI智能体开发平台-coze</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/c-11/">
-        
-        
-            <div class="article-image">
-                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_3c313d6fab93eb2b.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;初阶】11C&#43;&#43;11"
-                        data-key="c&#43;&#43;11" 
-                        data-hash="md5-8uwHpbiICzgWVh&#43;gprphgA==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;初阶】11C&#43;&#43;11</h2>
         </div>
     </a>
 </article>

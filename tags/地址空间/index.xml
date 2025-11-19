@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Fri, 14 Nov 2025 11:49:09 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 19 Nov 2025 08:55:11 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【Linux】03进程的概念</title>
         <link>https://Amarantos-Arrebol.github.io/p/linux-process-basic/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -3056,8 +3056,8 @@
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;子进程对变量要进行修改？写时拷贝&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;进程具有独立性，子进程会重新给这个变量开辟一块空间，并修改虚拟地址和物理地址的映射&lt;/p&gt;
-&lt;p&gt;父子进程访问同一个变量时，拿的都是虚拟地址，但底层映射到了不同的物理地址&lt;/p&gt;
+&lt;p&gt;进程具有独立性，当父子进程中任何一方要对变量做修改时，都会新开一块空间做修改，并将页表中虚拟地址映射到的物理地址修改成新开的那块空间的物理地址，而虚拟地址不变。&lt;/p&gt;
+&lt;p&gt;因此，之所以父子进程访问同一个变量时地址相同，是因为拿到的都是虚拟地址，内容不同，是因为虚拟地址底层映射到了不同的物理地址&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012182658120.png&#34;
 	width=&#34;1897&#34;
 	height=&#34;751&#34;
@@ -3074,15 +3074,56 @@
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;2虚拟地址与进程地址空间&#34;&gt;2.虚拟地址与进程地址空间
 &lt;/h2&gt;&lt;h3 id=&#34;21虚拟地址空间是什么&#34;&gt;2.1虚拟地址空间是什么？
-&lt;/h3&gt;&lt;p&gt;操作系统让每一个进程都认为自己有4GB的物理内存（每一个进程都认为自己在独占物理内存），操作系统需要管理虚拟地址空间&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color: #FF0000;&#34;&gt;虚拟地址空间本质是一个数据结构（结构体）&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;1.我们可以不加载代码和数据，只有task_struct, mm_struct，页表&lt;/p&gt;
-&lt;p&gt;2.创建进程，先有task_struct, mm_struct等，还是先加载代码和数据？&lt;/p&gt;
-&lt;p&gt;3.如何理解进程挂起？&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;操作系统让每一个进程都认为自己有4GB的物理内存（每一个进程都认为自己在独占物理内存），操作系统需要管理虚拟地址空间。&lt;strong&gt;虚拟地址空间本质是一个数据结构（结构体）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;描述Linux下进程的地址空间的所有信息的结构体是&lt;code&gt;mm_struct&lt;/code&gt;(内存描述符)。&lt;strong&gt;每个进程只有一个mm_struct，在每个进程的task_struct结构体中，有一个指向该进程的结构&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可以说 mm_struct 结构是对整个用户空间的描述。&lt;strong&gt;每一个进程都会有自己独立的mm_struct&lt;/strong&gt;，这样每一个进程都会有自己独立的地址空间才能互不干扰。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251114230535125.png&#34;
+	width=&#34;1113&#34;
+	height=&#34;426&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251114230535125&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;261&#34;
+		data-flex-basis=&#34;627px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;h3 id=&#34;22如何描述虚拟地址空间&#34;&gt;2.2如何描述虚拟地址空间
 &lt;/h3&gt;&lt;p&gt;区域划分——&amp;gt;只需要确认区域的开始和结束即可&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;操作系统对于进程的虚拟地址空间要做管理，&lt;strong&gt;虚拟地址空间是内核的一种结构体&lt;/strong&gt;，&lt;strong&gt;这个结构体里的大部分属性都是各个区域的开始、结束&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;调整区域——&amp;gt;只需要对整数变量进行加或减&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012190721903.png&#34;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mm_struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;total_vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;locked_vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;shared_vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;exec_vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stack_vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reserved_vm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;def_flags&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nr_ptes&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start_code&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;end_code&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;end_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start_brk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;brk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;start_stack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg_start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg_end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env_start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env_end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251012190721903.png&#34;
 	width=&#34;1586&#34;
 	height=&#34;550&#34;
 	
@@ -3096,21 +3137,7 @@
 		data-flex-basis=&#34;692px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012191640269.png&#34;
-	width=&#34;571&#34;
-	height=&#34;242&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251012191640269&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;235&#34;
-		data-flex-basis=&#34;566px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;物理地址转化成为虚拟地址，虚拟地址提供给上层用户使用&lt;/p&gt;
+&lt;p&gt;要把一个程序加载到内存需要做三件事：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;在虚拟地址空间中申请指定大小的空间&lt;/p&gt;
@@ -3118,9 +3145,11 @@
 &lt;li&gt;
 &lt;p&gt;加载程序，申请物理空间&lt;/p&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;页表映射&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;​	1&amp;lt;&amp;ndash;&amp;gt;2-&amp;gt;页表进行映射&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012192401762.png&#34;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/index.assets/image-20251012192401762.png&#34;
 	width=&#34;1643&#34;
 	height=&#34;760&#34;
 	
@@ -3134,16 +3163,18 @@
 		data-flex-basis=&#34;518px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;物理地址转化成为虚拟地址，虚拟地址提供给上层用户使用&lt;/p&gt;
 &lt;h3 id=&#34;23为什么要有进程地址空间&#34;&gt;2.3为什么要有进程地址空间
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;1.将地址从无序变有序&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;可执行程序未来可以加载到物理内存的任意位置，通过页表的映射关系把无序的物理地址变有序（虚拟地址空间）&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;2.转化过程中，也可以对你的地址和操作进行合法性判定，进而保护物理内存&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;页表里面除了保存了物理地址和虚拟地址的映射关系，还有这个区域的权限&lt;/p&gt;
-&lt;p&gt;a.什么是野指针&lt;/p&gt;
-&lt;p&gt;b.char* str = &amp;ldquo;hello world&amp;rdquo;; str = &amp;ldquo;H&amp;rdquo;&lt;/p&gt;
-&lt;p&gt;为什么在字符常量区写入，就会崩溃？查找页表的时候，权限拦截了&lt;/p&gt;
+&lt;p&gt;a. 什么是野指针&lt;/p&gt;
+&lt;p&gt;b. char* str = &amp;ldquo;hello world&amp;rdquo;; str = &amp;ldquo;H&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;为什么在字符常量区写入，就会崩溃？查找页表的时候，权限拦截了&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;3.让进程管理和内存管理，进行一定程度的解耦合&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;缺页中断&lt;/p&gt;
+&lt;p&gt;缺页中断（虚拟地址申请的空间不会一次性分配物理内存，仅在实际使用对应部分时，才动态向物理空间申请）&lt;/p&gt;
+&lt;p&gt;在创建一个进程时，可以只创建PCB、地址空间和页表，先把虚拟地址空间初始化，不加载数据，只需要知道可执行程序代码多大、数据多大&amp;hellip;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012200018226.png&#34;
 	width=&#34;1662&#34;
 	height=&#34;879&#34;
@@ -3158,9 +3189,36 @@
 		data-flex-basis=&#34;453px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;h2 id=&#34;3地址空间的扩展知识&#34;&gt;3.地址空间的扩展知识
-&lt;/h2&gt;&lt;p&gt;堆区不止一个起始虚拟地址&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201039762.png&#34;
+&lt;h3 id=&#34;总结-2&#34;&gt;总结
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;1.我们可以不加载代码和数据，只有task_struct, mm_struct，页表&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.创建进程，先有task_struct, mm_struct等，还是先加载代码和数据？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;先有内核数据结构，然后再加载代码和数据&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.如何理解进程挂起？&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当内存空间严重不足时，操作系统就会将这些在等待队列的进程置换到磁盘中的swap分区中（在等待队列中只存PCB，而&lt;span style=&#34;color: #8080FF;&#34;&gt;将对应的代码和数据唤出到swap分区中&lt;/span&gt;，等这些进程要运行了，再把代码和数据还回去），这些进程的状态就叫阻塞挂起&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当系统内存严重不足时，操作系统会优先选择已处于阻塞状态（暂时无需占用CPU和物理内存运行）的进程进行处理。它会先查询该进程的页表，确认其虚拟地址已分配且对应着实际的物理内存（即虚拟地址与物理地址存在有效映射）；随后，将页表中该虚拟地址对应的物理内存里的进程代码、数据，完整换出到磁盘的swap分区暂存，并清空页表中该虚拟地址的物理地址映射（释放对应的物理内存空间）。 需要注意的是，挂起操作仅迁移了进程的代码和数据，进程的核心控制信息（PCB，进程控制块）依然保留在内存中——因此，这个进程在操作系统中并未消失，只是状态从“阻塞”变为了“阻塞挂起（s状态）”&lt;/p&gt;
+&lt;h2 id=&#34;3地址空间的组织方式&#34;&gt;3.地址空间的组织方式
+&lt;/h2&gt;&lt;p&gt;堆区并不是只有一个起始虚拟地址。进程的虚拟地址空间中，除了有 mm_struct 结构，还存在 vm_area_struct 结构 —— 它是在 mm_struct 中构建的链表，会将堆区拆分为多个独立部分，而每个堆区部分都对应一个 vm_area_struct。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm_area_struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;mm_struct&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm_mm&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;	&lt;span class=&#34;cm&#34;&gt;/* The address space we belong to. */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm_start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;		&lt;span class=&#34;cm&#34;&gt;/* Our start address within vm_mm. */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;unsigned&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;long&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vm_end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;		&lt;span class=&#34;cm&#34;&gt;/* The first byte after our end address
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;					   within vm_mm. */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;//...
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201039762.png&#34;
 	width=&#34;937&#34;
 	height=&#34;631&#34;
 	
@@ -3174,6 +3232,14 @@
 		data-flex-basis=&#34;356px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;虚拟空间的组织方式有两种：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;当虚拟区较少时采取单链表，由mmap指针指向这个链表；&lt;/li&gt;
+&lt;li&gt;当虚拟区间多时采取红黑树进⾏管理，由mm_rb指向这棵树。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;linux内核使用 vm_area_struct 结构来表示一个独立的虚拟内存区域(VMA)，由于每个不同质的虚拟内存区域功能和内部机制都不同，因此一个进程使用多个vm_area_struct结构来分别表示不同类型的虚拟内存区域。上面提到的两种组织方式使用的就是vm_area_struct结构来连接各个VMA，方便进程快速访问&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-basic/03%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5.assets/image-20251012201058852.png&#34;
 	width=&#34;1140&#34;
 	height=&#34;770&#34;
@@ -3188,6 +3254,11 @@
 		data-flex-basis=&#34;355px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;进程具有独立性：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;span style=&#34;color: #8080FF;&#34;&gt;内核数据结构&lt;/span&gt;独立&lt;/li&gt;
+&lt;li&gt;加载进入内存的&lt;span style=&#34;color: #8080FF;&#34;&gt;代码和数据&lt;/span&gt;独立&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         </item>
         

@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="理解进程、环境变量与地址空间">
-<title>【Linux】03进程的概念</title>
+<title>【Linux系统编程】03进程的概念</title>
 
 <link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
 
-<link rel="stylesheet" href="/scss/style.min.f62fad6b64852a4093ae5ceb06b3f1a3f8409c5b5dd5c91806fbb732800ca9f9.css"><meta property='og:title' content="【Linux】03进程的概念">
+<link rel="stylesheet" href="/scss/style.min.f62fad6b64852a4093ae5ceb06b3f1a3f8409c5b5dd5c91806fbb732800ca9f9.css"><meta property='og:title' content="【Linux系统编程】03进程的概念">
 <meta property='og:description' content="理解进程、环境变量与地址空间">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-19T08:55:11&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
-<meta name="twitter:title" content="【Linux】03进程的概念">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程管理' /><meta property='article:tag' content='环境变量' /><meta property='article:tag' content='地址空间' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-24T05:12:59&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta name="twitter:title" content="【Linux系统编程】03进程的概念">
 <meta name="twitter:description" content="理解进程、环境变量与地址空间"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="800" 
                         height="450" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】03进程的概念" />
+                        alt="Featured image of post 【Linux系统编程】03进程的概念" />
                 
             </a>
         </div>
@@ -534,8 +534,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <header class="article-category">
         
-            <a href="/categories/linux/" style="background-color: #77ACF1; color: #fff;">
-                Linux
+            <a href="/categories/linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" style="background-color: #77ACF1; color: #fff;">
+                Linux系统编程
             </a>
         
             <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/linux-process-basic/">【Linux】03进程的概念</a>
+            <a href="/p/linux-process-basic/">【Linux系统编程】03进程的概念</a>
         </h2>
     
         
@@ -577,7 +577,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-19</time>
+                <time class="article-time--updated">2025-11-24</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
@@ -3889,7 +3889,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】08进程间通信"
+                        alt="Featured image of post 【Linux系统编程】08进程间通信"
                         data-key="linux-interprocess-communication" 
                         data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
                 
@@ -3897,7 +3897,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】08进程间通信</h2>
+            <h2 class="article-title">【Linux系统编程】08进程间通信</h2>
         </div>
     </a>
 </article>
@@ -3913,7 +3913,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】04进程控制"
+                        alt="Featured image of post 【Linux系统编程】04进程控制"
                         data-key="linux-process-control" 
                         data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
                 
@@ -3921,7 +3921,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】04进程控制</h2>
+            <h2 class="article-title">【Linux系统编程】04进程控制</h2>
         </div>
     </a>
 </article>
@@ -3937,7 +3937,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】05基础IO"
+                        alt="Featured image of post 【Linux系统编程】05基础IO"
                         data-key="linux-basic-io" 
                         data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
                 
@@ -3945,7 +3945,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】05基础IO</h2>
+            <h2 class="article-title">【Linux系统编程】05基础IO</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-thread/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-thread/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux系统编程】10线程概念与控制"
+                        data-key="linux-thread" 
+                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux系统编程】10线程概念与控制</h2>
         </div>
     </a>
 </article>
@@ -3961,7 +3985,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】01初始Linux&#43;基础指令"
+                        alt="Featured image of post 【Linux系统编程】01初始Linux&#43;基础指令"
                         data-key="linux-basic-instruction" 
                         data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
                 
@@ -3969,31 +3993,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】01初始Linux&#43;基础指令</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/linux-basic-permission-development-tool/">
-        
-        
-            <div class="article-image">
-                <img src="/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【Linux】02基础权限开发工具"
-                        data-key="linux-basic-permission-development-tool" 
-                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【Linux】02基础权限开发工具</h2>
+            <h2 class="article-title">【Linux系统编程】01初始Linux&#43;基础指令</h2>
         </div>
     </a>
 </article>

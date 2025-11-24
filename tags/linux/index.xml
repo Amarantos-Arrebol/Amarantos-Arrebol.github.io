@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Linux on PursUnre的博客</title>
+        <link>https://Amarantos-Arrebol.github.io/tags/linux/</link>
+        <description>Recent content in Linux on PursUnre的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>PursUnre</copyright>
+        <lastBuildDate>Mon, 24 Nov 2025 05:12:59 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>【Linux系统编程】10线程概念与控制</title>
+        <link>https://Amarantos-Arrebol.github.io/p/linux-thread/</link>
+        <pubDate>Sun, 23 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/p/linux-thread/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/linux-thread/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.png" alt="Featured image of post 【Linux系统编程】10线程概念与控制" /&gt;&lt;h1 id=&#34;1线程概念&#34;&gt;1.线程概念
+&lt;/h1&gt;&lt;h2 id=&#34;11什么是线程&#34;&gt;1.1什么是线程
+&lt;/h2&gt;&lt;p&gt;进程=内核数据结构+代码和数据（执行流）&lt;/p&gt;
+&lt;p&gt;线程：是进程内部的一个执行分值（执行流）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;从内核和资源的角度看：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;进程：承担分配系统资源的基本实体（占用内存资源、CPU资源）&lt;/li&gt;
+&lt;li&gt;线程：CPU调度的基本单位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-thread/index.assets/image-20251123180031318.png&#34;
+	width=&#34;1232&#34;
+	height=&#34;603&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251123180031318&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;204&#34;
+		data-flex-basis=&#34;490px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;进程访问的大部分资源，都是通过地址空间访问的。地址空间是“窗口”&lt;/p&gt;
+&lt;p&gt;如果我们要创建一个进程，共享窗口呢？&lt;/p&gt;
+&lt;p&gt;将资源再分配给不同的task_struct，就能用进程模拟出线程了&lt;/p&gt;
+&lt;h2 id=&#34;12分页式存储管理&#34;&gt;1.2分页式存储管理
+&lt;/h2&gt;&lt;p&gt;虚拟地址和页表的由来&lt;/p&gt;
+&lt;p&gt;1-2-2 物理内存管理&lt;/p&gt;
+&lt;p&gt;1-2-3 页表
+1-2-4 页目录结构
+1-2-5 两级页表的地址转换&lt;/p&gt;
+&lt;p&gt;1-2-6 缺页异常&lt;/p&gt;
+&lt;h2 id=&#34;13线程的优点&#34;&gt;1.3线程的优点
+&lt;/h2&gt;&lt;h2 id=&#34;14线程的缺点&#34;&gt;1.4线程的缺点
+&lt;/h2&gt;&lt;h2 id=&#34;15线程异常&#34;&gt;1.5线程异常
+&lt;/h2&gt;&lt;h2 id=&#34;16线程的用途&#34;&gt;1.6线程的用途
+&lt;/h2&gt;&lt;h1 id=&#34;2-linux进程vs线程&#34;&gt;2. Linux进程VS线程
+&lt;/h1&gt;&lt;p&gt;进程和线程
+口 2-2 进程的多个线程共享&amp;ndash;口 2-3 关于进程线程的问题&lt;/p&gt;
+&lt;h1 id=&#34;3linux线程控制&#34;&gt;3.Linux线程控制
+&lt;/h1&gt;&lt;p&gt;1 POSIX线程库 3-2 创建线程口 3-3 线程终止 3-4 线程等待&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;3-5 分离线程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;4线程id及进程地址空间布局&#34;&gt;4.线程ID及进程地址空间布局
+&lt;/h1&gt;&lt;h1 id=&#34;5线程封装&#34;&gt;5.线程封装
+&lt;/h1&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

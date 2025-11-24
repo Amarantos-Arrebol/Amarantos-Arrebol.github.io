@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n">
+<title>【自动化测试】01测试理论&#43;实践</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/'>
+
+<link rel="stylesheet" href="/scss/style.min.f62fad6b64852a4093ae5ceb06b3f1a3f8409c5b5dd5c91806fbb732800ca9f9.css"><meta property='og:title' content="【自动化测试】01测试理论+实践">
+<meta property='og:description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:tag' content='web自动化测试' /><meta property='article:tag' content='性能测试' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-24T05:12:59&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
+<meta name="twitter:title" content="【自动化测试】01测试理论+实践">
+<meta name="twitter:description" content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' /><link rel="stylesheet" href="/css/custom.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    
+    $.getScript("https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/fairyDustCursor.min.js");
+});
+</script>
+
+
+<style type="text/css">
+.main-content img, body {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/Arrow.cur), auto;
+}
+
+.actions > div,
+.expand-done,
+.main-content figure > figcaption div,
+.navbar-above .navbar-nav .item,
+.navbar-searchicon,
+.navbar-slideicon,
+.photos .picture-details,
+.widget .ad-tag .click-close,
+a,
+button {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/Hand.cur), auto;
+}
+
+blockquote,
+code,
+h1, h2, h3, h4, h5, h6,
+hr,
+input[type=text],
+li,
+p,
+td,
+textarea,
+th {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/IBeam.cur), auto;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+    
+    
+    function processTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            
+            const regex = /==([^=\n`]+?)==/g;
+            
+            if (regex.test(text)) {
+                const parent = node.parentNode;
+                
+                if (parent && !['CODE', 'PRE', 'KBD', 'SAMP'].includes(parent.tagName)) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(/==([^=\n`]+?)==/g, function(match, content, offset) {
+                        
+                        if (offset > lastIndex) {
+                            fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                        }
+                        
+                        
+                        const mark = document.createElement('mark');
+                        mark.textContent = content;
+                        fragment.appendChild(mark);
+                        
+                        lastIndex = offset + match.length;
+                        return match;
+                    });
+                    
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                    }
+                    
+                    parent.replaceChild(fragment, node);
+                }
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && 
+                   !['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP'].includes(node.tagName)) {
+            
+            Array.from(node.childNodes).forEach(processTextNode);
+        }
+    }
+    
+    processTextNode(articleContent);
+});
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside
+  class="sidebar left-sidebar sticky "
+>
+  <button
+    class="hamburger hamburger--spin"
+    type="button"
+    id="toggle-menu"
+    aria-label="切换菜单"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+
+  <header>
+     
+    <figure class="site-avatar">
+      <a href="/">
+           
+        <img
+          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          width="300"
+          height="300"
+          class="site-logo"
+          loading="lazy"
+          alt="Avatar"
+        />
+         
+      </a>
+      
+      <span class="emoji">🌿</span>
+      
+    </figure>
+     
+
+    <div class="site-meta">
+      <h1 class="site-name">
+        <a href="/">PursUnre的博客</a>
+      </h1>
+      <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+    </div>
+  </header><ol class="menu-social">
+    
+    <li>
+      <a
+        href="https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343"
+        target="_blank"
+        
+        title="CSDN"
+        
+        rel="me"
+      >
+          <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg> 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="https://gitee.com/green-citrus"
+        target="_blank"
+        
+        title="Gitee"
+        
+        rel="me"
+      >
+          <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg> 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="https://github.com/Amarantos-Arrebol"
+        target="_blank"
+        
+        title="GitHub"
+        
+        rel="me"
+      >
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+ 
+      </a>
+    </li>
+    
+  </ol><ol class="menu" id="main-menu">
+      
+    <li >
+      <a
+        href="/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+ 
+        <span>主页</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/archives/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+ 
+        <span>归档</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/search/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+ 
+        <span>搜索</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/%E6%8A%80%E6%9C%AF%E9%93%BE%E6%8E%A5/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+ 
+        <span>技术链接</span>
+      </a>
+    </li>
+    
+    <li class="menu-bottom-section">
+      <ol class="menu"> 
+        <li id="dark-mode-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+ <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+          <span>暗色模式</span>
+        </li>
+        
+      </ol>
+    </li>
+  </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1概念篇">1.概念篇</a>
+      <ul>
+        <li><a href="#11认识测试">1.1认识测试</a>
+          <ul>
+            <li><a href="#111什么是测试">1.1.1什么是测试？</a></li>
+            <li><a href="#112为什么需要软件测试">1.1.2为什么需要软件测试？</a></li>
+            <li><a href="#113测试岗位有哪些">1.1.3测试岗位有哪些？</a></li>
+            <li><a href="#114软件测试和开发的区别">1.1.4软件测试和开发的区别？</a>
+              <ul>
+                <li><a href="#内容上">内容上</a></li>
+                <li><a href="#难易程度上">难易程度上</a></li>
+                <li><a href="#其它不同">其它不同</a></li>
+              </ul>
+            </li>
+            <li><a href="#115优秀的测试人员需要具备的素质">1.1.5优秀的测试人员需要具备的素质</a>
+              <ul>
+                <li><a href="#1综合能力">1.综合能力</a></li>
+                <li><a href="#2掌握自动化测试技术">2.掌握自动化测试技术</a></li>
+                <li><a href="#3测试用例的设计能力">3.测试用例的设计能力</a></li>
+                <li><a href="#4探索性思维">4.探索性思维</a></li>
+                <li><a href="#5兴趣">5.兴趣</a></li>
+                <li><a href="#6责任感和压力">6.责任感和压力</a></li>
+              </ul>
+            </li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+        <li><a href="#12相关概念">1.2相关概念</a>
+          <ul>
+            <li><a href="#121需求的概念">1.2.1需求的概念</a>
+              <ul>
+                <li><a href="#用户需求和软件需求">用户需求和软件需求</a></li>
+                <li><a href="#软件需求">软件需求</a></li>
+              </ul>
+            </li>
+            <li><a href="#122开发模型">1.2.2开发模型</a>
+              <ul>
+                <li><a href="#什么是模型">什么是”模型“</a></li>
+                <li><a href="#软件的生命周期">软件的生命周期</a></li>
+                <li><a href="#常见开发模型">常见开发模型</a></li>
+              </ul>
+            </li>
+            <li><a href="#123测试模型">1.2.3测试模型</a></li>
+          </ul>
+        </li>
+        <li><a href="#13bug篇">1.3Bug篇</a></li>
+        <li><a href="#14用例篇">1.4用例篇</a></li>
+        <li><a href="#15测试分类">1.5测试分类</a></li>
+      </ul>
+    </li>
+    <li><a href="#2自动化测试">2.自动化测试</a>
+      <ul>
+        <li><a href="#21概念">2.1概念</a>
+          <ul>
+            <li><a href="#211基本介绍">2.1.1基本介绍</a>
+              <ul>
+                <li><a href="#为什么要求自动化测试">为什么要求自动化测试</a></li>
+                <li><a href="#回归测试">回归测试</a></li>
+                <li><a href="#自动化分类">自动化分类</a></li>
+                <li><a href="#自动化测试金字塔">自动化测试金字塔</a></li>
+              </ul>
+            </li>
+            <li><a href="#222web自动化测试">2.2.2Web自动化测试</a>
+              <ul>
+                <li><a href="#驱动">驱动</a></li>
+                <li><a href="#驱动管理工具">驱动管理工具</a></li>
+                <li><a href="#selenium库">selenium库</a></li>
+              </ul>
+            </li>
+            <li><a href="#223selenium">2.2.3selenium</a>
+              <ul>
+                <li><a href="#第一个自动化脚本">第一个自动化脚本</a></li>
+                <li><a href="#selenium驱动浏览器的工作原理">selenium+驱动+浏览器的工作原理</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#22常用函数">2.2常用函数</a>
+          <ul>
+            <li><a href="#221元素定位">2.2.1元素定位</a>
+              <ul>
+                <li><a href="#cssselector">cssSelector</a></li>
+                <li><a href="#xpath">xpath</a></li>
+              </ul>
+            </li>
+            <li><a href="#222操作测试对象">2.2.2操作测试对象</a></li>
+            <li><a href="#223窗口">2.2.3窗口</a></li>
+            <li><a href="#224等待">2.2.4等待</a></li>
+            <li><a href="#225导航">2.2.5导航</a></li>
+            <li><a href="#226弹窗">2.2.6弹窗</a></li>
+            <li><a href="#227文件上传">2.2.7文件上传</a></li>
+            <li><a href="#228浏览器参数">2.2.8浏览器参数</a></li>
+          </ul>
+        </li>
+        <li><a href="#23实战">2.3实战</a></li>
+      </ul>
+    </li>
+    <li><a href="#2性能测试">2.性能测试</a>
+      <ul>
+        <li><a href="#21概念-1">2.1概念</a></li>
+        <li><a href="#32工具">3.2工具</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+        
+        
+        <div id="back-to-top">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                <path d="M512 298.666667l-298.666667 310.912L283.52 682.666667 512 445.312 740.48 682.666667 810.666667 609.578667z"></path>
+            </svg>
+        </div>
+    </aside>
+
+
+
+<script>
+(function() {
+    const backToTopButton = document.getElementById('back-to-top');
+    if (!backToTopButton) return;
+    
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+    
+    
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+})();
+</script>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/test-theory-and-practice/">
+                <img src="/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_2efe09280f23e021.png"
+                        srcset="/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_2efe09280f23e021.png 800w, /p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_8c8b4a5dc4d72c23.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【自动化测试】01测试理论&#43;实践" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" style="background-color: #3DB6B1; color: #ffffff;">
+                自动化测试
+            </a>
+        
+            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
+                学习笔记
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/test-theory-and-practice/">【自动化测试】01测试理论&#43;实践</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div class="article-time-item">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-11-19</time>
+            </div><span class="article-time-divider">|</span>
+            <div class="article-time-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
+                <time class="article-time--updated">2025-11-24</time>
+            </div><span class="article-time-divider">|</span>
+            <div class="article-time-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+                <span class="article-time--wordcount">7346 字
+                </span>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="1概念篇">1.概念篇
+</h1><h2 id="11认识测试">1.1认识测试
+</h2><h3 id="111什么是测试">1.1.1什么是测试？
+</h3><p>测试在生活中处处可见</p>
+<p><strong>案例一：商场买衣服</strong></p>
+<p>1）<strong>外观测试</strong>：挑选符合个人审美的衣服</p>
+<p>2） <strong>试穿测试</strong>：选择尺码，去试衣间穿</p>
+<p>3）<strong>材质测试</strong>：考虑一下衣服是否透气等材质相关的考虑</p>
+<p>4）<strong>价格测试</strong>：询问价格是否符合预期</p>
+<p>购买衣服，交易完成</p>
+<p><strong>案例二：对某款购物软件进行测试</strong></p>
+<p>1）<strong>启动测试</strong>：点击软件图标，测试软件是否可以正常打开</p>
+<p>2）<strong>搜索测试</strong>：点击输入框，输入关键词，点击搜索</p>
+<p>3）<strong>商品测试</strong>：点击商品进入详情页</p>
+<p>4）<strong>购物测试</strong>：点击购买下单成功</p>
+<p>&hellip;</p>
+<p><strong>案例三：对一个JAVA程序进行测试</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">myDiv</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// 变量a b没有限制</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>测试代码逻辑是否符合预期：</p>
+<p>a= 1,b= 2,返回的 c 是否等于3</p>
+<p>a= 1,b=-2，返回的 c 是否等于-1</p>
+<p>a =-1,b=2，返回的c 是否等于1</p>
+<p>a =-1,b=-2，返回的 c 是否等于-3</p>
+<p>&hellip;</p>
+<h3 id="112为什么需要软件测试">1.1.2为什么需要软件测试？
+</h3><blockquote>
+<p>企业最终的目的是“盈利”，互联网企业借助软件/系统来跟用户交互从而获得盈利，也就是说企业的受众群体主要是广大的使用用户，而用户的使用感受将直接影响企业的盈利，若产品质量太差将导致大量用户的流失，所以企业非常重视测试</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251119183535354.png"
+	width="637"
+	height="313"
+	
+	loading="lazy"
+	
+		alt="image-20251119183535354"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="203"
+		data-flex-basis="488px"
+	
+></p>
+<p>软件测试就是<strong>验证软件产品特性是否满足用户的需求</strong></p>
+<blockquote>
+<p>功能、性能、界面、易用性&hellip;</p>
+</blockquote>
+<h3 id="113测试岗位有哪些">1.1.3测试岗位有哪些？
+</h3><p>打开求职软件，我们可以看到测试岗位有很多：</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251119184642283.png"
+	width="1621"
+	height="468"
+	
+	loading="lazy"
+	
+		alt="image-20251119184642283"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="346"
+		data-flex-basis="831px"
+	
+></p>
+<p>其实测试岗位主要分为以下两个方面：</p>
+<p><strong>1）软件测试开发工程师</strong></p>
+<blockquote>
+<p>工作重心为可测试性以及通用测试基础框架。编写单元测试框架和自动化测试框架。软件测试开发工程师关注质量提升和测试覆盖率。</p>
+</blockquote>
+<p><span style="color: #FF0000;">工作重点就是业务测试</span>，<span style="color: #8080FF;">开发测试效率工具（自动化、性能测试、覆盖率&hellip;等）</span></p>
+<p>区别：后端开发工程师是开发业务代码的，测试人员是没有权限开发业务代码的</p>
+<p><strong>2）测试工程师</strong></p>
+<blockquote>
+<p>与软件测试开发工程师关系密切，但把用户放在第一位来思考。测试工程师组织整体测试实践，并进行分析总结，驱动测试执行，构建端到端的自动化测试。</p>
+</blockquote>
+<p><span style="color: #FF0000;">工作重点就是业务测试</span>。对于纯测试工程师，更多测试操作是点点点的测试</p>
+<p><strong>找工作/实习的时候怎么确定自己找的是测开还是测试？</strong></p>
+<p>1.绝大多数中大厂的测试岗位基本都是测开</p>
+<p>2.询问hr/面试官组内有哪些技术事务</p>
+<p>==<strong>高频面试题：软件测试开发工程师和测试工程师的区别</strong>==</p>
+<p>相同点：</p>
+<ol>
+<li>都统称为测试人员</li>
+<li><span style="color: #8080FF;">对产品质量负责，保障产品的质量</span></li>
+</ol>
+<p>不同点：
+测试开发比测试多“开发”二字，而这个开发并不是指业务开发，因为业务开发是开发人员的主要职责，这里的开发指的是<span style="color: #8080FF;">需要开发测试效率工具，通过效率工具来提升测试效率和测试质量</span>，比如我们的自动化、性能测试等就属于效率工具</p>
+<p><strong>测试小白进入公司后</strong></p>
+<p>1.熟悉测试流程</p>
+<p>2.通过业务测试熟练个人的测试能力</p>
+<p>3.掌握各种各样的工具提高测试质量和效率</p>
+<p>4.开始逐步学习开发各种效率工具</p>
+<h3 id="114软件测试和开发的区别">1.1.4软件测试和开发的区别？
+</h3><h4 id="内容上">内容上
+</h4><p>开发人员：</p>
+<ol>
+<li>
+<p>通过一些编程语言，如C，C++，C#，Java,Python，PHP实现软件的特性</p>
+</li>
+<li>
+<p>修改BUG</p>
+</li>
+</ol>
+<p>测试人员：</p>
+<p>1.编写测试用例，执行测试用例，发现软件的缺陷，验收缺陷&hellip;</p>
+<p>2.利用测试工具保障软件的质量</p>
+<h4 id="难易程度上">难易程度上
+</h4><p>开发：
+应届生要求掌握语言基础、开发框架、数据库、数据结构、Linux等课程
+在职人员还需掌握更多中间件如：Redis、rabbitMQ、ES等
+要求掌握以上技术并能运用在代码开发中</p>
+<p>测试：
+应届生要求掌握语言基础、开发框架、数据库、数据结构、Linux等课程
+掌握测试技能：测试概念、设计测试用例、执行测试等
+在职人员还需掌握更多中间件如：RedisrabbitMQ、ES等</p>
+<p><strong>总结：</strong></p>
+<p>开发广度小，专业度高。</p>
+<p>测试广度大，专业度相对较低，大型互联网企业对测试人员的专业要求可能跟开发差不多。</p>
+<h4 id="其它不同">其它不同
+</h4><p>==<strong>测试人员经常会进行测试动作，而开发人员进行进行调试动作，调试和测试是同一个含义吗？</strong>==<img src="/p/test-theory-and-practice/index.assets/image-20251119192938878.png"
+	width="1480"
+	height="359"
+	
+	loading="lazy"
+	
+		alt="image-20251119192938878"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="412"
+		data-flex-basis="989px"
+	
+></p>
+<p>==<strong>高频面试题：走测试岗位为什么还要学习开发知识？</strong>==
+1）测试人员也需要编写代码，如自动化测试、性能测试、开发测试效率工具等。测试人员需要能够看懂代码、了解开发框架。</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251119193620649.png"
+	width="1077"
+	height="625"
+	
+	loading="lazy"
+	
+		alt="image-20251119193620649"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="413px"
+	
+></p>
+<p>2）学好开发知识能够提高软件测试质量。通过查看代码中数据的走向能够更好的从代码层面去发现问题。</p>
+<h3 id="115优秀的测试人员需要具备的素质">1.1.5优秀的测试人员需要具备的素质
+</h3><p><strong>高频面试题：为什么走测试岗位而不走开发岗位？</strong></p>
+<p>回答思路：从岗位工作性质分析+个人性格/爱好+个人职业规划三个方面阐述。</p>
+<blockquote>
+<p>1）个人兴趣爱好：从性格和兴趣出发，测试工作需要测试人员具备良好的耐心、细心，接触了测试内容后对测试工作产生浓厚兴趣</p>
+<p>2）岗位性质：不管是测试还是测试开发都统称为测试人员，测试人员主要以保障项目测试质量为主，通过开发一些测试效率工具（比如我们学的自动化就是效能工具，除此之外还有我们课件上写的内存泄漏工具等等）来提高测试效率。而软件开发主要以业务编码为主。</p>
+<p>3）个人职业规划：大学期间就树立了走测试方向的目标，今后将继续提高测试和开发能力，争取在测试领域做出一番有影响力的事务</p>
+</blockquote>
+<h4 id="1综合能力">1.综合能力
+</h4><p><strong>沟通能力</strong></p>
+<blockquote>
+<p>产品经理&ndash;写需求文档的人（发布任务的人）</p>
+<p>测试人员&ndash;测试过程中发现bug、测试用例、测试计划、测试报告&hellip;.</p>
+<p>开发人员</p>
+</blockquote>
+<p><strong>快速学习能力</strong></p>
+<blockquote>
+<p>抖音&ndash;测试</p>
+<p>1.先了解抖音是做什么的（业务是什么）</p>
+<p>2.了解组内测试的具体形式和步骤是什么</p>
+<p>2.做业务测试的步骤</p>
+<p>&hellip;</p>
+</blockquote>
+<p><strong>开发能力</strong></p>
+<p><strong>文字能力</strong></p>
+<h4 id="2掌握自动化测试技术">2.掌握自动化测试技术
+</h4><p>==掌握自动化测试技术==，可以将测试人员从大量重复性的手工劳动中解放出来，这样可以把更多的精力花在更多类型的测试上。</p>
+<blockquote>
+<p>比如一款软件每隔一段时间就要更新（新增或优化一些功能），一般是历史功能不受影响的基础上增加新的功能。但是历史功能和新增功能都要测试——&gt;可以借助自动化来测试历史功能</p>
+</blockquote>
+<p>经常听到自动化一词，到底什么是自动化呢？自动化测试只是一个统称</p>
+<p>接口自动化、UI自动化（前端自动化）&hellip;</p>
+<blockquote>
+<ul>
+<li>在日常生活中，自动洗手液的出现，避免了人们按压瓶子动作，在疫情阶段使用自动洗手液有效减少了交叉感染的风险。</li>
+<li>在农业上，自动洒水器的出现，大面积的土地也能够实现快速、均匀的洒水。</li>
+<li>在交通上，交通灯的出现。使得交通有序进行，极大减少了堵车或其他事故的概率。</li>
+</ul>
+<p>在测试中，我们常常会见到接口自动化、UI自动化（web自动化、移动端自动化），接口<strong>自动化能够自动的去请求接口并校验接口返回属性是否符合预期结果</strong>；<strong>UI自动化能够自动在界面或者移动端上模拟人的行为进行操作，并检查元素和操作等是否符合预期结果</strong>。</p>
+</blockquote>
+<h4 id="3测试用例的设计能力">3.测试用例的设计能力
+</h4><p>==测试用例设计能力==是指，无论对于什么类型的测试，都能够设计出高效地发现缺陷，保证产品质量的优秀测试用例。</p>
+<blockquote>
+<p>如何提高测试用例设计的能力？</p>
+<p>1.掌握设计测试用例的方法（设计测试用例的万能公式）</p>
+<p>2.多写多练，积累，总结</p>
+<p>3.阅读好的测试用例设计案例</p>
+</blockquote>
+<p><span style="color: #FF0000;">设计测试用例师测试岗位面试/笔试必考题！</span></p>
+<h4 id="4探索性思维">4.探索性思维
+</h4><p><strong>软件测试人员只能极大程度保证产品不会出现明显问题，但是并不能保证产品就一定没有问题了</strong>。测试工程师在执行测试的过程中不断学习被测系统，结合自己的经验，知识，直觉，进行系统的错误猜测和逻辑推理，整理和分析出更多有针对性的的测试关注点。探索性思维的质量取决于测试人员的经验。</p>
+<h4 id="5兴趣">5.兴趣
+</h4><p>兴趣是就业择岗的重要因素之一，选择了但是仍然对个人的工作性质不感兴趣，可想而知，这样的选择也不会走的太远。</p>
+<h4 id="6责任感和压力">6.责任感和压力
+</h4><p>责任感是任何工作的都需要的，对于测试工作者而言：<strong>测试往往是产品质量的最后的把关者</strong>；由于测试工作成效很难衡量，测试用例执行、bug数目的多少都无法说明产品的质量是否合格；虽然在敏捷模型中团队中每个人都需要对产品质量负责，但是产品的测试质量是跟测试人员那密切相关的。所以，责任感是最重要的测试必备素质之一。</p>
+<p>压力，测试工作者，特别是属于互联网行业需要能够抗住各种压力。</p>
+<h3 id="总结">总结
+</h3><p>测试的概念：验证软件的特性是否满足用户的需求（提升用户使用的满意度）</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120193107690.png"
+	width="1033"
+	height="585"
+	
+	loading="lazy"
+	
+		alt="image-20251120193107690"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
+	
+></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120193536835.png"
+	width="662"
+	height="336"
+	
+	loading="lazy"
+	
+		alt="image-20251120193536835"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="197"
+		data-flex-basis="472px"
+	
+></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120193429388.png"
+	width="787"
+	height="461"
+	
+	loading="lazy"
+	
+		alt="image-20251120193429388"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="170"
+		data-flex-basis="409px"
+	
+></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120193824489.png"
+	width="664"
+	height="445"
+	
+	loading="lazy"
+	
+		alt="image-20251120193824489"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="149"
+		data-flex-basis="358px"
+	
+></p>
+<h2 id="12相关概念">1.2相关概念
+</h2><h3 id="121需求的概念">1.2.1需求的概念
+</h3><h4 id="用户需求和软件需求">用户需求和软件需求
+</h4><p>用户需求和软件需求</p>
+<ul>
+<li>用户需求，<strong>没有经过合理的评估，通常就是一句话</strong></li>
+<li>软件需求，<strong>是开发人员和测试人员执行工作的依据</strong></li>
+</ul>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120195120014.png"
+	width="1129"
+	height="555"
+	
+	loading="lazy"
+	
+		alt="image-20251120195120014"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="203"
+		data-flex-basis="488px"
+	
+></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120195030734.png"
+	width="1009"
+	height="552"
+	
+	loading="lazy"
+	
+		alt="image-20251120195030734"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="182"
+		data-flex-basis="438px"
+	
+></p>
+<h4 id="软件需求">软件需求
+</h4><p>或者叫功能需求，该需求会详细描述开发人员必须实现的软件功能。</p>
+<p>软件需求是测试人员进行测试工作的基本依据。</p>
+<p>在工作中我们实际见到的软件需求文档类似于下面的表述：</p>
+<blockquote>
+<p>软件需求规格说明书</p>
+<p>一、用户需求：
+平台支持邮箱注册</p>
+<p>二、软件需求：</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120195622532.png"
+	width="747"
+	height="1156"
+	
+	loading="lazy"
+	
+		alt="image-20251120195622532"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="64"
+		data-flex-basis="155px"
+	
+></p>
+</blockquote>
+<p>**注意：**用户的需求不能直接作为开发和测试的依据。</p>
+<p>针对用户的需求，产品经理需要进行需求分析（技术可行性、市场可行性、成本投入和收益占比等）后才可转变为软件需求</p>
+<blockquote>
+<p>书籍：《软件测试的艺术》</p>
+</blockquote>
+<h3 id="122开发模型">1.2.2开发模型
+</h3><p>只需要知道特点（优缺点）以及适应场景</p>
+<h4 id="什么是模型">什么是”模型“
+</h4><p><img src="/p/test-theory-and-practice/index.assets/image-20251120200450563.png"
+	width="504"
+	height="375"
+	
+	loading="lazy"
+	
+		alt="image-20251120200450563"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="134"
+		data-flex-basis="322px"
+	
+></p>
+<blockquote>
+<p>随着软件工程学科的发展，人们对计算机软件的认识逐渐深入。软件工作的范围不仅仅局限在程序编写，而是扩展到了整个软件生命周期，<strong>如软件基本概念的形成、需求分析、设计、实现、测试、安装部署、运行维护，直到软件被更新和替换新的版本</strong>。</p>
+<p>软件工程还包括很多技术性的管理工作，例如<strong>过程管理、产品管理、资源管理和质量管理</strong>，在这些方面也逐步地建立起了标准或规范。</p>
+</blockquote>
+<h4 id="软件的生命周期">软件的生命周期
+</h4><p>软件的生命周期实际就是软件的开发模型</p>
+<p><strong>什么是生命周期？</strong></p>
+<blockquote>
+<p>生命周期指的是从生命的开始到生命结束的一段时间。以人为例，人类的生命周期是从生命孕育的开始，中间会经历幼年，童年，少年，青年，老年，最终直至死亡。</p>
+<p>而软件/产品的生命周期也是如此，需求的开始是软件生命的起点，中间会经历需求的计划、设计，程序开发，程序测试等阶段，直至软件不再进行维护便到了生命的重点</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120200834515.png"
+	width="1071"
+	height="774"
+	
+	loading="lazy"
+	
+		alt="image-20251120200834515"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="332px"
+	
+></p>
+<p>软件(开发)的生命周期：<span style="color: #8080FF;">需求分析—计划——设计——编码——测试—运行维护</span></p>
+<p><strong>对于软件的生命周期中，每个阶段都在做什么呢？</strong></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120201312221.png"
+	width="1067"
+	height="1014"
+	
+	loading="lazy"
+	
+		alt="image-20251120201312221"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="105"
+		data-flex-basis="252px"
+	
+></p>
+<blockquote>
+<p>正常使用没有问题，但是在极端情况下会出现问题（性能问题）</p>
+</blockquote>
+<blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120202017920.png"
+	width="630"
+	height="362"
+	
+	loading="lazy"
+	
+		alt="image-20251120202017920"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="174"
+		data-flex-basis="417px"
+	
+></p>
+</blockquote>
+<h4 id="常见开发模型">常见开发模型
+</h4><h5 id="瀑布模型">瀑布模型
+</h5><p><img src="/p/test-theory-and-practice/index.assets/image-20251120202257829.png"
+	width="1047"
+	height="83"
+	
+	loading="lazy"
+	
+		alt="image-20251120202257829"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1261"
+		data-flex-basis="3027px"
+	
+></p>
+<p>布模型在软件工程中占有重要地位，是所有其他模型的基础框架。</p>
+<p>特点：<strong>瀑布模型的每一个阶段都只执行一次</strong>，因此是<strong>线性顺序</strong>进行的软件开发模式。</p>
+<p>瀑布模型的一个最大缺陷在于，<strong>可以运行的产品很迟才能被看到</strong>。</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120202803558.png"
+	width="1062"
+	height="403"
+	
+	loading="lazy"
+	
+		alt="image-20251120202803558"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="263"
+		data-flex-basis="632px"
+	
+></p>
+<p>瀑布模型的适用场景：<strong>需求固定的小项目</strong></p>
+<h5 id="螺旋模型">螺旋模型
+</h5><blockquote>
+<p>一般在软件开发初期阶段需求不是很明确时，采用渐进式的开发模式。</p>
+</blockquote>
+<p>螺旋模型是<strong>渐进式开发模型</strong>的代表之一。</p>
+<p>适应场景：<strong>规模庞大、复杂度高、风险大的项目</strong></p>
+<blockquote>
+<p>这种迭代开发的模式给软件测试带来了新的要求，它不允许有一段独立的测试时间和阶段，<strong>测试必须跟随开发的迭代而迭代</strong></p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120203128538.png"
+	width="636"
+	height="517"
+	
+	loading="lazy"
+	
+		alt="image-20251120203128538"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="123"
+		data-flex-basis="295px"
+	
+></p>
+<p>特点：螺旋模型中各个阶段都引入了风险分析+原型</p>
+<blockquote>
+<p>引入的目的是减少各阶段遗留的风险问题，避免把问题留到后面阶段</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120203541792.png"
+	width="920"
+	height="259"
+	
+	loading="lazy"
+	
+		alt="image-20251120203541792"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="355"
+		data-flex-basis="852px"
+	
+></p>
+<p>缺陷：在螺旋模型中需要额外招聘专业的风险分析人才</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120203649660.png"
+	width="1077"
+	height="257"
+	
+	loading="lazy"
+	
+		alt="image-20251120203649660"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="419"
+		data-flex-basis="1005px"
+	
+></p>
+<h5 id="增量模型迭代模型">增量模型、迭代模型
+</h5><p><strong>将大需求拆分成小需求，每个小需求独立开发上线</strong></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120203751486.png"
+	width="763"
+	height="431"
+	
+	loading="lazy"
+	
+		alt="image-20251120203751486"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="177"
+		data-flex-basis="424px"
+	
+></p>
+<p><strong>增量是逐块建造的概念，迭代是反复求精的概念</strong></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120203939225.png"
+	width="1019"
+	height="475"
+	
+	loading="lazy"
+	
+		alt="image-20251120203939225"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="214"
+		data-flex-basis="514px"
+	
+></p>
+<p>适用场景：大型项目，需求不明确</p>
+<p>迭代模型和增量模型在现在已经不会单独使用，而是配合着去使用</p>
+<h5 id="敏捷模型">敏捷模型
+</h5><h3 id="123测试模型">1.2.3测试模型
+</h3><h2 id="13bug篇">1.3Bug篇
+</h2><h2 id="14用例篇">1.4用例篇
+</h2><h2 id="15测试分类">1.5测试分类
+</h2><h1 id="2自动化测试">2.自动化测试
+</h1><blockquote>
+<p>实际在企业中，我们需要对某一个特定的软件进行自动化的实施，包含但不限于软件所有界面的UI自动化测试、所有接口的接口自动化测试。</p>
+</blockquote>
+<h2 id="21概念">2.1概念
+</h2><h3 id="211基本介绍">2.1.1基本介绍
+</h3><h4 id="为什么要求自动化测试">为什么要求自动化测试
+</h4><p>自动的代替人的行为完成操作
+软件中的自动化测试：通过自动化测试<strong>有效减少人力的消耗的同时也提高了测试的质量和效率</strong></p>
+<h4 id="回归测试">回归测试
+</h4><p><strong>自动化的主要目的就是用来进行回归测试</strong></p>
+<p>软件通常有非常多的版本，软件在不断更新迭代。当新版本即将上线，意味着有用户使用新的版本，也有用户在使用旧的版本。新的版本可能会影响到旧的版本，如果不对旧版本进行测试，可能会出现新版本上线后旧版本无法使用或者旧版本出现了功能故障。因此，新版本和旧版都需要执行测试</p>
+<blockquote>
+<p>软件有多个版本需要进行功能的整体回归。
+为了避免新增功能影响到历史的功能需要进行功能的回归。</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251120210057396.png"
+	width="678"
+	height="409"
+	
+	loading="lazy"
+	
+		alt="image-20251120210057396"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="397px"
+	
+></p>
+<blockquote>
+<p><strong>常见面试题</strong></p>
+<ol>
+<li>
+<p>**自动化测试能够取代人工测试吗？**自动化脚本（测试人员）</p>
+<blockquote>
+<p>自动化测试不一定比人工测试更能保障系统的可靠性，自动化测试是测试人员手工编写，后续如果有功能的变更自动化也需要进行不定期的维护和更新。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>自动化测试可以大幅度降低工作量？</strong></p>
+<p>测试工作不仅仅包含执行测试阶段。测试主要由人工测试，通过自动化测试来辅助测试</p>
+<blockquote>
+<p>错误，“一定程度上”和“大幅度”的表达方式也需要注意</p>
+</blockquote>
+<p>注意：测试笔试中的选择题尽量不要选择说的太死或者太绝对的选项~~~</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="自动化分类">自动化分类
+</h4><p>1）接口自动化测试</p>
+<blockquote>
+<p>请求参数、请求体、响应内容、状态码&hellip;</p>
+</blockquote>
+<p>2）前端自动化测试（web界面测试、客户端界面测试）</p>
+<h4 id="自动化测试金字塔">自动化测试金字塔
+</h4><p><strong>理想的自动化金字塔</strong>：</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251121230736610.png"
+	width="1191"
+	height="590"
+	
+	loading="lazy"
+	
+		alt="image-20251121230736610"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="201"
+		data-flex-basis="484px"
+	
+></p>
+<ul>
+<li>
+<p>单元测试：投入的人力少，但是获得的投资回报率更高</p>
+<blockquote>
+<p>开发人员(最熟悉自己代码的人)写完代码之后，就执行单元测试</p>
+</blockquote>
+</li>
+<li>
+<p>接口测试</p>
+</li>
+<li>
+<p>UI测试</p>
+<blockquote>
+<p>前端可以看到的元素非常多：文字、图片、输入框、按钮&hellip;每个元素的大小、颜色、形状等等都需要进行测试，前端涉及到的不可靠因素太多了。编写前端自动化脚本而言难度会大一些，消耗的人力和时间成本也会更大一些</p>
+</blockquote>
+</li>
+</ul>
+<p>企业中，自动化往往是“<strong>冰淇淋蛋筒反模式</strong>”：</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251121231335523.png"
+	width="865"
+	height="514"
+	
+	loading="lazy"
+	
+		alt="image-20251121231335523"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="403px"
+	
+></p>
+<p>对于开发人员来说，相较于测试人员来说不那么注重测试，因此，实际工作中单元测试投入的时间和精力会比较少</p>
+<h3 id="222web自动化测试">2.2.2Web自动化测试
+</h3><h4 id="驱动">驱动
+</h4><blockquote>
+<p>例子：</p>
+<p>手工测试：百度搜索关键词“迪丽热巴”</p>
+<p>自动化测试：</p>
+<p>1）打开浏览器</p>
+<p>2）输入百度网址：https://www.baidu.com</p>
+<p>3）找到输入框，输入关键词“迪丽热巴”</p>
+</blockquote>
+<p>web系统的测试前提是需要打开浏览器，通过访问web服务器来对服务器界面进行一系列的操作。对于手工测试来说，这一系列的操作都需要测试人员手动的，一步一步的来执行测试。那么对于自动化程序来说，可以使用程序驱动浏览器打开。</p>
+<p>程序想要打开web浏览器就需要安装<strong>web驱动</strong>（即WebDriver)，WebDriver 以本地化方式驱动浏览器。</p>
+<p><a class="link" href="https://selenium.net.cn/documentation/webdriver/troubleshooting/errors/driver_location/"  target="_blank" rel="noopener"
+    >安装浏览器的驱动</a></p>
+<blockquote>
+<p>必须使用根浏览器版本配套的驱动才可以，如果版本不匹配，则无法开发浏览器！这意味这每次浏览器更新，都需要手动下载新的驱动，整个过程非常冗余</p>
+</blockquote>
+<h4 id="驱动管理工具">驱动管理工具
+</h4><p>Webdriver-manager 可以解决浏览器更新导致驱动无法使用的问题。有了Webdriver-manager ，我们无需手动安装浏览器驱动，即使浏览器更新也不会影响自动化的执行</p>
+<p><code>pip install webdriver-manager   </code></p>
+<h4 id="selenium库">selenium库
+</h4><p><code>pip install selenium==4.0.0  </code></p>
+<h3 id="223selenium">2.2.3selenium
+</h3><blockquote>
+<p>selenium是一个web自动化测试工具，selenium中提供了丰富的方法供给使用者进行web自动化测试</p>
+</blockquote>
+<h4 id="第一个自动化脚本">第一个自动化脚本
+</h4><blockquote>
+<p>先检查python解释器，确定selenium库和WebDriverManager库都安装成功并加载到当前项目中</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.service</span> <span class="kn">import</span> <span class="n">Service</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">webdriver_manager.chrome</span> <span class="kn">import</span> <span class="n">ChromeDriverManager</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 1. 强制下载指定版本的驱动（必须传 version=DRIVER_VERSION！）</span>
+</span></span><span class="line"><span class="cl"><span class="n">ChromeIns</span> <span class="o">=</span> <span class="n">ChromeDriverManager</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">DRIVER_VERSION</span><span class="p">)</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 1.打开浏览器--驱动管理器</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 1)通过驱动管理器创建谷歌浏览器对应的驱动，并保存驱动路径</span>
+</span></span><span class="line"><span class="cl"><span class="n">ChromeIns</span> <span class="o">=</span> <span class="n">ChromeDriverManager</span><span class="p">()</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 2)把驱动路径传过去，创建谷歌浏览器驱动对象，可以通过该对象，打开浏览器</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="n">service</span><span class="o">=</span><span class="n">Service</span><span class="p">(</span><span class="n">ChromeIns</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 2.输入百度网址：https://www.baidu.com(网址一定要写完整，不能写成www.baidu.com)</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;https://www.baidu.com&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 3.找到百度输入框，输入关键词“迪丽热巴”</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#kw&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&#34;迪丽热巴&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 4.点击“百度一下”按钮</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#su&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 5.关闭浏览器</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：程序的执行速度非常快，若想要看到具体的执行流程，可以通过添加等待</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251122183655179.png"
+	width="1819"
+	height="775"
+	
+	loading="lazy"
+	
+		alt="image-20251122183655179"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="234"
+		data-flex-basis="563px"
+	
+></p>
+<h4 id="selenium驱动浏览器的工作原理">selenium+驱动+浏览器的工作原理
+</h4><blockquote>
+<p>实现web自动化测试需要浏览器、浏览器驱动、selenium自动化脚本。这三者是如何交互最终实现web的自动化测试？</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251122184416843.png"
+	width="823"
+	height="604"
+	
+	loading="lazy"
+	
+		alt="image-20251122184416843"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="327px"
+	
+></p>
+<blockquote>
+<p>1.通过selenium编写的自动化脚本代码中在ChromeDriverService中创建一个服务</p>
+<p>2.通过创建好的服务打开webdriver，安装在本地的驱动服务IP为localhost，PORT为
+ChromeDriverService中创建的端口号，该服务地址为selenium向webdriver发送请求的服务地址。</p>
+<p>3.向浏览器驱动程序发送HTTP请求，浏览器驱动程序解析请求，打开浏览器，并获得sessionid，如果再次对浏览器操作需携带此id</p>
+<p>4.打开浏览器后，所有的selenium的操作（访问地址，查找元素等)均通过创建好的服务链接到webdriver，然后使用execute发送请求</p>
+<p>5.驱动收到请求并对请求进行解析，转成浏览器能够解析的脚本并发送给浏览器，浏览器通过请求的内容执行对应动作</p>
+<p>6.浏览器再把执行的动作结果通过浏览器驱动程序返回给测试脚本</p>
+</blockquote>
+<h2 id="22常用函数">2.2常用函数
+</h2><h3 id="221元素定位">2.2.1元素定位
+</h3><blockquote>
+<p>web自动化测试的操作核心是能够找到页面对应的元素，然后才能对元素进行具体的操作</p>
+</blockquote>
+<p><strong>查找元素</strong></p>
+<ul>
+<li>
+<p>查找一个元素：find_element(查找元素的方式, "元素")</p>
+</li>
+<li>
+<p>查找多个元素：find_elements(查找元素的方式, "元素")</p>
+<blockquote>
+<p>如果要获取页面多个元素时，可以使用find_elements</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">ret</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#lg&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ret</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="c1"># 获取每个元素对应的文本信息</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>查找元素的方式</strong>：ID，CSS_NAME，TAG_NAME，XPATH，CSS_Selector 等</p>
+<p>常用的主要由 CSS_Selector  和 XPATH</p>
+<h4 id="cssselector">cssSelector
+</h4><p>cssSelector是选择器</p>
+<ul>
+<li>
+<p>选择器的功能就是选中页面中指定的标签元素</p>
+</li>
+<li>
+<p>选择器分为基础选择器和复合选择器</p>
+<p>常见的元素定位方式可以通过id选择器和子类选择器来进行定位。</p>
+</li>
+</ul>
+<p>id选择器来定位“百度一下”按钮：<code>#chat-submit-button</code></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251122190820291.png"
+	width="850"
+	height="51"
+	
+	loading="lazy"
+	
+		alt="image-20251122190820291"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1666"
+		data-flex-basis="4000px"
+	
+></p>
+<p>定位百度首页的“百度热搜”元素，可以使用通过id选择器和子类选择器进行定位：</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251122191545422.png"
+	width="1006"
+	height="493"
+	
+	loading="lazy"
+	
+		alt="image-20251122191545422"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="204"
+		data-flex-basis="489px"
+	
+></p>
+<h4 id="xpath">xpath
+</h4><p>XML路径语言，不仅可以在XML文件中查找信息，还可以在HTML中选取节点。</p>
+<p>xpath使用路径表达式来选择xml文档中的节点</p>
+<p>xpath语法：</p>
+<ul>
+<li>
+<p><strong>获取HTML页面所有的节点</strong>：<strong><code>//*</code></strong></p>
+</li>
+<li>
+<p><strong>获取HTML页面指定的节点</strong>：<code>//[指定节点]</code></p>
+<ul>
+<li><strong><code>//ul</code></strong> 表示获取HTML页面所有的ul节点</li>
+<li><strong><code>//input</code></strong> 表示获取HTML页面所有的input节点</li>
+</ul>
+</li>
+<li>
+<p><strong>获取一个节点中的直接子节点</strong>：<code>/</code></p>
+<ul>
+<li><strong><code>//span/input</code></strong></li>
+</ul>
+</li>
+<li>
+<p><strong>获取一个节点的父节点</strong>：<code>..</code></p>
+<ul>
+<li><strong><code>//input/..</code></strong> 表示获取input节点的父节点</li>
+</ul>
+</li>
+<li>
+<p><strong>实现节点属性的匹配</strong>：<code>[@...]</code></p>
+<ul>
+<li>**<code>//*[@id='kw'] </code>**匹配HTML页面中id属性为kw的节点</li>
+</ul>
+</li>
+</ul>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251122193721181.png"
+	width="1492"
+	height="577"
+	
+	loading="lazy"
+	
+		alt="image-20251122193721181"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="258"
+		data-flex-basis="620px"
+	
+></p>
+<h3 id="222操作测试对象">2.2.2操作测试对象
+</h3><h3 id="223窗口">2.2.3窗口
+</h3><h3 id="224等待">2.2.4等待
+</h3><h3 id="225导航">2.2.5导航
+</h3><h3 id="226弹窗">2.2.6弹窗
+</h3><h3 id="227文件上传">2.2.7文件上传
+</h3><h3 id="228浏览器参数">2.2.8浏览器参数
+</h3><h2 id="23实战">2.3实战
+</h2><h1 id="2性能测试">2.性能测试
+</h1><p>jmeter</p>
+<h2 id="21概念-1">2.1概念
+</h2><h2 id="32工具">3.2工具
+</h2>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA&#43;%E5%AE%9E%E8%B7%B5/">测试理论&#43;实践</a>
+        
+            <a href="/tags/web%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/">Web自动化测试</a>
+        
+            <a href="/tags/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">性能测试</a>
+        
+    </section>
+
+
+    
+</footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/unity-csharp-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/unity-csharp-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%95%86%E5%BA%97-%E5%A4%9C%E6%99%9A.284925e7504bf3f53ed7681a447f7a3a_hu_c662aa6d68acc650.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【unity3d游戏开发】C#学习"
+                        data-key="unity-csharp-basic" 
+                        data-hash="md5-KEkl51BL8/U&#43;12gaRH96Og==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【unity3d游戏开发】C#学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/unity-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E.fc890614cbf7e2e47fe2cedb91347a73_hu_3efb3d15b9c9b9c6.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【unity3d游戏开发】Unity入门"
+                        data-key="unity-basic" 
+                        data-hash="md5-/IkGFMv34uR/4s7bkTR6cw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【unity3d游戏开发】Unity入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-thread/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-thread/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux系统编程】10线程概念与控制"
+                        data-key="linux-thread" 
+                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux系统编程】10线程概念与控制</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/network/">
+        
+        
+            <div class="article-image">
+                <img src="/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.0e4d713511fda100cc58bfb66dac6b98_hu_f1a2caa5328ffc0d.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux网络编程】01网络基础"
+                        data-key="network" 
+                        data-hash="md5-Dk1xNRH9oQDMWL&#43;2baxrmA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux网络编程】01网络基础</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-interprocess-communication/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux系统编程】08进程间通信"
+                        data-key="linux-interprocess-communication" 
+                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux系统编程】08进程间通信</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.9c1a6570230d4822a0bae7b9729a4d803a1d6e81a2ebc4dbb042dd1c2902034a.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+
+    </body>
+</html>

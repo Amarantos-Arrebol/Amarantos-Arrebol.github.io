@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>网络基础 on PursUnre的博客</title>
+        <link>https://Amarantos-Arrebol.github.io/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/</link>
+        <description>Recent content in 网络基础 on PursUnre的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>PursUnre</copyright>
+        <lastBuildDate>Mon, 24 Nov 2025 05:12:59 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>【Linux网络编程】01网络基础</title>
+        <link>https://Amarantos-Arrebol.github.io/p/network/</link>
+        <pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/p/network/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.png" alt="Featured image of post 【Linux网络编程】01网络基础" /&gt;&lt;h1 id=&#34;1-网络的发展&#34;&gt;1. 网络的发展
+&lt;/h1&gt;&lt;p&gt;计算机是人类的工具，人之间是需要协作的，所以网络的产生是必然的&lt;/p&gt;
+&lt;p&gt;网络具体是如何产生的？先局部产生，再到整体&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;网络的历史：阿帕网—&amp;gt;90年代左右，公开了—美国人组建自己的互联网—&amp;gt;&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;局域网LAN&lt;/strong&gt;：通过交换机和路由器将多台计算机连接&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;交换机上可以连接多台计算机，实现多台计算机的互联互通&lt;/p&gt;
+&lt;p&gt;路由器可以连接多个交换机，使几个交换机上连接的计算机互联互通&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122120351950.png&#34;
+	width=&#34;621&#34;
+	height=&#34;278&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122120351950&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;223&#34;
+		data-flex-basis=&#34;536px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;广域网WAN&lt;/strong&gt;：将远隔千里的计算机也能连接起来&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;多个局域网互联就形成了广域网&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122120852295.png&#34;
+	width=&#34;741&#34;
+	height=&#34;312&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122120852295&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;237&#34;
+		data-flex-basis=&#34;570px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122121130829.png&#34;
+	width=&#34;964&#34;
+	height=&#34;244&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122121130829&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;395&#34;
+		data-flex-basis=&#34;948px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;2初识协议&#34;&gt;2.初识协议
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;协议本质上是一种约定&lt;/strong&gt;，可以减少通信成本，用于快速形成共识&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;计算机是如何约定的呢？OSI&lt;/strong&gt;（只生产标准，不写代码实现）&lt;/p&gt;
+&lt;p&gt;计算机之间的传输媒介是光信号和电信号。计算机通过“频率”和“强弱”来表示0和1这样的信息，所以要想让两台主机之间进行通信，至少需要约定好双方的数据格式，比如是通过“频率”来表示0/1还是通过“强弱”来表示0/1&lt;/p&gt;
+&lt;p&gt;但是只约定好双方的数据格式是不够的，还需要更多细致的规定，并让所有人都遵守。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;计算机的厂商有很多，计算机操作系统有很多，计算机网络硬件设备也有很多，如何让这些不同的厂商之间生产的计算机能够互相顺畅的通信？就需要有人站出来约定一个共同的标准，让大家都来遵守，这就是&lt;strong&gt;网络协议&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;能定制协议标准的组织或者公司有哪几类？&lt;/p&gt;
+&lt;p&gt;1）国际标准化组织&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;IEEE（电气和电子工程师协会）&lt;/strong&gt;：一个由计算机和工程领域专家组成的庞大技术组织，在通信协议领域贡献突出。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ISO（国际标准化组织）&lt;/strong&gt;：ISO是由多个国家的标准化团体组成的国际组织，它在开放系统互连（OSI）模型方面的工作尤为著名。&lt;strong&gt;OSI模型&lt;/strong&gt;定义了网络通信的七层协议结构，尽管在实际应用中，TCP/IP 协议族更为普遍，但OSI模型仍然在学术和理论研究中占有重要地位。&lt;/p&gt;
+&lt;p&gt;&amp;hellip;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;2）区域标准化组织&lt;/p&gt;
+&lt;p&gt;3）公司&lt;/p&gt;
+&lt;p&gt;4）民间国际团体&lt;/p&gt;
+&lt;p&gt;5）官方机构&lt;/p&gt;
+&lt;h2 id=&#34;21协议分层&#34;&gt;2.1协议分层
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;协议本质也是软件，在设计上为了更好的进行&lt;strong&gt;模块化，解耦合&lt;/strong&gt;，也是被设计成为层状结构的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;所有的软件都是层状的，模块化的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;分层可以实现解耦合，让软件维护的成本更低&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122124502864.png&#34;
+	width=&#34;420&#34;
+	height=&#34;265&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122124502864&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;380px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;结论1：两种视角&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;普通用户视角，普通用户认为自己在和对方同层直接通信&lt;/li&gt;
+&lt;li&gt;工程师视角，认为你是把消息交给下一层，下一层再把消息转给对应的层，然后再向上交付&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;结论2：同层之间，在“直接通信”&lt;/p&gt;
+&lt;p&gt;结论3：分层之后，可以无障碍替换任意一层&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;22osi七层模型&#34;&gt;2.2OSI七层模型
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;OSl（Open System Interconnection，开放系统互连）七层网络模型称为开放式系统互联参考模型，是一个逻辑上的定义和规范&lt;/li&gt;
+&lt;li&gt;把网络从逻辑上分为了7层。每一层都有相关、相对应的物理设备，比如路由器，交换机&lt;/li&gt;
+&lt;li&gt;OSI七层模型是一种框架性的设计方法，其最主要的功能使就是帮助不同类型的主机实现数据传输&lt;/li&gt;
+&lt;li&gt;它的最大优点是将服务、接口和协议这三个概念明确地区分开来，概念清楚，理论也比较完整。通过七个层次化的结构模型使不同的系统不同的网络之间实现可靠的通讯&lt;/li&gt;
+&lt;li&gt;但是，它既复杂又不实用;所以我们按照TCP/IP 四层模型来讲解.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122125257104.png&#34;
+	width=&#34;729&#34;
+	height=&#34;1113&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122125257104&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;65&#34;
+		data-flex-basis=&#34;157px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;其实在网络角度，OSI定的协议7层模型其实非常完善，但是在实际操作的过程中，会话层、表示层是不可能接入到操作系统中的，所以在工程实践中，最终落地的是5层协议。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;23tcpip五层模型&#34;&gt;2.3TCP/IP五层(或四层)模型
+&lt;/h2&gt;&lt;p&gt;TCP/IP五层模型，是将OSI参考模型的表示层和会话层合并到应用层了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122125713506.png&#34;
+	width=&#34;779&#34;
+	height=&#34;497&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122125713506&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;156&#34;
+		data-flex-basis=&#34;376px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TCP/IP是一组协议的代名词，它还包括许多协议，组成了TCP/IP 协议簇&lt;/p&gt;
+&lt;p&gt;TCP/IP通讯协议采用了5层的层级结构，每一层都呼叫它的下一层所提供的网络来完成自己的需求：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;物理层&lt;/strong&gt;：负责光/电信号的传递方式.比如现在以太网通用的网线(双绞 线)、早期以太网采用的的同轴电缆(现在主要用于有线电视)、光纤,现在的wifi无线网使用电磁波等都属于物理层的概念。物理层的能力决定了最大传输速率、传输距离、抗干扰性等。集线器(Hub)工作在物理层.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据链路层&lt;/strong&gt;：负责设备之间的数据帧的传送和识别。例如网卡设备的驱动、帧同步(就是说从网线上检测到什么信号算作新帧的开始)、冲突检测(如果检测到冲突就自动重发)、数据差错校验等工作。有以太网、令牌环网，无线LAN等标准。交换机(Switch)工作在数据链路层&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;网络层&lt;/strong&gt;：负责地址管理和路由选择。例如在IP 协议中,通过IP地址来标识一台主机，并通过路由表的方式规划出两台主机之间的数据传输的线路(路由).路由器(Router)工作在网路层.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;传输层&lt;/strong&gt;：负责两台主机之间的数据传输.如传输控制协议(TCP),能够确保数据可靠的从源主机发送到目标主机.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;应用层&lt;/strong&gt;：负责应用程序间沟通，如简单电子邮件传输（SMTP）、文件传输协议（FTP）、网络远程访问协议（Telnet）等.我们的网络编程主要就是针对应用层&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;物理层我们考虑的比较少，我们只考虑软件相关的内容。因此，很多时候我们直接称为TCP/IP 四层模型。&lt;/p&gt;
+&lt;p&gt;一般而言：对于一台主机，它的操作系统内核实现了从传输层到物理层的内容；对于一台路由器，它实现了从网络层到物理层；对于一台交换机，它实现了从数据链路层到物理层；对于集线器，它只实现了物理层；&lt;/p&gt;
+&lt;p&gt;但是并不绝对。很多交换机也实现了网络层的转发;很多路由器也实现了部分传输层的内容(比如端口转发）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;3再识协议&#34;&gt;3.再识协议
+&lt;/h1&gt;&lt;h2 id=&#34;31为什么要有tcpip协议&#34;&gt;3.1为什么要有TCP/IP协议?
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;本地通信 vs 网络通信&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;本地通信，计算机内部的所有设备是通过“线”连接的，各种设备之间，其实也都是存在协议的。这些协议都在本地主机各自的硬件中，通信的成本、问题比较少。&lt;/li&gt;
+&lt;li&gt;多台主机，通过网络通信，本质也是设备到设备&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其中唯一的一个区别：**计算机通信的距离变长了！**距离变长就会引发新问题！&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;数据丢了怎么办？怎么定位目标主机？怎么解决当下立即要去哪里的问题？目标主机怎么知道我发出去的数据该怎么处理？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;有问题就会有解决方案！&lt;strong&gt;TCP/IP协议，本质就是一种网络长距离通信的解决方案&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;协议—不同性质，不同种类的问题—&amp;gt;协议分层&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122132602103.png&#34;
+	width=&#34;1061&#34;
+	height=&#34;684&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122132602103&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;155&#34;
+		data-flex-basis=&#34;372px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;32什么是tcpip协议&#34;&gt;3.2什么是TCP/IP协议?
+&lt;/h2&gt;&lt;p&gt;TCP/IP 协议的本质是一种网络长距离通信的解决方案&lt;/p&gt;
+&lt;p&gt;TCP/IP 协议能分层，前提是因为问题们本身能分层&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;问题，如：数据丢了怎么办？怎么定位目标主机？怎么解决当下立即要去哪里的问题？目标主机怎么知道我发出去的数据该怎么处理？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;33tcpip协议与操作系统的关系&#34;&gt;3.3TCP/IP协议与操作系统的关系(宏观上，怎么实现的)
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122133309732.png&#34;
+	width=&#34;2099&#34;
+	height=&#34;740&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122133309732&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;283&#34;
+		data-flex-basis=&#34;680px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;为什么安装了不同操作系统的不同的主机之间可以进行通信？&lt;/p&gt;
+&lt;p&gt;因为OSI7层协议是标准，不同的主机上操作系统可以不同，但是所有主机上的协议栈必须按照标准进行相同的实现。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;传输层最著名的协议就是TCP；网络层最著名的协议就是IP；&lt;/p&gt;
+&lt;p&gt;传输层和网络层必须在内核实现，无论OS再怎么不同，这部分都必须遵守协议，必须是一样的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122134845255.png&#34;
+	width=&#34;1882&#34;
+	height=&#34;766&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122134845255&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;245&#34;
+		data-flex-basis=&#34;589px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;34所以究竟什么是协议&#34;&gt;3.4所以究竟什么是协议?
+&lt;/h2&gt;&lt;p&gt;协议的本质，就是约定好的结构体&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;结构体是协议约定的 计算机的表达&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122135845994.png&#34;
+	width=&#34;1939&#34;
+	height=&#34;855&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251122135845994&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;226&#34;
+		data-flex-basis=&#34;544px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;问题：主机 B 能识别 data，并且准确提取 a=10，b=20，c=30 吗？&lt;/p&gt;
+&lt;p&gt;回答：答案是肯定的！因为双方都有同样的结构体类型 struct protocol。也就是说，用同样的代码实现协议，用同样的自定义数据类型，天然就具有&amp;quot;共识“，能够识别对方发来的数据，这不就是约定吗?&lt;/p&gt;
+&lt;p&gt;关于协议的朴素理解：&lt;strong&gt;所谓协议，就是通信双方都认识的结构化的数据类型&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因为协议栈是分层的，所以，每层都有双方都有协议，同层之间，互相可以认识对方的协议。&lt;/p&gt;
+&lt;p&gt;例子：网络购物的快递单上，有寄方、收方、数量、备注、支付方式、运费&amp;hellip;等，使得收货方能看懂，发货方也能看懂，双方一看就能确定信息是否正确，所以，快递单子就是收发双方的协议&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;4-网络传输基本流程&#34;&gt;4. 网络传输基本流程
+&lt;/h1&gt;&lt;h2 id=&#34;41局域网网络传输流程图&#34;&gt;4.1局域网网络传输流程图
+&lt;/h2&gt;&lt;p&gt;网络的发展是从局部到整体的&lt;/p&gt;
+&lt;p&gt;有各种各样的局域网通信的标准：以太网、令牌环网、无线LAN&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;局域网通信原理&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;两台主机在同一个局域网内，能直接通信&lt;/p&gt;
+&lt;p&gt;每台主机在局域网上，要有唯一的标识来保证主机的唯一性：mac地址&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;MAC地址&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;mac地址是一个48个比特位的数字，是在网卡中内置的。&lt;/li&gt;
+&lt;li&gt;mac地址通常是唯一的（虚拟机中的mac地址不是真实的mac地址，可能会冲突，也有些网卡支持用户配置 mac 地址）&lt;/li&gt;
+&lt;li&gt;mac地址用来识别数据链路层中相连的节点&lt;/li&gt;
+&lt;li&gt;mac地址一般用16 进制数字加上冒号的形式来表示(例如：`08:00:27:03:fb:19`)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;查看mac地址：&lt;code&gt;ifconfig&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;42跨网络传输流程图&#34;&gt;4.2跨网络传输流程图
+&lt;/h2&gt;&lt;h1 id=&#34;5socket编程预备&#34;&gt;5.Socket编程预备
+&lt;/h1&gt;&lt;p&gt;1理解源IP地址和目的IP地址&lt;/p&gt;
+&lt;p&gt;2.认识端口号&lt;/p&gt;
+&lt;p&gt;3.传输层的典型代表&lt;/p&gt;
+&lt;p&gt;4.网络字节序&lt;/p&gt;
+&lt;p&gt;5.socket编程接口&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

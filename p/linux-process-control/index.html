@@ -2,16 +2,16 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握进程创建、等待与替换的核心机制">
-<title>【Linux】04进程控制</title>
+<title>【Linux系统编程】04进程控制</title>
 
 <link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/linux-process-control/'>
 
-<link rel="stylesheet" href="/scss/style.min.f62fad6b64852a4093ae5ceb06b3f1a3f8409c5b5dd5c91806fbb732800ca9f9.css"><meta property='og:title' content="【Linux】04进程控制">
+<link rel="stylesheet" href="/scss/style.min.f62fad6b64852a4093ae5ceb06b3f1a3f8409c5b5dd5c91806fbb732800ca9f9.css"><meta property='og:title' content="【Linux系统编程】04进程控制">
 <meta property='og:description' content="掌握进程创建、等待与替换的核心机制">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-19T08:55:11&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
-<meta name="twitter:title" content="【Linux】04进程控制">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-24T05:12:59&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta name="twitter:title" content="【Linux系统编程】04进程控制">
 <meta name="twitter:description" content="掌握进程创建、等待与替换的核心机制"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -367,18 +367,20 @@ document.addEventListener('DOMContentLoaded', function() {
           <ul>
             <li><a href="#231exit函数">2.3.1exit函数</a></li>
             <li><a href="#232_exit函数">2.3.2_exit函数</a></li>
+            <li><a href="#总结">总结</a></li>
           </ul>
         </li>
       </ul>
     </li>
     <li><a href="#三进程等待">三、.进程等待</a>
       <ul>
-        <li><a href="#31基本介绍">3.1基本介绍</a></li>
+        <li><a href="#31为什么要进程等待">3.1为什么要进程等待？</a></li>
         <li><a href="#32wait-和-waitpid">3.2wait 和 waitpid</a>
           <ul>
             <li><a href="#321wait">3.2.1<strong>wait</strong></a></li>
             <li><a href="#322waitpid">3.2.2<strong>waitpid</strong></a></li>
             <li><a href="#323status参数">3.2.3status参数</a></li>
+            <li><a href="#总结-1">总结</a></li>
           </ul>
         </li>
         <li><a href="#33阻塞与非阻塞等待">3.3阻塞与非阻塞等待</a></li>
@@ -386,9 +388,18 @@ document.addEventListener('DOMContentLoaded', function() {
     </li>
     <li><a href="#四进程程序替换">四、进程程序替换</a>
       <ul>
-        <li><a href="#41快速见一见效果">4.1快速见一见效果</a></li>
+        <li><a href="#41快速入门">4.1快速入门</a></li>
         <li><a href="#42进程替换原理---fork">4.2进程替换原理 - fork</a></li>
-        <li><a href="#43认识全部接口">4.3认识全部接口</a></li>
+        <li><a href="#43替换函数">4.3替换函数</a>
+          <ul>
+            <li><a href="#431概述">4.3.1概述</a></li>
+            <li><a href="#432-execl">4.3.2 execl</a></li>
+            <li><a href="#433-execlp">4.3.3 execlp</a></li>
+            <li><a href="#434-execv">4.3.4 execv</a></li>
+            <li><a href="#435-execvp">4.3.5 execvp</a></li>
+            <li><a href="#436-execvpe">4.3.6 execvpe</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#五自主shell命令行解释器">五、自主Shell命令行解释器</a></li>
@@ -445,7 +456,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="800" 
                         height="450" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】04进程控制" />
+                        alt="Featured image of post 【Linux系统编程】04进程控制" />
                 
             </a>
         </div>
@@ -455,8 +466,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <header class="article-category">
         
-            <a href="/categories/linux/" style="background-color: #77ACF1; color: #fff;">
-                Linux
+            <a href="/categories/linux%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" style="background-color: #77ACF1; color: #fff;">
+                Linux系统编程
             </a>
         
             <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
@@ -468,7 +479,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/linux-process-control/">【Linux】04进程控制</a>
+            <a href="/p/linux-process-control/">【Linux系统编程】04进程控制</a>
         </h2>
     
         
@@ -498,11 +509,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-19</time>
+                <time class="article-time--updated">2025-11-24</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">5612 字
+                <span class="article-time--wordcount">7245 字
                 </span>
             </div>
         
@@ -930,17 +941,29 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="421px"
 	
 ></p>
-<h1 id="三进程等待">三、.进程等待
-</h1><h2 id="31基本介绍">3.1基本介绍
-</h2><p><strong>为什么要进程等待？</strong></p>
+<h3 id="总结">总结
+</h3><p><strong>1）exit函数</strong></p>
 <ul>
-<li>解决内存泄漏的问题</li>
-<li>父进程派给子进程任务，需要知道子进程运行完成的结果对还是不对</li>
+<li>作用类似于main函数中的return，不管在哪里调用exit函数，都会直接终止该进程</li>
+<li>调用exit函数后，进程结束，子进程会将自己的退出码返回给父进程</li>
+<li>使用要包含头文件 &lt;stdlib.h&gt;</li>
+<li>exit导致的进程退出，会刷新缓冲区</li>
 </ul>
-<p>1.父进程通过进程等待的方式<span style="color: #8080FF;">回收子进程资源</span>（重要）</p>
-<p>2.<span style="color: #8080FF;">获取子进程退出信息</span>(可选)</p>
+<p><strong>2）_exit函数</strong></p>
+<ul>
+<li>终止调用_exit函数的那个进程</li>
+<li>使用要包含头文件 &lt;unistd.h&gt;</li>
+<li>_exit导致的进程退出，不会刷新缓冲区</li>
+</ul>
+<p>库函数调用的系统调用的接口。exit函数是库函数，_exit是系统调用，exit函数封装了_exit</p>
+<p>我们谈论的缓冲区(\n刷新缓冲区)一定不是操作系统内部的缓冲区，而是库缓冲区，是C语言提供的缓冲区</p>
+<h1 id="三进程等待">三、.进程等待
+</h1><h2 id="31为什么要进程等待">3.1为什么要进程等待？
+</h2><p>1）父进程通过进程等待的方式<span style="color: #8080FF;">回收子进程资源</span>，即解决内存泄漏的问题</p>
+<p>僵尸进程即使是kill -9 也无法终止，只能通过进程等待的方式回收资源</p>
+<p>2）<span style="color: #8080FF;">获取子进程退出信息</span></p>
 <h2 id="32wait-和-waitpid">3.2wait 和 waitpid
-</h2><p>父进程通过 接口 wait 或 waitpid 的方式来等待子进程</p>
+</h2><p>进程等待就是父进程通过接口 wait 或 waitpid 的方式来等待子进程</p>
 <h3 id="321wait">3.2.1<strong>wait</strong>
 </h3><p><strong>wait</strong>，<span style="color: #8080FF;">等待任意一个退出的子进程</span></p>
 <p>父进程如果创建多个子进程，wait就会阻塞，直到其中的任意一个子进程退出</p>
@@ -988,8 +1011,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>参数1：pid</p>
 <p>​			如果传大于0的数，表示你要等哪个子进程，就把哪个子进程的pid传进去</p>
 <p>​			如果传-1，表示等待任意一个子进程</p>
-<p>参数2：status输出型参数</p>
-<p>参数3：options进行阻塞控制</p>
+<p>参数2：status输出型参数，可以获取子进程的退出码(退出信息)</p>
+<p>参数3：options进行阻塞控制，可以选择是阻塞等待还是非阻塞等待</p>
 </blockquote>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732416467985.png"
 	width="1458"
@@ -1049,8 +1072,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">40
 </span><span class="lnt">41
 </span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -1086,8 +1107,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="nf">sLeep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//父进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">/</span><span class="mf">1.</span><span class="err">子进程退出</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//2.子进程没退出呢?
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -1100,7 +1119,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="323status参数">3.2.3status参数
-</h3><p>通过<strong>status输出型参数</strong>，获取子进程的退出码(退出信息)</p>
+</h3><p>通过输出型参数<strong>status</strong>，获取子进程的退出码(退出信息)</p>
 <p>status可以当做位图来查看，低16位的次低八位表示退出状态</p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017154246251.png"
 	width="771"
@@ -1199,8 +1218,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//父进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">/</span><span class="mf">1.</span><span class="err">子进程退出</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">//2.子进程没退出呢?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//1.子进程退出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//2.子进程没退出呢?
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -1222,8 +1241,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>没有0号信号</p>
 </blockquote>
 <p>一个进程一旦异常终止，那么它的status的低7位会保存异常时对应的信号编号</p>
+<ul>
+<li>
 <p>没有异常呢？低7个比特位，0</p>
+</li>
+<li>
 <p>一旦低7个比特位非0，表示异常退出，退出码无意义</p>
+</li>
+</ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1252,13 +1277,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><strong>status我们自己做位图来查看子进程的退出码，比较麻烦，系统有对应的宏可以帮助我们直接提取</strong></p>
 <ul>
 <li>
-<p><strong>WIFEXITED(status)</strong>：若为正常终止子进程返回的状态，则为真。（<span style="color: #FF0000;">查看进程是否是正常退出</span>）</p>
+<p><strong>WIFEXITED(status)</strong>：查看进程是否是正常退出，为0表示异常退出，非0表示正常退出</p>
 <blockquote>
-<p>其实就是检测信号的值为0就是真，否则就是假</p>
+<p>其实就是检测信号的值</p>
 </blockquote>
 </li>
 <li>
-<p><strong>WEXITSTATUS(status)</strong>：若WIFEXITED非零，提取子进程退出码。（<span style="color: #FF0000;">查看进程的退出码</span>）</p>
+<p><strong>WEXITSTATUS(status)</strong>：提取子进程退出码</p>
 <blockquote>
 <p>其实就是用宏封装了位操作</p>
 </blockquote>
@@ -1271,6 +1296,27 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
+</ul>
+<h3 id="总结-1">总结
+</h3><p><strong>1）wait</strong></p>
+<ul>
+<li>等待任意一个退出的子进程</li>
+<li>如果成功，返回回收成功的子进程的pid；失败，返回-1</li>
+<li>如果子进程没有退出，父进程会阻塞在wait调用处</li>
+</ul>
+<p><strong>2）waitpid</strong></p>
+<ul>
+<li>
+<p>可以等待指定的某个子进程</p>
+</li>
+<li>
+<p>形参列表</p>
+<ul>
+<li>子进程的pid；如果传-1，就是等待任意一个退出的子进程</li>
+<li>获取子进程的退出码(指针类型)，如果不需要，就传NULL</li>
+<li>选择是否以阻塞的方式等待），0表示阻塞等待</li>
+</ul>
+</li>
 </ul>
 <h2 id="33阻塞与非阻塞等待">3.3阻塞与非阻塞等待
 </h2><p><strong>option参数</strong></p>
@@ -1342,7 +1388,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ></p>
 </li>
 </ul>
-<p><strong>waited返回值</strong></p>
+<p><strong>waitpid返回值</strong></p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251017172445392.png"
 	width="855"
 	height="59"
@@ -1658,11 +1704,25 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="四进程程序替换">四、进程程序替换
-</h1><p>fork（）之后，父子各自执行父进程代码的一部分如果子进程就想执行一个全新的程序呢？</p>
+</h1><h2 id="41快速入门">4.1快速入门
+</h2><p><strong>fork()之后，父子各自执行父进程代码的一部分如果子进程就想执行一个全新的程序呢？</strong></p>
 <p>进程的程序替换来完成这个功能！</p>
 <p>程序替换是通过特定的接口，加载磁盘上的一个全新的程序(代码和数据)，加载到调用进程的地址空间中！</p>
-<h2 id="41快速见一见效果">4.1快速见一见效果
-</h2><p>程序替换的接口 execl</p>
+<p><strong>程序替换的接口 execl</strong></p>
+<p><img src="/p/linux-process-control/index.assets/image-20251121211009020.png"
+	width="1181"
+	height="633"
+	
+	loading="lazy"
+	
+		alt="image-20251121211009020"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="186"
+		data-flex-basis="447px"
+	
+></p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021205648916.png"
 	width="845"
 	height="311"
@@ -1677,9 +1737,79 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="652px"
 	
 ></p>
-<p>通过我们自己写的程序，可以把系统指令跑起来</p>
+<p>回到之前的问题，如果我们只想让子进程执行一个全新的程序，应该怎么办呢？fork+程序替换</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我的程序要运行了！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">fork</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">execl</span><span class="p">(</span><span class="s">&#34;/usr/bin/ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-ln&#34;</span><span class="p">,</span> <span class="s">&#34;-a&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我的程序运行完毕了！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-control/index.assets/image-20251123155901498.png"
+	width="817"
+	height="454"
+	
+	loading="lazy"
+	
+		alt="image-20251123155901498"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="179"
+		data-flex-basis="431px"
+	
+></p>
 <h2 id="42进程替换原理---fork">4.2进程替换原理 - fork
-</h2><p>进程=内核数据结构+代码和数据</p>
+</h2><p><strong>进程=内核数据结构+代码和数据</strong></p>
 <p>当我们的程序跑起来后，执行的是我们自己的代码，但是当执行到 execl 这个函数时，新的程序(代码和数据)会覆盖当前进程的代码和数据（没有创建新进程）</p>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/image-20251021210404413.png"
 	width="998"
@@ -1696,20 +1826,74 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <p>在程序替换的过程中，并没有创建新的进程</p>
-<h2 id="43认识全部接口">4.3认识全部接口
-</h2><p><mark>接口1</mark></p>
+<p><strong>fork程序替换后，为什么没有影响父进程呢？</strong></p>
+<ol>
+<li>进程具有独立性</li>
+<li>数据和代码都要发生写实拷贝</li>
+</ol>
+<p><span style="color: #8080FF;">程序要跑，就是进程，只要是进程，就能进行程序替换</span></p>
+<h2 id="43替换函数">4.3替换函数
+</h2><h3 id="431概述">4.3.1概述
+</h3><p>有六种以exec开头的函数，统称为exec函数</p>
 <div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execl</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span><span class="kt">int</span> <span class="nf">execlp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execle</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="err">···</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execv</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execvp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[]);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execve</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-control/index.assets/image-20251123153714295.png"
+	width="911"
+	height="251"
+	
+	loading="lazy"
+	
+		alt="image-20251123153714295"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="362"
+		data-flex-basis="871px"
+	
+></p>
+<blockquote>
+<ul>
+<li>I(list)：表示参数采用列表</li>
+<li>v(vector)：参数用数组</li>
+<li>p(path)：有p自动搜索环境变量PATH</li>
+<li>e(env)：表示自己维护环境变量</li>
+</ul>
+</blockquote>
+<h3 id="432-execl">4.3.2 execl
+</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execl</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span> <span class="o">//</span> <span class="o">...</span><span class="err">是可变参数</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execl</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="p">...);</span> <span class="c1">// ...是可变参数
+</span></span></span></code></pre></td></tr></table>
 </div>
-</div><ol>
-<li>要执行谁</li>
-<li>要怎么执行它</li>
-</ol>
+</div><p><strong>参数怎么传？</strong></p>
+<blockquote>
+<p>记住：</p>
+<p>1）要执行谁（可执行程序的路径）</p>
+<p>2）要怎么执行它（我们在命令行怎么写，就怎么传。以逗号为分割，一个一个传进去）</p>
+<p>3）execl的最后一个参数必须以NULL结尾</p>
+<p>比如我们想让程序替换为 ls -l -a 就可以这样写 <code>execl(&quot;/usr/bin/ls&quot;, &quot;ls&quot;, &quot;-l&quot;, &quot;-a&quot;);</code></p>
+</blockquote>
 <p><img src="/p/linux-process-control/04%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6.assets/1732619193974.png"
 	width="1486"
 	height="424"
@@ -1724,44 +1908,360 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="841px"
 	
 ></p>
-<p>为什么没有影响父进程呢？</p>
-<ol>
-<li>进程具有独立性</li>
-<li>数据和代码都要发生写实拷贝</li>
-</ol>
-<p><strong>程序要跑，就是进程，只要是进程，就能进行程序替换</strong></p>
-<p><mark>接口2</mark></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execlp</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span> <span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="o">...</span><span class="p">);</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>p &mdash; PATH，只能执行系统指令</p>
-<p>file 只需要告诉需要执行的文件名，因为execlp会自动在环境变量中查找指定的命令</p>
-<p><mark>接口3</mark></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execv</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="k">const</span> <span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><mark>接口4</mark></p>
+<p><strong>替换我们自己写的程序</strong></p>
+<p>新建一个C++的源文件 other.cc</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">execvpe</span><span class="p">(</span><span class="k">const</span> <span class="n">char</span><span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="n">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="n">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
-</span></span><span class="line"><span class="cl"><span class="o">//</span>                                                  <span class="err">环境变量</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;hello C++&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="五自主shell命令行解释器">五、自主Shell命令行解释器
+</div><p>proc.c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;我的程序要运行了！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">fork</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">execl</span><span class="p">(</span><span class="s">&#34;./other&#34;</span><span class="p">,</span> <span class="s">&#34;other&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;我的程序运行完毕了！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-control/index.assets/image-20251123160854750.png"
+	width="802"
+	height="150"
+	
+	loading="lazy"
+	
+		alt="image-20251123160854750"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="534"
+		data-flex-basis="1283px"
+	
+></p>
+<blockquote>
+<p>同样可以使用execl把python、php、shell脚本等调起来</p>
+<p><img src="/p/linux-process-control/index.assets/image-20251123161241739.png"
+	width="772"
+	height="650"
+	
+	loading="lazy"
+	
+		alt="image-20251123161241739"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="118"
+		data-flex-basis="285px"
+	
+></p>
+</blockquote>
+<p><strong>证明：在程序替换的过程中，并没有创建新的进程</strong></p>
+<blockquote>
+<p>other.cc中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;I am other.cc，my pid is &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">getpid</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;hello C++&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>proc.c中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我的程序要运行了！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">fork</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;I am child, my pid is %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">getpid</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">execl</span><span class="p">(</span><span class="s">&#34;./other&#34;</span><span class="p">,</span> <span class="s">&#34;other&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nf">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我的程序运行完毕了！</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/linux-process-control/index.assets/image-20251123162154758.png"
+	width="850"
+	height="234"
+	
+	loading="lazy"
+	
+		alt="image-20251123162154758"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="363"
+		data-flex-basis="871px"
+	
+></p>
+</blockquote>
+<h3 id="433-execlp">4.3.3 execlp
+</h3><blockquote>
+<p>p &mdash; PATH，一般只能执行系统指令</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execlp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">arg</span><span class="p">,</span> <span class="p">...);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>第一个形参：只需要告诉需要执行的文件名，因为execlp会自动在环境变量中查找指定的命令</li>
+<li>后面的形参：用法和前面execl一致，即你想怎么执行该命令</li>
+</ul>
+<p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">execlp</span><span class="p">(</span><span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;ls&#34;</span><span class="p">,</span> <span class="s">&#34;-ln&#34;</span><span class="p">,</span> <span class="s">&#34;la&#34;</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>执行ls命令，具体执行： ls -lb -la</p>
+</blockquote>
+<h3 id="434-execv">4.3.4 execv
+</h3><blockquote>
+<p>v &ndash; vector</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execv</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>第一个形参：可执行程序的路径</li>
+<li>第二个形参：需要提供一个命令行参数表，就是一个指针数组</li>
+</ul>
+<p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;ls&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;-l&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;-a&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">NULL</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nf">execv</span><span class="p">(</span><span class="s">&#34;/usr/bin/ls&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="435-execvp">4.3.5 execvp
+</h3><blockquote>
+<p>v(vector)：参数用数组</p>
+<p>p(path)：有p自动搜索环境变量PATH</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execvp</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[]);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>第一个形参：只需要传可执行程序的名字，可以不带路径</li>
+<li>第二个形参：需要提供一个命令行参数表，就是一个指针数组</li>
+</ul>
+<p>例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;ls&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;-l&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;-a&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">NULL</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="nf">execvp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">argv</span><span class="p">);</span> <span class="c1">//或者 execvp(&#34;ls&#34;, argv);
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="436-execvpe">4.3.6 execvpe
+</h3><blockquote>
+<p>v(vector)：参数用数组</p>
+<p>p(path)：有p自动搜索环境变量PATH</p>
+<p>e(env)：表示自己维护环境变量</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">execvpe</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">file</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[],</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">envp</span><span class="p">[]);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>第一个形参：只需要传可执行程序的名字，可以不带路径</li>
+<li>第二个形参：需要提供一个命令行参数表，就是一个指针数组</li>
+<li>第三个形参：环境变量表，要求被替换的子进程，使用全新的env列表</li>
+</ul>
+<p><img src="/p/linux-process-control/index.assets/image-20251123165926729.png"
+	width="1582"
+	height="541"
+	
+	loading="lazy"
+	
+		alt="image-20251123165926729"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="292"
+		data-flex-basis="701px"
+	
+></p>
+<h1 id="五自主shell命令行解释器">五、自主Shell命令行解释器
 </h1>
 </section>
 
@@ -1807,7 +2307,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】08进程间通信"
+                        alt="Featured image of post 【Linux系统编程】08进程间通信"
                         data-key="linux-interprocess-communication" 
                         data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
                 
@@ -1815,7 +2315,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】08进程间通信</h2>
+            <h2 class="article-title">【Linux系统编程】08进程间通信</h2>
         </div>
     </a>
 </article>
@@ -1831,7 +2331,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】03进程的概念"
+                        alt="Featured image of post 【Linux系统编程】03进程的概念"
                         data-key="linux-process-basic" 
                         data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
                 
@@ -1839,7 +2339,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】03进程的概念</h2>
+            <h2 class="article-title">【Linux系统编程】03进程的概念</h2>
         </div>
     </a>
 </article>
@@ -1855,7 +2355,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】05基础IO"
+                        alt="Featured image of post 【Linux系统编程】05基础IO"
                         data-key="linux-basic-io" 
                         data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
                 
@@ -1863,7 +2363,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】05基础IO</h2>
+            <h2 class="article-title">【Linux系统编程】05基础IO</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/linux-thread/">
+        
+        
+            <div class="article-image">
+                <img src="/p/linux-thread/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux系统编程】10线程概念与控制"
+                        data-key="linux-thread" 
+                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux系统编程】10线程概念与控制</h2>
         </div>
     </a>
 </article>
@@ -1879,7 +2403,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux】01初始Linux&#43;基础指令"
+                        alt="Featured image of post 【Linux系统编程】01初始Linux&#43;基础指令"
                         data-key="linux-basic-instruction" 
                         data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
                 
@@ -1887,31 +2411,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
 
         <div class="article-details">
-            <h2 class="article-title">【Linux】01初始Linux&#43;基础指令</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/linux-basic-permission-development-tool/">
-        
-        
-            <div class="article-image">
-                <img src="/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【Linux】02基础权限开发工具"
-                        data-key="linux-basic-permission-development-tool" 
-                        data-hash="md5-QlGSAStf&#43;guTm/qiXDEkWw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【Linux】02基础权限开发工具</h2>
+            <h2 class="article-title">【Linux系统编程】01初始Linux&#43;基础指令</h2>
         </div>
     </a>
 </article>

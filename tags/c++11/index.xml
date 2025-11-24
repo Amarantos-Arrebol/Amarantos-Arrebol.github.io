@@ -2367,20 +2367,23 @@
 &lt;/div&gt;&lt;p&gt;5）运行时的执行流程：调用 Print —&amp;gt; 调用 Arguments —&amp;gt; 自动依次调用 3 个 GetArg 函数，每个 GetArg 打印对应参数，全程没有递归，也没有额外推导，只是按编译时展开的逻辑执行&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;43-emplace系列接口&#34;&gt;4.3 emplace系列接口
-&lt;/h2&gt;&lt;p&gt;C++11 之后，容器里所有带插入功能的接口，都新增了对应的 emplace 系列接口&lt;/p&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;基本介绍&#34;&gt;基本介绍
+&lt;/h3&gt;&lt;p&gt;C++11 之后，容器里所有带插入功能的接口，都新增了对应的 emplace 系列接口&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;比如原来有 push_back的，现在多了 emplace_back; 有 push_front 的，多了 emplace_front; 有 insert 的，多了 emplace 接口&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;code&gt;template &amp;lt;class... Args&amp;gt; void emplace_back (Args&amp;amp;&amp;amp;... args);&lt;/code&gt;
 &lt;code&gt;template &amp;lt;class... Args&amp;gt; iterator emplace (const_iterator position,Args&amp;amp;&amp;amp;... args);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;emplace比原先的插入接口更高效，但是多参数的时候不能使用{}来插入&lt;/p&gt;
+&lt;p&gt;**注意：**传递参数包过程中，如果是 Args&amp;amp;&amp;amp;&amp;hellip; args 的参数包，要用完美转发参数包，方式如下&lt;code&gt;std::forward\&amp;lt;Args&amp;gt;(args)...&lt;/code&gt;，否则编译时包扩展后右值弓l用变量表达式就变成了左值&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;新增的emplace系列接口和原先的插入接口（insert、push_back 等）的区别：&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;1）emplace系列的接口均为模板可变参数，而原先的插入接口是普通函数（不是通过参数推演，类模版实例化，value_type就实例化）&lt;/p&gt;
-&lt;p&gt;2）原先的插入接口要么插入左值，要么插入右值，而emplace系列接口用的是万能引用，可以接收任意类型的参数&lt;/p&gt;
-&lt;p&gt;3）原先的插入接口只能接收单个value_type 对象，而emplace系列接口可以传一个参数包，这个参数包可以是零到多个参数，容器会用这些参数直接在内部构造对象，不用先外部造好对象再传进去&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;emplace 系列接口在某些场景下兼容旧插入接口&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1）emplace系列的接口均为&lt;strong&gt;模板&lt;/strong&gt;可变参数，而原先的插入接口是&lt;strong&gt;普通函数&lt;/strong&gt;（不是通过参数推演，类模版实例化，value_type就实例化）&lt;/p&gt;
+&lt;p&gt;2）原先的插入接口要么插入左值，要么插入右值，而emplace系列接口用的是&lt;strong&gt;万能引用&lt;/strong&gt;，可以接收任意类型的参数&lt;/p&gt;
+&lt;p&gt;3）原先的插入接口只能接收单个value_type 对象，而emplace系列接口可以传一个参数包，这个参数包可以是&lt;strong&gt;零到多个参数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;emplace 系列接口在某些场景下兼容旧插入接口，同时也在一些场景下比 push_back 更高效&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;我们以push_back和emplace_back为例：&lt;/p&gt;
 &lt;p&gt;1）emplace_back 传左值时走拷贝构造、传右值时走移动构造，效果与push_back完全一样&lt;/p&gt;
-&lt;p&gt;2）但当传入构造 T 的原始参数 时，emplace_back 无需先构造完整 T 对象，直接用参数在容器内构造；而push_back 需要先构造临时对象，然后再执行移动构造转移临时对象的资源，最后还要执行析构临时对象&lt;/p&gt;
+&lt;p&gt;2）但当传入构造 T 的原始参数 时，emplace_back 可以直接构造，而push_back 需要构造+移动构造+析构&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-11/index.assets/image-20251118202732738.png&#34;
 	width=&#34;1369&#34;
 	height=&#34;420&#34;
@@ -2409,27 +2412,82 @@
 		data-flex-basis=&#34;857px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;emplace 在一些场景下比 push_back 更高效&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;旧插入接口（如 push_back）：需先在外部构造完整的 T 类型临时对象（无论显式 / 隐式），再将对象传入容器（通过拷贝 / 移动构造），过程包含临时对象的构造与析构开销；&lt;/p&gt;
-&lt;p&gt;emplace 系列接口：直接接收构造 T 所需的参数包，容器在内部空间直接构造 T 对象，无外部临时对象的额外开销（对应老师说的 “直接插入构造 T 对象的参数，在容器空间上构造 T”）。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-11/index.assets/image-20251118202758119.png&#34;
-	width=&#34;1557&#34;
-	height=&#34;556&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251118202758119&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;280&#34;
-		data-flex-basis=&#34;672px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;容器存复合类型（如 pair）时，emplace_back 仍兼容旧接口的左值 / 右值传入方式。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1）&lt;code&gt;emplace_back(kv)&lt;/code&gt;（左值）：走拷贝构造，效果与 &lt;code&gt;push_back(kv)&lt;/code&gt; 完全一致；&lt;/p&gt;
+&lt;p&gt;2）&lt;code&gt;emplace_back(move(kv))&lt;/code&gt;（右值）：走移动构造，效果与 &lt;code&gt;push_back(move(kv))&lt;/code&gt; 完全一致。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pair&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dyy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lt1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 1. 先构造一个pair类型的左值对象kv（键&amp;#34;苹果&amp;#34;，值1）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pair&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dyy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;苹果&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//emplace_back传左值kv：和push_back效果完全一样，走拷贝构造
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//把kv的内容拷贝到list节点的data（存储元素的地方）里
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lt1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;emplace_back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;**********************&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;lt1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;emplace_back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;move&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;));&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 移动构造
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;**********************&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;初始化列表 vs 参数包写法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;1）&lt;code&gt;push_back({ &amp;quot;苹果&amp;quot;, 1 })&lt;/code&gt;：初始化列表先隐式构造临时 pair，再移动构造 + 析构，有额外开销；&lt;/p&gt;
+&lt;p&gt;2）&lt;code&gt;emplace_back({ &amp;quot;苹果&amp;quot;, 1 })&lt;/code&gt;：不支持，模板推导需明确类型，初始化列表无固定类型；&lt;/p&gt;
+&lt;p&gt;3）&lt;code&gt;emplace_back(&amp;quot;苹果&amp;quot;, 1)&lt;/code&gt;：直接传 pair 构造参数包，容器内部直接构造，无临时对象开销。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;pair&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dyy&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lt1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//隐式类型转换，构造+移动构造
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lt1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;push_back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;苹果&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;**************************&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//emplace_back不支持这种写法，模版实例化需要明确的类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;//lt1.emplace_back({ &amp;#34;苹果&amp;#34;, 1 });
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lt1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;emplace_back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;苹果&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 直接构造
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cout&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;**************************&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endl&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;总结&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;兼容旧接口&lt;/strong&gt;：emplace 系列（emplace_back/emplace）传左值→拷贝构造、传右值→移动构造，和 insert/push_back 效果完全一样；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;高效核心&lt;/strong&gt;：传 “构造对象的参数”（比如&lt;code&gt;&amp;quot;苹果&amp;quot;, 1&lt;/code&gt;）时，emplace 直接在容器内构造，无临时对象开销；而旧接口要先造临时对象，再移动 + 析构；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;小坑提醒&lt;/strong&gt;：emplace 不支持&lt;code&gt;{}&lt;/code&gt;初始化列表（比如&lt;code&gt;emplace_back({...})&lt;/code&gt;），要传明确的构造参数（比如&lt;code&gt;emplace_back(&amp;quot;苹果&amp;quot;, 1)&lt;/code&gt;）；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;复合类型通用&lt;/strong&gt;：哪怕容器存 pair 这种复合类型，上面的规则全适用。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;能传构造参数就用 emplace，想传&lt;code&gt;{}&lt;/code&gt;或现成对象就用旧接口 /emplace 都行（兼容），优先选 emplace&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h1 id=&#34;5新的类功能&#34;&gt;5.新的类功能
 &lt;/h1&gt;&lt;h2 id=&#34;51-默认的移动构造和移动赋值&#34;&gt;5.1 默认的移动构造和移动赋值
-&lt;/h2&gt;&lt;h2 id=&#34;52-成员变量声明时给缺省值&#34;&gt;5.2 成员变量声明时给缺省值
-&lt;/h2&gt;&lt;h2 id=&#34;53-defult和delete&#34;&gt;5.3 defult和delete
+&lt;/h2&gt;&lt;p&gt;C++原先有6个默认成员函数：构造、析构、拷贝构造、拷贝赋值重载、取地址重载、const取地址重载。C++11新增了两个默认成员函数：移动构造和移动赋值运算符重载&lt;/p&gt;
+&lt;p&gt;如果我们没有自己实现移动构造，且没有自己实现析构、拷贝构造、拷贝赋值重载中的任意一个，那么编译器默认会自动生成移动构造。对于内置类型的成员，执行值拷贝；对于自定义类型的成员，如果这个成员有移动构造，就调用它自己的移动构造，否则就调用拷贝构造&lt;/p&gt;
+&lt;h2 id=&#34;52-成员变量声明时给缺省值&#34;&gt;5.2 成员变量声明时给缺省值
+&lt;/h2&gt;&lt;p&gt;C11支持在成员变量声明的位置给缺省值，这个缺省值主要是给没有显示在初始化列表初始化的成员使用的&lt;/p&gt;
+&lt;h2 id=&#34;53-defult和delete&#34;&gt;5.3 defult和delete
 &lt;/h2&gt;&lt;h2 id=&#34;54-final与override&#34;&gt;5.4 final与override
 &lt;/h2&gt;&lt;h1 id=&#34;6-stl中一些变化&#34;&gt;6. STL中一些变化
 &lt;/h1&gt;&lt;h1 id=&#34;7-lambda&#34;&gt;7. lambda

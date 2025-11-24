@@ -381,7 +381,11 @@ document.addEventListener('DOMContentLoaded', function() {
       <ul>
         <li><a href="#41-基本语法及原理">4.1 基本语法及原理</a></li>
         <li><a href="#42-包扩展">4.2 包扩展</a></li>
-        <li><a href="#43-emplace系列接口">4.3 emplace系列接口</a></li>
+        <li><a href="#43-emplace系列接口">4.3 emplace系列接口</a>
+          <ul>
+            <li><a href="#基本介绍">基本介绍</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#5新的类功能">5.新的类功能</a>
@@ -514,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">15495 字
+                <span class="article-time--wordcount">16564 字
                 </span>
             </div>
         
@@ -2885,20 +2889,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><p>5）运行时的执行流程：调用 Print —&gt; 调用 Arguments —&gt; 自动依次调用 3 个 GetArg 函数，每个 GetArg 打印对应参数，全程没有递归，也没有额外推导，只是按编译时展开的逻辑执行</p>
 </blockquote>
 <h2 id="43-emplace系列接口">4.3 emplace系列接口
-</h2><p>C++11 之后，容器里所有带插入功能的接口，都新增了对应的 emplace 系列接口</p>
+</h2><h3 id="基本介绍">基本介绍
+</h3><p>C++11 之后，容器里所有带插入功能的接口，都新增了对应的 emplace 系列接口</p>
 <blockquote>
 <p>比如原来有 push_back的，现在多了 emplace_back; 有 push_front 的，多了 emplace_front; 有 insert 的，多了 emplace 接口</p>
 </blockquote>
 <p><code>template &lt;class... Args&gt; void emplace_back (Args&amp;&amp;... args);</code>
 <code>template &lt;class... Args&gt; iterator emplace (const_iterator position,Args&amp;&amp;... args);</code></p>
+<p>emplace比原先的插入接口更高效，但是多参数的时候不能使用{}来插入</p>
+<p>**注意：**传递参数包过程中，如果是 Args&amp;&amp;&hellip; args 的参数包，要用完美转发参数包，方式如下<code>std::forward\&lt;Args&gt;(args)...</code>，否则编译时包扩展后右值弓l用变量表达式就变成了左值</p>
 <p><strong>新增的emplace系列接口和原先的插入接口（insert、push_back 等）的区别：</strong></p>
-<p>1）emplace系列的接口均为模板可变参数，而原先的插入接口是普通函数（不是通过参数推演，类模版实例化，value_type就实例化）</p>
-<p>2）原先的插入接口要么插入左值，要么插入右值，而emplace系列接口用的是万能引用，可以接收任意类型的参数</p>
-<p>3）原先的插入接口只能接收单个value_type 对象，而emplace系列接口可以传一个参数包，这个参数包可以是零到多个参数，容器会用这些参数直接在内部构造对象，不用先外部造好对象再传进去</p>
-<p><strong>emplace 系列接口在某些场景下兼容旧插入接口</strong></p>
+<p>1）emplace系列的接口均为<strong>模板</strong>可变参数，而原先的插入接口是<strong>普通函数</strong>（不是通过参数推演，类模版实例化，value_type就实例化）</p>
+<p>2）原先的插入接口要么插入左值，要么插入右值，而emplace系列接口用的是<strong>万能引用</strong>，可以接收任意类型的参数</p>
+<p>3）原先的插入接口只能接收单个value_type 对象，而emplace系列接口可以传一个参数包，这个参数包可以是<strong>零到多个参数</strong></p>
+<p><strong>emplace 系列接口在某些场景下兼容旧插入接口，同时也在一些场景下比 push_back 更高效</strong></p>
 <p>我们以push_back和emplace_back为例：</p>
 <p>1）emplace_back 传左值时走拷贝构造、传右值时走移动构造，效果与push_back完全一样</p>
-<p>2）但当传入构造 T 的原始参数 时，emplace_back 无需先构造完整 T 对象，直接用参数在容器内构造；而push_back 需要先构造临时对象，然后再执行移动构造转移临时对象的资源，最后还要执行析构临时对象</p>
+<p>2）但当传入构造 T 的原始参数 时，emplace_back 可以直接构造，而push_back 需要构造+移动构造+析构</p>
 <p><img src="/p/c-11/index.assets/image-20251118202732738.png"
 	width="1369"
 	height="420"
@@ -2927,27 +2934,82 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="857px"
 	
 ></p>
-<p><strong>emplace 在一些场景下比 push_back 更高效</strong></p>
-<p>旧插入接口（如 push_back）：需先在外部构造完整的 T 类型临时对象（无论显式 / 隐式），再将对象传入容器（通过拷贝 / 移动构造），过程包含临时对象的构造与析构开销；</p>
-<p>emplace 系列接口：直接接收构造 T 所需的参数包，容器在内部空间直接构造 T 对象，无外部临时对象的额外开销（对应老师说的 “直接插入构造 T 对象的参数，在容器空间上构造 T”）。</p>
-<p><img src="/p/c-11/index.assets/image-20251118202758119.png"
-	width="1557"
-	height="556"
-	
-	loading="lazy"
-	
-		alt="image-20251118202758119"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="280"
-		data-flex-basis="672px"
-	
-></p>
+<p><strong>容器存复合类型（如 pair）时，emplace_back 仍兼容旧接口的左值 / 右值传入方式。</strong></p>
+<p>1）<code>emplace_back(kv)</code>（左值）：走拷贝构造，效果与 <code>push_back(kv)</code> 完全一致；</p>
+<p>2）<code>emplace_back(move(kv))</code>（右值）：走移动构造，效果与 <code>push_back(move(kv))</code> 完全一致。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">list</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">dyy</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">lt1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 1. 先构造一个pair类型的左值对象kv（键&#34;苹果&#34;，值1）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">pair</span><span class="o">&lt;</span><span class="n">dyy</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">kv</span><span class="p">(</span><span class="s">&#34;苹果&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//emplace_back传左值kv：和push_back效果完全一样，走拷贝构造
+</span></span></span><span class="line"><span class="cl"><span class="c1">//把kv的内容拷贝到list节点的data（存储元素的地方）里
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">lt1</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">kv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;**********************&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lt1</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">kv</span><span class="p">));</span> <span class="c1">// 移动构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;**********************&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>初始化列表 vs 参数包写法</strong></p>
+<p>1）<code>push_back({ &quot;苹果&quot;, 1 })</code>：初始化列表先隐式构造临时 pair，再移动构造 + 析构，有额外开销；</p>
+<p>2）<code>emplace_back({ &quot;苹果&quot;, 1 })</code>：不支持，模板推导需明确类型，初始化列表无固定类型；</p>
+<p>3）<code>emplace_back(&quot;苹果&quot;, 1)</code>：直接传 pair 构造参数包，容器内部直接构造，无临时对象开销。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">list</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">dyy</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">lt1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//隐式类型转换，构造+移动构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">lt1</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span> <span class="s">&#34;苹果&#34;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;**************************&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//emplace_back不支持这种写法，模版实例化需要明确的类型
+</span></span></span><span class="line"><span class="cl"><span class="c1">//lt1.emplace_back({ &#34;苹果&#34;, 1 });
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">lt1</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span> <span class="s">&#34;苹果&#34;</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span> <span class="c1">// 直接构造
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;**************************&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>总结</strong></p>
+<ol>
+<li><strong>兼容旧接口</strong>：emplace 系列（emplace_back/emplace）传左值→拷贝构造、传右值→移动构造，和 insert/push_back 效果完全一样；</li>
+<li><strong>高效核心</strong>：传 “构造对象的参数”（比如<code>&quot;苹果&quot;, 1</code>）时，emplace 直接在容器内构造，无临时对象开销；而旧接口要先造临时对象，再移动 + 析构；</li>
+<li><strong>小坑提醒</strong>：emplace 不支持<code>{}</code>初始化列表（比如<code>emplace_back({...})</code>），要传明确的构造参数（比如<code>emplace_back(&quot;苹果&quot;, 1)</code>）；</li>
+<li><strong>复合类型通用</strong>：哪怕容器存 pair 这种复合类型，上面的规则全适用。</li>
+</ol>
+<p>能传构造参数就用 emplace，想传<code>{}</code>或现成对象就用旧接口 /emplace 都行（兼容），优先选 emplace</p>
+</blockquote>
 <h1 id="5新的类功能">5.新的类功能
 </h1><h2 id="51-默认的移动构造和移动赋值">5.1 默认的移动构造和移动赋值
-</h2><h2 id="52-成员变量声明时给缺省值">5.2 成员变量声明时给缺省值
-</h2><h2 id="53-defult和delete">5.3 defult和delete
+</h2><p>C++原先有6个默认成员函数：构造、析构、拷贝构造、拷贝赋值重载、取地址重载、const取地址重载。C++11新增了两个默认成员函数：移动构造和移动赋值运算符重载</p>
+<p>如果我们没有自己实现移动构造，且没有自己实现析构、拷贝构造、拷贝赋值重载中的任意一个，那么编译器默认会自动生成移动构造。对于内置类型的成员，执行值拷贝；对于自定义类型的成员，如果这个成员有移动构造，就调用它自己的移动构造，否则就调用拷贝构造</p>
+<h2 id="52-成员变量声明时给缺省值">5.2 成员变量声明时给缺省值
+</h2><p>C11支持在成员变量声明的位置给缺省值，这个缺省值主要是给没有显示在初始化列表初始化的成员使用的</p>
+<h2 id="53-defult和delete">5.3 defult和delete
 </h2><h2 id="54-final与override">5.4 final与override
 </h2><h1 id="6-stl中一些变化">6. STL中一些变化
 </h1><h1 id="7-lambda">7. lambda

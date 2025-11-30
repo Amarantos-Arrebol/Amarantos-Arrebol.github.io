@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:tag' content='web自动化测试' /><meta property='article:tag' content='性能测试' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-24T13:34:58&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:tag' content='web自动化测试' /><meta property='article:tag' content='性能测试' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-30T13:04:21&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
 <meta name="twitter:title" content="【自动化测试】01测试理论+实践">
 <meta name="twitter:description" content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -430,13 +430,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 <li><a href="#xpath">xpath</a></li>
               </ul>
             </li>
-            <li><a href="#222操作测试对象">2.2.2操作测试对象</a></li>
-            <li><a href="#223窗口">2.2.3窗口</a></li>
-            <li><a href="#224等待">2.2.4等待</a></li>
-            <li><a href="#225导航">2.2.5导航</a></li>
-            <li><a href="#226弹窗">2.2.6弹窗</a></li>
-            <li><a href="#227文件上传">2.2.7文件上传</a></li>
-            <li><a href="#228浏览器参数">2.2.8浏览器参数</a></li>
+            <li><a href="#222操作测试对象">2.2.2操作测试对象</a>
+              <ul>
+                <li><a href="#点击提交对象">点击/提交对象</a></li>
+                <li><a href="#模拟按键输入">模拟按键输入</a></li>
+                <li><a href="#清除文本内容">清除文本内容</a></li>
+                <li><a href="#获取文本信息">获取文本信息</a></li>
+                <li><a href="#获取属性值">获取属性值</a></li>
+                <li><a href="#获取当前页面标题">获取当前页面标题</a></li>
+                <li><a href="#获取当前页面url">获取当前页面URL</a></li>
+              </ul>
+            </li>
+            <li><a href="#223窗口">2.2.3窗口</a>
+              <ul>
+                <li><a href="#切换窗口">切换窗口</a></li>
+                <li><a href="#窗口大小">窗口大小</a></li>
+                <li><a href="#屏幕截图">屏幕截图</a></li>
+                <li><a href="#关闭窗口">关闭窗口</a></li>
+              </ul>
+            </li>
+            <li><a href="#224弹窗">2.2.4弹窗</a></li>
+            <li><a href="#225等待">2.2.5等待</a></li>
+            <li><a href="#226导航">2.2.6导航</a></li>
+            <li><a href="#227弹窗">2.2.7弹窗</a></li>
+            <li><a href="#228文件上传">2.2.8文件上传</a></li>
+            <li><a href="#229浏览器参数">2.2.9浏览器参数</a></li>
           </ul>
         </li>
         <li><a href="#23实战">2.3实战</a></li>
@@ -550,11 +568,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-24</time>
+                <time class="article-time--updated">2025-11-30</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">7346 字
+                <span class="article-time--wordcount">8845 字
                 </span>
             </div>
         
@@ -1110,7 +1128,53 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>适用场景：大型项目，需求不明确</p>
 <p>迭代模型和增量模型在现在已经不会单独使用，而是配合着去使用</p>
 <h5 id="敏捷模型">敏捷模型
-</h5><h3 id="123测试模型">1.2.3测试模型
+</h5><p>敏捷模型主要旨在帮助项目快速适应变更请求</p>
+<p>敏捷模型的主要目的是促进项目的快速完成。</p>
+<blockquote>
+<p>要完成这项任务，需要敏捷。</p>
+<p>敏捷性是通过使过程适应项目，删除对特定项目可能不是必需的活动来实现的</p>
+</blockquote>
+<p>在敏捷模型中，需求被分解成许多可以增量开发的小部分。</p>
+<p>敏捷模型采用迭代开发。每个增量部分都是在迭代中开发的。</p>
+<blockquote>
+<p>每次迭代都旨在小而易于管理，并且只能在几周内完成。</p>
+<p>一次为客户计划、开发和部署一个迭代。没有制定长期计划。</p>
+</blockquote>
+<p>敏捷宣言</p>
+<blockquote>
+<ul>
+<li>
+<p>个体与交互重于过程和工具        &mdash;强调<strong>高效沟通</strong></p>
+</li>
+<li>
+<p>可用的软件重于完备的文档        &mdash;强调<strong>轻文档</strong>，文档不应该作为工作验收的标准</p>
+</li>
+<li>
+<p>客户协作重于合同谈判                &mdash;<strong>主动了解当下的需求</strong></p>
+</li>
+<li>
+<p>响应变化重于遵循计划                 &mdash;<strong>能够主动迎接变化</strong></p>
+</li>
+</ul>
+</blockquote>
+<p>敏捷模型的四个特点：<strong>轻文档，轻流程，重目标，重产出</strong>。</p>
+<p>敏捷开发有很多种方式，其中Scrum是比较流行的一种。</p>
+<p>Scrum又称为迭代式增量软件开发模型。</p>
+<p>在scrum模型中，主要有三个角色和五个重要会议。</p>
+<blockquote>
+<p>三个角色：
+scrum 由 product owner（产品经理）、scrum master（项目经理）和 team（研发团队）组成。</p>
+<ul>
+<li>产品经理收集需求，产出软件需求文档</li>
+<li>scrum master 负责召开各种会议，协调项目，为研发团队服务。</li>
+<li>研发团队由很多角色组成：开发人员（前端、后端）、测试、交互、设计</li>
+</ul>
+</blockquote>
+<p>迭代开发</p>
+<blockquote>
+<p>与瀑布不同，Scrum将产品的开发分解为若干个小sprint(迭代)，其周期从1周到4周不等，但不会超过4周。参与的团队成员一般是5到9人。每期迭代要完成的user story是固定的。每次迭代会产生一定的交付。</p>
+</blockquote>
+<h3 id="123测试模型">1.2.3测试模型
 </h3><h2 id="13bug篇">1.3Bug篇
 </h2><h2 id="14用例篇">1.4用例篇
 </h2><h2 id="15测试分类">1.5测试分类
@@ -1233,7 +1297,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><a class="link" href="https://selenium.net.cn/documentation/webdriver/troubleshooting/errors/driver_location/"  target="_blank" rel="noopener"
     >安装浏览器的驱动</a></p>
 <blockquote>
-<p>必须使用根浏览器版本配套的驱动才可以，如果版本不匹配，则无法开发浏览器！这意味这每次浏览器更新，都需要手动下载新的驱动，整个过程非常冗余</p>
+<p>必须使用跟浏览器版本配套的驱动才可以，如果版本不匹配，则无法开发浏览器！这意味着每次浏览器更新，都需要手动下载新的驱动，整个过程非常冗余</p>
 </blockquote>
 <h4 id="驱动管理工具">驱动管理工具
 </h4><p>Webdriver-manager 可以解决浏览器更新导致驱动无法使用的问题。有了Webdriver-manager ，我们无需手动安装浏览器驱动，即使浏览器更新也不会影响自动化的执行</p>
@@ -1278,9 +1342,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">26
 </span><span class="lnt">27
 </span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
@@ -1289,9 +1350,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.service</span> <span class="kn">import</span> <span class="n">Service</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">webdriver_manager.chrome</span> <span class="kn">import</span> <span class="n">ChromeDriverManager</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 1. 强制下载指定版本的驱动（必须传 version=DRIVER_VERSION！）</span>
-</span></span><span class="line"><span class="cl"><span class="n">ChromeIns</span> <span class="o">=</span> <span class="n">ChromeDriverManager</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="n">DRIVER_VERSION</span><span class="p">)</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 1.打开浏览器--驱动管理器</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 1)通过驱动管理器创建谷歌浏览器对应的驱动，并保存驱动路径</span>
@@ -1431,60 +1489,281 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
 	
 ></p>
 <h4 id="xpath">xpath
-</h4><p>XML路径语言，不仅可以在XML文件中查找信息，还可以在HTML中选取节点。</p>
+</h4><p>xpath是XML路径语言，可以在XML文件中查找信息、在HTML中选取节点。</p>
 <p>xpath使用路径表达式来选择xml文档中的节点</p>
 <p>xpath语法：</p>
 <ul>
 <li>
-<p><strong>获取HTML页面所有的节点</strong>：<strong><code>//*</code></strong></p>
+<p>获取HTML页面所有的节点**：**<code>//*</code></p>
 </li>
 <li>
-<p><strong>获取HTML页面指定的节点</strong>：<code>//[指定节点]</code></p>
-<ul>
-<li><strong><code>//ul</code></strong> 表示获取HTML页面所有的ul节点</li>
-<li><strong><code>//input</code></strong> 表示获取HTML页面所有的input节点</li>
-</ul>
+<p>获取HTML页面指定的节点：<code>//[指定节点]</code></p>
+<blockquote>
+<p><span style="color: #8080FF;">//ul</span> 表示获取HTML页面所有的ul节点</p>
+<p><span style="color: #8080FF;">//input</span> 表示获取HTML页面所有的input节点</p>
+</blockquote>
 </li>
 <li>
-<p><strong>获取一个节点中的直接子节点</strong>：<code>/</code></p>
-<ul>
-<li><strong><code>//span/input</code></strong></li>
-</ul>
+<p>获取一个节点中的直接子节点：<code>/</code></p>
+<blockquote>
+<p><span style="color: #8080FF;">//span/input</span></p>
+</blockquote>
 </li>
 <li>
-<p><strong>获取一个节点的父节点</strong>：<code>..</code></p>
-<ul>
-<li><strong><code>//input/..</code></strong> 表示获取input节点的父节点</li>
-</ul>
+<p>获取一个节点的父节点：<code>..</code></p>
+<blockquote>
+<p><span style="color: #8080FF;">//input/.. </span>表示获取input节点的父节点</p>
+</blockquote>
 </li>
 <li>
-<p><strong>实现节点属性的匹配</strong>：<code>[@...]</code></p>
-<ul>
-<li>**<code>//*[@id='kw'] </code>**匹配HTML页面中id属性为kw的节点</li>
-</ul>
+<p>实现节点属性的匹配：<code>[@...]</code></p>
+<blockquote>
+<p><span style="color: #8080FF;">//*[@id=&lsquo;kw&rsquo;] </span>匹配HTML页面中id属性为kw的节点</p>
+</blockquote>
+</li>
+<li>
+<p>使用指定索引的方式获取对应的节点内容（xpath中索引是从1开始的）</p>
+<blockquote>
+<p><span style="color: #8080FF;">//div/ul/li[3] </span>定位到第三个百度热搜标签</p>
+</blockquote>
 </li>
 </ul>
-<p><img src="/p/test-theory-and-practice/index.assets/image-20251122193721181.png"
-	width="1492"
-	height="577"
+<blockquote>
+<p>百度首页下面的热搜</p>
+<p>selector表达式的写法：#hotsearch-content-wrapper &gt; li:nth-child(3) &gt; a</p>
+<p>xpath的写法：//*[@id=&ldquo;hotsearch-content-wrapper&rdquo;]/li[3]/a</p>
+</blockquote>
+<blockquote>
+<p>我们一般直接通过右击元素的方式复制Selector和XPath的路径</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251126003820978.png"
+	width="525"
+	height="384"
 	
 	loading="lazy"
 	
-		alt="image-20251122193721181"
+		alt="image-20251126003820978"
 	
 	
 		class="gallery-image" 
-		data-flex-grow="258"
-		data-flex-basis="620px"
+		data-flex-grow="136"
+		data-flex-basis="328px"
 	
 ></p>
+</blockquote>
 <h3 id="222操作测试对象">2.2.2操作测试对象
-</h3><h3 id="223窗口">2.2.3窗口
-</h3><h3 id="224等待">2.2.4等待
-</h3><h3 id="225导航">2.2.5导航
-</h3><h3 id="226弹窗">2.2.6弹窗
-</h3><h3 id="227文件上传">2.2.7文件上传
-</h3><h3 id="228浏览器参数">2.2.8浏览器参数
+</h3><p>找到元素之后，接下来就是对元素进行操作。</p>
+<p>常见的操作有点击、提交、输入、清除、获取文本。</p>
+<h4 id="点击提交对象">点击/提交对象
+</h4><p><code>click()</code></p>
+<blockquote>
+<p>页面上任意位置/元素都可以实现点击操作</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 点击事件</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找元素+点击元素</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 写法1：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># driver.find_element(By.CSS_SELECTOR, &#34;#chat-submit-button&#34;).click() # 点击 &#34;百度一下&#34; 按钮</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 写法2：</span>
+</span></span><span class="line"><span class="cl"><span class="n">ele</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#chat-submit-button&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ele</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="模拟按键输入">模拟按键输入
+</h4><p><code>send_keys(&quot;&quot;)</code></p>
+<blockquote>
+<p>模拟键盘输入，因此键盘上可以输入的内容都可以填上去</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 模拟按键输入</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找元素+输入文本</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#chat-textarea&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&#34;2026春节时间&#34;</span><span class="p">)</span> <span class="c1"># 在百度输入框输入文本内容</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="清除文本内容">清除文本内容
+</h4><p><code>clear()</code></p>
+<blockquote>
+<p>可用于输入文本后希望换一个新关键词</p>
+<p>连续的send_keys会将多次输入的内容拼接在一起，如果想重新输入，需要使用清除方法</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#chat-textarea&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&#34;2026春节时间&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 清除文本内容</span>
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#chat-textarea&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#chat-textarea&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s2">&#34;2026元旦假期&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="获取文本信息">获取文本信息
+</h4><p><code>text</code></p>
+<blockquote>
+<p>可用于判断获取到的元素对应的文本是否符合预期</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">CSS_SELECTOR</span><span class="p">,</span> <span class="s2">&#34;#hotsearch-content-wrapper &gt; li:nth-child(5) &gt; a &gt; span.title-content-title&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 一般配合assert断言使用</span>
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="n">text</span> <span class="o">==</span> <span class="s2">&#34;在日中国游客提前回国 机场仿佛春运&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="获取属性值">获取属性值
+</h4><p><code>get_attribute(属性)</code></p>
+<blockquote>
+<p>注意：元素属性值不等于文本信息</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251126001640707.png"
+	width="913"
+	height="164"
+	
+	loading="lazy"
+	
+		alt="image-20251126001640707"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="556"
+		data-flex-basis="1336px"
+	
+></p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251126001750014.png"
+	width="779"
+	height="153"
+	
+	loading="lazy"
+	
+		alt="image-20251126001750014"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="509"
+		data-flex-basis="1221px"
+	
+></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">text = driver.find_element(By.CSS_SELECTOR, &#34;#chat-textarea&#34;).get_attribute(&#34;data-normal-placeholder&#34;)
+</span></span><span class="line"><span class="cl">print(text)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="获取当前页面标题">获取当前页面标题
+</h4><p><code>title</code></p>
+<blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251126002342754.png"
+	width="393"
+	height="81"
+	
+	loading="lazy"
+	
+		alt="image-20251126002342754"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="485"
+		data-flex-basis="1164px"
+	
+></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 获取页面标题</span>
+</span></span><span class="line"><span class="cl"><span class="n">title</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">title</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="获取当前页面url">获取当前页面URL
+</h4><p><code>current_url</code></p>
+<blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251126002505369.png"
+	width="590"
+	height="137"
+	
+	loading="lazy"
+	
+		alt="image-20251126002505369"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="430"
+		data-flex-basis="1033px"
+	
+></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 获取页面url</span>
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">current_url</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用场景：页面元素可点击跳转的情况下，用来检测跳转的结果是否是正确的</p>
+<h3 id="223窗口">2.2.3窗口
+</h3><p>创建驱动对象driver</p>
+<h4 id="切换窗口">切换窗口
+</h4><h4 id="窗口大小">窗口大小
+</h4><h4 id="屏幕截图">屏幕截图
+</h4><h4 id="关闭窗口">关闭窗口
+</h4><h3 id="224弹窗">2.2.4弹窗
+</h3><h3 id="225等待">2.2.5等待
+</h3><h3 id="226导航">2.2.6导航
+</h3><h3 id="227弹窗">2.2.7弹窗
+</h3><h3 id="228文件上传">2.2.8文件上传
+</h3><h3 id="229浏览器参数">2.2.9浏览器参数
 </h3><h2 id="23实战">2.3实战
 </h2><h1 id="2性能测试">2.性能测试
 </h1><p>jmeter</p>
@@ -1525,6 +1804,30 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
             
                 
 <article class="has-image">
+    <a href="/p/auto_ptr/">
+        
+        
+            <div class="article-image">
+                <img src="/p/auto_ptr/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.2e0edf8a3459053f94729b109ccbe96d_hu_60fa17c9e4c55ae7.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;进阶】13智能指针的使用及其原理"
+                        data-key="auto_ptr" 
+                        data-hash="md5-Lg7fijRZBT&#43;UcpsQnMvpbQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;进阶】13智能指针的使用及其原理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/unity-csharp-basic/">
         
         
@@ -1542,30 +1845,6 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
 
         <div class="article-details">
             <h2 class="article-title">【unity3d游戏开发】C#学习</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/unity-basic/">
-        
-        
-            <div class="article-image">
-                <img src="/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E.fc890614cbf7e2e47fe2cedb91347a73_hu_3efb3d15b9c9b9c6.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【unity3d游戏开发】Unity入门"
-                        data-key="unity-basic" 
-                        data-hash="md5-/IkGFMv34uR/4s7bkTR6cw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【unity3d游戏开发】Unity入门</h2>
         </div>
     </a>
 </article>

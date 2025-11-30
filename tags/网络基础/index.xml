@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Mon, 24 Nov 2025 13:34:57 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 27 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【Linux网络编程】01网络基础</title>
         <link>https://Amarantos-Arrebol.github.io/p/network/</link>
         <pubDate>Sat, 22 Nov 2025 00:00:00 +0000</pubDate>
@@ -186,10 +186,13 @@
 &lt;/blockquote&gt;
 &lt;p&gt;其中唯一的一个区别：**计算机通信的距离变长了！**距离变长就会引发新问题！&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;数据丢了怎么办？怎么定位目标主机？怎么解决当下立即要去哪里的问题？目标主机怎么知道我发出去的数据该怎么处理？&lt;/p&gt;
+&lt;p&gt;数据丢了怎么办？&lt;/p&gt;
+&lt;p&gt;怎么定位目标主机？&lt;/p&gt;
+&lt;p&gt;怎么解决当下立即要去哪里的问题？&lt;/p&gt;
+&lt;p&gt;目标主机怎么知道我发出去的数据该怎么处理？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;有问题就会有解决方案！&lt;strong&gt;TCP/IP协议，本质就是一种网络长距离通信的解决方案&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;协议—不同性质，不同种类的问题—&amp;gt;协议分层&lt;/p&gt;
+&lt;p&gt;协议—不同性质，不同种类的问题—&amp;gt;&lt;strong&gt;协议分层&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122132602103.png&#34;
 	width=&#34;1061&#34;
 	height=&#34;684&#34;
@@ -205,10 +208,14 @@
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;32什么是tcpip协议&#34;&gt;3.2什么是TCP/IP协议?
-&lt;/h2&gt;&lt;p&gt;TCP/IP 协议的本质是一种网络长距离通信的解决方案&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;TCP/IP 协议的本质是一种网络长距离通信的解决方案&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;TCP/IP 协议能分层，前提是因为问题们本身能分层&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;问题，如：数据丢了怎么办？怎么定位目标主机？怎么解决当下立即要去哪里的问题？目标主机怎么知道我发出去的数据该怎么处理？&lt;/p&gt;
+&lt;p&gt;1.我要发送数据给目标主机，得先发到路由器上吧？怎么办？        &amp;mdash;数据链路层&lt;/p&gt;
+&lt;p&gt;2.网上这么多主机，怎么定位并找到目标主机呢？                           &amp;mdash;网络层&lt;/p&gt;
+&lt;p&gt;3.如果我的数据发出去，丢失了怎么办？                                           &amp;mdash;传输层&lt;/p&gt;
+&lt;p&gt;4.发数据不是目的，只是手段，用数据才是目的吧？&lt;/p&gt;
+&lt;p&gt;目标主机怎么知道我发出去的数据该怎么处理，被使用呢？            &amp;mdash;应用层&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;33tcpip协议与操作系统的关系&#34;&gt;3.3TCP/IP协议与操作系统的关系(宏观上，怎么实现的)
 &lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251122133309732.png&#34;
@@ -267,39 +274,409 @@
 &lt;blockquote&gt;
 &lt;p&gt;问题：主机 B 能识别 data，并且准确提取 a=10，b=20，c=30 吗？&lt;/p&gt;
 &lt;p&gt;回答：答案是肯定的！因为双方都有同样的结构体类型 struct protocol。也就是说，用同样的代码实现协议，用同样的自定义数据类型，天然就具有&amp;quot;共识“，能够识别对方发来的数据，这不就是约定吗?&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;关于协议的朴素理解：&lt;strong&gt;所谓协议，就是通信双方都认识的结构化的数据类型&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;因为协议栈是分层的，所以，每层都有双方都有协议，同层之间，互相可以认识对方的协议。&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;例子：网络购物的快递单上，有寄方、收方、数量、备注、支付方式、运费&amp;hellip;等，使得收货方能看懂，发货方也能看懂，双方一看就能确定信息是否正确，所以，快递单子就是收发双方的协议&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h1 id=&#34;4-网络传输基本流程&#34;&gt;4. 网络传输基本流程
 &lt;/h1&gt;&lt;h2 id=&#34;41局域网网络传输流程图&#34;&gt;4.1局域网网络传输流程图
 &lt;/h2&gt;&lt;p&gt;网络的发展是从局部到整体的&lt;/p&gt;
 &lt;p&gt;有各种各样的局域网通信的标准：以太网、令牌环网、无线LAN&amp;hellip;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;局域网通信原理&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;两台主机在同一个局域网内，能直接通信&lt;/p&gt;
-&lt;p&gt;每台主机在局域网上，要有唯一的标识来保证主机的唯一性：mac地址&lt;/p&gt;
+&lt;p&gt;令牌环网：只有持有令牌的人才能在局域网中发送消息。令牌其实就是锁&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;strong&gt;MAC地址&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;411局域网通信原理&#34;&gt;4.1.1局域网通信原理
+&lt;/h3&gt;&lt;p&gt;以以太网为例&lt;/p&gt;
+&lt;p&gt;1）&lt;strong&gt;在同一个局域网内的多台主机之间，能直接通信&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;2）在同一个局域网内发送的消息&lt;strong&gt;所有主机都能看到&lt;/strong&gt;，但是&lt;strong&gt;只有目标主机会对消息进行处理&lt;/strong&gt;。&lt;/p&gt;
 &lt;blockquote&gt;
+&lt;p&gt;一个局域网内的主机都能直接通信，主机A给主机B发送消息时，其实主机C、主机D、主机E等都收到消息了，但是它们知道不是给自己发的消息，所以会忽略，而只有主机B会处理该消息&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;3）每台主机在局域网上，都要有唯一的标识来&lt;strong&gt;保证主机的唯一性：mac地址&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;412mac地址&#34;&gt;4.1.2MAC地址
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;每台主机在局域网上的唯一标识是mac地址。&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;mac地址是一个48个比特位的数字，是在网卡中内置的。&lt;/li&gt;
-&lt;li&gt;mac地址通常是唯一的（虚拟机中的mac地址不是真实的mac地址，可能会冲突，也有些网卡支持用户配置 mac 地址）&lt;/li&gt;
-&lt;li&gt;mac地址用来识别数据链路层中相连的节点&lt;/li&gt;
-&lt;li&gt;mac地址一般用16 进制数字加上冒号的形式来表示(例如：`08:00:27:03:fb:19`)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;li&gt;
+&lt;p&gt;mac地址是在网卡中内置的，mac地址通常是唯一的。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;查看mac地址：&lt;code&gt;ifconfig&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;虚拟机中的mac地址不是真实的mac地址，可能会冲突，也有些网卡支持用户配置 mac 地址&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mac地址长度为48比特位，即6字节，一般用16 进制数字加上冒号的形式来表示(例如：`08:00:27:03:fb:19`)。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mac地址用来识别数据链路层中相连的节点&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;查看mac地址&lt;/p&gt;
+&lt;p&gt;Linux下查看mac地址：&lt;code&gt;ifconfig&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Windows下查看mac地址：&lt;code&gt;ipconfig/all&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;413数据链路层直接通信&#34;&gt;4.1.3数据链路层直接通信
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125162540452.png&#34;
+	width=&#34;1576&#34;
+	height=&#34;571&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125162540452&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;276&#34;
+		data-flex-basis=&#34;662px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果现在主机A要给主机B发送消息，那么主机A会先把自己要发送的报文添加好（一般会添加：源mac地址、目标mac地址和消息主体），然后主机A将报文发送到局域网，此时局域网中的所有主机都能接收到，但是除B以外的所有主机接收到后发现报文的目标mac地址不是自己后，就会丢弃，而主机B检查后发现自己的mac地址和报文的目标mac地址相同，所以主机B会对报文做处理&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;1）&lt;strong&gt;在以太网中，任何时刻，只允许一台机器向网络中发送数据&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;例如主机A在给主机B发送消息的同时，主机B也在给主机D发送消息，那么两个信息就可能会在物理层面上发生干扰&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;2）如果有多台同时发送，会发生数据干扰，我们称之为&lt;strong&gt;数据碰撞&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;3）所有发送数据的主机要进行&lt;strong&gt;碰撞检测&lt;/strong&gt;和&lt;strong&gt;碰撞避免&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;碰撞避免算法&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;4）没有交换机的情况下，&lt;strong&gt;一个以太网就是一个碰撞域&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;5）局域网通信的过程中，主机对收到的报文确认是否是发给自己的，是通过目标mac 地址判定&lt;/p&gt;
+&lt;p&gt;以太网的本质就是共享的资源，任何时刻只允许一台主机向网络中发送消息。—临界资源&lt;/p&gt;
+&lt;p&gt;碰撞检测、碰撞避免、碰撞避免算法等本质上就是在一定程度上维持以太网的互斥属性&lt;/p&gt;
+&lt;h3 id=&#34;414主机之间通信的本质&#34;&gt;4.1.4主机之间通信的本质
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;主机之间通信，本质是两个协议栈在通信&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;大部分情况下，通信都是由用户(人)来发起的。我们的消息必须&lt;strong&gt;自顶向下贯穿协议栈&lt;/strong&gt;，把我们的数据交给网卡，数据到达目标主机后，一定是目标主机的网卡硬件先收到报文，然后&lt;strong&gt;自底向上进行交付&lt;/strong&gt;，到达应用层，&lt;strong&gt;同层之间直接通信&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125170035351.png&#34;
+	width=&#34;1376&#34;
+	height=&#34;430&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125170035351&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;320&#34;
+		data-flex-basis=&#34;768px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据发送的原始动力：90%的情况下都是人&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;网络协议栈：每一层都会有自己的协议，同层之间是相互认识的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;协议就是结构体，我们约定结构体里的属性、字段都一样&lt;/p&gt;
+&lt;h3 id=&#34;416数据包封装和分用&#34;&gt;4.1.6数据包封装和分用
+&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125180208747.png&#34;
+	width=&#34;1662&#34;
+	height=&#34;588&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125180208747&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;282&#34;
+		data-flex-basis=&#34;678px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h4 id=&#34;为什么要自顶向下封装&#34;&gt;&lt;strong&gt;为什么要自顶向下封装？&lt;/strong&gt;
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;为什么要自顶向下？&lt;/p&gt;
+&lt;p&gt;因为想发送数据的是用户，用户在上层，但是真正发送数据的是网卡，所以必须贯穿操作系统，贯穿协议栈。操作系统是硬件(网卡)的管理者&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;类比printf把消息打印到显示器上。printf底层封装了系统调用，因为操作系统是显示器的管理者，所以我们的消息可以通过操作系统系统调用然后调用驱动，再把消息写到硬件上&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为什么要封装？&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;同层之间，在直接通信&lt;/strong&gt;（因为我发送的，就是你收到的）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;对端同层，要先解包。解包的本质就是把自己同层的报头和有效载荷进行分离&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;细节1&lt;/strong&gt;：不考虑应用层协议，任何协议&lt;/p&gt;
+&lt;p&gt;a. 报头必须要能做到，和有效载荷进行分离的能力&lt;/p&gt;
+&lt;p&gt;b. 报头中必须包含，如何将自己的有效载荷，交付给上层的那一个具体的协议。&lt;/p&gt;
+&lt;p&gt;我们把交付有效载荷的过程叫做分用的过程。&lt;/p&gt;
+&lt;p&gt;报文发送到目标主机，要自底向上做解包和分用的过程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;细节2&lt;/strong&gt;：底层收到报文，但是该报文不是发送给我的，数据链路层直接丢弃&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;细节3&lt;/strong&gt;：协议栈的理解&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125183212386.png&#34;
+	width=&#34;1545&#34;
+	height=&#34;698&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125183212386&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;221&#34;
+		data-flex-basis=&#34;531px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们在自顶向下进行封装的过程，其实就是把我们的原始报文和报头在不断入栈；当我们把对应的报文交付给对方之后，对方要做报头和有效载荷的分离，依次把有效载荷交付给上一层，这个不断解包和分用的过程，就是出栈的过程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于一个报文，我们自顶向下封装，其实是从上往下做入栈，自底向上做出栈。所以我们把TCP/IP叫做协议栈&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;了解：&lt;/p&gt;
+&lt;p&gt;一般默认我们的网卡和驱动程序只会把发送给我这个主机的报文向上交付，但是网卡有一种混杂模式，当我们的网卡收到对应的数据帧，不对数据的来源、数据的目标做判断，无脑地直接将数据向上交付，不管是不是发给我的。我们把这种叫做网卡的混杂模式。&lt;/p&gt;
+&lt;p&gt;抓包工具的原理就是把网卡设置成混杂模式&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;数据包封装术语&#34;&gt;&lt;strong&gt;数据包封装术语&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;1）&lt;strong&gt;明确几个概念&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;报文=报头+有效载荷&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;报头部分，就是对应协议层的结构体字段，我们一般叫做报头。&lt;/p&gt;
+&lt;p&gt;任何一层，只认识自己的报头&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;除了报头，剩下的叫做有效载荷。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2）&lt;strong&gt;明确不同层的完整报文的叫法&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125185429881.png&#34;
+	width=&#34;1573&#34;
+	height=&#34;496&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125185429881&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;317&#34;
+		data-flex-basis=&#34;761px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;我们往往&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;把应用层报头叫做&lt;strong&gt;请求与应答&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;把添加了传输报头的整个报文，叫做&lt;strong&gt;数据段&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;把添加了网络报头的整个报文，叫做&lt;strong&gt;数据报&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;把添加了链路报头的整个报文，叫做&lt;strong&gt;数据帧&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不同的协议层对数据包有不同的称谓,在传输层叫做段(segment)，在网络层叫做数据报 (datagram),在链路层叫做帧(frame)。&lt;/p&gt;
+&lt;p&gt;应用层数据通过协议栈发到网络上时,每层协议都要加上一个数据首部(header)，称为&lt;strong&gt;封装&lt;/strong&gt;(Encapsulation)。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;首部信息&lt;/strong&gt;中包含了一些类似于首部有多长,载荷(payload)有多长，上层协议是什么等信息。&lt;/p&gt;
+&lt;p&gt;数据封装成帧后发到传输介质上，到达目的主机后每层协议再剥掉相应的首部，根据首部中的&amp;quot;上层协议字段&amp;quot;将数据交给对应的上层协议处理。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&#34;总结&#34;&gt;&lt;strong&gt;总结&lt;/strong&gt;
+&lt;/h4&gt;&lt;p&gt;1）&lt;strong&gt;每一层协议，未来都会有自己具体的协议&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125190948212.png&#34;
+	width=&#34;549&#34;
+	height=&#34;283&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125190948212&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;193&#34;
+		data-flex-basis=&#34;465px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;2）&lt;strong&gt;两台计算机通过TCP/IP协议通讯的过程：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125191340584.png&#34;
+	width=&#34;834&#34;
+	height=&#34;508&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125191340584&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;164&#34;
+		data-flex-basis=&#34;394px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在网络传输的过程中，数据不是直接发送给对方主机的，而是先要自顶向下将数据交付给下层协议（封装），封装成一个完整的链路层的帧，然后再在以太网中，以碰撞检测、碰撞避免的方法，把报文交给目标主机，对方主机再自底向上进行向上交付。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;3）&lt;strong&gt;数据的封装过程&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125192638878.png&#34;
+	width=&#34;782&#34;
+	height=&#34;551&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125192638878&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;141&#34;
+		data-flex-basis=&#34;340px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;4）&lt;strong&gt;数据的分用过程&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251125192702881.png&#34;
+	width=&#34;790&#34;
+	height=&#34;484&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251125192702881&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;163&#34;
+		data-flex-basis=&#34;391px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;5）&lt;strong&gt;未来学习任何协议，都要先宏观上建立这样的认识:&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.要学习的协议，**是如何做到解包的？**只有明确了解包，封包也就能理解&lt;/p&gt;
+&lt;p&gt;2.要学习的协议，&lt;strong&gt;是如何做到将自己的有效载荷，交付给上层协议的?&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;42跨网络传输流程图&#34;&gt;4.2跨网络传输流程图
-&lt;/h2&gt;&lt;h1 id=&#34;5socket编程预备&#34;&gt;5.Socket编程预备
-&lt;/h1&gt;&lt;p&gt;1理解源IP地址和目的IP地址&lt;/p&gt;
-&lt;p&gt;2.认识端口号&lt;/p&gt;
-&lt;p&gt;3.传输层的典型代表&lt;/p&gt;
-&lt;p&gt;4.网络字节序&lt;/p&gt;
-&lt;p&gt;5.socket编程接口&lt;/p&gt;
-</description>
+&lt;/h2&gt;&lt;h3 id=&#34;421网络中的地址管理-认识ip地址&#34;&gt;4.2.1网络中的地址管理-认识IP地址
+&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;IP地址是用来标识全球范围内主机的唯一性（公网IP）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;而Mac地址本质是一种只在局域网当中有效的标识地址的方式&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251127190307363.png&#34;
+	width=&#34;973&#34;
+	height=&#34;362&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251127190307363&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;268&#34;
+		data-flex-basis=&#34;645px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;1.&lt;strong&gt;源IP地址，目标IP地址&lt;/strong&gt;  &amp;mdash;目标IP地址表示最终目的地是哪里（长远目标）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;目标IP的核心价值是给我们提供路由的参考依据&lt;/p&gt;
+&lt;p&gt;目标IP在将来整个转发的过程中，永远不变&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;2.&lt;strong&gt;源Mac地址，目标Mac地址&lt;/strong&gt; &amp;mdash;目标Mac地址表示下一站要去哪里（当下目标）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IP协议有两个版本：IPv4和IPv6&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IPv4通常是4个字节，32个比特位&lt;/li&gt;
+&lt;li&gt;IPv6通常是16个字节，128个比特位&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我们通常也使用&amp;quot;点分十进制&amp;quot;的字符串表示IP地址（例如192.168.0.1），用点分割的每一个数字表示一个字节（即能表示的范围是0－255）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Linux系统中查看IP地址：&lt;code&gt;ifconfig&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251127184001781.png&#34;
+	width=&#34;1172&#34;
+	height=&#34;353&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251127184001781&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;332&#34;
+		data-flex-basis=&#34;796px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;Windows系统中查看IP地址：&lt;code&gt;ipconfig&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;跨网段的主机的数据传输。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;数据从一台计算机到另一台计算机传输过程中要经过一个或多个路由器。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;路由器主要是用来连接两个不同子网的。&lt;/p&gt;
+&lt;p&gt;可以这样理解：路由器将来要配置两张网卡，左边一张网卡，右边一张网卡，分别用来连接两个不同的子网&lt;/p&gt;
+&lt;p&gt;电脑，路由器 &amp;mdash; 统一叫做主机&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;两台主机之间进行通信，本质是两个协议栈之间进行通信&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251127191449468.png&#34;
+	width=&#34;984&#34;
+	height=&#34;457&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251127191449468&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;215&#34;
+		data-flex-basis=&#34;516px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;只要有网络层，就会有路由功能&lt;/p&gt;
+&lt;p&gt;有了目的IP，就可以判定要将报文发送给路由器&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251128075006826.png&#34;
+	width=&#34;1210&#34;
+	height=&#34;640&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251128075006826&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;189&#34;
+		data-flex-basis=&#34;453px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;同一个局域网内的主机可以直接通信&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251128075734224.png&#34;
+	width=&#34;1524&#34;
+	height=&#34;703&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251128075734224&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;216&#34;
+		data-flex-basis=&#34;520px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;路由的过程中，IP地址不变，mac地址一直在变。&lt;/p&gt;
+&lt;p&gt;mac地址只会在本局域网内有效&lt;/p&gt;
+&lt;p&gt;以太网，无线LAN，令牌环网&amp;hellip;自定义局域网通信原理？&lt;/p&gt;
+&lt;p&gt;网络层+IP的本质意义：给网络提供了一层虚拟化层，让世界上所有的网络，都叫做IP网络&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/network/index.assets/image-20251128144456424.png&#34;
+	width=&#34;1202&#34;
+	height=&#34;462&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20251128144456424&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;260&#34;
+		data-flex-basis=&#34;624px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;IP 网络层存在的意义：&lt;strong&gt;提供网络虚拟层，让世界的所有网络都是IP 网络，屏蔽&lt;/strong&gt;
+&lt;strong&gt;最底层网络的差异&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;5socket编程预备&#34;&gt;5.Socket编程预备
+&lt;/h1&gt;&lt;h2 id=&#34;51理解源ip地址和目的ip地址&#34;&gt;5.1理解源IP地址和目的IP地址
+&lt;/h2&gt;&lt;p&gt;IP地址主要用来标识网络中主机的唯一性&lt;/p&gt;
+&lt;p&gt;进程是人在系统中的代表，只要把数据给进程，人就相当于拿到了数据&lt;/p&gt;
+&lt;p&gt;数据传输到主机不是目的，而是手段。在交给主机内的进程，才是目的&lt;/p&gt;
+&lt;h2 id=&#34;52认识端口号&#34;&gt;5.2认识端口号
+&lt;/h2&gt;&lt;h2 id=&#34;53传输层的典型代表&#34;&gt;5.3传输层的典型代表
+&lt;/h2&gt;&lt;h2 id=&#34;54网络字节序&#34;&gt;5.4网络字节序
+&lt;/h2&gt;&lt;h2 id=&#34;55socket编程接口&#34;&gt;5.5socket编程接口
+&lt;/h2&gt;</description>
         </item>
         
     </channel>

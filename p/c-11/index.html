@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">19694 字
+                <span class="article-time--wordcount">22126 字
                 </span>
             </div>
         
@@ -1820,7 +1820,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <ul>
 <li>当实参是左值的时候，容器内部就继续调用拷贝构造，将这个对象拷贝到容器空间中的对象里</li>
 <li>当实参是右值的时候，容器内部就调用移动构造，将右值的资源移动到容器空间的对象上。</li>
-<li><img src="/p/c-11/index.assets/image-20251116103417073.png"
+</ul>
+<p><img src="/p/c-11/index.assets/image-20251116103417073.png"
 	width="464"
 	height="55"
 	
@@ -1833,8 +1834,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-grow="843"
 		data-flex-basis="2024px"
 	
-></li>
-</ul>
+></p>
 <p><img src="/p/c-11/index.assets/image-20251116101126399.png"
 	width="664"
 	height="59"
@@ -4680,17 +4680,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 <p>lambda 和 范围 for类似，都不是全新的语法，而是语法糖。lambda底层基于已有的 仿函数机制实现，让代码写起来更简洁，但本质还是编译器帮我们生成了仿函数类</p>
 <h1 id="8包装器">8.包装器
-</h1><h2 id="82-function">8.2 function
-</h2><p><strong>基本介绍</strong></p>
-<p><a class="link" href="https://en.cppreference.com/w/cpp/utility/functional/function.html"  target="_blank" rel="noopener"
+</h1><blockquote>
+<p>包装器本质是编译器推导类型</p>
+</blockquote>
+<h2 id="82-function">8.2 function
+</h2><p><a class="link" href="https://en.cppreference.com/w/cpp/utility/functional/function.html"  target="_blank" rel="noopener"
     >文档</a></p>
-<p>1）<strong><code>std::function</code><strong>其实就是一个</strong>可变参数模版的仿函数</strong></p>
-<p>2）<code>std::function</code>的实例函数可以用来<strong>包装一切可调用对象</strong>，包装后可以<strong>像可调用对象一样去调用</strong></p>
+<p><strong>基本介绍</strong></p>
+<p>1）<strong><code>std::function</code><strong>本质是一个</strong>可变参数模版的仿函数</strong></p>
+<p>2）std::function 的实例函数可以用来<strong>包装存储一切可调用对象</strong>，包装后可以<strong>像可调用对象一样去调用</strong></p>
 <blockquote>
 <p>可调用对象包括 函数指针、仿函数、lambda、bind 表达式等</p>
 </blockquote>
-<p>3）使用<code>std::function</code>要包头文件 &lt;functional&gt;</p>
-<p>**例子1：**使用function包装普通函数、仿函数、lambda表达式</p>
+<p>3）std::function被定义在 &lt;functional&gt; 这个头文件中</p>
+<p>4）std::function最大的好处就是可以<strong>统一可调用对象的类型</strong></p>
+<p><strong>注意：</strong></p>
+<p>std::function 存储的可调用对象被称为 std::function 的目标，如果 std::function 不含目标，就称它为空。调用空的 std::function 的目标，会导致抛出 std:bad_function_call  异常</p>
+<p><strong>例子1：使用function包装函数指针、仿函数、lambda表达式</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4786,9 +4792,518 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 </blockquote>
-<p>**例子2：**使用function包装静态成员函数</p>
+<p><strong>例子2：使用function包装静态成员函数</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Plus</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Plus</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">_n</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//静态成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">static</span> <span class="kt">int</span> <span class="nf">plusi</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//非静态成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">double</span> <span class="nf">plusd</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">_n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//用function可以包装各种可调用对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//1.包装静态成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//非静态的成员函数要指定类域并且前面要加&amp;才能获取地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//静态的成员函数要指定类域才能获取地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f4</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Plus</span><span class="o">::</span><span class="n">plusi</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f4</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//2.包装非静态的成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//注意：非静态的成员函数还有一个隐含的this指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//写法一：可调用对象的第一个参数写成指针，调用时传对象地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="n">Plus</span><span class="o">*</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f5</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Plus</span><span class="o">::</span><span class="n">plusd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Plus</span> <span class="n">ps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f5</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ps</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 22
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//写法二：可调用对象的第一个参数写成对象，调用时传对象本身
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="n">Plus</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f6</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Plus</span><span class="o">::</span><span class="n">plusd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//可以传有名对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Plus</span> <span class="n">ps2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f6</span><span class="p">(</span><span class="n">ps2</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 22
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//也可以传匿名对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f6</span><span class="p">(</span><span class="n">Plus</span><span class="p">(),</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 22
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//不过，自定义类型的对象最好还是写成右值引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="n">Plus</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f7</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Plus</span><span class="o">::</span><span class="n">plusd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f7</span><span class="p">(</span><span class="n">Plus</span><span class="p">(),</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 22
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>包装非静态成员的时候需要注意：</p>
+<p>1）非静态成员函数有一个隐含的this指针。</p>
+<p>2）定义function的时候，可调用对象的第一个参数既可以传指针也可以传对象，因为function包装后，还是需要用指针去调用成员函数，指针可以调用成员函数，对象也可以调用成员函数。</p>
+<p>包装器本质是编译器推导类型。</p>
+</blockquote>
+<p>**所以，为什么会有包装器呢？**本质是因为C++里的可调用对象的类型复杂且多：</p>
+<ul>
+<li>
+<p>函数指针的类型写起来比较麻烦，比如把函数f 的地址赋值给指针变量 pf，就得写成这样 <code>int(*pf)(int, int）=f</code></p>
+</li>
+<li>
+<p>lambda在语法层面上我们没法控制类型，它的类型是编译器自动生成的</p>
+</li>
+<li>
+<p>类的成员函数，需要对象或指针去调用，所以类型写起来也很麻烦</p>
+</li>
+</ul>
+<p>而包装器能将这些可调用对象的类型统一成 std::function 类型。可调用对象包装后，就都能用同一个类型的变量存储、传递，并且用法也统一了</p>
 <h2 id="81bind">8.1bind
-</h2>
+</h2><p><img src="/p/c-11/index.assets/image-20251124233900109.png"
+	width="991"
+	height="169"
+	
+	loading="lazy"
+	
+		alt="image-20251124233900109"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="586"
+		data-flex-basis="1407px"
+	
+></p>
+<p><strong>基本介绍</strong></p>
+<p>1）bind是一个函数模版</p>
+<p>2）bind也是一个可调用对象的包装器，可以把bind看做一个函数适配器：我们给它传一个可调用对象，它做一些处理，然后它会返回一个新的可调用对象</p>
+<p>3）bind主要是用来调整可调用对象的参数列表的，比如调整参数的个数和参数的顺序</p>
+<p>4）bind的定义也是在 &lt;functional&gt;这个头文件中</p>
+<p><strong>bind的使用</strong></p>
+<p>调用bind的一般形式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">newCallable</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">callable</span><span class="p">,</span> <span class="n">arg_list</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>callable：可调用对象</li>
+<li>arg_list：一个以逗号分隔的参数列表，对应给定的callable的参数</li>
+<li>bind的返回值是一个可调用对象（bind虽然是一个函数模版，但是内部其实是生成可调用对象）</li>
+</ul>
+<blockquote>
+<p>当调用 newCallable(实参) 时，该新对象会自动调用原本的 callable，并且将 arg_list 中的参数（固定值直接使用，占位符用 newCallable 接收的实参替换），一并传递给原本的 callable。</p>
+</blockquote>
+<p>arg_list中的参数可以传 <code>_1</code>、<code>_2</code>、<code>_3</code>等，这些参数是占位符，<code>_1</code>永远代表newCallable的第1个实参，<code>_2</code>永远代表newCallable的第2个实参，以此类推</p>
+<blockquote>
+<p><code>_1</code> 、<code>_2</code>、 <code>_3</code> 这些占位符是封装在placeholders这个命名空间里的</p>
+<p><img src="/p/c-11/index.assets/image-20251124234330922.png"
+	width="477"
+	height="214"
+	
+	loading="lazy"
+	
+		alt="image-20251124234330922"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="534px"
+	
+></p>
+</blockquote>
+<p><strong>bind的用法1：调整参数顺序</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Sub</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//为了方便使用，我们展开这几个标志符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//bind 本质返回一个仿函数对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//_1代表第一个实参，_2代表第二个实参
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">auto</span> <span class="n">sub1</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">Sub</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="p">);</span><span class="c1">//对Sub函数进行包装
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sub1</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// (10-5)*10 = 50
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//bind可以调整参数顺序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">auto</span> <span class="n">sub2</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">Sub</span><span class="p">,</span> <span class="n">_2</span><span class="p">,</span> <span class="n">_1</span><span class="p">);</span><span class="c1">//对Sub函数进行包装
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sub2</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// (5-10)*10 = -50
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>bind的用法2：调整参数个数（常用）</strong></p>
+<blockquote>
+<p>bind可以把某些参数固定上</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Sub</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">SubX</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">-</span> <span class="n">c</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//为了方便使用，我们展开这几个标志符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//调整参数个数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//需求：第一个参数固定是100，第二个参数可以显示传
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">auto</span> <span class="n">sub3</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">Sub</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">_1</span><span class="p">);</span><span class="c1">// _1永远代表第一个实参
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sub3</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// (100-5)*10 = 950
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//分别绑死第1、2、3个参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">auto</span> <span class="n">sub4</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">SubX</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sub4</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// (100-5-1)*10 = 940
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">auto</span> <span class="n">sub5</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">SubX</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">_2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sub5</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// (5-100-1)*10 = -960
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">auto</span> <span class="n">sub6</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">SubX</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">sub6</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// (5-1-100)*10 = -960
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>bind的应用场景1</strong></p>
+<p>对于非静态的成员函数，有一个隐含的this指针。如果用 std::function去包装非静态成员函数，那么每次调用的时候都需要传一个对象/指针，很麻烦。我们可以用bind将第一个参数绑定，之后调用就不用传第一个参数了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Plus</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Plus</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">_n</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//静态成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">static</span> <span class="kt">int</span> <span class="nf">plusi</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">//非静态成员函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">double</span> <span class="nf">plusd</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">_n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//成员函数进行绑死，就不需要每次都传递了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="n">Plus</span><span class="o">&amp;&amp;</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f6</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">Plus</span><span class="o">::</span><span class="n">plusd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Plus</span> <span class="n">pd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f6</span><span class="p">(</span><span class="n">move</span><span class="p">(</span><span class="n">pd</span><span class="p">),</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f6</span><span class="p">(</span><span class="n">Plus</span><span class="p">(),</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 22
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">	<span class="c1">//bind一般用于绑死一些固定参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f7</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Plus</span><span class="o">::</span><span class="n">plusd</span><span class="p">,</span> <span class="n">Plus</span><span class="p">(),</span> <span class="n">_1</span><span class="p">,</span> <span class="n">_2</span><span class="p">);</span> <span class="c1">// 把第一个参数绑死（第一个参数是Plus对象）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">f7</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 22
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>bind的应用场景2</strong></p>
+<p>计算复利的lambda。通过绑死一些参数，实现支持不同年华利率，不同金额和不同年份计算出复利的结算利息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">placeholders</span><span class="o">::</span><span class="n">_3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//计算复利的lambda
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//复利：前一年的利息会变成第二年的本金
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">func1</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">double</span> <span class="n">rate</span><span class="p">,</span> <span class="kt">double</span> <span class="n">money</span><span class="p">,</span> <span class="kt">int</span> <span class="n">year</span><span class="p">)</span><span class="o">-&gt;</span><span class="kt">double</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">double</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">money</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">year</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ret</span> <span class="o">+=</span> <span class="n">ret</span> <span class="o">*</span> <span class="n">rate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ret</span> <span class="o">-</span> <span class="n">money</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//绑死一些参数，实现支持不同年华利率，不同金额和不同年份计算出复利的结算利息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">func3_1_5</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">func1</span><span class="p">,</span> <span class="mf">0.015</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">func5_2_5</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">func1</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">func10_2_5</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">func1</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">function</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">func20_3_5</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">func1</span><span class="p">,</span> <span class="mf">0.035</span><span class="p">,</span> <span class="n">_1</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">func3_1_5</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">//45678.4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">func5_2_5</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">//131408
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">func10_2_5</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">//280085
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">func20_3_5</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">//1.80679e+06
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>   
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 

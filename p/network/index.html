@@ -2,7 +2,7 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1. 网络的发展 计算机是人类的工具，人之间是需要协作的，所以网络的产生是必然的\n网络具体是如何产生的？先局部产生，再到整体\n网络的历史：阿帕网—&gt;90年代左右，公开了—美国人组建自己的互联网—&gt;&hellip;\n">
-<title>【Linux网络编程】01网络基础</title>
+<title>【Linux网络编程】02Socket编程UDP</title>
 
 <link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/network/'>
 
@@ -10,7 +10,7 @@
 <meta property='og:description' content="1. 网络的发展 计算机是人类的工具，人之间是需要协作的，所以网络的产生是必然的\n网络具体是如何产生的？先局部产生，再到整体\n网络的历史：阿帕网—&gt;90年代左右，公开了—美国人组建自己的互联网—&gt;&hellip;\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/network/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='网络基础' /><meta property='article:published_time' content='2025-11-22T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-27T00:00:00&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Socket编程' /><meta property='article:published_time' content='2025-12-01T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-10T09:21:36&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.png' />
 <meta name="twitter:title" content="【Linux网络编程】01网络基础">
 <meta name="twitter:description" content="1. 网络的发展 计算机是人类的工具，人之间是需要协作的，所以网络的产生是必然的\n网络具体是如何产生的？先局部产生，再到整体\n网络的历史：阿帕网—&gt;90年代左右，公开了—美国人组建自己的互联网—&gt;&hellip;\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -323,119 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
   </ol>
 </aside>
 
-    <aside class="sidebar right-sidebar sticky">
-        
-            
-                
-    <section class="widget archives">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <line x1="5" y1="9" x2="19" y2="9" />
-  <line x1="5" y1="15" x2="19" y2="15" />
-  <line x1="11" y1="4" x2="7" y2="20" />
-  <line x1="17" y1="4" x2="13" y2="20" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1-网络的发展">1. 网络的发展</a></li>
-    <li><a href="#2初识协议">2.初识协议</a>
-      <ul>
-        <li><a href="#21协议分层">2.1协议分层</a></li>
-        <li><a href="#22osi七层模型">2.2OSI七层模型</a></li>
-        <li><a href="#23tcpip五层模型">2.3TCP/IP五层模型</a></li>
-      </ul>
-    </li>
-    <li><a href="#3再识协议">3.再识协议</a>
-      <ul>
-        <li><a href="#31为什么要有tcpip协议">3.1为什么要有TCP/IP协议?</a></li>
-        <li><a href="#32什么是tcpip协议">3.2什么是TCP/IP协议?</a></li>
-        <li><a href="#33tcpip协议与操作系统的关系">3.3TCP/IP协议与操作系统的关系</a></li>
-        <li><a href="#34所以究竟什么是协议">3.4所以究竟什么是协议?</a></li>
-      </ul>
-    </li>
-    <li><a href="#4-网络传输基本流程">4. 网络传输基本流程</a>
-      <ul>
-        <li><a href="#41局域网网络传输流程图">4.1局域网网络传输流程图</a>
-          <ul>
-            <li><a href="#411局域网通信原理">4.1.1局域网通信原理</a></li>
-            <li><a href="#412mac地址">4.1.2MAC地址</a></li>
-            <li><a href="#413数据链路层直接通信">4.1.3数据链路层直接通信</a></li>
-            <li><a href="#414主机之间通信的本质">4.1.4主机之间通信的本质</a></li>
-            <li><a href="#416数据包封装和分用">4.1.6数据包封装和分用</a>
-              <ul>
-                <li><a href="#为什么要自顶向下封装"><strong>为什么要自顶向下封装？</strong></a></li>
-                <li><a href="#数据包封装术语"><strong>数据包封装术语</strong></a></li>
-                <li><a href="#总结"><strong>总结</strong></a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><a href="#42跨网络传输流程图">4.2跨网络传输流程图</a>
-          <ul>
-            <li><a href="#421网络中的地址管理-认识ip地址">4.2.1网络中的地址管理-认识IP地址</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li><a href="#5socket编程预备">5.Socket编程预备</a>
-      <ul>
-        <li><a href="#51理解源ip地址和目的ip地址">5.1理解源IP地址和目的IP地址</a></li>
-        <li><a href="#52认识端口号">5.2认识端口号</a></li>
-        <li><a href="#53传输层的典型代表">5.3传输层的典型代表</a></li>
-        <li><a href="#54网络字节序">5.4网络字节序</a></li>
-        <li><a href="#55socket编程接口">5.5socket编程接口</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </div>
-    </section>
-
-            
-        
-        
-        
-        <div id="back-to-top">
-            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                <path d="M512 298.666667l-298.666667 310.912L283.52 682.666667 512 445.312 740.48 682.666667 810.666667 609.578667z"></path>
-            </svg>
-        </div>
-    </aside>
-
-
-
-<script>
-(function() {
-    const backToTopButton = document.getElementById('back-to-top');
-    if (!backToTopButton) return;
     
-    
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.add('show');
-        } else {
-            backToTopButton.classList.remove('show');
-        }
-    });
-    
-    
-    backToTopButton.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-})();
-</script>
-
 
             <main class="main full-width">
     <article class="has-image main-article">
@@ -447,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="800" 
                         height="450" 
                         loading="lazy"
-                        alt="Featured image of post 【Linux网络编程】01网络基础" />
+                        alt="Featured image of post 【Linux网络编程】02Socket编程UDP" />
                 
             </a>
         </div>
@@ -470,7 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/network/">【Linux网络编程】01网络基础</a>
+            <a href="/p/network/">【Linux网络编程】02Socket编程UDP</a>
         </h2>
     
         
@@ -492,15 +380,15 @@ document.addEventListener('DOMContentLoaded', function() {
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-11-22</time>
+                <time class="article-time--published">2025-12-01</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-27</time>
+                <time class="article-time--updated">2025-12-10</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">6634 字
+                <span class="article-time--wordcount">0 字
                 </span>
             </div>
         
@@ -517,670 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <section class="article-content">
     
     
-    <h1 id="1-网络的发展">1. 网络的发展
-</h1><p>计算机是人类的工具，人之间是需要协作的，所以网络的产生是必然的</p>
-<p>网络具体是如何产生的？先局部产生，再到整体</p>
-<blockquote>
-<p>网络的历史：阿帕网—&gt;90年代左右，公开了—美国人组建自己的互联网—&gt;&hellip;</p>
-</blockquote>
-<p><strong>局域网LAN</strong>：通过交换机和路由器将多台计算机连接</p>
-<blockquote>
-<p>交换机上可以连接多台计算机，实现多台计算机的互联互通</p>
-<p>路由器可以连接多个交换机，使几个交换机上连接的计算机互联互通</p>
-<p><img src="/p/network/index.assets/image-20251122120351950.png"
-	width="621"
-	height="278"
-	
-	loading="lazy"
-	
-		alt="image-20251122120351950"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="223"
-		data-flex-basis="536px"
-	
-></p>
-</blockquote>
-<p><strong>广域网WAN</strong>：将远隔千里的计算机也能连接起来</p>
-<blockquote>
-<p>多个局域网互联就形成了广域网</p>
-<p><img src="/p/network/index.assets/image-20251122120852295.png"
-	width="741"
-	height="312"
-	
-	loading="lazy"
-	
-		alt="image-20251122120852295"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="237"
-		data-flex-basis="570px"
-	
-></p>
-</blockquote>
-<p><img src="/p/network/index.assets/image-20251122121130829.png"
-	width="964"
-	height="244"
-	
-	loading="lazy"
-	
-		alt="image-20251122121130829"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="395"
-		data-flex-basis="948px"
-	
-></p>
-<h1 id="2初识协议">2.初识协议
-</h1><p><strong>协议本质上是一种约定</strong>，可以减少通信成本，用于快速形成共识</p>
-<p><strong>计算机是如何约定的呢？OSI</strong>（只生产标准，不写代码实现）</p>
-<p>计算机之间的传输媒介是光信号和电信号。计算机通过“频率”和“强弱”来表示0和1这样的信息，所以要想让两台主机之间进行通信，至少需要约定好双方的数据格式，比如是通过“频率”来表示0/1还是通过“强弱”来表示0/1</p>
-<p>但是只约定好双方的数据格式是不够的，还需要更多细致的规定，并让所有人都遵守。</p>
-<blockquote>
-<p>计算机的厂商有很多，计算机操作系统有很多，计算机网络硬件设备也有很多，如何让这些不同的厂商之间生产的计算机能够互相顺畅的通信？就需要有人站出来约定一个共同的标准，让大家都来遵守，这就是<strong>网络协议</strong></p>
-</blockquote>
-<p>能定制协议标准的组织或者公司有哪几类？</p>
-<p>1）国际标准化组织</p>
-<blockquote>
-<p><strong>IEEE（电气和电子工程师协会）</strong>：一个由计算机和工程领域专家组成的庞大技术组织，在通信协议领域贡献突出。</p>
-<p><strong>ISO（国际标准化组织）</strong>：ISO是由多个国家的标准化团体组成的国际组织，它在开放系统互连（OSI）模型方面的工作尤为著名。<strong>OSI模型</strong>定义了网络通信的七层协议结构，尽管在实际应用中，TCP/IP 协议族更为普遍，但OSI模型仍然在学术和理论研究中占有重要地位。</p>
-<p>&hellip;.</p>
-</blockquote>
-<p>2）区域标准化组织</p>
-<p>3）公司</p>
-<p>4）民间国际团体</p>
-<p>5）官方机构</p>
-<h2 id="21协议分层">2.1协议分层
-</h2><blockquote>
-<p>协议本质也是软件，在设计上为了更好的进行<strong>模块化，解耦合</strong>，也是被设计成为层状结构的</p>
-</blockquote>
-<p><strong>所有的软件都是层状的，模块化的</strong></p>
-<p>分层可以实现解耦合，让软件维护的成本更低</p>
-<blockquote>
-<p><img src="/p/network/index.assets/image-20251122124502864.png"
-	width="420"
-	height="265"
-	
-	loading="lazy"
-	
-		alt="image-20251122124502864"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="158"
-		data-flex-basis="380px"
-	
-></p>
-<p>结论1：两种视角</p>
-<ul>
-<li>普通用户视角，普通用户认为自己在和对方同层直接通信</li>
-<li>工程师视角，认为你是把消息交给下一层，下一层再把消息转给对应的层，然后再向上交付</li>
-</ul>
-<p>结论2：同层之间，在“直接通信”</p>
-<p>结论3：分层之后，可以无障碍替换任意一层</p>
-</blockquote>
-<h2 id="22osi七层模型">2.2OSI七层模型
-</h2><blockquote>
-<ul>
-<li>OSl（Open System Interconnection，开放系统互连）七层网络模型称为开放式系统互联参考模型，是一个逻辑上的定义和规范</li>
-<li>把网络从逻辑上分为了7层。每一层都有相关、相对应的物理设备，比如路由器，交换机</li>
-<li>OSI七层模型是一种框架性的设计方法，其最主要的功能使就是帮助不同类型的主机实现数据传输</li>
-<li>它的最大优点是将服务、接口和协议这三个概念明确地区分开来，概念清楚，理论也比较完整。通过七个层次化的结构模型使不同的系统不同的网络之间实现可靠的通讯</li>
-<li>但是，它既复杂又不实用;所以我们按照TCP/IP 四层模型来讲解.</li>
-</ul>
-<p><img src="/p/network/index.assets/image-20251122125257104.png"
-	width="729"
-	height="1113"
-	
-	loading="lazy"
-	
-		alt="image-20251122125257104"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="65"
-		data-flex-basis="157px"
-	
-></p>
-<p>其实在网络角度，OSI定的协议7层模型其实非常完善，但是在实际操作的过程中，会话层、表示层是不可能接入到操作系统中的，所以在工程实践中，最终落地的是5层协议。</p>
-</blockquote>
-<h2 id="23tcpip五层模型">2.3TCP/IP五层(或四层)模型
-</h2><p>TCP/IP五层模型，是将OSI参考模型的表示层和会话层合并到应用层了</p>
-<p><img src="/p/network/index.assets/image-20251122125713506.png"
-	width="779"
-	height="497"
-	
-	loading="lazy"
-	
-		alt="image-20251122125713506"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="156"
-		data-flex-basis="376px"
-	
-></p>
-<blockquote>
-<p>TCP/IP是一组协议的代名词，它还包括许多协议，组成了TCP/IP 协议簇</p>
-<p>TCP/IP通讯协议采用了5层的层级结构，每一层都呼叫它的下一层所提供的网络来完成自己的需求：</p>
-<ul>
-<li><strong>物理层</strong>：负责光/电信号的传递方式.比如现在以太网通用的网线(双绞 线)、早期以太网采用的的同轴电缆(现在主要用于有线电视)、光纤,现在的wifi无线网使用电磁波等都属于物理层的概念。物理层的能力决定了最大传输速率、传输距离、抗干扰性等。集线器(Hub)工作在物理层.</li>
-<li><strong>数据链路层</strong>：负责设备之间的数据帧的传送和识别。例如网卡设备的驱动、帧同步(就是说从网线上检测到什么信号算作新帧的开始)、冲突检测(如果检测到冲突就自动重发)、数据差错校验等工作。有以太网、令牌环网，无线LAN等标准。交换机(Switch)工作在数据链路层</li>
-<li><strong>网络层</strong>：负责地址管理和路由选择。例如在IP 协议中,通过IP地址来标识一台主机，并通过路由表的方式规划出两台主机之间的数据传输的线路(路由).路由器(Router)工作在网路层.</li>
-<li><strong>传输层</strong>：负责两台主机之间的数据传输.如传输控制协议(TCP),能够确保数据可靠的从源主机发送到目标主机.</li>
-<li><strong>应用层</strong>：负责应用程序间沟通，如简单电子邮件传输（SMTP）、文件传输协议（FTP）、网络远程访问协议（Telnet）等.我们的网络编程主要就是针对应用层</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>物理层我们考虑的比较少，我们只考虑软件相关的内容。因此，很多时候我们直接称为TCP/IP 四层模型。</p>
-<p>一般而言：对于一台主机，它的操作系统内核实现了从传输层到物理层的内容；对于一台路由器，它实现了从网络层到物理层；对于一台交换机，它实现了从数据链路层到物理层；对于集线器，它只实现了物理层；</p>
-<p>但是并不绝对。很多交换机也实现了网络层的转发;很多路由器也实现了部分传输层的内容(比如端口转发）</p>
-</blockquote>
-<h1 id="3再识协议">3.再识协议
-</h1><h2 id="31为什么要有tcpip协议">3.1为什么要有TCP/IP协议?
-</h2><p><strong>本地通信 vs 网络通信</strong></p>
-<blockquote>
-<ul>
-<li>本地通信，计算机内部的所有设备是通过“线”连接的，各种设备之间，其实也都是存在协议的。这些协议都在本地主机各自的硬件中，通信的成本、问题比较少。</li>
-<li>多台主机，通过网络通信，本质也是设备到设备</li>
-</ul>
-</blockquote>
-<p>其中唯一的一个区别：**计算机通信的距离变长了！**距离变长就会引发新问题！</p>
-<blockquote>
-<p>数据丢了怎么办？</p>
-<p>怎么定位目标主机？</p>
-<p>怎么解决当下立即要去哪里的问题？</p>
-<p>目标主机怎么知道我发出去的数据该怎么处理？</p>
-</blockquote>
-<p>有问题就会有解决方案！<strong>TCP/IP协议，本质就是一种网络长距离通信的解决方案</strong></p>
-<p>协议—不同性质，不同种类的问题—&gt;<strong>协议分层</strong></p>
-<p><img src="/p/network/index.assets/image-20251122132602103.png"
-	width="1061"
-	height="684"
-	
-	loading="lazy"
-	
-		alt="image-20251122132602103"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="155"
-		data-flex-basis="372px"
-	
-></p>
-<h2 id="32什么是tcpip协议">3.2什么是TCP/IP协议?
-</h2><p><strong>TCP/IP 协议的本质是一种网络长距离通信的解决方案</strong></p>
-<p>TCP/IP 协议能分层，前提是因为问题们本身能分层</p>
-<blockquote>
-<p>1.我要发送数据给目标主机，得先发到路由器上吧？怎么办？        &mdash;数据链路层</p>
-<p>2.网上这么多主机，怎么定位并找到目标主机呢？                           &mdash;网络层</p>
-<p>3.如果我的数据发出去，丢失了怎么办？                                           &mdash;传输层</p>
-<p>4.发数据不是目的，只是手段，用数据才是目的吧？</p>
-<p>目标主机怎么知道我发出去的数据该怎么处理，被使用呢？            &mdash;应用层</p>
-</blockquote>
-<h2 id="33tcpip协议与操作系统的关系">3.3TCP/IP协议与操作系统的关系(宏观上，怎么实现的)
-</h2><p><img src="/p/network/index.assets/image-20251122133309732.png"
-	width="2099"
-	height="740"
-	
-	loading="lazy"
-	
-		alt="image-20251122133309732"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="283"
-		data-flex-basis="680px"
-	
-></p>
-<p>为什么安装了不同操作系统的不同的主机之间可以进行通信？</p>
-<p>因为OSI7层协议是标准，不同的主机上操作系统可以不同，但是所有主机上的协议栈必须按照标准进行相同的实现。</p>
-<blockquote>
-<p>传输层最著名的协议就是TCP；网络层最著名的协议就是IP；</p>
-<p>传输层和网络层必须在内核实现，无论OS再怎么不同，这部分都必须遵守协议，必须是一样的</p>
-</blockquote>
-<p><img src="/p/network/index.assets/image-20251122134845255.png"
-	width="1882"
-	height="766"
-	
-	loading="lazy"
-	
-		alt="image-20251122134845255"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="245"
-		data-flex-basis="589px"
-	
-></p>
-<h2 id="34所以究竟什么是协议">3.4所以究竟什么是协议?
-</h2><p>协议的本质，就是约定好的结构体</p>
-<blockquote>
-<p>结构体是协议约定的 计算机的表达</p>
-</blockquote>
-<p><img src="/p/network/index.assets/image-20251122135845994.png"
-	width="1939"
-	height="855"
-	
-	loading="lazy"
-	
-		alt="image-20251122135845994"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="226"
-		data-flex-basis="544px"
-	
-></p>
-<blockquote>
-<p>问题：主机 B 能识别 data，并且准确提取 a=10，b=20，c=30 吗？</p>
-<p>回答：答案是肯定的！因为双方都有同样的结构体类型 struct protocol。也就是说，用同样的代码实现协议，用同样的自定义数据类型，天然就具有&quot;共识“，能够识别对方发来的数据，这不就是约定吗?</p>
-</blockquote>
-<p>关于协议的朴素理解：<strong>所谓协议，就是通信双方都认识的结构化的数据类型</strong></p>
-<p>因为协议栈是分层的，所以，每层都有双方都有协议，同层之间，互相可以认识对方的协议。</p>
-<blockquote>
-<p>例子：网络购物的快递单上，有寄方、收方、数量、备注、支付方式、运费&hellip;等，使得收货方能看懂，发货方也能看懂，双方一看就能确定信息是否正确，所以，快递单子就是收发双方的协议</p>
-</blockquote>
-<h1 id="4-网络传输基本流程">4. 网络传输基本流程
-</h1><h2 id="41局域网网络传输流程图">4.1局域网网络传输流程图
-</h2><p>网络的发展是从局部到整体的</p>
-<p>有各种各样的局域网通信的标准：以太网、令牌环网、无线LAN&hellip;</p>
-<blockquote>
-<p>令牌环网：只有持有令牌的人才能在局域网中发送消息。令牌其实就是锁</p>
-</blockquote>
-<h3 id="411局域网通信原理">4.1.1局域网通信原理
-</h3><p>以以太网为例</p>
-<p>1）<strong>在同一个局域网内的多台主机之间，能直接通信</strong>。</p>
-<p>2）在同一个局域网内发送的消息<strong>所有主机都能看到</strong>，但是<strong>只有目标主机会对消息进行处理</strong>。</p>
-<blockquote>
-<p>一个局域网内的主机都能直接通信，主机A给主机B发送消息时，其实主机C、主机D、主机E等都收到消息了，但是它们知道不是给自己发的消息，所以会忽略，而只有主机B会处理该消息</p>
-</blockquote>
-<p>3）每台主机在局域网上，都要有唯一的标识来<strong>保证主机的唯一性：mac地址</strong></p>
-<h3 id="412mac地址">4.1.2MAC地址
-</h3><p><strong>每台主机在局域网上的唯一标识是mac地址。</strong></p>
-<ul>
-<li>
-<p>mac地址是在网卡中内置的，mac地址通常是唯一的。</p>
-<blockquote>
-<p>虚拟机中的mac地址不是真实的mac地址，可能会冲突，也有些网卡支持用户配置 mac 地址</p>
-</blockquote>
-</li>
-<li>
-<p>mac地址长度为48比特位，即6字节，一般用16 进制数字加上冒号的形式来表示(例如：`08:00:27:03:fb:19`)。</p>
-</li>
-<li>
-<p>mac地址用来识别数据链路层中相连的节点</p>
-</li>
-</ul>
-<blockquote>
-<p>查看mac地址</p>
-<p>Linux下查看mac地址：<code>ifconfig</code></p>
-<p>Windows下查看mac地址：<code>ipconfig/all</code></p>
-</blockquote>
-<h3 id="413数据链路层直接通信">4.1.3数据链路层直接通信
-</h3><p><img src="/p/network/index.assets/image-20251125162540452.png"
-	width="1576"
-	height="571"
-	
-	loading="lazy"
-	
-		alt="image-20251125162540452"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="276"
-		data-flex-basis="662px"
-	
-></p>
-<blockquote>
-<p>如果现在主机A要给主机B发送消息，那么主机A会先把自己要发送的报文添加好（一般会添加：源mac地址、目标mac地址和消息主体），然后主机A将报文发送到局域网，此时局域网中的所有主机都能接收到，但是除B以外的所有主机接收到后发现报文的目标mac地址不是自己后，就会丢弃，而主机B检查后发现自己的mac地址和报文的目标mac地址相同，所以主机B会对报文做处理</p>
-</blockquote>
-<p>1）<strong>在以太网中，任何时刻，只允许一台机器向网络中发送数据</strong></p>
-<blockquote>
-<p>例如主机A在给主机B发送消息的同时，主机B也在给主机D发送消息，那么两个信息就可能会在物理层面上发生干扰</p>
-</blockquote>
-<p>2）如果有多台同时发送，会发生数据干扰，我们称之为<strong>数据碰撞</strong></p>
-<p>3）所有发送数据的主机要进行<strong>碰撞检测</strong>和<strong>碰撞避免</strong></p>
-<blockquote>
-<p>碰撞避免算法</p>
-</blockquote>
-<p>4）没有交换机的情况下，<strong>一个以太网就是一个碰撞域</strong></p>
-<p>5）局域网通信的过程中，主机对收到的报文确认是否是发给自己的，是通过目标mac 地址判定</p>
-<p>以太网的本质就是共享的资源，任何时刻只允许一台主机向网络中发送消息。—临界资源</p>
-<p>碰撞检测、碰撞避免、碰撞避免算法等本质上就是在一定程度上维持以太网的互斥属性</p>
-<h3 id="414主机之间通信的本质">4.1.4主机之间通信的本质
-</h3><p><strong>主机之间通信，本质是两个协议栈在通信</strong></p>
-<p>大部分情况下，通信都是由用户(人)来发起的。我们的消息必须<strong>自顶向下贯穿协议栈</strong>，把我们的数据交给网卡，数据到达目标主机后，一定是目标主机的网卡硬件先收到报文，然后<strong>自底向上进行交付</strong>，到达应用层，<strong>同层之间直接通信</strong>。</p>
-<p><img src="/p/network/index.assets/image-20251125170035351.png"
-	width="1376"
-	height="430"
-	
-	loading="lazy"
-	
-		alt="image-20251125170035351"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="320"
-		data-flex-basis="768px"
-	
-></p>
-<p><strong>数据发送的原始动力：90%的情况下都是人</strong></p>
-<p><strong>网络协议栈：每一层都会有自己的协议，同层之间是相互认识的</strong></p>
-<p>协议就是结构体，我们约定结构体里的属性、字段都一样</p>
-<h3 id="416数据包封装和分用">4.1.6数据包封装和分用
-</h3><p><img src="/p/network/index.assets/image-20251125180208747.png"
-	width="1662"
-	height="588"
-	
-	loading="lazy"
-	
-		alt="image-20251125180208747"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="282"
-		data-flex-basis="678px"
-	
-></p>
-<h4 id="为什么要自顶向下封装"><strong>为什么要自顶向下封装？</strong>
-</h4><ul>
-<li>
-<p>为什么要自顶向下？</p>
-<p>因为想发送数据的是用户，用户在上层，但是真正发送数据的是网卡，所以必须贯穿操作系统，贯穿协议栈。操作系统是硬件(网卡)的管理者</p>
-<blockquote>
-<p>类比printf把消息打印到显示器上。printf底层封装了系统调用，因为操作系统是显示器的管理者，所以我们的消息可以通过操作系统系统调用然后调用驱动，再把消息写到硬件上</p>
-</blockquote>
-</li>
-<li>
-<p>为什么要封装？</p>
-</li>
-</ul>
-<p><strong>同层之间，在直接通信</strong>（因为我发送的，就是你收到的）</p>
-<p><strong>对端同层，要先解包。解包的本质就是把自己同层的报头和有效载荷进行分离</strong></p>
-<p><strong>细节1</strong>：不考虑应用层协议，任何协议</p>
-<p>a. 报头必须要能做到，和有效载荷进行分离的能力</p>
-<p>b. 报头中必须包含，如何将自己的有效载荷，交付给上层的那一个具体的协议。</p>
-<p>我们把交付有效载荷的过程叫做分用的过程。</p>
-<p>报文发送到目标主机，要自底向上做解包和分用的过程。</p>
-<p><strong>细节2</strong>：底层收到报文，但是该报文不是发送给我的，数据链路层直接丢弃</p>
-<p><strong>细节3</strong>：协议栈的理解</p>
-<p><img src="/p/network/index.assets/image-20251125183212386.png"
-	width="1545"
-	height="698"
-	
-	loading="lazy"
-	
-		alt="image-20251125183212386"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="221"
-		data-flex-basis="531px"
-	
-></p>
-<blockquote>
-<p>我们在自顶向下进行封装的过程，其实就是把我们的原始报文和报头在不断入栈；当我们把对应的报文交付给对方之后，对方要做报头和有效载荷的分离，依次把有效载荷交付给上一层，这个不断解包和分用的过程，就是出栈的过程。</p>
-</blockquote>
-<p>对于一个报文，我们自顶向下封装，其实是从上往下做入栈，自底向上做出栈。所以我们把TCP/IP叫做协议栈</p>
-<blockquote>
-<p>了解：</p>
-<p>一般默认我们的网卡和驱动程序只会把发送给我这个主机的报文向上交付，但是网卡有一种混杂模式，当我们的网卡收到对应的数据帧，不对数据的来源、数据的目标做判断，无脑地直接将数据向上交付，不管是不是发给我的。我们把这种叫做网卡的混杂模式。</p>
-<p>抓包工具的原理就是把网卡设置成混杂模式</p>
-</blockquote>
-<h4 id="数据包封装术语"><strong>数据包封装术语</strong>
-</h4><p>1）<strong>明确几个概念</strong></p>
-<p>报文=报头+有效载荷</p>
-<ul>
-<li>
-<p>报头部分，就是对应协议层的结构体字段，我们一般叫做报头。</p>
-<p>任何一层，只认识自己的报头</p>
-</li>
-<li>
-<p>除了报头，剩下的叫做有效载荷。</p>
-</li>
-</ul>
-<p>2）<strong>明确不同层的完整报文的叫法</strong></p>
-<p><img src="/p/network/index.assets/image-20251125185429881.png"
-	width="1573"
-	height="496"
-	
-	loading="lazy"
-	
-		alt="image-20251125185429881"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="317"
-		data-flex-basis="761px"
-	
-></p>
-<p>我们往往</p>
-<ul>
-<li>
-<p>把应用层报头叫做<strong>请求与应答</strong></p>
-</li>
-<li>
-<p>把添加了传输报头的整个报文，叫做<strong>数据段</strong></p>
-</li>
-<li>
-<p>把添加了网络报头的整个报文，叫做<strong>数据报</strong></p>
-</li>
-<li>
-<p>把添加了链路报头的整个报文，叫做<strong>数据帧</strong></p>
-</li>
-</ul>
-<blockquote>
-<p>不同的协议层对数据包有不同的称谓,在传输层叫做段(segment)，在网络层叫做数据报 (datagram),在链路层叫做帧(frame)。</p>
-<p>应用层数据通过协议栈发到网络上时,每层协议都要加上一个数据首部(header)，称为<strong>封装</strong>(Encapsulation)。</p>
-<p><strong>首部信息</strong>中包含了一些类似于首部有多长,载荷(payload)有多长，上层协议是什么等信息。</p>
-<p>数据封装成帧后发到传输介质上，到达目的主机后每层协议再剥掉相应的首部，根据首部中的&quot;上层协议字段&quot;将数据交给对应的上层协议处理。</p>
-</blockquote>
-<h4 id="总结"><strong>总结</strong>
-</h4><p>1）<strong>每一层协议，未来都会有自己具体的协议</strong></p>
-<p><img src="/p/network/index.assets/image-20251125190948212.png"
-	width="549"
-	height="283"
-	
-	loading="lazy"
-	
-		alt="image-20251125190948212"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="193"
-		data-flex-basis="465px"
-	
-></p>
-<p>2）<strong>两台计算机通过TCP/IP协议通讯的过程：</strong></p>
-<p><img src="/p/network/index.assets/image-20251125191340584.png"
-	width="834"
-	height="508"
-	
-	loading="lazy"
-	
-		alt="image-20251125191340584"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="164"
-		data-flex-basis="394px"
-	
-></p>
-<blockquote>
-<p>在网络传输的过程中，数据不是直接发送给对方主机的，而是先要自顶向下将数据交付给下层协议（封装），封装成一个完整的链路层的帧，然后再在以太网中，以碰撞检测、碰撞避免的方法，把报文交给目标主机，对方主机再自底向上进行向上交付。</p>
-</blockquote>
-<p>3）<strong>数据的封装过程</strong></p>
-<p><img src="/p/network/index.assets/image-20251125192638878.png"
-	width="782"
-	height="551"
-	
-	loading="lazy"
-	
-		alt="image-20251125192638878"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="141"
-		data-flex-basis="340px"
-	
-></p>
-<p>4）<strong>数据的分用过程</strong></p>
-<p><img src="/p/network/index.assets/image-20251125192702881.png"
-	width="790"
-	height="484"
-	
-	loading="lazy"
-	
-		alt="image-20251125192702881"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="163"
-		data-flex-basis="391px"
-	
-></p>
-<p>5）<strong>未来学习任何协议，都要先宏观上建立这样的认识:</strong></p>
-<blockquote>
-<p>1.要学习的协议，**是如何做到解包的？**只有明确了解包，封包也就能理解</p>
-<p>2.要学习的协议，<strong>是如何做到将自己的有效载荷，交付给上层协议的?</strong></p>
-</blockquote>
-<h2 id="42跨网络传输流程图">4.2跨网络传输流程图
-</h2><h3 id="421网络中的地址管理-认识ip地址">4.2.1网络中的地址管理-认识IP地址
-</h3><p><strong>IP地址是用来标识全球范围内主机的唯一性（公网IP）</strong></p>
-<p>而Mac地址本质是一种只在局域网当中有效的标识地址的方式</p>
-<p><img src="/p/network/index.assets/image-20251127190307363.png"
-	width="973"
-	height="362"
-	
-	loading="lazy"
-	
-		alt="image-20251127190307363"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="268"
-		data-flex-basis="645px"
-	
-></p>
-<p>1.<strong>源IP地址，目标IP地址</strong>  &mdash;目标IP地址表示最终目的地是哪里（长远目标）</p>
-<blockquote>
-<p>目标IP的核心价值是给我们提供路由的参考依据</p>
-<p>目标IP在将来整个转发的过程中，永远不变</p>
-</blockquote>
-<p>2.<strong>源Mac地址，目标Mac地址</strong> &mdash;目标Mac地址表示下一站要去哪里（当下目标）</p>
-<p><strong>IP协议有两个版本：IPv4和IPv6</strong></p>
-<ul>
-<li>IPv4通常是4个字节，32个比特位</li>
-<li>IPv6通常是16个字节，128个比特位</li>
-</ul>
-<blockquote>
-<p>我们通常也使用&quot;点分十进制&quot;的字符串表示IP地址（例如192.168.0.1），用点分割的每一个数字表示一个字节（即能表示的范围是0－255）</p>
-</blockquote>
-<blockquote>
-<p>Linux系统中查看IP地址：<code>ifconfig</code></p>
-<p><img src="/p/network/index.assets/image-20251127184001781.png"
-	width="1172"
-	height="353"
-	
-	loading="lazy"
-	
-		alt="image-20251127184001781"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="332"
-		data-flex-basis="796px"
-	
-></p>
-<p>Windows系统中查看IP地址：<code>ipconfig</code></p>
-</blockquote>
-<p><strong>跨网段的主机的数据传输。</strong></p>
-<p>数据从一台计算机到另一台计算机传输过程中要经过一个或多个路由器。</p>
-<blockquote>
-<p>路由器主要是用来连接两个不同子网的。</p>
-<p>可以这样理解：路由器将来要配置两张网卡，左边一张网卡，右边一张网卡，分别用来连接两个不同的子网</p>
-<p>电脑，路由器 &mdash; 统一叫做主机</p>
-</blockquote>
-<p>两台主机之间进行通信，本质是两个协议栈之间进行通信</p>
-<p><img src="/p/network/index.assets/image-20251127191449468.png"
-	width="984"
-	height="457"
-	
-	loading="lazy"
-	
-		alt="image-20251127191449468"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="215"
-		data-flex-basis="516px"
-	
-></p>
-<p>只要有网络层，就会有路由功能</p>
-<p>有了目的IP，就可以判定要将报文发送给路由器</p>
-<p><img src="/p/network/index.assets/image-20251128075006826.png"
-	width="1210"
-	height="640"
-	
-	loading="lazy"
-	
-		alt="image-20251128075006826"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="189"
-		data-flex-basis="453px"
-	
-></p>
-<p>同一个局域网内的主机可以直接通信</p>
-<p><img src="/p/network/index.assets/image-20251128075734224.png"
-	width="1524"
-	height="703"
-	
-	loading="lazy"
-	
-		alt="image-20251128075734224"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="216"
-		data-flex-basis="520px"
-	
-></p>
-<p>路由的过程中，IP地址不变，mac地址一直在变。</p>
-<p>mac地址只会在本局域网内有效</p>
-<p>以太网，无线LAN，令牌环网&hellip;自定义局域网通信原理？</p>
-<p>网络层+IP的本质意义：给网络提供了一层虚拟化层，让世界上所有的网络，都叫做IP网络</p>
-<p><img src="/p/network/index.assets/image-20251128144456424.png"
-	width="1202"
-	height="462"
-	
-	loading="lazy"
-	
-		alt="image-20251128144456424"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="260"
-		data-flex-basis="624px"
-	
-></p>
-<p>IP 网络层存在的意义：<strong>提供网络虚拟层，让世界的所有网络都是IP 网络，屏蔽</strong>
-<strong>最底层网络的差异</strong></p>
-<h1 id="5socket编程预备">5.Socket编程预备
-</h1><h2 id="51理解源ip地址和目的ip地址">5.1理解源IP地址和目的IP地址
-</h2><p>IP地址主要用来标识网络中主机的唯一性</p>
-<p>进程是人在系统中的代表，只要把数据给进程，人就相当于拿到了数据</p>
-<p>数据传输到主机不是目的，而是手段。在交给主机内的进程，才是目的</p>
-<h2 id="52认识端口号">5.2认识端口号
-</h2><h2 id="53传输层的典型代表">5.3传输层的典型代表
-</h2><h2 id="54网络字节序">5.4网络字节序
-</h2><h2 id="55socket编程接口">5.5socket编程接口
-</h2>
+    
 </section>
 
 
@@ -1188,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <section class="article-tags">
         
-            <a href="/tags/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/">网络基础</a>
+            <a href="/tags/socket%E7%BC%96%E7%A8%8B/">Socket编程</a>
         
     </section>
 
@@ -1208,6 +433,30 @@ document.addEventListener('DOMContentLoaded', function() {
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/network/">
+        
+        
+            <div class="article-image">
+                <img src="/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.0e4d713511fda100cc58bfb66dac6b98_hu_f1a2caa5328ffc0d.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux网络编程】01网络基础"
+                        data-key="network" 
+                        data-hash="md5-Dk1xNRH9oQDMWL&#43;2baxrmA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux网络编程】01网络基础</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="has-image">
@@ -1300,30 +549,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【Linux系统编程】08进程间通信</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/test-theory-and-practice/">
-        
-        
-            <div class="article-image">
-                <img src="/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.5b49cc3b94595099b38dbc27c72871a9_hu_eefe78b0159391d8.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【自动化测试】01测试理论&#43;实践"
-                        data-key="test-theory-and-practice" 
-                        data-hash="md5-W0nMO5RZUJmzjbwnxyhxqQ==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【自动化测试】01测试理论&#43;实践</h2>
         </div>
     </a>
 </article>
@@ -1448,7 +673,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(customFont);
     }());
 </script>
-
 
     </body>
 </html>

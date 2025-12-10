@@ -10,7 +10,7 @@
 <meta property='og:description' content="Linux作业 01 基础指令 题目1：\nA 全称Linux extended file system, extfs,即Linux扩展文件系统，ext2为第二代\nD XFS一种高性能的日志文件系统，2000年5月，Silicon Graphics以GNU通用公共许可证发布这套系统的源代码，之后被移植到Linux 内核上。XFS 特别擅长处理大文件，同时提供平滑的数据传输\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-exercises/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='练习题' /><meta property='article:tag' content='实践' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-30T13:04:20&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-exercises/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='练习题' /><meta property='article:tag' content='实践' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-10T09:21:36&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-exercises/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux系统编程】Linux作业">
 <meta name="twitter:description" content="Linux作业 01 基础指令 题目1：\nA 全称Linux extended file system, extfs,即Linux扩展文件系统，ext2为第二代\nD XFS一种高性能的日志文件系统，2000年5月，Silicon Graphics以GNU通用公共许可证发布这套系统的源代码，之后被移植到Linux 内核上。XFS 特别擅长处理大文件，同时提供平滑的数据传输\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-exercises/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -369,6 +369,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#题-1">题</a></li>
           </ul>
         </li>
+        <li><a href="#07进程控制">07进程控制</a>
+          <ul>
+            <li><a href="#题1-1">题1</a></li>
+            <li><a href="#题2-1">题2</a></li>
+            <li><a href="#题3-1">题3</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -469,11 +476,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-30</time>
+                <time class="article-time--updated">2025-12-10</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">2628 字
+                <span class="article-time--wordcount">3448 字
                 </span>
             </div>
         
@@ -1200,6 +1207,100 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><strong>set 用于输出打印所有环境配置以及变量信息，不限于环境变量</strong></li>
 <li>export用于设置环境变量</li>
 </ul>
+<h2 id="07进程控制">07进程控制
+</h2><h3 id="题1-1">题1
+</h3><p><img src="/p/linux-exercises/index.assets/image-20251203110426365.png"
+	width="638"
+	height="465"
+	
+	loading="lazy"
+	
+		alt="image-20251203110426365"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="329px"
+	
+></p>
+<p>AB</p>
+<blockquote>
+<ul>
+<li>A	fork调用通过复制父进程创建子进程，子进程与父进程运行的代码和数据完全一样</li>
+<li>B	<strong>fork创建子进程就是在内核中通过调用clone实现</strong></li>
+<li>C	exec是程序替换函数，本身并不创建进程</li>
+<li>D	<strong>clone函数的功能是创建一个pcb</strong>，fork创建进程以及后边的创建线程本质内部调用的clone函数实现，而exec函数中本身并不创建进程，而是程序替换，因此工作机理并不相同</li>
+</ul>
+<p>基于以上理解，正确选项是A和B选项</p>
+</blockquote>
+<h3 id="题2-1">题2
+</h3><p><img src="/p/linux-exercises/index.assets/image-20251203110615077.png"
+	width="578"
+	height="453"
+	
+	loading="lazy"
+	
+		alt="image-20251203110615077"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="127"
+		data-flex-basis="306px"
+	
+></p>
+<p>AC</p>
+<blockquote>
+<p>fork函数功能是通过复制父进程，创建一个新的子进程。</p>
+<ul>
+<li>A选项正确：环境变量默认会继承于父进程，与父进程相同</li>
+<li>B选项错误：<strong>信号相关信息各自独立，并不会复制</strong></li>
+<li>C选项正确：工作路径也相同</li>
+<li>D选项错误：每个进程都有自己独立的标识符</li>
+</ul>
+<p>根据理解分析，正确选项为A和C选项</p>
+</blockquote>
+<h3 id="题3-1">题3
+</h3><p><img src="/p/linux-exercises/index.assets/image-20251203110655743.png"
+	width="607"
+	height="637"
+	
+	loading="lazy"
+	
+		alt="image-20251203110655743"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="95"
+		data-flex-basis="228px"
+	
+></p>
+<p>B</p>
+<blockquote>
+<p>fork()创建子进程成功，父进程返回子进程的pid是大于0的 为真</p>
+<p>子进程返回的是0 为假；</p>
+<p>根据if语句的与和或逻辑进行判断即可</p>
+<p>例如：</p>
+<p>将fork进行编号 2号fork创建子进程后父进程为真，则父进程的3号fork会被执行，</p>
+<p>然而其子进程返回0为假，则子进程的3号fork不会被执行。。。</p>
+<p>主进程和1号子进程都会创建2号子进程和3号子进程，但是不会创建4号子进程，然后创建5号</p>
+<p>主进程每次返回真，创建2号子进程，3号子进程，5号子进程</p>
+<p>1号每次返回真，创建2号子进程，3号子进程，5号子进程</p>
+<p>2号自己为假，会创建4号子进程和5号子进程</p>
+<p>3号自己为假，会创建4号子进程和5号子进程</p>
+<p>4号自己为假，只会创建5号</p>
+<p>主-1					主进程创建1号后与1号雷同 因此进程数 10 * 2 = 20 减去主进程自身：19</p>
+<pre><code>   |-2
+</code></pre>
+<p>​    |-4				2号自己为假，会创建4号子进程</p>
+<p>​    |-5				4号自己为假，只会创建5号</p>
+<p>​    |-5				2号自己为假，会创建5号子进程</p>
+<p>|-3					主/1号进程，创建2号返回真后创建3号进程</p>
+<p>​    |-4				3号自己为假，会创建4号子进程</p>
+<p>​    |-5				4号自己为假，只会创建5号</p>
+<p>​    |-5				3号自己为假，会创建5号子进程</p>
+<p>|-5</p>
+</blockquote>
+<p><strong>进程等待：等待子进程退出，获取子进程返回值，释放子进程资源，避免出现僵尸进程</strong></p>
 
 </section>
 
@@ -1470,7 +1571,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(customFont);
     }());
 </script>
-
 
     </body>
 </html>

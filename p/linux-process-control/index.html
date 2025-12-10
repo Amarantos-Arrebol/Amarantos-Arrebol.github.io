@@ -10,7 +10,7 @@
 <meta property='og:description' content="掌握进程创建、等待与替换的核心机制">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-30T13:04:20&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-10T09:21:36&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux系统编程】04进程控制">
 <meta name="twitter:description" content="掌握进程创建、等待与替换的核心机制"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -526,11 +526,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-30</time>
+                <time class="article-time--updated">2025-12-10</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">12634 字
+                <span class="article-time--wordcount">12890 字
                 </span>
             </div>
         
@@ -979,6 +979,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </h2><p>1）父进程通过进程等待的方式<span style="color: #8080FF;">回收子进程资源</span>，即解决内存泄漏的问题</p>
 <p>僵尸进程即使是kill -9 也无法终止，只能通过进程等待的方式回收资源</p>
 <p>2）<span style="color: #8080FF;">获取子进程退出信息</span></p>
+<blockquote>
+<p>进程等待：等待子进程退出，获取子进程返回值，释放子进程资源，避免出现僵尸进程</p>
+</blockquote>
 <h2 id="32wait-和-waitpid">3.2wait 和 waitpid
 </h2><p>进程等待就是父进程通过接口 wait 或 waitpid 的方式来等待子进程</p>
 <h3 id="321wait">3.2.1<strong>wait</strong>
@@ -1313,6 +1316,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
+<li>
+<p><strong>WCOREDUMP(status)</strong>：检查子进程是否产生了core dump</p>
+</li>
 </ul>
 <h3 id="总结-1">总结
 </h3><p><strong>1）wait</strong></p>
@@ -1331,8 +1337,14 @@ document.addEventListener('DOMContentLoaded', function() {
 <ul>
 <li>子进程的pid；如果传-1，就是等待任意一个退出的子进程</li>
 <li>获取子进程的退出码(指针类型)，如果不需要，就传NULL</li>
-<li>选择是否以阻塞的方式等待），0表示阻塞等待</li>
+<li>选择是否以阻塞的方式等待，0表示阻塞等待，WNOHANG表示非阻塞等待</li>
 </ul>
+</li>
+<li>
+<p>等待成功，返回子进程的pid；失败，返回-1</p>
+</li>
+<li>
+<p>默认阻塞等待任意一个或指定子进程退出，当options被设置为WNOHANG则函数非阻塞，且当没有子进程退出时，waitpid返回0</p>
 </li>
 </ul>
 <h2 id="33阻塞与非阻塞等待">3.3阻塞与非阻塞等待
@@ -2508,7 +2520,6 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <p>fgets读一行：<code>char *fgets(char *s, int size, FILE *stream);</code></p>
 <p>gets读取一行字符串：<code>char *gets(char *s);</code></p>
-<p><strong>snprintf是安全的格式化操作</strong></p>
 <p><img src="/p/linux-process-control/index.assets/image-20251129174000104.png"
 	width="989"
 	height="256"
@@ -2523,6 +2534,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="927px"
 	
 ></p>
+<p><strong>snprintf是安全的格式化操作</strong>：snprintf() 是一个 C 语言标准库函数，用于格式化输出字符串，并将结果写入到指定的缓冲区，与 sprintf() 不同的是，snprintf() 会限制输出的字符数，避免缓冲区溢出。</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4443,7 +4455,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(customFont);
     }());
 </script>
-
 
     </body>
 </html>

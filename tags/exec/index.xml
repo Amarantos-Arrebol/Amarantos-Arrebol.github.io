@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Sun, 30 Nov 2025 13:04:20 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/exec/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 10 Dec 2025 09:21:36 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/exec/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【Linux系统编程】04进程控制</title>
         <link>https://Amarantos-Arrebol.github.io/p/linux-process-control/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -445,6 +445,9 @@
 &lt;/h2&gt;&lt;p&gt;1）父进程通过进程等待的方式&lt;span style=&#34;color: #8080FF;&#34;&gt;回收子进程资源&lt;/span&gt;，即解决内存泄漏的问题&lt;/p&gt;
 &lt;p&gt;僵尸进程即使是kill -9 也无法终止，只能通过进程等待的方式回收资源&lt;/p&gt;
 &lt;p&gt;2）&lt;span style=&#34;color: #8080FF;&#34;&gt;获取子进程退出信息&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;进程等待：等待子进程退出，获取子进程返回值，释放子进程资源，避免出现僵尸进程&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&#34;32wait-和-waitpid&#34;&gt;3.2wait 和 waitpid
 &lt;/h2&gt;&lt;p&gt;进程等待就是父进程通过接口 wait 或 waitpid 的方式来等待子进程&lt;/p&gt;
 &lt;h3 id=&#34;321wait&#34;&gt;3.2.1&lt;strong&gt;wait&lt;/strong&gt;
@@ -779,6 +782,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;WCOREDUMP(status)&lt;/strong&gt;：检查子进程是否产生了core dump&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;总结-1&#34;&gt;总结
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;1）wait&lt;/strong&gt;&lt;/p&gt;
@@ -797,8 +803,14 @@
 &lt;ul&gt;
 &lt;li&gt;子进程的pid；如果传-1，就是等待任意一个退出的子进程&lt;/li&gt;
 &lt;li&gt;获取子进程的退出码(指针类型)，如果不需要，就传NULL&lt;/li&gt;
-&lt;li&gt;选择是否以阻塞的方式等待），0表示阻塞等待&lt;/li&gt;
+&lt;li&gt;选择是否以阻塞的方式等待，0表示阻塞等待，WNOHANG表示非阻塞等待&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;等待成功，返回子进程的pid；失败，返回-1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;默认阻塞等待任意一个或指定子进程退出，当options被设置为WNOHANG则函数非阻塞，且当没有子进程退出时，waitpid返回0&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;33阻塞与非阻塞等待&#34;&gt;3.3阻塞与非阻塞等待
@@ -1974,7 +1986,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;fgets读一行：&lt;code&gt;char *fgets(char *s, int size, FILE *stream);&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;gets读取一行字符串：&lt;code&gt;char *gets(char *s);&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;snprintf是安全的格式化操作&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-process-control/index.assets/image-20251129174000104.png&#34;
 	width=&#34;989&#34;
 	height=&#34;256&#34;
@@ -1989,6 +2000,7 @@
 		data-flex-basis=&#34;927px&#34;
 	
 &gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;snprintf是安全的格式化操作&lt;/strong&gt;：snprintf() 是一个 C 语言标准库函数，用于格式化输出字符串，并将结果写入到指定的缓冲区，与 sprintf() 不同的是，snprintf() 会限制输出的字符数，避免缓冲区溢出。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

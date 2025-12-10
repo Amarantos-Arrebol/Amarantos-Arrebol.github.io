@@ -2,7 +2,7 @@
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n">
-<title>【C&#43;&#43;进阶】12异常</title>
+<title>【项目】基于多设计模式下的同步&amp;异步日志系统</title>
 
 <link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/abnormal/'>
 
@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/abnormal/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='异常' /><meta property='article:published_time' content='2025-11-09T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-30T13:04:20&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;项目' /><meta property='article:published_time' content='2025-12-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-10T09:21:36&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' />
 <meta name="twitter:title" content="【C++进阶】12异常">
 <meta name="twitter:description" content="1.异常的基本介绍 1.1 异常的概念 C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。\n异常是返回一个对象，这个对象包含相关的所有错误信息\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -345,19 +345,22 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ul>
-    <li><a href="#1异常的基本介绍">1.异常的基本介绍</a>
+    <li><a href="#1项目介绍">1.项目介绍</a></li>
+    <li><a href="#2开发环境">2.开发环境</a></li>
+    <li><a href="#3核心技术">3.核心技术</a></li>
+    <li><a href="#4环境搭建">4.环境搭建</a></li>
+    <li><a href="#5日志系统介绍">5.日志系统介绍</a>
       <ul>
-        <li><a href="#11-异常的概念">1.1 异常的概念</a></li>
-        <li><a href="#12-异常的抛出和捕获">1.2 异常的抛出和捕获</a></li>
-        <li><a href="#13-栈展开">1.3 栈展开</a></li>
-        <li><a href="#14-查找匹配的处理代码">1.4 查找匹配的处理代码</a></li>
-        <li><a href="#15-异常重新抛出">1.5 异常重新抛出</a></li>
-        <li><a href="#16-异常安全问题">1.6 异常安全问题</a></li>
-        <li><a href="#17-异常规范">1.7 异常规范</a></li>
+        <li><a href="#51为什么需要日志系统">5.1为什么需要日志系统</a></li>
+        <li><a href="#52日志系统的实现">5.2日志系统的实现</a></li>
       </ul>
     </li>
-    <li><a href="#2标准库的异常">2.标准库的异常</a></li>
-    <li><a href="#3注意">3.注意</a></li>
+    <li><a href="#6相关技术知识">6.相关技术知识</a>
+      <ul>
+        <li><a href="#61不定参函数">6.1不定参函数</a></li>
+        <li><a href="#62设计模式">6.2设计模式</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
         </div>
@@ -411,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         width="800" 
                         height="450" 
                         loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】12异常" />
+                        alt="Featured image of post 【项目】基于多设计模式下的同步&amp;异步日志系统" />
                 
             </a>
         </div>
@@ -425,8 +428,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 C&#43;&#43;
             </a>
         
-            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="background-color: #B7A3E3; color: #fff;">
-                学习笔记
+            <a href="/categories/%E9%A1%B9%E7%9B%AE/" style="background-color: #AA60C8; color: #fff;">
+                项目
             </a>
         
     </header>
@@ -434,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/abnormal/">【C&#43;&#43;进阶】12异常</a>
+            <a href="/p/abnormal/">【项目】基于多设计模式下的同步&amp;异步日志系统</a>
         </h2>
     
         
@@ -456,15 +459,15 @@ document.addEventListener('DOMContentLoaded', function() {
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2025-11-09</time>
+                <time class="article-time--published">2025-12-04</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-30</time>
+                <time class="article-time--updated">2025-12-10</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">4788 字
+                <span class="article-time--wordcount">1051 字
                 </span>
             </div>
         
@@ -481,1284 +484,120 @@ document.addEventListener('DOMContentLoaded', function() {
     <section class="article-content">
     
     
-    <h1 id="1异常的基本介绍">1.异常的基本介绍
-</h1><h2 id="11-异常的概念">1.1 异常的概念
-</h2><p>C语言主要通过错误码的形式处理错误，拿到错误码以后还要去查询错误信息，比较麻烦。</p>
-<p>异常是返回一个对象，这个对象包含相关的所有错误信息</p>
-<p>异常处理机制允许程序中独立开发的部分能够在运行时就出现的问题进行通信并做出相应的处理</p>
-<p>异常使得我们能够<strong>将问题的检测与解决问题的过程分开</strong>，程序的一部分负责检测问题的出现，然后解决问题的任务传递给程序的另一部分，检测环节无须知道问题的处理模块的所有细节</p>
-<h2 id="12-异常的抛出和捕获">1.2 异常的抛出和捕获
-</h2><p>程序出现问题时，我们通过抛出(throw)一个对象来引发一个异常，该对象的类型以及当前的调用链决定了应该由哪个catch的处理代码来处理该异常。</p>
-<p><strong>被选中的处理代码是调用链中<mark>与该对象类型匹配</mark>且<mark>离抛出异常位置最近</mark>的那一个</strong>。根据抛出对象的类型和内容，程序的抛出异常部分告知异常处理部分到底发生了什么错误。</p>
-<p><strong>当throw执行时，throw后面的语句将不再被执行</strong>。程序的执行<strong>从throw位置跳到与之匹配的catch模块</strong>，catch可能是同一函数中的一个局部的catch，也可能是调用链中另一个函数中的catch，控制权从throw位置转移到了catch位置。</p>
-<blockquote>
-<p>这里还有两个重要的含义：</p>
-<p>1、沿着调用链的函数可能提早退出。</p>
-<p>2、一旦程序开始执行异常处理程序，沿着调用链创建的对象都将销毁。</p>
-</blockquote>
-<p>抛出异常对象后，会生成一个异常对象的<strong>拷贝</strong>，因为抛出的异常对象可能是一个局部对象，所以会生成一个拷贝对象，这个拷贝的对象会在catch子句后销毁。（这里的处理类似于函数的传值返回)</p>
-<p><img src="/p/abnormal/index.assets/image-20251109170144446.png"
-	width="832"
-	height="530"
-	
-	loading="lazy"
-	
-		alt="image-20251109170144446"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="156"
-		data-flex-basis="376px"
-	
-></p>
-<h2 id="13-栈展开">1.3 栈展开
-</h2><p>抛出异常后，<strong>程序暂停当前函数的执行</strong>，开始寻找与之匹配的catch子句</p>
+    <h1 id="1项目介绍">1.项目介绍
+</h1><p><strong>日志系统</strong></p>
 <ul>
-<li>首先检查<strong>throw本身是否在try块内部</strong>，如果在则查找匹配的catch语句，如果有匹配的，则跳到catch的地方进行处理。</li>
-</ul>
-<ul>
-<li>如果当前函数中没有try/catch子句，或者有try/catch子句但是类型不匹配，则退出当前函数（当前栈里的对象正常调用析构），<strong>继续在外层调用函数链中查找</strong>，上述查找的catch过程被称为栈展开。</li>
-<li>如果到达main函数，依旧没有找到匹配的catch子句，程序会调用标准库的 <strong>terminate 函数终止程序</strong>。</li>
-<li>如果找到匹配的catch子句处理后，<strong>catch子句代码会继续执行</strong>。</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="nf">Divide</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">string</span> <span class="n">s</span><span class="p">(</span><span class="s">&#34;Divide by zero condition!&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">			<span class="k">throw</span> <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="kt">int</span> <span class="n">errid</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errid</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">len</span> <span class="o">&gt;&gt;</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Divide</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errmsg</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">__LINE__</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;行执行&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">try</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">Func</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errmsg</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(...)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;未知异常&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><img src="/p/abnormal/index.assets/image-20251127114442537.png"
-	width="427"
-	height="207"
-	
-	loading="lazy"
-	
-		alt="image-20251127114442537"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="206"
-		data-flex-basis="495px"
-	
-></p>
-<h2 id="14-查找匹配的处理代码">1.4 查找匹配的处理代码
-</h2><p>一般情况下抛出对象和catch是类型完全匹配的，如果有多个类型匹配的，就选择离他位置更近的那个。</p>
-<p>但是也有一些例外：</p>
-<ul>
-<li>允许从非常量向常量的类型转换，也就是权限缩小</li>
-<li>允许数组转换成指向数组元素类型的指针，函数被转换成指向函数的指针</li>
-<li><strong>允许从派生类向基类类型的转换</strong>（比如可以抛异常的时候抛一个派生类，然后用基类捕获）</li>
-</ul>
-<p>如果到main函数，异常仍旧没有被匹配就会终止程序</p>
-<blockquote>
-<p>注意：如果不是发生严重错误的情况下，我们是不期望程序终止的，所以一般main函数中最后都会使用<code>catch(...)</code>，它可以捕获任意类型的异常，但是是不知道异常错误是什么</p>
-</blockquote>
-<p><strong>例子：</strong></p>
-<p>异常的基类</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Exception</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">Exception</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">_errmsg</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">,</span><span class="n">_id</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">string</span> <span class="nf">what</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="nf">getid</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">_id</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>捕获SQL的异常</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SqlException</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Exception</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">SqlException</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">sql</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">Exception</span><span class="p">(</span><span class="n">errmsg</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">,</span><span class="n">_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">string</span> <span class="nf">what</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;SqlException:&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="s">&#34;-&gt;&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="s">&#34;sql&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">str</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">string</span> <span class="n">_sql</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>捕获缓存的异常</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CacheException</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Exception</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">CacheException</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">Exception</span><span class="p">(</span><span class="n">errmsg</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">string</span> <span class="nf">what</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;CacheExcetion:&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">str</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>捕获http的异常</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">HttpException</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Exception</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">HttpException</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">type</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">Exception</span><span class="p">(</span><span class="n">errmsg</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">,</span><span class="n">_type</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">string</span> <span class="nf">what</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;HttpException:&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="n">_type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="s">&#34;:&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">str</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">string</span> <span class="n">_type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>模拟程序</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">SQLMgr</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">7</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">throw</span> <span class="n">SqlException</span><span class="p">(</span><span class="s">&#34;权限不足&#34;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&#34;select * from stu where name=&#39;张三&#39;;&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;SQLMgr 调用成功&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">CacheMgr</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">throw</span> <span class="n">CacheException</span><span class="p">(</span><span class="s">&#34;权限不足&#34;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">throw</span> <span class="n">CacheException</span><span class="p">(</span><span class="s">&#34;数据不存在&#34;</span><span class="p">,</span> <span class="mi">101</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;CacheMgr 调用成功&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="n">SQLMgr</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">HttpServer</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">throw</span> <span class="n">HttpException</span><span class="p">(</span><span class="s">&#34;请求资源不存在&#34;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s">&#34;get&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">throw</span> <span class="n">HttpException</span><span class="p">(</span><span class="s">&#34;权限不足&#34;</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="s">&#34;post&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;HttpServer调用成功&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="n">CacheMgr</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">this_thread</span><span class="o">::</span><span class="n">sleep_for</span><span class="p">(</span><span class="n">chrono</span><span class="o">::</span><span class="n">seconds</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">try</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">HttpServer</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">Exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="c1">// 基类对象，派生类对象都可以捕获
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="c1">//多态
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(...)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Unkonw Exception&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="15-异常重新抛出">1.5 异常重新抛出
-</h2><p>有时catch到一个异常对象后，需要对错误进行分类，其中的某种异常错误需要进行特殊的处理，其他错误则重新抛出异常给外层调用链处理。</p>
-<p>捕获异常后需要重新抛出，直接<code>throw;</code>就可以把捕获的对象直接抛出</p>
-<blockquote>
-<p><code>throw; </code>就是捕获到什么就抛出什么</p>
-</blockquote>
-<p><strong>例子1：</strong></p>
-<p>模拟发送消息的时候，可能因为网络的原因，发送失败，但是要求再尝试3次，如果3次后还是失败，就抛出异常</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Exception</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">Exception</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">_errmsg</span><span class="p">(</span><span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">,</span><span class="n">_id</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">string</span> <span class="nf">what</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="nf">getid</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">_id</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">HttpException</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Exception</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="n">HttpException</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">,</span> <span class="kt">int</span> <span class="n">id</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">type</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">:</span><span class="n">Exception</span><span class="p">(</span><span class="n">errmsg</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">,</span><span class="n">_type</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">string</span> <span class="nf">what</span><span class="p">()</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;HttpException:&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="n">_type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="s">&#34;:&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">str</span> <span class="o">+=</span> <span class="n">_errmsg</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">str</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="n">string</span> <span class="n">_type</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 下⾯程序模拟展⽰了聊天时发送消息，发送失败补货异常，但是可能在
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 电梯地下室等场景⼿机信号不好，则需要多次尝试，如果多次尝试都发
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 送不出去，则就需要捕获异常再重新抛出，其次如果不是⽹络差导致的
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 错误，捕获后也要重新抛出。
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">_SeedMsg</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">throw</span> <span class="n">HttpException</span><span class="p">(</span><span class="s">&#34;网络不稳定，发送失败&#34;</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="s">&#34;put&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">7</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">throw</span> <span class="n">HttpException</span><span class="p">(</span><span class="s">&#34;你已经不是对方好友，发送失败&#34;</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="s">&#34;put&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;发送成功&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">SendMsg</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">//发送消息失败，则再重试次
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">try</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">_SeedMsg</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">Exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">getid</span><span class="p">()</span> <span class="o">==</span> <span class="mi">102</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			<span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">					<span class="k">throw</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">				<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;开始第&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;次重试&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="k">else</span>
-</span></span><span class="line"><span class="cl">			<span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="k">throw</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="n">srand</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">str</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">str</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">try</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">SendMsg</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">Exception</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">what</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(...)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Unkonw Exception&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>例子2：</strong></p>
-<p>可能前面申请了资源，需要 catch(...) 先将资源释放，再把异常重新抛出去</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="nf">Divide</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">string</span> <span class="n">s</span><span class="p">(</span><span class="s">&#34;Divide by zero condition!&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">			<span class="k">throw</span> <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="kt">int</span> <span class="n">errid</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errid</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">len</span> <span class="o">&gt;&gt;</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Divide</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errmsg</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(...)</span> 
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        
-</span></span><span class="line"><span class="cl">		<span class="c1">//重新抛出
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">throw</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">try</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">Func</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errmsg</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">catch</span> <span class="p">(...)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;未知异常&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="16-异常安全问题">1.6 异常安全问题
-</h2><blockquote>
-<p>异常抛出后，后面的代码就不再执行，前面申请了资源（内存、锁等），后面进行释放，但是中间可能会抛异常就会导致资源没有释放，这里由于异常就引发了资源泄漏，产生安全性的问题**。中间我们需要捕获异常，释放资源后面再重新抛出**。</p>
-</blockquote>
-<blockquote>
-<p>其次<strong>析构函数中，如果抛出异常也要谨慎处理</strong>，比如析构函数要释放10个资源，释放到第5个时抛出异常，则也需要捕获处理，否则后面的5个资源就没释放，也资源泄漏了。《EffctiveC++》第8个条款也专门讲了这个问题，<strong>别让异常逃离析构函数</strong>。</p>
-</blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">double</span> <span class="nf">Divide</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">string</span> <span class="n">s</span><span class="p">(</span><span class="s">&#34;Divide by zero condition!&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">			<span class="k">throw</span> <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="kt">int</span> <span class="n">errid</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errid</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">ptr1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">ptr2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">// ptr2也可能抛异常
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">len</span> <span class="o">&gt;&gt;</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Divide</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errmsg</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(...)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">//重新抛出
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">throw</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="17-异常规范">1.7 异常规范
-</h2><ul>
-<li>对于用户和编译器而言，预先知道某个程序会不会抛出异常大有益，知道某个函数是否会抛出异常有助于简化调用函数的代码。</li>
-<li>C++98中函数参数列表的后面接throw()，表示函数不抛异常，函数参数列表的后面接throw(类型1,类型2...)表示可能会抛出多种类型的异常，可能会抛出的类型用逗号分割。</li>
-<li>C++98的方式这种方式过于复杂，实践中并不好用，C++11中进行了简化，<strong>函数参数列表后面加noexcept表示不会抛出异常，啥都不加表示可能会抛出异常</strong></li>
-</ul>
-<p>​		<img src="/p/abnormal/index.assets/image-20251109223207211.png"
-	width="705"
-	height="349"
-	
-	loading="lazy"
-	
-		alt="image-20251109223207211"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="202"
-		data-flex-basis="484px"
-	
-></p>
-<ul>
-<li><strong>编译器并不会在编译时检查noexcept</strong>，也就是说如果一个函数用noexcept修饰了，但是同时又包含了throw语句或者调用的函数可能会抛出异常，编译器还是会顺利编译通过的（有些编译器可能会报个警告)。</li>
-<li>如果函数声明了noexcept，但是又抛了异常，那么这个异常不会被捕获，程序会调用terminate 终止程序</li>
-<li>noexcept(expression)还可以作为一个运算符去检测一个表达式是否可能会抛出异常
-<ul>
-<li>可能会抛异常就返回false</li>
-<li>不会抛异常就返回true</li>
-</ul>
+<li>
+<p>日志：程序运行过程中所记录的程序运行状态信息</p>
+</li>
+<li>
+<p>作用：记录了程序运行状态信息，以便于程序员能够随时根据状态信息，对系统的运行状态进行分析</p>
+</li>
+<li>
+<p>功能：能够让用户非常简便地进行日志的输出及控制</p>
 </li>
 </ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">double</span> <span class="nf">Divide</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="n">string</span> <span class="n">s</span><span class="p">(</span><span class="s">&#34;Divide by zero condition!&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">			<span class="k">throw</span> <span class="n">s</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span>
-</span></span><span class="line"><span class="cl">		<span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="kt">int</span> <span class="n">errid</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errid</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">ptr1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">len</span> <span class="o">&gt;&gt;</span> <span class="n">time</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="k">try</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Divide</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">errmsg</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">errmsg</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">catch</span> <span class="p">(...)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">//重新抛出
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">throw</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;delete:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ptr1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">Divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="n">Divide</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">noexcept</span><span class="p">(</span><span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> <span class="c1">// 1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h1 id="2标准库的异常">2.标准库的异常
-</h1><p><a class="link" href="https://legacy.cplusplus.com/reference/exception/exception/"  target="_blank" rel="noopener"
-    >标准库的异常</a></p>
-<p>C++标准库也定义了一套自己的一套异常继承体系库，基类是exception</p>
-<p>我们日常写程序，需要在主函数捕获exception即可，要获取异常信息，调用what函数</p>
+<p><strong>本项目主要实现的功能</strong></p>
+<ul>
+<li>
+<p><strong>支持多级别日志消息</strong></p>
+<ul>
+<li>
+<p>本日志系统将日志分成不同等级</p>
 <blockquote>
-<p>what是一个虚函数，派生类可以重写</p>
+<p>如：调试级日志、提示级日志、警告级日志、错误级日志、致命级日志等</p>
 </blockquote>
-<p><img src="/p/abnormal/index.assets/image-20251109224244285.png"
-	width="651"
-	height="605"
-	
-	loading="lazy"
-	
-		alt="image-20251109224244285"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="107"
-		data-flex-basis="258px"
-	
-></p>
+</li>
+<li>
+<p>不同级别的日志可以应对不同场景</p>
 <blockquote>
-<p>bad_alloc：new或者stl里面的容器push或者insert等内存申请失败时会抛出的异常</p>
-<p>out_of_range：越界时可能会抛出的异常</p>
-<p>overflow_error：溢出时可能会抛出的异常</p>
-<p>invalid_argument：有非法参数时可能会抛出的异常</p>
-<p>bad_cast：类型转换失败时可能会抛出的异常</p>
+<p>如：可以设置一个限制输出级别，当我们在调试时，将输出级别设置成调试级别，让级别大于调试级别的日志都输出；当我们要线上发布时，将输出级别设置成错误，那么低于错误级别的日志就不会输出了，只会输出高于错误级别的日志</p>
 </blockquote>
-<h1 id="3注意">3.注意
-</h1><ul>
-<li>异常是程序可能会有安全隐患，异常一旦发生，程序就是非法情况</li>
-<li>C++语言的异常处理机制通过3个保留字throw、try和catch实现</li>
-<li><strong>throw抛出的是某种类型的异常，捕获时要按照类型进行捕获</strong></li>
-<li><strong>只要程序中有异常存在，就必须要处理</strong></li>
-<li>有时捕获异常并不是为了处理异常，而是要做一些其他事情，做完后需要将异常重新抛出，交给该异常的处理位置去处理</li>
-<li>对于有可能会抛出异常的代码，都应该放在try中尝试进行捕获，只有放在try中，throw语句抛出的异常  才可能会捕获到</li>
+</li>
 </ul>
-<p>如何捕获异常可以使得下面的代码通过编译？</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">public</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="n">A</span><span class="p">(){}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="p">{</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">A</span><span class="p">;</span> <span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>异常是按照类型来捕获的，throw后抛出的是A*类型的异常，因此要按照指针方式进行捕获：catch (A * x)</p>
-
+</li>
+<li>
+<p><strong>支持同步日志和异步日志</strong></p>
+<ul>
+<li>同步日志：将日志写入到文件/数据库这个操作，由业务线程自己来完成</li>
+<li>异步日志：将日志放到内存中，由其它工作线程来专门负责对日志的实际输出</li>
+</ul>
+</li>
+<li>
+<p><strong>支持可靠写入日志到控制台、文件以及滚动文件中</strong></p>
+<ul>
+<li>
+<p>支持将日志信息标准打印</p>
+</li>
+<li>
+<p>支持将日志写入到指定的文件中</p>
+</li>
+<li>
+<p>支持文件切换输入</p>
+<blockquote>
+<p>比如我们可以按文件大小来切换，通过限制输出日志文件大小，如果一个文件已经超过我们限制的大小，就换下一个文件进行写入；我们还可以按照日期来切换，一天一个日志文件，然后给系统设置定时任务，定时清理日志文件</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>支持多线程程序并发写日志</strong></p>
+<ul>
+<li>内部是线程安全的，即使是多个线程同时写，也不会产生数据二义的情况</li>
+</ul>
+</li>
+<li>
+<p><strong>支持扩展不同的日志落地目标地</strong></p>
+</li>
+</ul>
+<h1 id="2开发环境">2.开发环境
+</h1><ul>
+<li>CentOS 7</li>
+<li>vscode/vim</li>
+<li>g++/gdb</li>
+<li>Makefile</li>
+</ul>
+<h1 id="3核心技术">3.核心技术
+</h1><ul>
+<li>类层次设计（继承和多态的应用）</li>
+<li>C++11（多线程、auto、智能指针、右值引用）</li>
+<li>双缓冲区</li>
+<li>生产者消费模型</li>
+<li>多线程</li>
+<li>设计模式（单例、工厂、代理、建造者等）</li>
+</ul>
+<h1 id="4环境搭建">4.环境搭建
+</h1><p>仅需安装好CentOS/Ubuntu+vscode/vim环境</p>
+<h1 id="5日志系统介绍">5.日志系统介绍
+</h1><h2 id="51为什么需要日志系统">5.1为什么需要日志系统
+</h2><ul>
+<li>
+<p>保证生产环境产品的安全性</p>
+<blockquote>
+<p>为了保证生产环境产品的安全性，开发人员不能通过附加调试器去解决问题</p>
+</blockquote>
+</li>
+<li>
+<p>应对上线客户端的产品出现bug无法短时间内进行复现并解决的情况</p>
+<blockquote>
+<p>上线客户端的产品出现bug无法复现并解决，可以借助日志系统打印日志并上传到服务端帮助开发人员进行分析</p>
+</blockquote>
+</li>
+<li>
+<p>对于一些高频操作（如定时器、心跳包）在少量调试次数下可能无法触发我们想要的行为，通过断点的暂停方式，我们不得不重复操作几十次、上百次甚至更多，导致排查问题效率是非常低下，可以借助打印日志的方式查问题</p>
+</li>
+<li>
+<p>在分布式、多线程/多进程代码中，出现bug比较难以定位，可以借助日志系统打印log帮助定位bug</p>
+</li>
+<li>
+<p>帮助首次接触项目代码的新开发人员理解代码的运行流程</p>
+</li>
+</ul>
+<h2 id="52日志系统的实现">5.2日志系统的实现
+</h2><h1 id="6相关技术知识">6.相关技术知识
+</h1><h2 id="61不定参函数">6.1不定参函数
+</h2><h2 id="62设计模式">6.2设计模式
+</h2>
 </section>
 
 
@@ -1766,9 +605,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <section class="article-tags">
         
-            <a href="/tags/c&#43;&#43;%E8%BF%9B%E9%98%B6/">C&#43;&#43;进阶</a>
-        
-            <a href="/tags/%E5%BC%82%E5%B8%B8/">异常</a>
+            <a href="/tags/c&#43;&#43;%E9%A1%B9%E7%9B%AE/">C&#43;&#43;项目</a>
         
     </section>
 
@@ -1791,6 +628,30 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
+    <a href="/p/auto_ptr/">
+        
+        
+            <div class="article-image">
+                <img src="/p/auto_ptr/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.2e0edf8a3459053f94729b109ccbe96d_hu_60fa17c9e4c55ae7.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;进阶】13智能指针的使用及其原理"
+                        data-key="auto_ptr" 
+                        data-hash="md5-Lg7fijRZBT&#43;UcpsQnMvpbQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;进阶】13智能指针的使用及其原理</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/c-11/">
         
         
@@ -1808,6 +669,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
         <div class="article-details">
             <h2 class="article-title">【C&#43;&#43;初阶】11C&#43;&#43;11</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/abnormal/">
+        
+        
+            <div class="article-image">
+                <img src="/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.2e0edf8a3459053f94729b109ccbe96d_hu_60fa17c9e4c55ae7.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;进阶】12异常"
+                        data-key="abnormal" 
+                        data-hash="md5-Lg7fijRZBT&#43;UcpsQnMvpbQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;进阶】12异常</h2>
         </div>
     </a>
 </article>
@@ -1839,71 +724,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
-    <a href="/p/c-inherit/">
+    <a href="/p/start-c-/">
         
         
             <div class="article-image">
-                <img src="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E.fc890614cbf7e2e47fe2cedb91347a73_hu_3efb3d15b9c9b9c6.png" 
+                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】01继承"
-                        data-key="c&#43;&#43;-inherit" 
-                        data-hash="md5-/IkGFMv34uR/4s7bkTR6cw==">
+                        alt="Featured image of post 【C&#43;&#43;初阶】01入门知识"
+                        data-key="start-c&#43;&#43;" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;进阶】01继承</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/c-polymorphic/">
-        
-        
-            <div class="article-image">
-                <img src="/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1.5e36117cff17b329cec62853f3c4a367_hu_56ab0bc6663b9382.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】02多态"
-                        data-key="c&#43;&#43;-polymorphic" 
-                        data-hash="md5-XjYRfP8XsynOxihT88SjZw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;进阶】02多态</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/binary-search-tree/">
-        
-        
-            <div class="article-image">
-                <img src="/p/binary-search-tree/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%92%96%E5%95%A1-%E5%92%96%E5%95%A1%E5%B1%8B-%E5%A4%9C%E6%99%AF.821ccfd96e15fb0433076610fe7594ff_hu_8b432d5880f642d1.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【C&#43;&#43;进阶】03二叉搜索树"
-                        data-key="Binary-Search-Tree" 
-                        data-hash="md5-ghzP2W4V&#43;wQzB2YQ/nWU/w==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【C&#43;&#43;进阶】03二叉搜索树</h2>
+            <h2 class="article-title">【C&#43;&#43;初阶】01入门知识</h2>
         </div>
     </a>
 </article>
@@ -2028,7 +865,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.head.appendChild(customFont);
     }());
 </script>
-
 
     </body>
 </html>

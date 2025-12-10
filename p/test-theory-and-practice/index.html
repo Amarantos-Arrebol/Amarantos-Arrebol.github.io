@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 例子1：对某款购物软件进行测试\n1）启动测试：点击软件图标，测试软件是否可以正常打开\n2）搜索测试：点击输入框，输入关键词，点击搜索\n3）商品测试：点击商品进入详情页\n">
 <title>【自动化测试】01测试理论&#43;实践</title>
 
 <link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/'>
 
 <link rel="stylesheet" href="/scss/style.min.f62fad6b64852a4093ae5ceb06b3f1a3f8409c5b5dd5c91806fbb732800ca9f9.css"><meta property='og:title' content="【自动化测试】01测试理论+实践">
-<meta property='og:description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n">
+<meta property='og:description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 例子1：对某款购物软件进行测试\n1）启动测试：点击软件图标，测试软件是否可以正常打开\n2）搜索测试：点击输入框，输入关键词，点击搜索\n3）商品测试：点击商品进入详情页\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:tag' content='web自动化测试' /><meta property='article:tag' content='性能测试' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-30T13:04:21&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:tag' content='web自动化测试' /><meta property='article:tag' content='性能测试' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-10T09:21:37&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
 <meta name="twitter:title" content="【自动化测试】01测试理论+实践">
-<meta name="twitter:description" content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 测试在生活中处处可见\n案例一：商场买衣服\n1）外观测试：挑选符合个人审美的衣服\n2） 试穿测试：选择尺码，去试衣间穿\n3）材质测试：考虑一下衣服是否透气等材质相关的考虑\n"><meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 例子1：对某款购物软件进行测试\n1）启动测试：点击软件图标，测试软件是否可以正常打开\n2）搜索测试：点击输入框，输入关键词，点击搜索\n3）商品测试：点击商品进入详情页\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' /><link rel="stylesheet" href="/css/custom.min.css">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
@@ -387,11 +387,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 <li><a href="#常见开发模型">常见开发模型</a></li>
               </ul>
             </li>
-            <li><a href="#123测试模型">1.2.3测试模型</a></li>
+            <li><a href="#123测试模型">1.2.3测试模型</a>
+              <ul>
+                <li><a href="#v模型">V模型</a></li>
+                <li><a href="#w模型">W模型</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
-        <li><a href="#13bug篇">1.3Bug篇</a></li>
-        <li><a href="#14用例篇">1.4用例篇</a></li>
+        <li><a href="#13bug篇">1.3Bug篇</a>
+          <ul>
+            <li><a href="#131软件测试生命周期">1.3.1软件测试生命周期</a></li>
+            <li><a href="#132什么是bug">1.3.2什么是bug</a></li>
+            <li><a href="#133描述bug的要素">1.3.3描述bug的要素</a></li>
+            <li><a href="#134bug级别">1.3.4bug级别</a></li>
+            <li><a href="#135bug的生命周期">1.3.5bug的生命周期</a></li>
+            <li><a href="#136与开发产生争执怎么办高频考题">1.3.6与开发产生争执怎么办（高频考题）</a></li>
+          </ul>
+        </li>
+        <li><a href="#14用例篇">1.4用例篇</a>
+          <ul>
+            <li><a href="#141概念">1.4.1概念</a></li>
+            <li><a href="#142设计测试用例的万能公式">1.4.2设计测试用例的万能公式</a></li>
+            <li><a href="#143设计测试用例的方法">1.4.3设计测试用例的方法</a></li>
+          </ul>
+        </li>
         <li><a href="#15测试分类">1.5测试分类</a></li>
       </ul>
     </li>
@@ -568,11 +588,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-11-30</time>
+                <time class="article-time--updated">2025-12-10</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">8845 字
+                <span class="article-time--wordcount">14340 字
                 </span>
             </div>
         
@@ -592,20 +612,13 @@ document.addEventListener('DOMContentLoaded', function() {
     <h1 id="1概念篇">1.概念篇
 </h1><h2 id="11认识测试">1.1认识测试
 </h2><h3 id="111什么是测试">1.1.1什么是测试？
-</h3><p>测试在生活中处处可见</p>
-<p><strong>案例一：商场买衣服</strong></p>
-<p>1）<strong>外观测试</strong>：挑选符合个人审美的衣服</p>
-<p>2） <strong>试穿测试</strong>：选择尺码，去试衣间穿</p>
-<p>3）<strong>材质测试</strong>：考虑一下衣服是否透气等材质相关的考虑</p>
-<p>4）<strong>价格测试</strong>：询问价格是否符合预期</p>
-<p>购买衣服，交易完成</p>
-<p><strong>案例二：对某款购物软件进行测试</strong></p>
+</h3><p><strong>例子1：对某款购物软件进行测试</strong></p>
 <p>1）<strong>启动测试</strong>：点击软件图标，测试软件是否可以正常打开</p>
 <p>2）<strong>搜索测试</strong>：点击输入框，输入关键词，点击搜索</p>
 <p>3）<strong>商品测试</strong>：点击商品进入详情页</p>
 <p>4）<strong>购物测试</strong>：点击购买下单成功</p>
 <p>&hellip;</p>
-<p><strong>案例三：对一个JAVA程序进行测试</strong></p>
+<p><strong>例子2：对一个JAVA程序进行测试</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -626,7 +639,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>&hellip;</p>
 <h3 id="112为什么需要软件测试">1.1.2为什么需要软件测试？
 </h3><blockquote>
-<p>企业最终的目的是“盈利”，互联网企业借助软件/系统来跟用户交互从而获得盈利，也就是说企业的受众群体主要是广大的使用用户，而用户的使用感受将直接影响企业的盈利，若产品质量太差将导致大量用户的流失，所以企业非常重视测试</p>
+<p>互联网企业借助软件/系统来跟用户交互从而获得盈利，企业的受众群体主要是广大的使用用户，而用户的使用感受将直接影响企业的盈利，若产品质量太差将导致大量用户的流失，所以企业非常重视测试</p>
 </blockquote>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251119183535354.png"
 	width="637"
@@ -647,8 +660,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>功能、性能、界面、易用性&hellip;</p>
 </blockquote>
 <h3 id="113测试岗位有哪些">1.1.3测试岗位有哪些？
-</h3><p>打开求职软件，我们可以看到测试岗位有很多：</p>
-<p><img src="/p/test-theory-and-practice/index.assets/image-20251119184642283.png"
+</h3><p><img src="/p/test-theory-and-practice/index.assets/image-20251119184642283.png"
 	width="1621"
 	height="468"
 	
@@ -662,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="831px"
 	
 ></p>
-<p>其实测试岗位主要分为以下两个方面：</p>
+<p>测试岗位主要分为以下两个方面：</p>
 <p><strong>1）软件测试开发工程师</strong></p>
 <blockquote>
 <p>工作重心为可测试性以及通用测试基础框架。编写单元测试框架和自动化测试框架。软件测试开发工程师关注质量提升和测试覆盖率。</p>
@@ -674,9 +686,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>与软件测试开发工程师关系密切，但把用户放在第一位来思考。测试工程师组织整体测试实践，并进行分析总结，驱动测试执行，构建端到端的自动化测试。</p>
 </blockquote>
 <p><span style="color: #FF0000;">工作重点就是业务测试</span>。对于纯测试工程师，更多测试操作是点点点的测试</p>
+<blockquote>
 <p><strong>找工作/实习的时候怎么确定自己找的是测开还是测试？</strong></p>
 <p>1.绝大多数中大厂的测试岗位基本都是测开</p>
 <p>2.询问hr/面试官组内有哪些技术事务</p>
+</blockquote>
 <p>==<strong>高频面试题：软件测试开发工程师和测试工程师的区别</strong>==</p>
 <p>相同点：</p>
 <ol>
@@ -781,29 +795,36 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>经常听到自动化一词，到底什么是自动化呢？自动化测试只是一个统称</p>
 <p>接口自动化、UI自动化（前端自动化）&hellip;</p>
 <blockquote>
-<ul>
-<li>在日常生活中，自动洗手液的出现，避免了人们按压瓶子动作，在疫情阶段使用自动洗手液有效减少了交叉感染的风险。</li>
-<li>在农业上，自动洒水器的出现，大面积的土地也能够实现快速、均匀的洒水。</li>
-<li>在交通上，交通灯的出现。使得交通有序进行，极大减少了堵车或其他事故的概率。</li>
-</ul>
 <p>在测试中，我们常常会见到接口自动化、UI自动化（web自动化、移动端自动化），接口<strong>自动化能够自动的去请求接口并校验接口返回属性是否符合预期结果</strong>；<strong>UI自动化能够自动在界面或者移动端上模拟人的行为进行操作，并检查元素和操作等是否符合预期结果</strong>。</p>
 </blockquote>
 <h4 id="3测试用例的设计能力">3.测试用例的设计能力
-</h4><p>==测试用例设计能力==是指，无论对于什么类型的测试，都能够设计出高效地发现缺陷，保证产品质量的优秀测试用例。</p>
-<blockquote>
-<p>如何提高测试用例设计的能力？</p>
-<p>1.掌握设计测试用例的方法（设计测试用例的万能公式）</p>
-<p>2.多写多练，积累，总结</p>
-<p>3.阅读好的测试用例设计案例</p>
-</blockquote>
-<p><span style="color: #FF0000;">设计测试用例师测试岗位面试/笔试必考题！</span></p>
+</h4><p>==测试用例设计能力==是指，无论对于什么类型的测试，都能够设计出<strong>高效地发现缺陷，保证产品质量</strong>的优秀测试用例</p>
+<p><strong>如何提高测试用例设计的能力？</strong></p>
+<ol>
+<li>
+<p>掌握设计测试用例的方法（设计测试用例的万能公式）</p>
+</li>
+<li>
+<p>多写多练，积累，总结</p>
+</li>
+<li>
+<p>阅读好的测试用例设计案例</p>
+</li>
+</ol>
+<p><span style="color: #FF0000;">设计测试用例是测试岗位面试/笔试必考题！</span></p>
 <h4 id="4探索性思维">4.探索性思维
-</h4><p><strong>软件测试人员只能极大程度保证产品不会出现明显问题，但是并不能保证产品就一定没有问题了</strong>。测试工程师在执行测试的过程中不断学习被测系统，结合自己的经验，知识，直觉，进行系统的错误猜测和逻辑推理，整理和分析出更多有针对性的的测试关注点。探索性思维的质量取决于测试人员的经验。</p>
+</h4><p><strong>软件测试人员只能极大程度保证产品不会出现明显问题，但是并不能保证产品就一定没有问题了</strong>。</p>
+<p>测试工程师在执行测试的过程中不断学习被测系统，结合自己的经验，知识，直觉，进行系统的错误猜测和逻辑推理，整理和分析出更多有针对性的的测试关注点。探索性思维的质量取决于测试人员的经验。</p>
 <h4 id="5兴趣">5.兴趣
-</h4><p>兴趣是就业择岗的重要因素之一，选择了但是仍然对个人的工作性质不感兴趣，可想而知，这样的选择也不会走的太远。</p>
+</h4><blockquote>
+<p>兴趣是就业择岗的重要因素之一，选择了但是仍然对个人的工作性质不感兴趣，可想而知，这样的选择也不会走的太远。</p>
+</blockquote>
 <h4 id="6责任感和压力">6.责任感和压力
-</h4><p>责任感是任何工作的都需要的，对于测试工作者而言：<strong>测试往往是产品质量的最后的把关者</strong>；由于测试工作成效很难衡量，测试用例执行、bug数目的多少都无法说明产品的质量是否合格；虽然在敏捷模型中团队中每个人都需要对产品质量负责，但是产品的测试质量是跟测试人员那密切相关的。所以，责任感是最重要的测试必备素质之一。</p>
-<p>压力，测试工作者，特别是属于互联网行业需要能够抗住各种压力。</p>
+</h4><p>对于测试工作者而言：<strong>测试往往是产品质量的最后的把关者</strong>；</p>
+<blockquote>
+<p>由于测试工作成效很难衡量，测试用例执行、bug数目的多少都无法说明产品的质量是否合格；</p>
+<p>虽然在敏捷模型中团队中每个人都需要对产品质量负责，但是产品的测试质量是跟测试人员密切相关的。</p>
+</blockquote>
 <h3 id="总结">总结
 </h3><p>测试的概念：验证软件的特性是否满足用户的需求（提升用户使用的满意度）</p>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251120193107690.png"
@@ -899,8 +920,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <h4 id="软件需求">软件需求
-</h4><p>或者叫功能需求，该需求会详细描述开发人员必须实现的软件功能。</p>
-<p>软件需求是测试人员进行测试工作的基本依据。</p>
+</h4><p>软件需求或者叫功能需求，该需求会详细描述<strong>开发人员必须实现的软件功能</strong>。</p>
+<p>软件需求<strong>是测试人员进行测试工作的基本依据</strong>。</p>
 <p>在工作中我们实际见到的软件需求文档类似于下面的表述：</p>
 <blockquote>
 <p>软件需求规格说明书</p>
@@ -922,8 +943,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 </blockquote>
-<p>**注意：**用户的需求不能直接作为开发和测试的依据。</p>
-<p>针对用户的需求，产品经理需要进行需求分析（技术可行性、市场可行性、成本投入和收益占比等）后才可转变为软件需求</p>
+<p>**注意：用户的需求不能直接作为开发和测试的依据。**针对用户的需求，产品经理需要进行需求分析（技术可行性、市场可行性、成本投入和收益占比等）后才可转变为软件需求</p>
 <blockquote>
 <p>书籍：《软件测试的艺术》</p>
 </blockquote>
@@ -950,11 +970,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </blockquote>
 <h4 id="软件的生命周期">软件的生命周期
 </h4><p>软件的生命周期实际就是软件的开发模型</p>
-<p><strong>什么是生命周期？</strong></p>
+<p><strong>什么是软件的生命周期？</strong></p>
+<p>需求的开始是软件生命的起点，中间会经历需求的计划、设计，程序开发，程序测试等阶段，直至软件不再进行维护便到了生命的重点</p>
 <blockquote>
-<p>生命周期指的是从生命的开始到生命结束的一段时间。以人为例，人类的生命周期是从生命孕育的开始，中间会经历幼年，童年，少年，青年，老年，最终直至死亡。</p>
-<p>而软件/产品的生命周期也是如此，需求的开始是软件生命的起点，中间会经历需求的计划、设计，程序开发，程序测试等阶段，直至软件不再进行维护便到了生命的重点</p>
-</blockquote>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251120200834515.png"
 	width="1071"
 	height="774"
@@ -969,6 +987,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="332px"
 	
 ></p>
+</blockquote>
 <p>软件(开发)的生命周期：<span style="color: #8080FF;">需求分析—计划——设计——编码——测试—运行维护</span></p>
 <p><strong>对于软件的生命周期中，每个阶段都在做什么呢？</strong></p>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251120201312221.png"
@@ -1020,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="3027px"
 	
 ></p>
-<p>布模型在软件工程中占有重要地位，是所有其他模型的基础框架。</p>
+<p>瀑布模型在软件工程中占有重要地位，是所有其他模型的基础框架。</p>
 <p>特点：<strong>瀑布模型的每一个阶段都只执行一次</strong>，因此是<strong>线性顺序</strong>进行的软件开发模式。</p>
 <p>瀑布模型的一个最大缺陷在于，<strong>可以运行的产品很迟才能被看到</strong>。</p>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251120202803558.png"
@@ -1159,15 +1178,39 @@ document.addEventListener('DOMContentLoaded', function() {
 </blockquote>
 <p>敏捷模型的四个特点：<strong>轻文档，轻流程，重目标，重产出</strong>。</p>
 <p>敏捷开发有很多种方式，其中Scrum是比较流行的一种。</p>
-<p>Scrum又称为迭代式增量软件开发模型。</p>
-<p>在scrum模型中，主要有三个角色和五个重要会议。</p>
+<h5 id="scrum-敏捷模型">Scrum 敏捷模型
+</h5><p>Scrum又称为迭代式增量软件开发模型。</p>
+<p>在Scrum模型中，主要有三个角色和五个重要会议。</p>
 <blockquote>
-<p>三个角色：
+<p><strong>三个角色：</strong>
 scrum 由 product owner（产品经理）、scrum master（项目经理）和 team（研发团队）组成。</p>
 <ul>
 <li>产品经理收集需求，产出软件需求文档</li>
-<li>scrum master 负责召开各种会议，协调项目，为研发团队服务。</li>
+<li>项目经理 负责召开各种会议，协调项目，为研发团队服务。</li>
 <li>研发团队由很多角色组成：开发人员（前端、后端）、测试、交互、设计</li>
+</ul>
+<p><strong>五个重要会议</strong></p>
+<ul>
+<li>
+<p>需求发布会议</p>
+</li>
+<li>
+<p>计划发布会议</p>
+</li>
+<li>
+<p>每日会议</p>
+<ul>
+<li>昨天做了什么（进度）</li>
+<li>今天做了什么（有目标）</li>
+<li>遇到了什么问题（风险把控）</li>
+</ul>
+</li>
+<li>
+<p>演示会议（提出新的需求，放到需求池中）</p>
+</li>
+<li>
+<p>回顾会议</p>
+</li>
 </ul>
 </blockquote>
 <p>迭代开发</p>
@@ -1175,9 +1218,438 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 <p>与瀑布不同，Scrum将产品的开发分解为若干个小sprint(迭代)，其周期从1周到4周不等，但不会超过4周。参与的团队成员一般是5到9人。每期迭代要完成的user story是固定的。每次迭代会产生一定的交付。</p>
 </blockquote>
 <h3 id="123测试模型">1.2.3测试模型
-</h3><h2 id="13bug篇">1.3Bug篇
-</h2><h2 id="14用例篇">1.4用例篇
-</h2><h2 id="15测试分类">1.5测试分类
+</h3><h4 id="v模型">V模型
+</h4><blockquote>
+<p>V模型最早是由PaulRook在20世纪80年代后期提出的，目的是改进软件开发的效率和效果。是瀑布模型的变种</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251202195315483.png"
+	width="856"
+	height="494"
+	
+	loading="lazy"
+	
+		alt="image-20251202195315483"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="173"
+		data-flex-basis="415px"
+	
+></p>
+<blockquote>
+<p><strong>优点：</strong></p>
+<p>明确的标注了测试过程中存在的<strong>不同类型的测试</strong>，并且<strong>清楚的描述了这些测试阶段和开发过程期间各阶段的对应关系</strong>，有效提升测试的质量和效率。</p>
+<p>V模型指出：</p>
+<p><strong>单元和集成测试</strong>应检测程序的执行是否满足软件设计的要求；</p>
+<p><strong>系统测试</strong>应检测系统功能、性能的质量特性是否达到系统要求的指标；</p>
+<p><strong>验收测试</strong>确定软件的实现是否满足用户需要或合同的要求</p>
+<p>**缺点：**仅仅把测试作为在编码之后的一个阶段，<strong>未在需求阶段就介入测试</strong>。缺点同瀑布模型。</p>
+</blockquote>
+<blockquote>
+<p>V模型中未将测试前置的问题在W模型中得以解决。</p>
+</blockquote>
+<h4 id="w模型">W模型
+</h4><blockquote>
+<p>W模型增加了<strong>软件各开发阶段中应同步进行的验证和确认活动</strong>。W模型由两个V字型模型组成，分别代表<strong>测试与开发过程</strong>，图中明确表示出了测试与开发的并行关系。</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251204095025910.png"
+	width="826"
+	height="491"
+	
+	loading="lazy"
+	
+		alt="image-20251204095025910"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="403px"
+	
+></p>
+<p><span style="color: #8080FF;">开发模型并不单单指编码阶段，而是为产品开发流程而实施的各个阶段</span></p>
+<p><strong>特点：</strong><span style="color: #FF0000;">测试的对象不仅是程序，需求、设计等同样要测试</span>，测试与开发是同步进行的</p>
+<blockquote>
+<p>优点：</p>
+<ul>
+<li>
+<p>有利于尽早地全面的发现问题。</p>
+<p>例如，<strong>需求分析完成后，测试人员就应该参与到对需求的验证和确认活动中</strong>，以尽早地找出缺陷所在。同时，<strong>对需求的测试也有利于及时了解项目难度和测试风</strong>险，及早制定应对措施，显著减少总体测试时间，加快项目进度。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>
+<p>需求、设计、编码等活动被视为串行的；</p>
+</li>
+<li>
+<p><strong>测试和开发活动也保持着一种线性的前后关系</strong>，上一阶段完全结束，才可正式开始下一个阶段工作。</p>
+</li>
+<li>
+<p><strong>重流程</strong>，无法支持敏捷开发模式(轻文档、轻流程)。对于当前软件开发复杂多变的情况，W模型并不能解除测试管理面临着困惑。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="13bug篇">1.3Bug篇
+</h2><h3 id="131软件测试生命周期">1.3.1软件测试生命周期
+</h3><p><span style="color: #FF0000;">软件测试贯穿于软件的整个生命周期</span></p>
+<blockquote>
+<p>软件测试的生命周期是指测试流程，这个流程是按照一定顺序执行的一系列特定的步骤，去保证产品质量符合需求。在软件测试生命周期流程中，每个活动都按照计划的系统的执行。每个阶段有不同的目标和交付产物</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251204100825756.png"
+	width="1156"
+	height="86"
+	
+	loading="lazy"
+	
+		alt="image-20251204100825756"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1344"
+		data-flex-basis="3226px"
+	
+></p>
+<blockquote>
+<p>软件的生命周期：1.用户需求分析 2.计划什么时候开始什么时候结束 3.设计一下在规定的时间内怎么按照顺序把规定的任务完成，用到什么工具，用到什么框架 4.开发人员编码 5.上线6.运行维护</p>
+</blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251204104016839.png"
+	width="902"
+	height="608"
+	
+	loading="lazy"
+	
+		alt="image-20251204104016839"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="356px"
+	
+></p>
+<p>实际工作中，上线要分成多个步骤：沙盒、小流量、全流量、全线上</p>
+<p>因为上线的过程中也可能会存在问题，线下测试没有问题，如果直接推到线上可能会发现问题</p>
+<blockquote>
+<ul>
+<li>沙盒：企业内部的线上环境，可供内部人员进行测试</li>
+<li>小流量：部分线上真实的用户可以使用到的，测试人员要在线上手动测试，还要观察有没有错误日志(真实用户在使用过程中是否发现了问题)</li>
+<li>全流量：所有真实用户都能使用到</li>
+<li>全线上：将代码提交到所有服务器上</li>
+</ul>
+</blockquote>
+<p>线上环境和线下测试环境并不是完全一样的，因此每一步都需要跟进测试</p>
+<h3 id="132什么是bug">1.3.2什么是bug
+</h3><blockquote>
+<p>定义：一个计算机bug指在计算机程序中存在的一个错误(error)、缺陷(flaw)、疏忽(mistake)或者故障(fault)，这些bug使程序无法正确的运行。Bug产生于程序的源代码或者程序设计阶段的疏忽或者错误。</p>
+</blockquote>
+<p>1）当且仅当<strong>规格说明(需求文档)<strong>是存在的并且正确，程序与规格说明之间的</strong>不匹配才是错误</strong>。</p>
+<p>2）当<strong>需求规格说明书</strong>没有提到的功能，<strong>判断标准以最终用户为准</strong>：当程序没有实现其最终用户合理预期的功能要求时，就是软件错误。</p>
+<h3 id="133描述bug的要素">1.3.3描述bug的要素
+</h3><blockquote>
+<p>为什么描述bug还有要素要求？</p>
+<p>在心理学上说，人们在编写文档的时候，经常会出现自己想表达的和写出来的内容往往南辕北辙</p>
+<p>bug描述：浏览器打开链接失败</p>
+<p>该描述下，没有明确说明哪个浏览器，失败的具体表现是什么，对于开发人员来说无法捕捉到更多有效的信息，会造成沟通效率低下，工作质量低下等问题。</p>
+</blockquote>
+<p><strong>描述bug的基本要素：</strong><span style="color: #8080FF;">问题出现的版本</span>、<span style="color: #8080FF;">问题出现的环境</span>、<span style="color: #8080FF;">问题出现的步骤</span>、<span style="color: #8080FF;">预期结果</span>、<span style="color: #8080FF;">实际结果</span></p>
+<blockquote>
+<p>例子：</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251204104757744.png"
+	width="1116"
+	height="417"
+	
+	loading="lazy"
+	
+		alt="image-20251204104757744"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="642px"
+	
+></p>
+<p>**问题出现的版本：**谷歌浏览器版本123.0.6312.123(正式版本）(64位)</p>
+<p>**问题出现的环境：**Windows家庭版</p>
+<p><strong>问题出现的步骤：</strong></p>
+<p>1、打开谷歌浏览器，输入网址https://www.101eduyun.com/</p>
+<p>2、等待首页页面渲染完成</p>
+<p>**预期结果：**二维码与登陆模块不会出现遮挡，二维码可以正常扫描</p>
+<p>**实际结果：**二维码被登陆模块遮挡，二维码扫描失败</p>
+</blockquote>
+<h3 id="134bug级别">1.3.4bug级别
+</h3><p>bug级别一般分为：<strong>崩溃、严重、一般、次要</strong></p>
+<ul>
+<li>
+<p><strong>崩溃</strong></p>
+<p><strong>阻碍开发或测试工作</strong>的问题；造成系统崩溃、死机、死循环，导致数据库数据丢失，与数据库连接错误，主要功能丧失，基本模块缺失等问题。</p>
+<blockquote>
+<p>如：代码错误、死循环、数据库发生死锁、重要的一级菜单功能不能使用等（该问题在测试中较少出现，一旦出现应立即中止当前版本测试）。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>严重</strong></p>
+<p>系统主要功能部分丧失、数据库保存调用错误、用户数据去失，一级功能菜单不能使用但是不影响其他功能的测试。功能设计与需求严重不符，模块无法启动或调用，程序重启、自动退出，关联程序间调用冲突，安全问题、稳定性等。</p>
+<blockquote>
+<p>如：软件中数据保存后数据库中显示错误，用户所要求的功能缺失，程序接口错误，数值计算统计错误等（该等级问题出现在不影响其他功能测试的情况下可以继续该版本测试）。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>一般</strong></p>
+<p>功能没有完全实现但是不影响使用，功能菜单存在缺陷但不会影响系统稳定性。</p>
+<blockquote>
+<p>如：操作时间长、查询时间长、格式错误、边界条件错误，删除没有确认框、数据库表中字段过多等(该问题实际测试中存在最多)</p>
+</blockquote>
+</li>
+<li>
+<p><strong>次要</strong></p>
+<p>界面、性能缺陷，建议类问题，不影响操作功能的执行，可以优化性能的方案等。</p>
+<blockquote>
+<p>如：错别字、界面格式不规范，页面显示重叠、不该显示的要隐藏，描述不清楚，提示语丢失，文字排列不整齐，光标位置不正确，用户体验感受不好，可以优化性能的方案等（此类问题在测试初期较多，优先程度较低；在测试后期出现较少，应及时处理)</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="135bug的生命周期">1.3.5bug的生命周期
+</h3><p>测试人员在执行测试的过程中如有发现bug，需要在对应的bug管理平台来创建bug（bug生命起源）。</p>
+<p>创建好的bug需要被开发人员修复，以及测试人员的持续跟踪和测试。</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251210090715728.png"
+	width="572"
+	height="711"
+	
+	loading="lazy"
+	
+		alt="image-20251210090715728"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="80"
+		data-flex-basis="193px"
+	
+></p>
+<blockquote>
+<p>1）测试人员创建了一个bug</p>
+<p>2）开发人员确认是否为有效bug</p>
+<ul>
+<li>
+<p>无效的bug，将状态流转为Rejected（拒绝）</p>
+</li>
+<li>
+<p>有效bug，根据优先级和时间判断该bug是否需要立即修改</p>
+<ul>
+<li>优先级高且时间充足，修复bug。（修复后，验证bug是否通过，如果不通过，继续修复）</li>
+<li>优先级很低且时间不够，推迟修复。（最终还是要修复）</li>
+</ul>
+</li>
+</ul>
+<p>3）测试人员确认bug已修复</p>
+</blockquote>
+<h3 id="136与开发产生争执怎么办高频考题">1.3.6与开发产生争执怎么办（高频考题）
+</h3><blockquote>
+<p>在测试工作中，最常遇到的是和开发人员的PK，作为测试经理还会和项目经理、产品经理的PK进度、质量。</p>
+<p>作为一名测试人员，一般会遇到以下几种情况：</p>
+<ul>
+<li>
+<p>这不是bug</p>
+</li>
+<li>
+<p>这个bug的级别太高了</p>
+</li>
+<li>
+<p>bug影响不大，暂不修改</p>
+</li>
+</ul>
+<p>遇到争执不要怕，要理性的分析和反馈问题。</p>
+</blockquote>
+<p><strong>1.先检查自身，是否bug描述不清楚</strong></p>
+<p>先反省自己，是不是在测试的时候出现了误操作、bug描述是不是没有写清楚</p>
+<blockquote>
+<p>如果能正确地、高质量地录入一个Bug，那么基本上已经成功地与开发人员沟通了一大半的关于Bug的
+信息。但是总有“书难达意”的时候，这时就需要测试人员主动与开发人员进行沟通了。如果测试人员发
+现在写完一个缺陷后，好像还有很多关于Bug的信息没有表达出来，或者很难用书面语言表达出来时,
+就应该在提交Bug后，马上找相关的程序员解释刚才录入的Bug，确保程序员明白Bug描述的意思，而
+不要等待开发人员找自己了解更多的信息。</p>
+</blockquote>
+<p><strong>2.站在用户角度考虑并抛出问题</strong></p>
+<p>功能正常只是测试的一部分，还需要考虑用户的使用感受。</p>
+<p>“如果你是用户，你能接受这样的界面/功能/使用吗”</p>
+<blockquote>
+<p>站在用户角度考虑问题应该让开发人员了解到Bug对用户可能造成的困扰，这样才能促使开发人员更加积极地、高质量地修改Bug。在争执时，可以问一句：如果你是用户，你可以接受么？</p>
+</blockquote>
+<p><strong>3.BUG定级要有理有据</strong></p>
+<blockquote>
+<p>BUG定级时，<strong>不仅要参考BUG级别，还要考虑BUG是否会影响到流程</strong>，往往用户的BUG级别和我们的是有区别的，<strong>需站在用户的角度定考虑定位级别</strong>。</p>
+</blockquote>
+<p><strong>4.提高自身技术和业务水平，做到不仅能提出问题，最好也能给出解决方案</strong></p>
+<blockquote>
+<p>提高自身的业务和技术水平，不但要做到能提出问题，还能够提出解决问题的思路。这样才能更让人信
+服。在工作中，你会发现同一个bug，资深测试工程师提出和初级测试工程师提出，两者的结果完全不同，两者最大的差别是资深测试工程师往往会提出解决方案。而长此以往，权威性逐渐的建立起来，那么发人员看到bug的第一反应，就是这是一个bug，而不是这是一个bug吗？</p>
+<p>注意：可以给出解决方案，但是不能喧宾夺主，命令式让开发人员按照自己的想法来修改。</p>
+</blockquote>
+<p><strong>5.bug评审</strong></p>
+<blockquote>
+<p>如果确实是bug，友好沟通不能解决问题，那么就召开bug评审。</p>
+<p><strong>bug评审主要解决两个问题：</strong></p>
+<p>1）决定如何处理bug</p>
+<p>2）分析缺陷产生的原因，找出预防的对策</p>
+<p><strong>bug评审至少需要项目组各个方面的代表参加：</strong></p>
+<p>1）测试代表。测试代表主要从<strong>Bug的具体表现、严重程度</strong>等方面提供信息，并提出自已对Bug的处理意见。</p>
+<p>2）开发代表。开发代表主要<strong>从修改缺陷的难度和风险</strong>出发，考虑缺陷修改需要付出的代价，以及可能影响的范围、可能引发的风险等，如果决定要修改，还要讨论出修改的初步方案。</p>
+<p>3）产品代表。产品代表主要<strong>从产品的整体计划、用户的要求</strong>等方面对缺陷的修改必要性、缺陷修改的时间和版本提出自己的意见</p>
+</blockquote>
+<blockquote>
+<p>需要注意的是，测试人员不应该一味地要求对Bug进行修改，因为修改可能带来回归的风险，同时带来的是回归测试的工作量，如果时间比较紧迫，修改后剩余的时间若不足以做一次有效的回归测试，可能不修改是个明智的选择。</p>
+</blockquote>
+<h2 id="14用例篇">1.4用例篇
+</h2><h3 id="141概念">1.4.1概念
+</h3><p>测试用例（Test Case）是为了实施测试而向被测试的系统提供的一组集合。</p>
+<p>这组集合包含：<strong>测试环境、操作步骤、测试数据、预期结</strong>果等要素。</p>
+<p><strong>设计测试用例原则一：测试用例中一个必需部分是对预期输出或结果进行定义</strong></p>
+<p>我们在编写测试用例的时候，每个用例需要给出这些要素对应的信息。</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251203114301858.png"
+	width="1078"
+	height="959"
+	
+	loading="lazy"
+	
+		alt="image-20251203114301858"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="112"
+		data-flex-basis="269px"
+	
+></p>
+<p><strong>编写测试用例是为了解决如下的问题：</strong></p>
+<ul>
+<li>不知道是否较全面的测试了所有功能</li>
+<li>测试的覆盖率无法衡量</li>
+<li>对新版本的重复测试很难实施（即回归测试无法仅通过人工测试的方式进行历史功能的回归）</li>
+<li>存在大量冗余测试影响测试效率</li>
+</ul>
+<p><strong>注意：</strong></p>
+<p>1）笔试的时候编写测试用例例题，需要按照excel表格的方式来答题（会涉及到测试用例的要素）</p>
+<blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251203115148964.png"
+	width="840"
+	height="609"
+	
+	loading="lazy"
+	
+		alt="image-20251203115148964"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="331px"
+	
+></p>
+</blockquote>
+<p>2）而面试的时候回答测试用例题，按照思维导图的方式答</p>
+<blockquote>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251203115329890.png"
+	width="1022"
+	height="382"
+	
+	loading="lazy"
+	
+		alt="image-20251203115329890"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="642px"
+	
+></p>
+</blockquote>
+<h3 id="142设计测试用例的万能公式">1.4.2设计测试用例的万能公式
+</h3><p>用例的设计最重要的一点是保证功能是正确的</p>
+<p><strong>1.常规思考+逆向思维+发散性思维</strong></p>
+<blockquote>
+<p>正确设计测试用例的思想：常规思维+逆向思维+发散性思维</p>
+<p>设计测试用例的原则二：</p>
+<p>（1）测试用例的编写不仅应当根据有效和预料到的输入情况，而且也应该根据无效和未预料到的输入情况。</p>
+<p>（2）检查程序是否“未做其应该做的”仅是成功的一半，测试的另一半是检查程序是否“做了其不应该做的”。 (是上一条原则的必然结果)</p>
+<p>（3）计划测试工作时不应默许假定不会发现错误。</p>
+</blockquote>
+<p><strong>2.万能公式</strong></p>
+<p>设计测试用例的万能公式：<strong>功能测试+界面测试+性能测试+兼容性测试+易用性测试+安全测试</strong>。</p>
+<blockquote>
+<ul>
+<li>
+<p><strong>功能测试</strong></p>
+<p>功能测试是一个试图发现程序与其外部规格说明之间存在不一致的过程。外部规格说明是一份从最终用户的角度对程序行为的精确描述。功能测试通常是一项黑盒操作。在进行功能测试时，需要对规格说明进行分析以提炼测试用例，本课程中讨论的具体设计测试用例的方法尤其适用于功能测试。然而，不仅是工作中还是面试中，可能会存在需求不明确的功能？这种情况下该如何进行功能测试？</p>
+<ul>
+<li>查找其他相关文档，来帮助理解所要测试的产品需要完成的目标;</li>
+<li>尽量多参加项目组内的会议，比如需求讨论、设计讨论、计划讨论等，能够加深对产品的理解;</li>
+<li>召集相关人员，对你整理的结果进行讨论，通过评审后，这份文档就可以作为依据来设计你的case了;</li>
+<li>如果是一款已经上线的产品，可以多使用产品，有不懂的问产品经理；</li>
+<li>也可以去看历史bug，可以了解到一些需要关注的东西</li>
+</ul>
+</li>
+<li>
+<p><strong>界面测试</strong></p>
+<ul>
+<li>对软件界面上所有的内容都需要进行测试。</li>
+<li>要求：
+<ul>
+<li>整体界面测试界面的实现与设计图要求一致。</li>
+<li>界面元素测试（控件操作验证）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>性能测试</strong></p>
+<p>性能测试和功能测试的区别是：功能测试检查软件是否做了，而性能测试测试软件做的好不好。</p>
+</li>
+<li>
+<p><strong>兼容性测试</strong></p>
+<p>软件是部署在硬件系统之上，并依赖所需要的软件环境。如QQ可以在PC端打开，也可以在移动端打开；移动端又分为lOS系统和Android系统，且市面上手机又有不同的品牌、不同的机型、不同的版本。软件是否能够在不同的环境下正确运行需要测试人员进行验证。
+问题：既然市面上有众多版本的机器，那么在执行兼容性测试时难道所有的机型都需要全面覆盖吗？选取标准：</p>
+<ul>
+<li>优先选择使用当前产品top级别的机型进行测试。实际在企业中，后台是可以获取到使用产品的机型，并以报表的形式统计在后台，供产品人员或其他人员制定策略参考。</li>
+<li>择主流的浏览器/机型进行测试</li>
+</ul>
+</li>
+<li>
+<p><strong>易用性测试</strong></p>
+<ul>
+<li>易用性测试的标准是检查产品是否具备简单易上手的属性。假如测试人员从来没有安装或使用过
+该产品，作为一个新用户，对当前产品是否能够快速适用产品的使用流程。</li>
+</ul>
+</li>
+<li>
+<p><strong>安全测试</strong></p>
+<p>安全测试和性能测试一样都是比较大的领域。</p>
+<p>常见的安全问题如：隐私数据明文显示、参数未强校验导致SQL注入、越权：普通用户也可以执行管理员权限的操作。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>3.弱网测试</strong></p>
+<blockquote>
+<p>弱网测试的目的就是尽可能保证用户体验，关注的关键点包括：</p>
+<ul>
+<li>页面响应时间是否可以接受，关注包括热启动、冷启动时间、页面切换、前后台切换、首字时间，首屏时间等。</li>
+<li>页面呈现是否完成一致。</li>
+<li>超时文案是否符合定义，异常信息是否显示正常。是否有超时重连。</li>
+<li>安全角度：是否会发生dns劫持、登陆ip更换频繁、单点登陆异常等。</li>
+<li>大流量事件风险：是否会在弱网下进行更新apk包、下载文件等大流量动作</li>
+</ul>
+<p>弱网需要借助工具来构造弱网，推荐使用fiddler</p>
+<p>1）fiddler配置代理</p>
+<p>2）fiddler进行抓包 (桌面/移动端)</p>
+<p>3）fiddler如何构造弱网条件</p>
+</blockquote>
+<p><strong>4.安装卸载测试</strong></p>
+<p>针对需要进行部署的软件，除了软件功能外，我们还需要关注软件的能够成功安装和卸载</p>
+<h3 id="143设计测试用例的方法">1.4.3设计测试用例的方法
+</h3><p><strong>1.基于需求的设计方法</strong></p>
+<p>基于需求的设计方法也是总的设计测试用例的方法，在工作中，我们需要参考需求文档/产品规格说明书来设计测试用例。
+测试人员接到需求之后，要对需求进行分析和验证，从合理的需求中进一步分析细化需求，从细化的需求中找出测试点，根据这些测试点再去设计测试用例。
+以该注册邮箱账号需求为例，我们来设计测试用例。</p>
+<p>1.明确需求中的功能点</p>
+<p>比如：账号注册，账号登陆</p>
+<p>2.结合万能公式设计测试点</p>
+<p><strong>2.具体的设计方法</strong></p>
+<h2 id="15测试分类">1.5测试分类
 </h2><h1 id="2自动化测试">2.自动化测试
 </h1><blockquote>
 <p>实际在企业中，我们需要对某一个特定的软件进行自动化的实施，包含但不限于软件所有界面的UI自动化测试、所有接口的接口自动化测试。</p>
@@ -1687,8 +2159,8 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">text = driver.find_element(By.CSS_SELECTOR, &#34;#chat-textarea&#34;).get_attribute(&#34;data-normal-placeholder&#34;)
-</span></span><span class="line"><span class="cl">print(text)
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> text = driver.find_element(By.CSS_SELECTOR, &#34;#chat-textarea&#34;).get_attribute(&#34;data-normal-placeholder&#34;)
+</span></span><span class="line"><span class="cl"> print(text)
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="获取当前页面标题">获取当前页面标题
@@ -1804,6 +2276,30 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
             
                 
 <article class="has-image">
+    <a href="/p/network/">
+        
+        
+            <div class="article-image">
+                <img src="/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.0e4d713511fda100cc58bfb66dac6b98_hu_f1a2caa5328ffc0d.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux网络编程】02Socket编程UDP"
+                        data-key="network" 
+                        data-hash="md5-Dk1xNRH9oQDMWL&#43;2baxrmA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux网络编程】02Socket编程UDP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/auto_ptr/">
         
         
@@ -1893,30 +2389,6 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
 
         <div class="article-details">
             <h2 class="article-title">【Linux网络编程】01网络基础</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/linux-interprocess-communication/">
-        
-        
-            <div class="article-image">
-                <img src="/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【Linux系统编程】08进程间通信"
-                        data-key="linux-interprocess-communication" 
-                        data-hash="md5-yfyVs7RY8hE2NkDJV9ZMOw==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【Linux系统编程】08进程间通信</h2>
         </div>
     </a>
 </article>
@@ -2041,7 +2513,6 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
         document.head.appendChild(customFont);
     }());
 </script>
-
 
     </body>
 </html>

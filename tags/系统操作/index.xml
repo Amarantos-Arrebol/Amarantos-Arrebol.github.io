@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Sun, 30 Nov 2025 13:04:20 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 10 Dec 2025 09:21:36 +0000</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【Linux系统编程】01初始Linux&#43;基础指令</title>
         <link>https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -1481,16 +1481,6 @@
 		data-flex-basis=&#34;1806px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/Md%E7%AC%94%E8%AE%B0/Markdown%E7%AC%94%E8%AE%B0/Linux%E5%AD%A6%E4%B9%A0/assets/1728581811801.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;72858181180&#34;
-	
-	
-&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;两个路径分隔符之间的，一定是一个目录/文件夹&lt;/p&gt;
@@ -1706,7 +1696,7 @@
 		data-flex-basis=&#34;5947px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;==&lt;strong&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;是输出重定向操作&lt;/strong&gt;==&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;&lt;strong&gt;&lt;code&gt;&amp;gt;&lt;/code&gt;是输出重定向操作&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
 &lt;p&gt;echo &amp;lsquo;内容&amp;rsquo; &amp;gt; 文件名.后缀名 ，那么就会向指定文件写入，如果文件不存在，就新建&lt;/p&gt;
 &lt;p&gt;如果文件存在，就先将里面的内容清空，然后再写入&lt;/p&gt;
 &lt;p&gt;如果直接&lt;code&gt;&amp;gt;加文件名（带后缀名）&lt;/code&gt;&lt;/p&gt;
@@ -2464,12 +2454,19 @@
 &lt;p&gt;我们可以用0来表示没有该权限，1表示有该权限&lt;/p&gt;
 &lt;p&gt;那么&lt;code&gt;可读可写可执行&lt;/code&gt;就可以表示为&lt;code&gt;111&lt;/code&gt;也就是7&lt;/p&gt;
 &lt;p&gt;如果我们要设置拥有者，所属组，other的权限分别为&lt;/p&gt;
-&lt;p&gt;​			    rwx         rw-           r&amp;ndash;&lt;/p&gt;
+&lt;p&gt;​			                rwx         rw-           r&amp;ndash;&lt;/p&gt;
 &lt;p&gt;用二进制表示    111          110          100&lt;/p&gt;
 &lt;p&gt;也就是                 7              6               4&lt;/p&gt;
 &lt;p&gt;那么我们就可以用 &lt;code&gt;chmod 764 text.txt&lt;/code&gt; 指令修改&lt;/p&gt;
-&lt;p&gt;同样，如果我们希望给所有角色加上所有权限：&lt;code&gt;chmod 777 text.txt&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;​				   给所有角色去掉所有权限：&lt;code&gt;chmod 000 text.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;同样，如果我们希望&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;给所有角色加上所有权限：&lt;code&gt;chmod 777 text.txt&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;给所有角色去掉所有权限：&lt;code&gt;chmod 000 text.txt&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;拥有者和所属组可读可写，other只读 &lt;code&gt;chmod 664 test.txt&lt;/code&gt;&lt;/p&gt;
 &lt;h3 id=&#34;修改角色&#34;&gt;&lt;strong&gt;修改角色&lt;/strong&gt;
 &lt;/h3&gt;&lt;ul&gt;
@@ -2545,16 +2542,15 @@
 &lt;/h2&gt;&lt;h3 id=&#34;1目录权限&#34;&gt;1.目录权限
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;如果我要&lt;mark&gt;进入一个目录&lt;/mark&gt;，需要什么权限？&lt;mark&gt;x权限&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;如果我要&lt;strong&gt;进入一个目录&lt;/strong&gt;，需要什么权限？x权限&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;mark&gt;r&lt;/mark&gt;对目录是什么意思？&lt;mark&gt;有无权限查看指定目录下的文件信息&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;r 对目录是什么意思？&lt;strong&gt;有无权限查看指定目录下的文件信息&lt;/strong&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;  ![73140979480](assets/1731409794803.png) 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;mark&gt;w&lt;/mark&gt;对于目录？&lt;mark&gt;有无权限在指定目录内部，新建文件，删除，修改文件名等修改&lt;/mark&gt;=&lt;/p&gt;
-&lt;p&gt;&lt;mark&gt;文件操作&lt;/mark&gt;，都不行&lt;/p&gt;
+&lt;p&gt;w对于目录？有无权限在指定目录内部，新建文件，删除，修改文件名等修改文件操作，都不行&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&amp;#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731409870346.png&#34;
 	width=&#34;923&#34;
 	height=&#34;78&#34;

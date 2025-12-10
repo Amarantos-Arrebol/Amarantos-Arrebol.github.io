@@ -7,6 +7,127 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>PursUnre</copyright><atom:link href="https://Amarantos-Arrebol.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>【项目】基于多设计模式下的同步&amp;异步日志系统</title>
+        <link>https://Amarantos-Arrebol.github.io/p/abnormal/</link>
+        <pubDate>Thu, 04 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/p/abnormal/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.png" alt="Featured image of post 【项目】基于多设计模式下的同步&amp;异步日志系统" /&gt;&lt;h1 id=&#34;1项目介绍&#34;&gt;1.项目介绍
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;日志系统&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;日志：程序运行过程中所记录的程序运行状态信息&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;作用：记录了程序运行状态信息，以便于程序员能够随时根据状态信息，对系统的运行状态进行分析&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;功能：能够让用户非常简便地进行日志的输出及控制&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;本项目主要实现的功能&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;支持多级别日志消息&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;本日志系统将日志分成不同等级&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如：调试级日志、提示级日志、警告级日志、错误级日志、致命级日志等&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不同级别的日志可以应对不同场景&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如：可以设置一个限制输出级别，当我们在调试时，将输出级别设置成调试级别，让级别大于调试级别的日志都输出；当我们要线上发布时，将输出级别设置成错误，那么低于错误级别的日志就不会输出了，只会输出高于错误级别的日志&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;支持同步日志和异步日志&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;同步日志：将日志写入到文件/数据库这个操作，由业务线程自己来完成&lt;/li&gt;
+&lt;li&gt;异步日志：将日志放到内存中，由其它工作线程来专门负责对日志的实际输出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;支持可靠写入日志到控制台、文件以及滚动文件中&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;支持将日志信息标准打印&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;支持将日志写入到指定的文件中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;支持文件切换输入&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;比如我们可以按文件大小来切换，通过限制输出日志文件大小，如果一个文件已经超过我们限制的大小，就换下一个文件进行写入；我们还可以按照日期来切换，一天一个日志文件，然后给系统设置定时任务，定时清理日志文件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;支持多线程程序并发写日志&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;内部是线程安全的，即使是多个线程同时写，也不会产生数据二义的情况&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;支持扩展不同的日志落地目标地&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;2开发环境&#34;&gt;2.开发环境
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;CentOS 7&lt;/li&gt;
+&lt;li&gt;vscode/vim&lt;/li&gt;
+&lt;li&gt;g++/gdb&lt;/li&gt;
+&lt;li&gt;Makefile&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;3核心技术&#34;&gt;3.核心技术
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;类层次设计（继承和多态的应用）&lt;/li&gt;
+&lt;li&gt;C++11（多线程、auto、智能指针、右值引用）&lt;/li&gt;
+&lt;li&gt;双缓冲区&lt;/li&gt;
+&lt;li&gt;生产者消费模型&lt;/li&gt;
+&lt;li&gt;多线程&lt;/li&gt;
+&lt;li&gt;设计模式（单例、工厂、代理、建造者等）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;4环境搭建&#34;&gt;4.环境搭建
+&lt;/h1&gt;&lt;p&gt;仅需安装好CentOS/Ubuntu+vscode/vim环境&lt;/p&gt;
+&lt;h1 id=&#34;5日志系统介绍&#34;&gt;5.日志系统介绍
+&lt;/h1&gt;&lt;h2 id=&#34;51为什么需要日志系统&#34;&gt;5.1为什么需要日志系统
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;保证生产环境产品的安全性&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为了保证生产环境产品的安全性，开发人员不能通过附加调试器去解决问题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;应对上线客户端的产品出现bug无法短时间内进行复现并解决的情况&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;上线客户端的产品出现bug无法复现并解决，可以借助日志系统打印日志并上传到服务端帮助开发人员进行分析&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;对于一些高频操作（如定时器、心跳包）在少量调试次数下可能无法触发我们想要的行为，通过断点的暂停方式，我们不得不重复操作几十次、上百次甚至更多，导致排查问题效率是非常低下，可以借助打印日志的方式查问题&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在分布式、多线程/多进程代码中，出现bug比较难以定位，可以借助日志系统打印log帮助定位bug&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;帮助首次接触项目代码的新开发人员理解代码的运行流程&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;52日志系统的实现&#34;&gt;5.2日志系统的实现
+&lt;/h2&gt;&lt;h1 id=&#34;6相关技术知识&#34;&gt;6.相关技术知识
+&lt;/h1&gt;&lt;h2 id=&#34;61不定参函数&#34;&gt;6.1不定参函数
+&lt;/h2&gt;&lt;h2 id=&#34;62设计模式&#34;&gt;6.2设计模式
+&lt;/h2&gt;</description>
+        </item>
+        <item>
         <title>【C&#43;&#43;进阶】13智能指针的使用及其原理</title>
         <link>https://Amarantos-Arrebol.github.io/p/auto_ptr/</link>
         <pubDate>Thu, 27 Nov 2025 00:00:00 +0000</pubDate>

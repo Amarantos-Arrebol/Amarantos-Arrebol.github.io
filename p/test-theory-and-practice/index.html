@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 例子1：对某款购物软件进行测试\n1）启动测试：点击软件图标，测试软件是否可以正常打开\n2）搜索测试：点击输入框，输入关键词，点击搜索\n3）商品测试：点击商品进入详情页\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:tag' content='web自动化测试' /><meta property='article:tag' content='性能测试' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-10T09:21:37&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:tag' content='web自动化测试' /><meta property='article:tag' content='性能测试' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-18T12:07:37&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
 <meta name="twitter:title" content="【自动化测试】01测试理论+实践">
 <meta name="twitter:description" content="1.概念篇 1.1认识测试 1.1.1什么是测试？ 例子1：对某款购物软件进行测试\n1）启动测试：点击软件图标，测试软件是否可以正常打开\n2）搜索测试：点击输入框，输入关键词，点击搜索\n3）商品测试：点击商品进入详情页\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -412,7 +412,17 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#143设计测试用例的方法">1.4.3设计测试用例的方法</a></li>
           </ul>
         </li>
-        <li><a href="#15测试分类">1.5测试分类</a></li>
+        <li><a href="#15测试分类">1.5测试分类</a>
+          <ul>
+            <li><a href="#151按照测试目标分类">1.5.1按照测试目标分类</a></li>
+            <li><a href="#152按照执行方式分类">1.5.2按照执行方式分类</a></li>
+            <li><a href="#153按照测试方法">1.5.3按照测试方法</a></li>
+            <li><a href="#154按照测试阶段分类">1.5.4按照测试阶段分类</a></li>
+            <li><a href="#155按照是否手工测试">1.5.5按照是否手工测试</a></li>
+            <li><a href="#156按照实施组织划分">1.5.6按照实施组织划分</a></li>
+            <li><a href="#157按照测试地域划分">1.5.7按照测试地域划分</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#2自动化测试">2.自动化测试</a>
@@ -588,11 +598,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-12-10</time>
+                <time class="article-time--updated">2025-12-18</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">14340 字
+                <span class="article-time--wordcount">15002 字
                 </span>
             </div>
         
@@ -1501,7 +1511,9 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 </h2><h3 id="141概念">1.4.1概念
 </h3><p>测试用例（Test Case）是为了实施测试而向被测试的系统提供的一组集合。</p>
 <p>这组集合包含：<strong>测试环境、操作步骤、测试数据、预期结</strong>果等要素。</p>
-<p><strong>设计测试用例原则一：测试用例中一个必需部分是对预期输出或结果进行定义</strong></p>
+<blockquote>
+<p>设计测试用例原则一：测试用例中一个必需部分是<strong>对预期输出或结果进行定义</strong></p>
+</blockquote>
 <p>我们在编写测试用例的时候，每个用例需要给出这些要素对应的信息。</p>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251203114301858.png"
 	width="1078"
@@ -1525,7 +1537,7 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 <li>存在大量冗余测试影响测试效率</li>
 </ul>
 <p><strong>注意：</strong></p>
-<p>1）笔试的时候编写测试用例例题，需要按照excel表格的方式来答题（会涉及到测试用例的要素）</p>
+<p><strong>1）笔试的时候编写测试用例例题，需要按照excel表格的方式来答题（会涉及到测试用例的要素）</strong></p>
 <blockquote>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251203115148964.png"
 	width="840"
@@ -1542,7 +1554,7 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 	
 ></p>
 </blockquote>
-<p>2）而面试的时候回答测试用例题，按照思维导图的方式答</p>
+<p><strong>2）而面试的时候回答测试用例题，按照思维导图的方式答</strong></p>
 <blockquote>
 <p><img src="/p/test-theory-and-practice/index.assets/image-20251203115329890.png"
 	width="1022"
@@ -1563,19 +1575,20 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 </h3><p>用例的设计最重要的一点是保证功能是正确的</p>
 <p><strong>1.常规思考+逆向思维+发散性思维</strong></p>
 <blockquote>
-<p>正确设计测试用例的思想：常规思维+逆向思维+发散性思维</p>
 <p>设计测试用例的原则二：</p>
-<p>（1）测试用例的编写不仅应当根据有效和预料到的输入情况，而且也应该根据无效和未预料到的输入情况。</p>
-<p>（2）检查程序是否“未做其应该做的”仅是成功的一半，测试的另一半是检查程序是否“做了其不应该做的”。 (是上一条原则的必然结果)</p>
-<p>（3）计划测试工作时不应默许假定不会发现错误。</p>
+<p>1）测试用例的编写不仅应当根据有效和预料到的输入情况，而且也应该根据<strong>无效和未预料到的输入情况</strong>。</p>
+<p>2）检查程序是否“<strong>未做其应该做的</strong>”仅是成功的一半，测试的另一半是检查程序是否“<strong>做了其不应该做的</strong>”。</p>
+<p>3）计划测试工作时<strong>不应默许假定不会发现错误</strong>。</p>
 </blockquote>
 <p><strong>2.万能公式</strong></p>
 <p>设计测试用例的万能公式：<strong>功能测试+界面测试+性能测试+兼容性测试+易用性测试+安全测试</strong>。</p>
-<blockquote>
 <ul>
 <li>
 <p><strong>功能测试</strong></p>
-<p>功能测试是一个试图发现程序与其外部规格说明之间存在不一致的过程。外部规格说明是一份从最终用户的角度对程序行为的精确描述。功能测试通常是一项黑盒操作。在进行功能测试时，需要对规格说明进行分析以提炼测试用例，本课程中讨论的具体设计测试用例的方法尤其适用于功能测试。然而，不仅是工作中还是面试中，可能会存在需求不明确的功能？这种情况下该如何进行功能测试？</p>
+<p>从产品功能角度出发，验证功能是否是正确的</p>
+<blockquote>
+<p>功能测试是一个试图发现程序与其外部规格说明之间存在不一致的过程。外部规格说明是一份从最终用户的角度对程序行为的精确描述。功能测试通常是一项黑盒操作。在进行功能测试时，需要对规格说明进行分析以提炼测试用例。</p>
+<p>但是在工作中或面试中，可能会存在需求不明确的功能，这种情况下该如何进行功能测试？</p>
 <ul>
 <li>查找其他相关文档，来帮助理解所要测试的产品需要完成的目标;</li>
 <li>尽量多参加项目组内的会议，比如需求讨论、设计讨论、计划讨论等，能够加深对产品的理解;</li>
@@ -1583,9 +1596,12 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 <li>如果是一款已经上线的产品，可以多使用产品，有不懂的问产品经理；</li>
 <li>也可以去看历史bug，可以了解到一些需要关注的东西</li>
 </ul>
+</blockquote>
 </li>
 <li>
 <p><strong>界面测试</strong></p>
+<p>肉眼可以看到的部分，称为界面，界面所有元素都需要测试</p>
+<blockquote>
 <ul>
 <li>对软件界面上所有的内容都需要进行测试。</li>
 <li>要求：
@@ -1595,34 +1611,46 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 </ul>
 </li>
 </ul>
+</blockquote>
 </li>
 <li>
 <p><strong>性能测试</strong></p>
-<p>性能测试和功能测试的区别是：功能测试检查软件是否做了，而性能测试测试软件做的好不好。</p>
+<p>通常为一些极端的情况</p>
+<blockquote>
+<p>性能测试和功能测试的区别是：</p>
+<p>功能测试检查软件是否做了，而性能测试测试软件做的好不好</p>
+</blockquote>
 </li>
 <li>
 <p><strong>兼容性测试</strong></p>
-<p>软件是部署在硬件系统之上，并依赖所需要的软件环境。如QQ可以在PC端打开，也可以在移动端打开；移动端又分为lOS系统和Android系统，且市面上手机又有不同的品牌、不同的机型、不同的版本。软件是否能够在不同的环境下正确运行需要测试人员进行验证。
-问题：既然市面上有众多版本的机器，那么在执行兼容性测试时难道所有的机型都需要全面覆盖吗？选取标准：</p>
+<p>不同版本（软件、系统）浏览器的兼容性，不同的</p>
+<blockquote>
+<p>软件是部署在硬件系统之上，并依赖所需要的软件环境。如QQ可以在PC端打开，也可以在移动端打开；移动端又分为lOS系统和Android系统，且市面上手机又有不同的品牌、不同的机型、不同的版本。软件是否能够在不同的环境下正确运行需要测试人员进行验证。</p>
+<p>既然市面上有众多版本的机器，那么在执行兼容性测试时难道所有的机型都需要全面覆盖吗？</p>
+<p>选取标准：</p>
 <ul>
 <li>优先选择使用当前产品top级别的机型进行测试。实际在企业中，后台是可以获取到使用产品的机型，并以报表的形式统计在后台，供产品人员或其他人员制定策略参考。</li>
-<li>择主流的浏览器/机型进行测试</li>
+<li>择主流的浏览器/机型进行测试。</li>
 </ul>
+</blockquote>
 </li>
 <li>
 <p><strong>易用性测试</strong></p>
-<ul>
-<li>易用性测试的标准是检查产品是否具备简单易上手的属性。假如测试人员从来没有安装或使用过
-该产品，作为一个新用户，对当前产品是否能够快速适用产品的使用流程。</li>
-</ul>
+<p>是否具备简单上手的属性（引导教程）</p>
+<blockquote>
+<p>易用性测试的标准是检查产品是否具备简单易上手的属性。假如测试人员从来没有安装或使用过
+该产品，作为一个新用户，对当前产品是否能够快速适用产品的使用流程。</p>
+</blockquote>
 </li>
 <li>
 <p><strong>安全测试</strong></p>
+<p>接口响应数据也要考虑用户数据的安全性，比如登录场景需要进行加密展示、数据存储用户隐私数据是否加密、SQL注入、越权&hellip;.</p>
+<blockquote>
 <p>安全测试和性能测试一样都是比较大的领域。</p>
 <p>常见的安全问题如：隐私数据明文显示、参数未强校验导致SQL注入、越权：普通用户也可以执行管理员权限的操作。</p>
+</blockquote>
 </li>
 </ul>
-</blockquote>
 <p><strong>3.弱网测试</strong></p>
 <blockquote>
 <p>弱网测试的目的就是尽可能保证用户体验，关注的关键点包括：</p>
@@ -1646,11 +1674,126 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 测试人员接到需求之后，要对需求进行分析和验证，从合理的需求中进一步分析细化需求，从细化的需求中找出测试点，根据这些测试点再去设计测试用例。
 以该注册邮箱账号需求为例，我们来设计测试用例。</p>
 <p>1.明确需求中的功能点</p>
+<blockquote>
 <p>比如：账号注册，账号登陆</p>
+</blockquote>
 <p>2.结合万能公式设计测试点</p>
 <p><strong>2.具体的设计方法</strong></p>
+<ul>
+<li>
+<p><strong>等价类</strong></p>
+</li>
+<li>
+<p><strong>边界值</strong></p>
+</li>
+<li>
+<p><strong>正交法</strong></p>
+</li>
+<li>
+<p><strong>判定表法</strong></p>
+</li>
+<li>
+<p><strong>场景法</strong></p>
+</li>
+<li>
+<p><strong>错误猜测法</strong></p>
+</li>
+</ul>
 <h2 id="15测试分类">1.5测试分类
-</h2><h1 id="2自动化测试">2.自动化测试
+</h2><h3 id="151按照测试目标分类">1.5.1按照测试目标分类
+</h3><ul>
+<li>
+<p>界面</p>
+</li>
+<li>
+<p>功能</p>
+</li>
+<li>
+<p>性能</p>
+</li>
+<li>
+<p>可靠性</p>
+</li>
+<li>
+<p>安全性</p>
+</li>
+<li>
+<p>易用性</p>
+</li>
+</ul>
+<h3 id="152按照执行方式分类">1.5.2按照执行方式分类
+</h3><p>判断一个测试属于动态测试还是静态的，唯一的标准就是看是否运行程序。</p>
+<ul>
+<li>
+<p>静态测试</p>
+<blockquote>
+<p>不实际运行被测软件，而只是静态地检查程序代码、界面或文档中可能存在的错误的过程。不以测试数据的执行而是对测试对象的分析过程，仅通过分析或检查源程序的设计、内部结构、逻辑、代码风格和规格等来检查程序的正确性。</p>
+<p>常见的静态测试方式有代码走查，代码扫描工具(如sonnar)等。</p>
+</blockquote>
+</li>
+<li>
+<p>动态测试</p>
+<blockquote>
+<p>实际运行被测程序，输入相应的测试数据，检查实际输出结果和预期结果是否相符的过程。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="153按照测试方法">1.5.3按照测试方法
+</h3><ul>
+<li>
+<p>白盒测试</p>
+<blockquote>
+<p>白盒测试文称为结构测试或逻辑测试，它一般用来分析程序的内部结构，针对程序的逻辑结构来设计测试用例进行测试。</p>
+<p>白盒测试的测试目的是，通过检<strong>查软件内部的逻辑结构，对软件中的逻辑路径进行覆盖测试</strong>；<strong>在程序不同地方设立检查点，检查程序的状态，以确定实际运行状态与预期状态是否一致</strong>。</p>
+<p><img src="/p/test-theory-and-practice/index.assets/image-20251214221456766.png"
+	width="984"
+	height="542"
+	
+	loading="lazy"
+	
+		alt="image-20251214221456766"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="181"
+		data-flex-basis="435px"
+	
+></p>
+<ul>
+<li>语句覆盖：每个语句至少执行一次</li>
+<li>判定覆盖：每个判定都要覆盖到位真和为假两种情况</li>
+<li>条件覆盖</li>
+<li>判定条件覆盖：既满足判断覆盖，也满足条件覆盖（if条件中既要满足为真的情况，也要有测试为假的情况）</li>
+<li>条件组合覆盖：</li>
+<li>路径覆盖：</li>
+</ul>
+</blockquote>
+</li>
+<li>
+<p>黑盒测试</p>
+</li>
+<li>
+<p>灰盒测试</p>
+</li>
+</ul>
+<h3 id="154按照测试阶段分类">1.5.4按照测试阶段分类
+</h3><ul>
+<li>单元测试</li>
+<li>集成测试</li>
+<li>系统测试</li>
+<li>验收测试</li>
+</ul>
+<h3 id="155按照是否手工测试">1.5.5按照是否手工测试
+</h3><ul>
+<li>手工测试</li>
+<li>自动化测试</li>
+</ul>
+<h3 id="156按照实施组织划分">1.5.6按照实施组织划分
+</h3><ul>
+<li></li>
+</ul>
+<h3 id="157按照测试地域划分">1.5.7按照测试地域划分
+</h3><h1 id="2自动化测试">2.自动化测试
 </h1><blockquote>
 <p>实际在企业中，我们需要对某一个特定的软件进行自动化的实施，包含但不限于软件所有界面的UI自动化测试、所有接口的接口自动化测试。</p>
 </blockquote>
@@ -1764,12 +1907,13 @@ scrum 由 product owner（产品经理）、scrum master（项目经理）和 te
 <p>2）输入百度网址：https://www.baidu.com</p>
 <p>3）找到输入框，输入关键词“迪丽热巴”</p>
 </blockquote>
-<p>web系统的测试前提是需要打开浏览器，通过访问web服务器来对服务器界面进行一系列的操作。对于手工测试来说，这一系列的操作都需要测试人员手动的，一步一步的来执行测试。那么对于自动化程序来说，可以使用程序驱动浏览器打开。</p>
+<p>web系统的测试前提是需要打开浏览器，通过访问web服务器来对服务器界面进行一系列的操作。对于自动化程序来说，可以使用程序驱动浏览器打开。</p>
 <p>程序想要打开web浏览器就需要安装<strong>web驱动</strong>（即WebDriver)，WebDriver 以本地化方式驱动浏览器。</p>
 <p><a class="link" href="https://selenium.net.cn/documentation/webdriver/troubleshooting/errors/driver_location/"  target="_blank" rel="noopener"
     >安装浏览器的驱动</a></p>
 <blockquote>
-<p>必须使用跟浏览器版本配套的驱动才可以，如果版本不匹配，则无法开发浏览器！这意味着每次浏览器更新，都需要手动下载新的驱动，整个过程非常冗余</p>
+<p>注意：必须使用跟浏览器版本配套的驱动才可以，如果版本不匹配，则无法开发浏览器。</p>
+<p>这意味着每次浏览器更新，都需要手动下载新的驱动，整个过程非常冗余。</p>
 </blockquote>
 <h4 id="驱动管理工具">驱动管理工具
 </h4><p>Webdriver-manager 可以解决浏览器更新导致驱动无法使用的问题。有了Webdriver-manager ，我们无需手动安装浏览器驱动，即使浏览器更新也不会影响自动化的执行</p>
@@ -2276,6 +2420,30 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
             
                 
 <article class="has-image">
+    <a href="/p/stl-review/">
+        
+        
+            <div class="article-image">
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】容器复习"
+                        data-key="stl-review" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】容器复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
     <a href="/p/network/">
         
         
@@ -2365,30 +2533,6 @@ ChromeDriverService中创建的端口号，该服务地址为selenium向webdrive
 
         <div class="article-details">
             <h2 class="article-title">【Linux系统编程】10线程概念与控制</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="has-image">
-    <a href="/p/network/">
-        
-        
-            <div class="article-image">
-                <img src="/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.0e4d713511fda100cc58bfb66dac6b98_hu_f1a2caa5328ffc0d.png" 
-                        width="250" 
-                        height="150" 
-                        loading="lazy"
-                        alt="Featured image of post 【Linux网络编程】01网络基础"
-                        data-key="network" 
-                        data-hash="md5-Dk1xNRH9oQDMWL&#43;2baxrmA==">
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">【Linux网络编程】01网络基础</h2>
         </div>
     </a>
 </article>

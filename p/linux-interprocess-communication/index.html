@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.基本介绍 1.1进程间通信的理解 ls -l | wc -l\nls -l是一个进程，wc -l也是一个进程，ls -l进程通过管道将结果交给wc -l\n为什么要进程间通信？\n数据传输：一个进程需要将它的数据发送给另一个进程 资源共享：多个进程之间共享同样的资源。 通知事件：一个进程需要向另一个或一组进程发送消息，通知它（它们）发生了某种事件（如进程终止时要通知父进程）。 进程控制：有些进程希望完全控制另一个进程的执行（如Debug进程），此时控制进程希望能够拦截另一个进程的所有陷入和异常，并能够及时知道它的状态改变。 怎么通信？\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-interprocess-communication/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程间通信' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-10T09:21:36&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程间通信' /><meta property='article:published_time' content='2025-11-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-18T12:07:36&#43;00:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.png' />
 <meta name="twitter:title" content="【Linux系统编程】08进程间通信">
 <meta name="twitter:description" content="1.基本介绍 1.1进程间通信的理解 ls -l | wc -l\nls -l是一个进程，wc -l也是一个进程，ls -l进程通过管道将结果交给wc -l\n为什么要进程间通信？\n数据传输：一个进程需要将它的数据发送给另一个进程 资源共享：多个进程之间共享同样的资源。 通知事件：一个进程需要向另一个或一组进程发送消息，通知它（它们）发生了某种事件（如进程终止时要通知父进程）。 进程控制：有些进程希望完全控制另一个进程的执行（如Debug进程），此时控制进程希望能够拦截另一个进程的所有陷入和异常，并能够及时知道它的状态改变。 怎么通信？\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.png' /><link rel="stylesheet" href="/css/custom.min.css">
@@ -361,9 +361,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#212站在文件描述符角度-深度理解管道站在内核角度-管道本质">2.1.2站在文件描述符角度-深度理解管道站在内核角度-管道本质</a></li>
           </ul>
         </li>
-        <li><a href="#22样例">2.2样例</a>
+        <li><a href="#22测试管道读写">2.2测试管道读写</a>
           <ul>
-            <li><a href="#221测试管道读写">2.2.1测试管道读写</a>
+            <li>
               <ul>
                 <li><a href="#1创建管道">1.创建管道</a></li>
                 <li><a href="#2创建子进程">2.创建子进程</a></li>
@@ -371,10 +371,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 <li><a href="#4父子间通信">4.父子间通信</a></li>
               </ul>
             </li>
-            <li><a href="#223创建进程池处理任务">2.2.3创建进程池处理任务</a></li>
           </ul>
         </li>
-        <li><a href="#23特性和通信情况">2.3特性和通信情况</a></li>
+        <li><a href="#23管道的特性和通信情况">2.3管道的特性和通信情况</a></li>
+        <li><a href="#24基于匿名管道的进程池">2.4基于匿名管道的进程池</a>
+          <ul>
+            <li><a href="#1文件准备">1.文件准备</a></li>
+            <li><a href="#2基本结构">2.基本结构</a></li>
+            <li><a href="#3创建进程池">3.创建进程池</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li><a href="#3命名管道">3.命名管道</a></li>
@@ -483,11 +489,11 @@ document.addEventListener('DOMContentLoaded', function() {
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg>
-                <time class="article-time--updated">2025-12-10</time>
+                <time class="article-time--updated">2025-12-18</time>
             </div><span class="article-time-divider">|</span>
             <div class="article-time-item">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-                <span class="article-time--wordcount">3739 字
+                <span class="article-time--wordcount">5342 字
                 </span>
             </div>
         
@@ -532,8 +538,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <blockquote>
 <ul>
 <li>管道</li>
-<li>SystemV进程间通信</li>
-<li>POSIX进程间通信</li>
+<li>SystemV 进程间通信</li>
+<li>POSIX 进程间通信</li>
 </ul>
 </blockquote>
 <h2 id="12环境准备">1.2环境准备
@@ -636,7 +642,7 @@ document.addEventListener('DOMContentLoaded', function() {
 ></p>
 <h3 id="212站在文件描述符角度-深度理解管道站在内核角度-管道本质">2.1.2站在文件描述符角度-深度理解管道站在内核角度-管道本质
 </h3><p>管道是基于文件的，但管道是通信技术，所以还是要改代码</p>
-<p>操作系统提供了一种内存级的文件，调用几个接口就能打开，支持读 / 写操作；父进程打开这个文件后 fork 创建子进程，子进程会拷贝父进程的文件描述符表，所以也能访问该文件；若要父子单向通信，关掉父进程的读权限、子进程的写权限，就能实现父写子读</p>
+<p>操作系统提供了一种内存级的文件，调用几个接口就能打开，支持读 / 写操作；父进程打开这个文件后 fork 创建子进程，子进程会拷贝父进程的文件描述符表，所以也能访问该文件；若要父子单向通信，关掉父进程的读权限、子进程的写权限，就能实现父写子读。</p>
 <p><img src="/p/linux-interprocess-communication/index.assets/image-20251123171002286.png"
 	width="1728"
 	height="832"
@@ -651,7 +657,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="498px"
 	
 ></p>
-<p>这个管道是被操作系统单独设计的（但是可以复用代码），因此要配上操作系统单独的系统调用，这个系统调用(man 2)叫 pipe：</p>
+<p>这个管道是被操作系统单独设计的（但是可以复用代码），因此要配上操作系统单独的系统调用**<code>pipe</code>**</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -659,11 +665,16 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* On all other architectures */</span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pipe</span><span class="p">(</span><span class="kt">int</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">pipe</span><span class="p">(</span><span class="kt">int</span> <span class="n">pipefd</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span> 
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>创建这种管道，不需要提供文件路径，因为是内存级的，并且也没有文件名，所以叫匿名管道</p>
-<p>我们是怎么保证，两个进程，打开的是同一个管道文件呢？子进程继承父进程文件描述符表</p>
+</div><blockquote>
+<p>创建成功返回0，失败返回-1</p>
+<p>pipefd 是输出型参数，pipe成功后，会把读写文件描述符放到这个数组里，让父进程拿到</p>
+</blockquote>
+<p>创建这种管道，不需要提供文件路径，因为是内存级的，并且也没有文件名，所以叫匿名管道</p>
+<p>我们是怎么保证，两个进程，打开的是同一个管道文件呢？</p>
+<p>子进程继承父进程文件描述符表。</p>
 <p><img src="/p/linux-interprocess-communication/index.assets/image-20251124075839525.png"
 	width="682"
 	height="548"
@@ -678,9 +689,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="298px"
 	
 ></p>
-<h2 id="22样例">2.2样例
-</h2><h3 id="221测试管道读写">2.2.1测试管道读写
-</h3><p>头文件 &lt;unistd.h&gt;</p>
+<h2 id="22测试管道读写">2.2测试管道读写
+</h2><p>头文件 &lt;unistd.h&gt;</p>
 <p>形参为一个有两个元素的int数组（表示两个文件描述符）</p>
 <p><img src="/p/linux-interprocess-communication/index.assets/image-20251124090610635.png"
 	width="1255"
@@ -925,7 +935,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><p>至此，父子进程间并没有通信。我们前面做的这些工作，都只是进程间通信的前提条件，即让父子进程能看到同一份资源（仅仅是将父子间通信的信道建立起来了）</p>
 <p>为什么要这么麻烦呢？因为进程具有独立性，彼此相互隔离，所以进程在通信之前，必须先建立信道，这个信道由操作系统提供</p>
 <blockquote>
-<p>管道也是文件，属于文件系统</p>
+<p><strong>管道也是文件，属于文件系统</strong></p>
 </blockquote>
 <h4 id="4父子间通信">4.父子间通信
 </h4><p><code>snprintf </code>是C语言提供的函数，能<strong>将指定内容格式化后写入目标缓冲区</strong>。</p>
@@ -1195,15 +1205,589 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="1604px"
 	
 ></p>
-<p><a class="link" href="##2.3%e7%ae%a1%e9%81%93%e7%9a%845%e7%a7%8d%e7%89%b9%e6%80%a7" >管道的5种特性</a> 和 <a class="link" href="##2.4%e7%ae%a1%e9%81%93%e7%9a%844%e7%a7%8d%e9%80%9a%e4%bf%a1%e6%83%85%e5%86%b5" >管道的4种通信情况</a></p>
-<h3 id="223创建进程池处理任务">2.2.3创建进程池处理任务
-</h3><h2 id="23特性和通信情况">2.3特性和通信情况
-</h2><p><strong>5种特性</strong></p>
-<p>1.匿名管道，只能用来进形具有血缘关系的进程进行进程间通信（通常用于父子）</p>
-<p>管道读写规则
-管道特点
-验证管道通信的4种情况</p>
-<h1 id="3命名管道">3.命名管道
+<h2 id="23管道的特性和通信情况">2.3管道的特性和通信情况
+</h2><p><strong>管道的5种特性</strong></p>
+<p>1）匿名管道，只能用来进行具有血缘关系的进程进行进程间通信（通常用于父子）</p>
+<p>2）管道文件，自带同步机制</p>
+<p>3）管道是面向字节流的</p>
+<blockquote>
+<p>怎么读，和曾经怎么写，没有必然关系。</p>
+<p>写的快，读的慢——&gt;取决于自己想怎么读</p>
+</blockquote>
+<p>4）管道是单向通信的（属于半双工的一种特殊情况）</p>
+<blockquote>
+<ul>
+<li>任何一个时刻，一个发，一个收 &mdash; 半双工</li>
+<li>任何一个时刻，可以同时发收 &mdash;全双工</li>
+</ul>
+</blockquote>
+<p>5）（管道）文件的生命周期，是随进程的</p>
+<p><strong>管道的4种通信情况</strong></p>
+<p>1）写慢，读快  &mdash; 读端就要阻塞（进程），等写</p>
+<p>2）写快，读慢  &mdash;写满了的时候，写就要阻塞等待（读端）</p>
+<p>3）写关，继续读 &mdash;read就会读到返回值为0，表示文件结尾</p>
+<p>4）读关闭，写继续  &mdash;写端再写入，没有意义，OS不会做没有意义的事，操作系统会杀掉写端进程，通过发送异常信号 <code>13) SIGPIPE</code></p>
+<blockquote>
+<p><strong>管道的容量</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">ChildWrite</span><span class="p">(</span><span class="kt">int</span> <span class="n">wfd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">write</span><span class="p">(</span><span class="n">wfd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;child: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">cnt</span><span class="o">++</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">FatherRead</span><span class="p">(</span><span class="kt">int</span> <span class="n">rfd</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buffer</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// n是实际读到的字节数，sizeof(buffer) - 1是我们期望读到的字节数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">ssize_t</span> <span class="n">n</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">rfd</span><span class="p">,</span> <span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">buffer</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;child say: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">buffer</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;n: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;子进程退出了，我也退出&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 1.创建管道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">fds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span> <span class="c1">// fds[0]:读端  fds[1]:写端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">(</span><span class="n">fds</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cerr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;pipe error&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;fds[0]: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">fds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;fds[1]: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">fds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 2.创建子进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// child
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 3.关闭不需要的读写端，形成通信信道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// 子进程-&gt;写，关闭读端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">close</span><span class="p">(</span><span class="n">fds</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ChildWrite</span><span class="p">(</span><span class="n">fds</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">close</span><span class="p">(</span><span class="n">fds</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// 3.关闭不需要的读写端，形成通信信道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 父进程-&gt;读，关闭写端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">close</span><span class="p">(</span><span class="n">fds</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FatherRead</span><span class="p">(</span><span class="n">fds</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">close</span><span class="p">(</span><span class="n">fds</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// 获取到子进程的退出信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;exit code: %d; exit signal: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7F</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>65535 / 1024 = 64</p>
+<p><img src="/p/linux-interprocess-communication/index.assets/image-20251217164439566.png"
+	width="1014"
+	height="645"
+	
+	loading="lazy"
+	
+		alt="image-20251217164439566"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="157"
+		data-flex-basis="377px"
+	
+></p>
+<p><strong>管道的写入原子性</strong></p>
+<p>如果子进程向管道中单次写入的字节数小于 PIPE_BUF，那么子进程写入的过程就是原子的，即要么就写完，要么就不写</p>
+<p><img src="/p/linux-interprocess-communication/index.assets/image-20251217164909028.png"
+	width="769"
+	height="157"
+	
+	loading="lazy"
+	
+		alt="image-20251217164909028"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="489"
+		data-flex-basis="1175px"
+	
+></p>
+</blockquote>
+<h2 id="24基于匿名管道的进程池">2.4基于匿名管道的进程池
+</h2><p>进程池让我们可以实现：先有进程，后完成任务</p>
+<p><img src="/p/linux-interprocess-communication/index.assets/image-20251217165223264.png"
+	width="802"
+	height="520"
+	
+	loading="lazy"
+	
+		alt="image-20251217165223264"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
+	
+></p>
+<h3 id="1文件准备">1.文件准备
+</h3><ul>
+<li>
+<p>Main.cc</p>
+</li>
+<li>
+<p>ProcessPool.hpp</p>
+<blockquote>
+<p><code>.hpp</code> 是可以将头文件和源文件写在一起</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2基本结构">2.基本结构
+</h3><p>父进程要很多的写端，每一个子进程只有一个读端。父进程需要对管道进行管理，因为父进程不仅要知道当前写端的文件描述符是几，还需要知道当前是给哪个进程写入的等等。</p>
+<p>ProcessPool.hpp文件中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#ifndef __PROCESS_POOL_HPP__
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define __PROCESS_POOL_HPP__
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 通信信道 --先描述
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Channel</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Channel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">~</span><span class="n">Channel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_wfd</span><span class="p">;</span> <span class="c1">// 文件描述符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 管理信道的接口 --再组织
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">ChannelManager</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ChannelManager</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">~</span><span class="n">ChannelManager</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Channel</span><span class="o">&gt;</span> <span class="n">_channels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">gdefaultnum</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 进程池
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">ProcessPool</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ProcessPool</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">:</span> <span class="n">_process_num</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">~</span><span class="n">ProcessPool</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ChannelManager</span> <span class="n">_cm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_process_num</span><span class="p">;</span> <span class="c1">// 进程池里面进程的个数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3创建进程池">3.创建进程池
+</h3><p><strong>Channel类和ChannelManager类中</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 通信信道 --先描述
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Channel</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Channel</span><span class="p">(</span><span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">pid_t</span> <span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">:</span> <span class="n">_wfd</span><span class="p">(</span><span class="n">fd</span><span class="p">),</span> <span class="n">_subid</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_name</span> <span class="o">=</span> <span class="s">&#34;channel-&#34;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">_wfd</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#34;-&#34;</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">_subid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">~</span><span class="n">Channel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="nf">Fd</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_wfd</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pid_t</span> <span class="nf">SubId</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_subid</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">Name</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_name</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_wfd</span><span class="p">;</span>          <span class="c1">// 文件描述符
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">pid_t</span> <span class="n">_subid</span><span class="p">;</span>      <span class="c1">// 当前信道对应的子进程的pid
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">_name</span><span class="p">;</span> <span class="c1">// 信道名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 管理信道的接口 --再组织
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">ChannelManager</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ChannelManager</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 构建一个通信信道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// 先构建一个Channel对象，然后把它push到vector中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="nf">Insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">wfd</span><span class="p">,</span> <span class="n">pid_t</span> <span class="n">subid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_channels</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">wfd</span><span class="p">,</span> <span class="n">subid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="nf">PrintChannel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">channel</span> <span class="p">:</span> <span class="n">_channels</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">channel</span><span class="p">.</span><span class="n">Name</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">~</span><span class="n">ChannelManager</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Channel</span><span class="o">&gt;</span> <span class="n">_channels</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>ProcessPool类中：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">Create</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_process_num</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// 1.创建管道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kt">int</span> <span class="n">pipedfd</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">pipe</span><span class="p">(</span><span class="n">pipedfd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="c1">// 2.创建子进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="n">pid_t</span> <span class="n">subid</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">subid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">subid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//  子进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 3.关闭不需要的文件描述符 父写子读
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">close</span><span class="p">(</span><span class="n">pipedfd</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Work</span><span class="p">(</span><span class="n">pipedfd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">close</span><span class="p">(</span><span class="n">pipedfd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 父进程
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 3.关闭不需要的文件描述符 父写子读
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">close</span><span class="p">(</span><span class="n">pipedfd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 父进程现在已经知道它的写端和子进程是谁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_cm</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">pipedfd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">subid</span><span class="p">);</span> <span class="c1">// 构建一个通信信道
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="3命名管道">3.命名管道
 </h1><p>创建一个命名管道</p>
 <p>匿名管道与命名管道的区别</p>
 <p>命名管道的打开规则</p>

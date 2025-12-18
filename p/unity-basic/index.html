@@ -1,0 +1,5584 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="0前言👋 官方教程:\nlearn.unity.com\nhttps://learn.unity.com/course/roll-a-ball?version=2022.3\n0.1UnityHub的相关设置 默认项目创建的位置、安装的Editor、下载位置 都是在C盘，建议改\n添加模块\n0.2关于版本 LTS（LongTerm Support）长期支持版本\n">
+<title>【unity3d游戏开发】Unity入门</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/unity-basic/'>
+
+<link rel="stylesheet" href="/scss/style.min.3a2e0dabd37ad6d838b007eb48be52d094d892667b94840716e02c99e56f8bbd.css"><meta property='og:title' content="【unity3d游戏开发】Unity入门">
+<meta property='og:description' content="0前言👋 官方教程:\nlearn.unity.com\nhttps://learn.unity.com/course/roll-a-ball?version=2022.3\n0.1UnityHub的相关设置 默认项目创建的位置、安装的Editor、下载位置 都是在C盘，建议改\n添加模块\n0.2关于版本 LTS（LongTerm Support）长期支持版本\n">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/unity-basic/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Unity' /><meta property='article:published_time' content='2025-12-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-18T20:50:16&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.png' />
+<meta name="twitter:title" content="【unity3d游戏开发】Unity入门">
+<meta name="twitter:description" content="0前言👋 官方教程:\nlearn.unity.com\nhttps://learn.unity.com/course/roll-a-ball?version=2022.3\n0.1UnityHub的相关设置 默认项目创建的位置、安装的Editor、下载位置 都是在C盘，建议改\n添加模块\n0.2关于版本 LTS（LongTerm Support）长期支持版本\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.png' /><link rel="stylesheet" href="/css/custom.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    
+    $.getScript("https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/fairyDustCursor.min.js");
+});
+</script>
+
+
+<style type="text/css">
+.main-content img, body {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/Arrow.cur), auto;
+}
+
+.actions > div,
+.expand-done,
+.main-content figure > figcaption div,
+.navbar-above .navbar-nav .item,
+.navbar-searchicon,
+.navbar-slideicon,
+.photos .picture-details,
+.widget .ad-tag .click-close,
+a,
+button {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/Hand.cur), auto;
+}
+
+blockquote,
+code,
+h1, h2, h3, h4, h5, h6,
+hr,
+input[type=text],
+li,
+p,
+td,
+textarea,
+th {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/IBeam.cur), auto;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+    
+    
+    function processTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            
+            const regex = /==([^=\n`]+?)==/g;
+            
+            if (regex.test(text)) {
+                const parent = node.parentNode;
+                
+                if (parent && !['CODE', 'PRE', 'KBD', 'SAMP'].includes(parent.tagName)) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(/==([^=\n`]+?)==/g, function(match, content, offset) {
+                        
+                        if (offset > lastIndex) {
+                            fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                        }
+                        
+                        
+                        const mark = document.createElement('mark');
+                        mark.textContent = content;
+                        fragment.appendChild(mark);
+                        
+                        lastIndex = offset + match.length;
+                        return match;
+                    });
+                    
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                    }
+                    
+                    parent.replaceChild(fragment, node);
+                }
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && 
+                   !['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP'].includes(node.tagName)) {
+            
+            Array.from(node.childNodes).forEach(processTextNode);
+        }
+    }
+    
+    processTextNode(articleContent);
+});
+</script>
+<div class="loading">
+  
+  <div class="scene">
+    <div class="forest">
+      <div class="tree tree1">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+      </div>
+
+      <div class="tree tree2">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree3">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree4">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree5">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree6">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree7">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+    </div>
+
+    <div class="tent">
+      <div class="roof"></div>
+      <div class="roof-border-left">
+        <div class="roof-border roof-border1"></div>
+        <div class="roof-border roof-border2"></div>
+        <div class="roof-border roof-border3"></div>
+      </div>
+      <div class="entrance">
+        <div class="door left-door">
+          <div class="left-door-inner"></div>
+        </div>
+        <div class="door right-door">
+          <div class="right-door-inner"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="floor">
+      <div class="ground ground1"></div>
+      <div class="ground ground2"></div>
+    </div>
+
+    <div class="fireplace">
+      <div class="support"></div>
+      <div class="support"></div>
+      <div class="bar"></div>
+      <div class="hanger"></div>
+      <div class="smoke"></div>
+      <div class="pan"></div>
+      <div class="fire">
+        <div class="line line1">
+          <div class="particle particle1"></div>
+          <div class="particle particle2"></div>
+          <div class="particle particle3"></div>
+          <div class="particle particle4"></div>
+        </div>
+        <div class="line line2">
+          <div class="particle particle1"></div>
+          <div class="particle particle2"></div>
+          <div class="particle particle3"></div>
+          <div class="particle particle4"></div>
+        </div>
+        <div class="line line3">
+          <div class="particle particle1"></div>
+          <div class="particle particle2"></div>
+          <div class="particle particle3"></div>
+          <div class="particle particle4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-wrapper">
+      <div class="time">
+        <div class="day"></div>
+        <div class="night">
+          <div class="moon"></div>
+          <div class="star star1 star-big"></div>
+          <div class="star star2 star-big"></div>
+          <div class="star star3 star-big"></div>
+          <div class="star star4"></div>
+          <div class="star star5"></div>
+          <div class="star star6"></div>
+          <div class="star star7"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .loading {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: #f5f5fa;
+  }
+
+   
+  @keyframes stageBackground {
+    0%,
+    10%,
+    90%,
+    100% {
+      background-color: #00b6bb;
+    }
+
+    25%,
+    75% {
+      background-color: #0094bd;
+    }
+  }
+
+  @keyframes earthRotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes sunrise {
+    0%,
+    10%,
+    90%,
+    100% {
+      box-shadow: 0 0 0 25px #5ad6bd, 0 0 0 40px #4acead,
+        0 0 0 60px rgba(74, 206, 173, 0.6), 0 0 0 90px rgba(74, 206, 173, 0.3);
+    }
+
+    25%,
+    75% {
+      box-shadow: 0 0 0 0 #5ad6bd, 0 0 0 0 #4acead,
+        0 0 0 0 rgba(74, 206, 173, 0.6), 0 0 0 0 rgba(74, 206, 173, 0.3);
+    }
+  }
+
+  @keyframes moonOrbit {
+    25% {
+      transform: rotate(-60deg);
+    }
+
+    50% {
+      transform: rotate(-60deg);
+    }
+
+    75% {
+      transform: rotate(-120deg);
+    }
+
+    0%,
+    100% {
+      transform: rotate(-180deg);
+    }
+  }
+
+  @keyframes nightTime {
+    0%,
+    90% {
+      opacity: 0;
+    }
+
+    50%,
+    75% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hotPan {
+    0%,
+    90% {
+      background-color: #74667e;
+    }
+
+    50%,
+    75% {
+      background-color: #b2241c;
+    }
+  }
+
+  @keyframes heat {
+    0%,
+    90% {
+      box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0.3);
+    }
+
+    50%,
+    75% {
+      box-shadow: inset 0 -2px 0 0 white;
+    }
+  }
+
+  @keyframes smoke {
+    0%,
+    50%,
+    90%,
+    100% {
+      opacity: 0;
+    }
+
+    50%,
+    75% {
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes fire {
+    0%,
+    90%,
+    100% {
+      opacity: 0;
+    }
+
+    50%,
+    75% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes treeShake {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    25% {
+      transform: rotate(-2deg);
+    }
+
+    40% {
+      transform: rotate(4deg);
+    }
+
+    50% {
+      transform: rotate(-4deg);
+    }
+
+    60% {
+      transform: rotate(6deg);
+    }
+
+    75% {
+      transform: rotate(-6deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes fireParticles {
+    0% {
+      height: 30%;
+      opacity: 1;
+      top: 75%;
+    }
+
+    25% {
+      height: 25%;
+      opacity: 0.8;
+      top: 40%;
+    }
+
+    50% {
+      height: 15%;
+      opacity: 0.6;
+      top: 20%;
+    }
+
+    75% {
+      height: 10%;
+      opacity: 0.3;
+      top: 0;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fireLines {
+    0%,
+    25%,
+    75%,
+    100% {
+      bottom: 0;
+    }
+
+    50% {
+      bottom: 5%;
+    }
+  }
+
+  .scene {
+    display: flex;
+    margin: 0 auto 80px auto;
+    justify-content: center;
+    align-items: flex-end;
+    width: 400px;
+    height: 300px;
+    position: relative;
+  }
+
+  .forest {
+    display: flex;
+    width: 75%;
+    height: 90%;
+    position: relative;
+  }
+
+  .tree {
+    display: block;
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0.4;
+  }
+
+  .tree .branch {
+    width: 80%;
+    height: 0;
+    margin: 0 auto;
+    padding-left: 40%;
+    padding-bottom: 50%;
+    overflow: hidden;
+  }
+
+  .tree .branch:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: -600px;
+    border-left: 600px solid transparent;
+    border-right: 600px solid transparent;
+    border-bottom: 950px solid #000;
+  }
+
+  .tree .branch.branch-top {
+    transform-origin: 50% 100%;
+    animation: treeShake 0.5s linear infinite;
+  }
+
+  .tree .branch.branch-middle {
+    width: 90%;
+    padding-left: 45%;
+    padding-bottom: 65%;
+    margin: 0 auto;
+    margin-top: -25%;
+  }
+
+  .tree .branch.branch-bottom {
+    width: 100%;
+    padding-left: 50%;
+    padding-bottom: 80%;
+    margin: 0 auto;
+    margin-top: -40%;
+  }
+
+  .tree1 {
+    width: 31%;
+  }
+
+  .tree1 .branch-top {
+    transition-delay: 0.3s;
+  }
+
+  .tree2 {
+    width: 39%;
+    left: 9%;
+  }
+
+  .tree2 .branch-top {
+    transition-delay: 0.4s;
+  }
+
+  .tree3 {
+    width: 32%;
+    left: 24%;
+  }
+
+  .tree3 .branch-top {
+    transition-delay: 0.5s;
+  }
+
+  .tree4 {
+    width: 37%;
+    left: 34%;
+  }
+
+  .tree4 .branch-top {
+    transition-delay: 0.6s;
+  }
+
+  .tree5 {
+    width: 44%;
+    left: 44%;
+  }
+
+  .tree5 .branch-top {
+    transition-delay: 0.7s;
+  }
+
+  .tree6 {
+    width: 34%;
+    left: 61%;
+  }
+
+  .tree6 .branch-top {
+    transition-delay: 0.2s;
+  }
+
+  .tree7 {
+    width: 24%;
+    left: 76%;
+  }
+
+  .tree7 .branch-top {
+    transition-delay: 0.1s;
+  }
+
+  .tent {
+    width: 60%;
+    height: 25%;
+    position: absolute;
+    bottom: -0.5%;
+    right: 15%;
+    z-index: 1;
+    text-align: right;
+  }
+
+  .roof {
+    display: inline-block;
+    width: 45%;
+    height: 100%;
+    margin-right: 10%;
+    position: relative;
+     
+    z-index: 1;
+    border-top: 4px solid #4d4454;
+    border-right: 4px solid #4d4454;
+    border-left: 4px solid #4d4454;
+    border-top-right-radius: 6px;
+    transform: skew(30deg);
+    box-shadow: inset -3px 3px 0px 0px #f7b563;
+     
+    background: #f6d484;
+  }
+
+  .roof:before {
+    content: "";
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    z-index: 0;
+    border-radius: 10%;
+    background-color: #e78c20;
+  }
+
+  .roof:after {
+    content: "";
+    height: 75%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(231, 140, 32, 0.4) 0%,
+      rgba(231, 140, 32, 0.4) 64%,
+      rgba(231, 140, 32, 0.8) 65%,
+      rgba(231, 140, 32, 0.8) 100%
+    );
+  }
+
+  .roof-border-left {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 1%;
+    height: 125%;
+    position: absolute;
+    top: 0;
+    left: 35.7%;
+    z-index: 1;
+    transform-origin: 50% 0%;
+    transform: rotate(35deg);
+  }
+
+  .roof-border-left .roof-border {
+    display: block;
+    width: 100%;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+  }
+
+  .roof-border-left .roof-border1 {
+    height: 40%;
+  }
+
+  .roof-border-left .roof-border2 {
+    height: 10%;
+  }
+
+  .roof-border-left .roof-border3 {
+    height: 40%;
+  }
+
+  .door {
+    width: 55px;
+    height: 92px;
+    position: absolute;
+    bottom: 2%;
+    overflow: hidden;
+    z-index: 0;
+    transform-origin: 0 105%;
+  }
+
+  .left-door {
+    transform: rotate(35deg);
+    position: absolute;
+    left: 13.5%;
+    bottom: -3%;
+    z-index: 0;
+  }
+
+  .left-door .left-door-inner {
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 105%;
+    transform: rotate(-35deg);
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    background-color: #edddc2;
+  }
+
+  .left-door .left-door-inner:before {
+    content: "";
+    width: 15%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: repeating-linear-gradient(
+      #d4bc8b,
+      #d4bc8b 4%,
+      #e0d2a8 5%,
+      #e0d2a8 10%
+    );
+  }
+
+  .left-door .left-door-inner:after {
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    transform: rotate(25deg);
+    background-color: #fff;
+  }
+
+  .right-door {
+    height: 89px;
+    right: 21%;
+    transform-origin: 0 105%;
+    transform: rotate(-30deg) scaleX(-1);
+    position: absolute;
+    bottom: -3%;
+    z-index: 0;
+  }
+
+  .right-door .right-door-inner {
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 120%;
+    transform: rotate(-30deg);
+    position: absolute;
+    bottom: 0px;
+    overflow: hidden;
+    background-color: #efe7cf;
+  }
+
+  .right-door .right-door-inner:before {
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    right: -28%;
+    z-index: 1;
+    transform: rotate(15deg);
+    background-color: #524a5a;
+  }
+
+  .right-door .right-door-inner:after {
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    right: -20%;
+    transform: rotate(20deg);
+    background-color: #fff;
+  }
+
+  .floor {
+    width: 80%;
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .floor .ground {
+    position: absolute;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+  }
+
+  .floor .ground.ground1 {
+    width: 65%;
+    left: 0;
+  }
+
+  .floor .ground.ground2 {
+    width: 30%;
+    right: 0;
+  }
+
+  .fireplace {
+    display: block;
+    width: 24%;
+    height: 20%;
+    position: absolute;
+    left: 5%;
+  }
+
+  .fireplace:before {
+    content: "";
+    display: block;
+    width: 8%;
+    position: absolute;
+    bottom: -4px;
+    left: 2%;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+    background: #4d4454;
+  }
+
+  .fireplace .support {
+    display: block;
+    height: 105%;
+    width: 2px;
+    position: absolute;
+    bottom: -5%;
+    left: 10%;
+    border: 2px solid #4d4454;
+  }
+
+  .fireplace .support:before {
+    content: "";
+    width: 100%;
+    height: 15%;
+    position: absolute;
+    top: -18%;
+    left: -4px;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+    transform-origin: 100% 100%;
+    transform: rotate(45deg);
+  }
+
+  .fireplace .support:after {
+    content: "";
+    width: 100%;
+    height: 15%;
+    position: absolute;
+    top: -18%;
+    left: 0px;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+    transform-origin: 0 100%;
+    transform: rotate(-45deg);
+  }
+
+  .fireplace .support:nth-child(1) {
+    left: 85%;
+  }
+
+  .fireplace .bar {
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+  }
+
+  .fireplace .hanger {
+    display: block;
+    width: 2px;
+    height: 25%;
+    margin-left: -4px;
+    position: absolute;
+    left: 50%;
+    border: 2px solid #4d4454;
+  }
+
+  .fireplace .pan {
+    display: block;
+    width: 25%;
+    height: 50%;
+    border-radius: 50%;
+    border: 4px solid #4d4454;
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    overflow: hidden;
+    animation: heat 5s linear infinite;
+  }
+
+  .fireplace .pan:before {
+    content: "";
+    display: block;
+    height: 53%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    border-top: 4px solid #4d4454;
+    background-color: #74667e;
+    animation: hotPan 5s linear infinite;
+  }
+
+  .fireplace .smoke {
+    display: block;
+    width: 20%;
+    height: 25%;
+    position: absolute;
+    top: 25%;
+    left: 37%;
+    background-color: white;
+    filter: blur(5px);
+    animation: smoke 5s linear infinite;
+  }
+
+  .fireplace .fire {
+    display: block;
+    width: 25%;
+    height: 120%;
+    position: absolute;
+    bottom: 0;
+    left: 33%;
+    z-index: 1;
+    animation: fire 5s linear infinite;
+  }
+
+  .fireplace .fire:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: -4px;
+    z-index: 1;
+    border-radius: 2px;
+    border: 1px solid #efb54a;
+    background-color: #efb54a;
+  }
+
+  .fireplace .fire .line {
+    display: block;
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    animation: fireLines 1s linear infinite;
+  }
+
+  .fireplace .fire .line2 {
+    left: 50%;
+    margin-left: -1px;
+    animation-delay: 0.3s;
+  }
+
+  .fireplace .fire .line3 {
+    right: 0;
+    animation-delay: 0.5s;
+  }
+
+  .fireplace .fire .line .particle {
+    height: 10%;
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+    border-radius: 2px;
+    border: 2px solid #efb54a;
+    animation: fireParticles 0.5s linear infinite;
+  }
+
+  .fireplace .fire .line .particle1 {
+    animation-delay: 0.1s;
+  }
+
+  .fireplace .fire .line .particle2 {
+    animation-delay: 0.3s;
+  }
+
+  .fireplace .fire .line .particle3 {
+    animation-delay: 0.6s;
+  }
+
+  .fireplace .fire .line .particle4 {
+    animation-delay: 0.9s;
+  }
+
+  .time-wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .time {
+    display: block;
+    width: 100%;
+    height: 200%;
+    position: absolute;
+    transform-origin: 50% 50%;
+    transform: rotate(270deg);
+    animation: earthRotation 5s linear infinite;
+  }
+
+  .time .day {
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 25px #5ad6bd, 0 0 0 40px #4acead,
+      0 0 0 60px rgba(74, 206, 173, 0.6), 0 0 0 90px rgba(74, 206, 173, 0.3);
+    animation: sunrise 5s ease-in-out infinite;
+    background-color: #ef9431;
+  }
+
+  .time .night {
+    animation: nightTime 5s ease-in-out infinite;
+  }
+
+  .time .night .star {
+    display: block;
+    width: 4px;
+    height: 4px;
+    position: absolute;
+    bottom: 10%;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+
+  .time .night .star-big {
+    width: 6px;
+    height: 6px;
+  }
+
+  .time .night .star1 {
+    right: 23%;
+    bottom: 25%;
+  }
+
+  .time .night .star2 {
+    right: 35%;
+    bottom: 18%;
+  }
+
+  .time .night .star3 {
+    right: 47%;
+    bottom: 25%;
+  }
+
+  .time .night .star4 {
+    right: 22%;
+    bottom: 20%;
+  }
+
+  .time .night .star5 {
+    right: 18%;
+    bottom: 30%;
+  }
+
+  .time .night .star6 {
+    right: 60%;
+    bottom: 20%;
+  }
+
+  .time .night .star7 {
+    right: 70%;
+    bottom: 23%;
+  }
+
+  .time .night .moon {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 22%;
+    right: 33%;
+    border-radius: 50%;
+    transform: rotate(-60deg);
+    box-shadow: 9px 9px 3px 0 white;
+    filter: blur(1px);
+    animation: moonOrbit 5s ease-in-out infinite;
+  }
+
+  .time .night .moon:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: -9px;
+    left: 9px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.05),
+      0 0 0 15px rgba(255, 255, 255, 0.05), 0 0 0 25px rgba(255, 255, 255, 0.05),
+      0 0 0 35px rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+</style>
+
+<script>
+  function initLoading() {
+    let loading = document.querySelector(".loading");
+    document.addEventListener("DOMContentLoaded", function () {
+      
+      loading.style.display = "none";
+    });
+  }
+
+  initLoading();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside
+  class="sidebar left-sidebar sticky "
+>
+  <button
+    class="hamburger hamburger--spin"
+    type="button"
+    id="toggle-menu"
+    aria-label="切换菜单"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+
+  <header>
+     
+    <figure class="site-avatar">
+      <a href="/">
+           
+        <img
+          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          width="300"
+          height="300"
+          class="site-logo"
+          loading="lazy"
+          alt="Avatar"
+        />
+         
+      </a>
+      
+      <span class="emoji">🌿</span>
+      
+    </figure>
+     
+
+    <div class="site-meta">
+      <h1 class="site-name">
+        <a href="/">PursUnre的博客</a>
+      </h1>
+      <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+    </div>
+  </header><ol class="menu-social">
+    
+    <li>
+      <a
+        href="https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343"
+        target="_blank"
+        
+        title="CSDN"
+        
+        rel="me"
+      >
+          <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg> 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="https://gitee.com/green-citrus"
+        target="_blank"
+        
+        title="Gitee"
+        
+        rel="me"
+      >
+          <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg> 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="https://github.com/Amarantos-Arrebol"
+        target="_blank"
+        
+        title="GitHub"
+        
+        rel="me"
+      >
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+ 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="/index.xml"
+        target="_blank"
+        
+        title="RSS"
+        
+        rel="me"
+      >
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+ 
+      </a>
+    </li>
+    
+  </ol><ol class="menu" id="main-menu">
+      
+    <li >
+      <a
+        href="/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+ 
+        <span>主页</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/archives/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+ 
+        <span>归档</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/search/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+ 
+        <span>搜索</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/%E6%8A%80%E6%9C%AF%E9%93%BE%E6%8E%A5/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+ 
+        <span>技术链接</span>
+      </a>
+    </li>
+    
+    <li class="menu-bottom-section">
+      <ol class="menu"> 
+        <li id="dark-mode-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+ <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+          <span>暗色模式</span>
+        </li>
+        
+      </ol>
+    </li>
+  </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0前言">0前言👋</a>
+      <ul>
+        <li><a href="#01unityhub的相关设置">0.1UnityHub的相关设置</a></li>
+        <li><a href="#02关于版本">0.2关于版本</a></li>
+        <li><a href="#03工程的创建添加与迁移">0.3工程的创建添加与迁移</a></li>
+        <li><a href="#04工程文件夹的介绍">0.4工程文件夹的介绍</a></li>
+        <li><a href="#05unity界面的简单介绍">0.5Unity界面的简单介绍</a></li>
+        <li><a href="#06项目的相关设置">0.6项目的相关设置</a>
+          <ul>
+            <li><a href="#切换中文"><strong>切换中文</strong></a></li>
+            <li><a href="#指定要使用的代码编辑器"><strong>指定要使用的代码编辑器</strong></a></li>
+          </ul>
+        </li>
+        <li><a href="#07初识unity">0.7初识Unity</a>
+          <ul>
+            <li><a href="#061创建代码和场景"><strong>0.6.1创建代码和场景</strong></a>
+              <ul>
+                <li><a href="#创建c脚本">创建C#脚本</a></li>
+                <li><a href="#创建场景">创建场景</a></li>
+              </ul>
+            </li>
+            <li><a href="#062五个窗口面板的作用">0.6.2五个窗口面板的作用</a>
+              <ul>
+                <li><a href="#界面布局"><strong>界面布局</strong></a></li>
+                <li><a href="#1project窗口"><strong>1）Project窗口</strong></a></li>
+                <li><a href="#2hierachy层级面板"><strong>2）Hierachy（层级面板）</strong></a></li>
+                <li><a href="#3检视面板属性面板"><strong>3）检视面板（属性面板）</strong></a></li>
+                <li><a href="#4scene面板场景面板">4）scene面板（场景面板）</a></li>
+                <li><a href="#5game面板游戏面板">5）game面板（游戏面板）</a></li>
+                <li><a href="#补充console面板">补充：Console面板</a></li>
+              </ul>
+            </li>
+            <li><a href="#064unity中的基本模型和场景操作">0.6.4Unity中的基本模型和场景操作</a></li>
+            <li><a href="#064世界坐标系和局部坐标系">0.6.4世界坐标系和局部坐标系</a></li>
+            <li><a href="#065工具栏对象间父子关系">0.6.5工具栏+对象间父子关系</a></li>
+            <li><a href="#066切换工具和步移工具">0.6.6切换工具和步移工具</a></li>
+            <li><a href="#067创建地面-控制地面颜色">0.6.7创建地面-控制地面颜色</a></li>
+            <li><a href="#068游戏物体的基本组件和渲染模型和碰撞模型">0.6.8游戏物体的基本组件和渲染模型和碰撞模型</a></li>
+            <li><a href="#069游戏引擎的作用">0.6.9游戏引擎的作用</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#01快速入门案例">01快速入门案例🎉</a>
+      <ul>
+        <li><a href="#11小球案例">1.1小球案例</a>
+          <ul>
+            <li><a href="#111添加刚体"><strong>1.1.1添加刚体</strong></a></li>
+            <li><a href="#112脚本初识">1.1.2脚本初识</a></li>
+            <li><a href="#113通过刚体控制小球移动">1.1.3通过刚体控制小球移动</a></li>
+            <li><a href="#114监听键盘并控制小球移动">1.1.4监听键盘并控制小球移动</a></li>
+            <li><a href="#115控制小球速度">1.1.5控制小球速度</a></li>
+            <li><a href="#116跟随相机移动">1.1.6跟随相机移动</a></li>
+            <li><a href="#117添加墙">1.1.7添加墙</a></li>
+            <li><a href="#118创建空物体分类">1.1.8创建空物体分类</a></li>
+            <li><a href="#119将食物做成预制体">1.1.9将食物做成预制体</a></li>
+            <li><a href="#1110控制食物旋转">1.1.10控制食物旋转</a></li>
+            <li><a href="#1111检测碰撞到食物并销毁">1.1.11检测碰撞到食物并销毁</a></li>
+            <li><a href="#1112通过触发检测吃食物">1.1.12通过触发检测，吃食物</a></li>
+            <li><a href="#1113通过ui显示得分">1.1.13通过UI显示得分</a></li>
+            <li><a href="#1114显示游戏胜利">1.1.14显示游戏胜利</a></li>
+            <li><a href="#1115游戏打包">1.1.15游戏打包</a></li>
+          </ul>
+        </li>
+        <li><a href="#12打砖块案例">1.2打砖块案例</a>
+          <ul>
+            <li><a href="#121搭建环境">1.2.1搭建环境</a></li>
+            <li><a href="#122控制相机左右移动">1.2.2控制相机左右移动</a></li>
+            <li><a href="#补充fixedupdate">补充：FixedUpdate</a></li>
+            <li><a href="#123创建子弹">1.2.3创建子弹</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#02入门">02入门🌈</a>
+      <ul>
+        <li><a href="#1入门知识">1.入门知识</a>
+          <ul>
+            <li><a href="#反射机制">反射机制</a></li>
+            <li><a href="#游戏场景">游戏场景</a></li>
+            <li><a href="#预制体和资源包的导入导出">预制体和资源包的导入导出</a></li>
+            <li><a href="#脚本基本规则">脚本基本规则</a></li>
+            <li><a href="#生命周期函数">生命周期函数</a></li>
+            <li><a href="#协同程序简称协程"><strong>协同程序简称协程</strong></a>
+              <ul>
+                <li><a href="#协同程序和线程的区别"><strong>协同程序和线程的区别</strong></a></li>
+                <li><a href="#协程的使用"><strong>协程的使用</strong></a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#03基础">03基础🔥</a></li>
+    <li><a href="#总结">总结</a>
+      <ul>
+        <li><a href="#1快捷键">1.快捷键</a></li>
+        <li><a href="#2常用英文">2.常用英文</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+        
+        
+        <div id="back-to-top">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                <path d="M512 298.666667l-298.666667 310.912L283.52 682.666667 512 445.312 740.48 682.666667 810.666667 609.578667z"></path>
+            </svg>
+        </div>
+    </aside>
+
+
+
+<script>
+(function() {
+    const backToTopButton = document.getElementById('back-to-top');
+    if (!backToTopButton) return;
+    
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+    
+    
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+})();
+</script>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/unity-basic/">
+                <img src="/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84_hu_b7824153d5a6aae8.png"
+                        srcset="/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84_hu_b7824153d5a6aae8.png 800w, /p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84_hu_5c708bec2b75cbed.png 1600w"
+                        width="800" 
+                        height="600" 
+                        loading="lazy"
+                        alt="Featured image of post 【unity3d游戏开发】Unity入门" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+  
+  <header class="article-category">
+    
+    <a
+      href="/categories/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"
+      style="background-color: #8ABEB9; color: #ffffff;"
+    >
+      游戏开发
+    </a>
+    
+    <a
+      href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+      style="background-color: #B7A3E3; color: #fff;"
+    >
+      学习笔记
+    </a>
+    
+  </header>
+  
+
+  <div class="article-title-wrapper">
+    <h2 class="article-title">
+      <a href="/p/unity-basic/">【unity3d游戏开发】Unity入门</a>
+    </h2>
+    
+  </div>
+
+   
+   
+   
+  
+  <footer class="article-time">
+    
+    
+    <div class="article-time-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+      <time class="article-time--published">2025-12-18</time>
+    </div>
+
+    <span class="article-time-divider">|</span>
+    <div class="article-time-item"> 
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
+      <time>
+        2025-12-18
+      </time>
+    </div>
+    <span class="article-time-divider">|</span><div class="article-time-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+      <span class="article-time--wordcount">10021 字 </span>
+    </div>
+     
+
+    
+    
+  </footer>
+   
+
+  
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="0前言">0前言👋
+</h1><p>官方教程:</p>
+<p><a class="link" href="learn.unity.com" >learn.unity.com</a></p>
+<p><a class="link" href="https://learn.unity.com/course/roll-a-ball?version=2022.3"  target="_blank" rel="noopener"
+    >https://learn.unity.com/course/roll-a-ball?version=2022.3</a></p>
+<h2 id="01unityhub的相关设置">0.1UnityHub的相关设置
+</h2><p><img src="/p/unity-basic/index.assets/1757731953870-3b86f8d3-af3a-4b55-9b9e-271cee7e0cc3.png"
+	width="788"
+	height="1067"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="73"
+		data-flex-basis="177px"
+	
+></p>
+<p>默认项目创建的位置、安装的Editor、下载位置 都是在C盘，建议改</p>
+<p><img src="/p/unity-basic/index.assets/1757732178541-588616fc-3d3f-4b86-979a-e6c50ff9fb5e.png"
+	width="1417"
+	height="481"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="294"
+		data-flex-basis="707px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757732162539-4860c737-7b4c-410e-b05b-3a078a27fcb9.png"
+	width="1389"
+	height="469"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="296"
+		data-flex-basis="710px"
+	
+></p>
+<p>添加模块</p>
+<p><img src="/p/unity-basic/index.assets/1759837653829-b6d50ae9-7977-46d7-b0e3-47735210835e.png"
+	width="1919"
+	height="853"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="224"
+		data-flex-basis="539px"
+	
+></p>
+<h2 id="02关于版本">0.2关于版本
+</h2><p>LTS（LongTerm Support）长期支持版本</p>
+<p>Alpha内测版</p>
+<p>Beta公测版（不稳定，有最新功能，最新更新）</p>
+<p><img src="/p/unity-basic/index.assets/1757730861749-6bbff537-bec3-42ac-bb41-d6c90606283b.png"
+	width="757"
+	height="741"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="245px"
+	
+></p>
+<p><strong>关于版本号</strong></p>
+<p>大版本号.小版本号.bug处理版本号（版本类型后缀）</p>
+<p>例如：</p>
+<p>2019.4.17f1</p>
+<p>2017.2.4p1</p>
+<p>2020.2.0b14</p>
+<h2 id="03工程的创建添加与迁移">0.3工程的创建添加与迁移
+</h2><p><strong>工程的创建</strong></p>
+<p><img src="/p/unity-basic/index.assets/1757731307035-62dbf00e-b3ba-4a53-ab94-3e4da3099ef4.png"
+	width="1931"
+	height="505"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="382"
+		data-flex-basis="917px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757731228457-29dcd0f7-46e8-4d85-af36-6daafaf8731f.png"
+	width="1940"
+	height="1082"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="179"
+		data-flex-basis="430px"
+	
+></p>
+<p><strong>工程的添加</strong></p>
+<p><img src="/p/unity-basic/index.assets/1757731511814-44c98465-eb79-4ceb-ab4c-f67da959a9af.png"
+	width="1913"
+	height="600"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="318"
+		data-flex-basis="765px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757731590722-59d07f7b-369d-45ea-acad-4a9f4bee3167.png"
+	width="1246"
+	height="795"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="156"
+		data-flex-basis="376px"
+	
+></p>
+<p><strong>工程的迁移</strong></p>
+<p>迁移工程时，只需要移动下面两个文件夹</p>
+<p><img src="/p/unity-basic/index.assets/1757732397350-1704f60e-2c94-4dab-b3b8-c631a567e002.png"
+	width="643"
+	height="510"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="126"
+		data-flex-basis="302px"
+	
+></p>
+<p>补充：</p>
+<ol>
+<li>和资源相关的，基本都在Assets文件夹下</li>
+<li></li>
+</ol>
+<p><img src="/p/unity-basic/index.assets/1757733183669-83c754fe-1388-4c6b-9e78-b8800138294b.png"
+	width="760"
+	height="240"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="316"
+		data-flex-basis="760px"
+	
+></p>
+<h2 id="04工程文件夹的介绍">0.4工程文件夹的介绍
+</h2><blockquote>
+<ol>
+<li>
+<p><strong>Assets：工程资源文件夹（美术资源，脚本等等)</strong></p>
+</li>
+<li>
+<p><strong>Library：库文件夹（Unity自动生成管理）</strong></p>
+</li>
+<li>
+<p>Logs：日志文件夹，记录特殊信息（Unity自动生成管理）</p>
+</li>
+<li>
+<p>obj：编译产生中间文件（Unity自动生成管理）</p>
+</li>
+<li>
+<p>Packages：包配置信息（Unity自动生成管理）</p>
+</li>
+<li>
+<p><strong>ProjectSettings：工程设置信息（Unity自动生成管理）</strong></p>
+</li>
+</ol>
+</blockquote>
+<h2 id="05unity界面的简单介绍">0.5Unity界面的简单介绍
+</h2><p>上方：</p>
+<p><img src="/p/unity-basic/index.assets/1757732544852-ef85aa08-7034-445b-8eb6-bd8e5912c09b.png"
+	width="1625"
+	height="492"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="330"
+		data-flex-basis="792px"
+	
+></p>
+<p>选择Tall</p>
+<p>下方：</p>
+<p><img src="/p/unity-basic/index.assets/1757732809593-1a222110-9c2b-453a-b702-c4057f5a7ff0.png"
+	width="1538"
+	height="537"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="286"
+		data-flex-basis="687px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757732883873-5468cb80-b606-414e-9284-81620eb4cbb9.png"
+	width="1527"
+	height="532"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="287"
+		data-flex-basis="688px"
+	
+></p>
+<p>选择One Column Layout</p>
+<h2 id="06项目的相关设置">0.6项目的相关设置
+</h2><h3 id="切换中文"><strong>切换中文</strong>
+</h3><p>如果下载了中文的语言包</p>
+<p>Edit-&gt;preferences-&gt;languages</p>
+<p><img src="/p/unity-basic/index.assets/1757733242840-7a1170be-019a-4063-a895-d0fbd68df47f.png"
+	width="650"
+	height="1272"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="51"
+		data-flex-basis="122px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757733340012-968a79c2-1ef2-404a-8b20-f75bffd946eb.png"
+	width="585"
+	height="445"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="131"
+		data-flex-basis="315px"
+	
+></p>
+<h3 id="指定要使用的代码编辑器"><strong>指定要使用的代码编辑器</strong>
+</h3><p>Edit&ndash;&gt;preference&ndash;&gt;externam Tools</p>
+<p><img src="/p/unity-basic/index.assets/1757734159169-f74702cf-c208-4607-a89b-435798f29472.png"
+	width="1104"
+	height="531"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<p>VS改字体</p>
+<p><img src="/p/unity-basic/index.assets/1757646221788-ea8e2f55-a255-4e06-8936-e9d5d7c4ccae.png"
+	width="901"
+	height="630"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="343px"
+	
+></p>
+<h2 id="07初识unity">0.7初识Unity
+</h2><h3 id="061创建代码和场景"><strong>0.6.1创建代码和场景</strong>
+</h3><h4 id="创建c脚本">创建C#脚本
+</h4><p><img src="/p/unity-basic/index.assets/1757733695817-be8edf55-8da3-42d1-9373-513d9e32a1ac.png"
+	width="538"
+	height="525"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="245px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757733812652-e4e059f5-dac6-4ad1-8fcf-c4ab51c9f48c.png"
+	width="917"
+	height="849"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="108"
+		data-flex-basis="259px"
+	
+></p>
+<p>我们这里取名为Hello</p>
+<p><img src="/p/unity-basic/index.assets/1757734045160-06056021-852f-448f-9119-b3a9357eb421.png"
+	width="424"
+	height="137"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="309"
+		data-flex-basis="742px"
+	
+></p>
+<p>创建好后，我们可以看到在Assets目录下多了两个文件</p>
+<p><img src="/p/unity-basic/index.assets/1757734002543-7d2549f4-f531-4839-8e6e-103a197ba975.png"
+	width="777"
+	height="374"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<h4 id="创建场景">创建场景
+</h4><p><img src="/p/unity-basic/index.assets/1757735199101-0fd0cb7e-f10d-4a06-9108-387a680adcc0.png"
+	width="411"
+	height="293"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="336px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757735228666-170f2334-97f1-451d-a404-2dafe850392f.png"
+	width="916"
+	height="737"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="124"
+		data-flex-basis="298px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1757735292080-5e7dbeb8-c9d4-472a-a920-435222429cff.png"
+	width="401"
+	height="243"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="396px"
+	
+></p>
+<h3 id="062五个窗口面板的作用">0.6.2五个窗口面板的作用
+</h3><blockquote>
+<p><strong>总结</strong></p>
+<p>在Unity中做游戏就像在拍戏。</p>
+<p>Scene是舞台，所有演员都在舞台上Hierarchy是舞台演员名单，</p>
+<p>Game是摄像机拍到的画面，</p>
+<p>Inspector可以看到每个演员的剧本，它要扮演什么角色，</p>
+<p>Project是后台，所有未上场的演员和没有使用的剧本都在这里Console是表演过程中的信息反馈。</p>
+</blockquote>
+<h4 id="界面布局"><strong>界面布局</strong>
+</h4><p>Unity的界面布局我们可以随意修改</p>
+<p><img src="/p/unity-basic/index.assets/1757735685628-0c5afe64-357c-444a-9d38-7e3cfd7f3311.png"
+	width="1361"
+	height="898"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="151"
+		data-flex-basis="363px"
+	
+></p>
+<p>修改完后可以保存布局</p>
+<p><img src="/p/unity-basic/index.assets/1757735506792-f46e8492-9ee6-4a1d-8c82-290c3f3fecb6.png"
+	width="416"
+	height="435"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="95"
+		data-flex-basis="229px"
+	
+></p>
+<h4 id="1project窗口"><strong>1）Project窗口</strong>
+</h4><p>Project窗口主要用来管理资源脚本文件，所有游戏资源都会显示在该窗口中</p>
+<p><img src="/p/unity-basic/index.assets/1758025579298-80bfbda6-011a-470a-92fc-6190a015aba9.png"
+	width="497"
+	height="633"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="78"
+		data-flex-basis="188px"
+	
+></p>
+<ul>
+<li>
+<p>Assets存放场景相关的文件</p>
+</li>
+<li>
+<ul>
+<li>Scenes 里面默认有一个空场景</li>
+</ul>
+</li>
+<li>
+<p>Pacakges 官方扩展包，包含一些内置的插件</p>
+</li>
+</ul>
+<p><strong>创建一些资源</strong></p>
+<p>方式一：点上面的加号</p>
+<p><img src="/p/unity-basic/index.assets/1760619581364-35bce4cf-b7dd-47cb-b07f-930c56a3c8ff.png"
+	width="334"
+	height="232"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="345px"
+	
+></p>
+<p>比如—&gt;</p>
+<p><img src="/p/unity-basic/index.assets/1760619634274-2485a8cd-453b-435e-81ce-6ab10b1690ff.png"
+	width="391"
+	height="221"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="424px"
+	
+></p>
+<p>方式二：直接在一个文件夹上右键新建</p>
+<p><img src="/p/unity-basic/index.assets/1760619816095-0c05f435-f85e-4e1e-b655-d758329ee3a5.png"
+	width="871"
+	height="295"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="295"
+		data-flex-basis="708px"
+	
+></p>
+<p>在文件浏览器中显示资源</p>
+<p><img src="/p/unity-basic/index.assets/1760619867364-ed6d2eca-89ef-46b4-a1d3-d14855b7bd30.png"
+	width="344"
+	height="183"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="187"
+		data-flex-basis="451px"
+	
+></p>
+<p><strong>查找</strong></p>
+<p><img src="/p/unity-basic/index.assets/1760619988063-d325c6c8-c2ec-47da-974a-f42519c550e4.png"
+	width="439"
+	height="504"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="87"
+		data-flex-basis="209px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1760620145672-fa6faf8a-f033-4f45-bbb7-3f1f54f7365b.png"
+	width="448"
+	height="356"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="125"
+		data-flex-basis="302px"
+	
+></p>
+<h4 id="2hierachy层级面板"><strong>2）Hierachy（层级面板）</strong>
+</h4><p>显示当前场景有哪些东西</p>
+<p><img src="/p/unity-basic/index.assets/1758025736926-717de4cb-2ebf-4eac-877c-83a7e69e75c7.png"
+	width="504"
+	height="667"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="75"
+		data-flex-basis="181px"
+	
+></p>
+<p>默认层级面板会有一个灯光和一个相机</p>
+<p><img src="/p/unity-basic/index.assets/1758025849397-9da36e9d-cfe1-4106-9039-653b9ffa424a.png"
+	width="505"
+	height="233"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="216"
+		data-flex-basis="520px"
+	
+></p>
+<p>我们在层级面板的空白处双击就可以创建一些物品，比如我们可以创建一个正方形：</p>
+<p><img src="/p/unity-basic/index.assets/1758025925057-4d1881b2-ba15-434e-88b6-5f67288bac62.png"
+	width="809"
+	height="1289"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="62"
+		data-flex-basis="150px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758026213602-5da45cd3-d25e-4ce8-805d-9a5bcb2cd045.png"
+	width="524"
+	height="283"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="185"
+		data-flex-basis="444px"
+	
+></p>
+<p>场景没有保存时会出现一个星号：</p>
+<p><img src="/p/unity-basic/index.assets/1758026082106-8aa943c5-ad58-4fe1-9a79-5aa9bad599d2.png"
+	width="386"
+	height="220"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="175"
+		data-flex-basis="421px"
+	
+></p>
+<h4 id="3检视面板属性面板"><strong>3）检视面板（属性面板）</strong>
+</h4><p>显示当前对象(物体)有哪些组件(脚本)</p>
+<p><img src="/p/unity-basic/index.assets/1758026570543-65bc24ed-c0e2-4160-9eee-96356e17d637.png"
+	width="925"
+	height="501"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="184"
+		data-flex-basis="443px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765444837913-1ef48880-d72e-46f3-8f3f-0bd2fd8f1543.png"
+	width="477"
+	height="730"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="65"
+		data-flex-basis="156px"
+	
+></p>
+<p>红色部分：游戏对象基本设置</p>
+<p>蓝色部分：关联的C#脚本</p>
+<p>绿色部分：脚本的公共成员变量</p>
+<p>只要是出现在场景中的物体，就会有一个位置信息</p>
+<p><img src="/p/unity-basic/index.assets/1764580499984-e3c7c2dd-5593-48ed-a1f9-9c97d76e1f10.png"
+	width="430"
+	height="319"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="134"
+		data-flex-basis="323px"
+	
+></p>
+<h4 id="4scene面板场景面板">4）scene面板（场景面板）
+</h4><p>显示当前场景，编辑当前场景</p>
+<p><img src="/p/unity-basic/index.assets/1758026764515-f35eaf58-0b13-4784-a4db-c3ab317a2b7a.png"
+	width="775"
+	height="498"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="155"
+		data-flex-basis="373px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1760618925602-b9e33322-1e88-4b04-ac49-7370bc04cc52.png"
+	width="1042"
+	height="158"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="659"
+		data-flex-basis="1582px"
+	
+></p>
+<p>我们的游戏画面是通过这个相机拍摄的，相机拍不到的地方，我们游戏里也看不到s</p>
+<p><img src="/p/unity-basic/index.assets/1758027471794-5933d1c0-4875-4ab5-aae9-c89932e9bf49.png"
+	width="1481"
+	height="1465"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="101"
+		data-flex-basis="242px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759840046620-f9d9dccc-f2d5-4fcc-b3f6-71221f510f4b.png"
+	width="1413"
+	height="361"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="391"
+		data-flex-basis="939px"
+	
+></p>
+<ul>
+<li><strong>Global和Local</strong></li>
+</ul>
+<p><img src="/p/unity-basic/index.assets/1758244142497-2549308f-faf4-4e8d-bd25-6e42b530b4bf.png"
+	width="699"
+	height="358"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="195"
+		data-flex-basis="468px"
+	
+></p>
+<p>local是顺着物体自身的坐标系</p>
+<ul>
+<li><strong>qwer</strong></li>
+</ul>
+<p><img src="/p/unity-basic/index.assets/1758247194163-44259184-7237-47de-aa53-26d80e9fa954.png"
+	width="348"
+	height="456"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="76"
+		data-flex-basis="183px"
+	
+></p>
+<ul>
+<li><strong>碰撞器和同时调出qwer</strong></li>
+</ul>
+<p><img src="/p/unity-basic/index.assets/1758247625660-5fd58a1e-8c07-43b2-bf0b-b76bcdc7d323.png"
+	width="427"
+	height="478"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="89"
+		data-flex-basis="214px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758247809261-e4348cab-407a-4779-a6a2-e484cf6ce143.png"
+	width="842"
+	height="889"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="94"
+		data-flex-basis="227px"
+	
+></p>
+<h4 id="5game面板游戏面板">5）game面板（游戏面板）
+</h4><p>显示场游戏运行起来时候的样子</p>
+<p><img src="/p/unity-basic/index.assets/1758026878335-b87b1a75-2526-455c-b28d-ec3c33fa157b.png"
+	width="1304"
+	height="312"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="417"
+		data-flex-basis="1003px"
+	
+></p>
+<p>我们在game窗口是无法编辑场景的，game窗口只是用来展示游戏运行起来之后的样子</p>
+<p><img src="/p/unity-basic/index.assets/1760619120084-f8f83084-f0c6-4b58-9085-09501a4b7d2a.png"
+	width="1004"
+	height="195"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="514"
+		data-flex-basis="1235px"
+	
+></p>
+<p>Stats性能检测</p>
+<h4 id="补充console面板">补充：Console面板
+</h4><p><img src="/p/unity-basic/index.assets/1760625352181-aaeef3fd-b5b6-4deb-b714-58db9c07f11c.png"
+	width="964"
+	height="766"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="125"
+		data-flex-basis="302px"
+	
+></p>
+<p>该窗口将显示代码编译过程中或者游戏运行过程中的报错、警告、测试信息主要用于查错和调试用</p>
+<p><img src="/p/unity-basic/index.assets/1760625889680-d62309fc-b87b-410f-937f-baafb83e1cbe.png"
+	width="990"
+	height="175"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="565"
+		data-flex-basis="1357px"
+	
+></p>
+<h3 id="064unity中的基本模型和场景操作">0.6.4Unity中的基本模型和场景操作
+</h3><p><img src="/p/unity-basic/index.assets/1758200580422-c70128dc-a995-4ed8-82db-189cbbac742b.png"
+	width="690"
+	height="827"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="200px"
+	
+></p>
+<p><strong>透视视野和平行视野的切换</strong></p>
+<ul>
+<li>Persp 透视视野：远近切换后，物体会放大或缩小</li>
+<li>Iso 平行视野：远近切换后，物体大小不变，一般做2D游戏时常用</li>
+</ul>
+<p><img src="/p/unity-basic/index.assets/1758200912761-2893fb33-af0a-423a-afc1-44128b05c104.png"
+	width="950"
+	height="423"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="224"
+		data-flex-basis="539px"
+	
+></p>
+<h3 id="064世界坐标系和局部坐标系">0.6.4世界坐标系和局部坐标系
+</h3><p><img src="/p/unity-basic/index.assets/1759839759850-e00da5ef-5f14-4f5c-9473-c0bc5b7c819c.png"
+	width="1500"
+	height="620"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="241"
+		data-flex-basis="580px"
+	
+></p>
+<p>0,0,0世界坐标系原点</p>
+<p><img src="/p/unity-basic/index.assets/1758241885033-e50bcbfa-5542-42e7-ba87-5fae5d6c534e.png"
+	width="556"
+	height="163"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="341"
+		data-flex-basis="818px"
+	
+></p>
+<p><strong>局部坐标系</strong></p>
+<p>当一个物体称为另一个物体的子集时，坐标为局部坐标，该物体的坐标原点就是它父物体的坐标</p>
+<p>Unity中的物体以米为单位，可以参考1<em>1</em>1*1的正方体来调整其它物体的大小</p>
+<h3 id="065工具栏对象间父子关系">0.6.5工具栏+对象间父子关系
+</h3><p><img src="/p/unity-basic/index.assets/1765445925378-5f4752e8-df86-44be-8fe6-b98835bf0354.png"
+	width="1670"
+	height="731"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="228"
+		data-flex-basis="548px"
+	
+></p>
+<p><strong>对象间的父子关系</strong></p>
+<p>1.子对象会随着父对象的变化而变化</p>
+<p>2.子对象lnspector窗口中Transform信息是相对父对象的</p>
+<p>默认是选Pivot</p>
+<ul>
+<li>
+<p><strong>center和Pivot</strong></p>
+</li>
+<li>
+<ul>
+<li>center和物体的碰撞器有关，是视觉上的中心</li>
+<li>Pivot则一直在物体中心（我们一般把Pivot放在人物的脚下），相当于原点</li>
+</ul>
+</li>
+</ul>
+<p><img src="/p/unity-basic/index.assets/1758248000839-80af5a88-79cd-457c-93bc-ac7e8d363ad6.png"
+	width="861"
+	height="932"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="92"
+		data-flex-basis="221px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758248601817-10c4f731-1519-4a68-9616-97a5db406e2c.png"
+	width="253"
+	height="416"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="60"
+		data-flex-basis="145px"
+	
+></p>
+<h3 id="066切换工具和步移工具">0.6.6切换工具和步移工具
+</h3><p>在全局模式下，可以使用步移工具，即可以1米1米地移动物体</p>
+<p><img src="/p/unity-basic/index.assets/1758248734905-9e4fb2b5-e1ff-41c0-b0c1-95bce78eaff5.png"
+	width="694"
+	height="474"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="146"
+		data-flex-basis="351px"
+	
+></p>
+<p>或者按住ctrl移动，但是ctrl每一步只移动0.25米</p>
+<h3 id="067创建地面-控制地面颜色">0.6.7创建地面-控制地面颜色
+</h3><p><strong>1）创建一个平面并调大小</strong></p>
+<p><img src="/p/unity-basic/index.assets/1758250568624-6d5c3f81-d519-4ae8-9981-a0fd1ac0437e.png"
+	width="726"
+	height="828"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="87"
+		data-flex-basis="210px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758250396939-ae2ad8f0-a82e-46b2-a5ce-e6a6c0b5b7dd.png"
+	width="595"
+	height="196"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="303"
+		data-flex-basis="728px"
+	
+></p>
+<p><strong>2）新建一个材质</strong></p>
+<p><img src="/p/unity-basic/index.assets/1758250487950-576ee16e-59f3-4788-8656-2cd396039b66.png"
+	width="895"
+	height="563"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="158"
+		data-flex-basis="381px"
+	
+></p>
+<p><strong>3）修改颜色</strong></p>
+<p><img src="/p/unity-basic/index.assets/1758251287657-d8af2f9c-6a76-4743-8f4b-41470ebf0423.png"
+	width="993"
+	height="745"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="319px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758251015506-60a164c6-703f-4861-a8ac-5a3080d5c223.png"
+	width="1861"
+	height="1126"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="165"
+		data-flex-basis="396px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758251127025-707a5d11-d055-4915-a0f4-e8621f9f6a8a.png"
+	width="642"
+	height="773"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="199px"
+	
+></p>
+<p>着色器 shader</p>
+<h3 id="068游戏物体的基本组件和渲染模型和碰撞模型">0.6.8游戏物体的基本组件和渲染模型和碰撞模型
+</h3><p>smoothness可以调整粗糙度</p>
+<p><img src="/p/unity-basic/index.assets/1758509797441-28516d16-4c90-4830-83c9-9f13033eb6d2.png"
+	width="1021"
+	height="1186"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="86"
+		data-flex-basis="206px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758510039098-0db67412-72ae-4dc1-ac30-716a785652f8.png"
+	width="642"
+	height="584"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="109"
+		data-flex-basis="263px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758510086807-d163cb57-4491-4eb4-ae23-e813b1d444bf.png"
+	width="641"
+	height="267"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="240"
+		data-flex-basis="576px"
+	
+></p>
+<h3 id="069游戏引擎的作用">0.6.9游戏引擎的作用
+</h3><p>渲染计算，openGL移动端的渲染，dx是pc端的渲染</p>
+<p>碰撞检测</p>
+<h1 id="01快速入门案例">01快速入门案例🎉
+</h1><h2 id="11小球案例">1.1小球案例
+</h2><h3 id="111添加刚体"><strong>1.1.1添加刚体</strong>
+</h3><p><img src="/p/unity-basic/index.assets/1758511008742-8541e412-8dd4-4c4c-9915-ae60905b5e5f.png"
+	width="519"
+	height="87"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="596"
+		data-flex-basis="1431px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758510992771-01ba6c95-b040-4edb-a29c-cfec6996929c.png"
+	width="497"
+	height="383"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="129"
+		data-flex-basis="311px"
+	
+></p>
+<h3 id="112脚本初识">1.1.2脚本初识
+</h3><p>方式一：</p>
+<p>先创建脚本，然后拖到物体的的属性面板中</p>
+<p><img src="/p/unity-basic/index.assets/1758511443749-79d9e341-1625-4f7f-9102-1bd52aadd71f.png"
+	width="1005"
+	height="1412"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="71"
+		data-flex-basis="170px"
+	
+></p>
+<p>方式二：</p>
+<p><img src="/p/unity-basic/index.assets/1758511626624-02afb839-ad5e-435c-b489-5d04f3bbdbfe.png"
+	width="714"
+	height="640"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="111"
+		data-flex-basis="267px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758511670489-38b245d0-383c-4029-87e3-233e672e5a45.png"
+	width="375"
+	height="360"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="104"
+		data-flex-basis="250px"
+	
+></p>
+<p>删除组件</p>
+<p><img src="/p/unity-basic/index.assets/1758511788741-9c23e4de-55b5-4574-86bf-1c2bda9d7732.png"
+	width="585"
+	height="563"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="103"
+		data-flex-basis="249px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758674312355-6a4d0ce1-54c2-4e70-a754-446b04b176c3.png"
+	width="527"
+	height="316"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="166"
+		data-flex-basis="400px"
+	
+></p>
+<ul>
+<li>编写代码</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Hi</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Start is called before the first frame update</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Start</span><span class="p">()</span> <span class="c1">// 游戏启动的初始化</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&#34;游戏开始了...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Update is called once per frame 每帧调用一次</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Update</span><span class="p">()</span> <span class="c1">// 游戏运行时会一直重复调用update</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&#34;游戏正在运行...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/unity-basic/index.assets/1758675130914-ea374bc9-5ace-4df7-a021-352275e68404.png"
+	width="770"
+	height="159"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="484"
+		data-flex-basis="1162px"
+	
+></p>
+<p>注意：类名和文件名保持一致</p>
+<p><img src="/p/unity-basic/index.assets/1758674904554-ffcb1586-224e-4eba-9ddc-346f74e32cdd.png"
+	width="803"
+	height="989"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="81"
+		data-flex-basis="194px"
+	
+></p>
+<h3 id="113通过刚体控制小球移动">1.1.3通过刚体控制小球移动
+</h3><p>在类里面定义一个刚体组件，游戏开始的时候初始化该组件，游戏运行后持续施加一个向右的力</p>
+<p>公有属性可以直接通过inspect面板去设置它的值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Hi</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Rigidbody</span> <span class="n">rd</span><span class="p">;</span> <span class="c1">// 刚体组件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 游戏启动的初始化</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Start</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rd</span> <span class="p">=</span> <span class="n">GetComponent</span><span class="p">&lt;</span><span class="n">Rigidbody</span><span class="p">&gt;();</span> <span class="c1">// 初始化刚体组件</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 游戏运行后每帧调用一次</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Update</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//AddForce()添加力——&gt;需要指定力的大小和方向</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Vector3三维向量表示力的大小和方向，right表示向右的一个向量</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rd</span><span class="p">.</span><span class="n">AddForce</span><span class="p">(</span><span class="n">Vector3</span><span class="p">.</span><span class="n">right</span><span class="p">);</span><span class="c1">//放在Update里面，相当于持续在给小球一个1N的力</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>初始化刚体组件可以通过代码编写也可以通过拖拽的方式</p>
+<p><img src="/p/unity-basic/index.assets/1758677684140-0c992756-c1d0-45d8-b03c-4580daa0855c.png"
+	width="590"
+	height="680"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="86"
+		data-flex-basis="208px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758677738494-1bf6de1c-35a2-4b35-a0ff-9b9fe5f313a9.png"
+	width="571"
+	height="152"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="375"
+		data-flex-basis="901px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758677755040-226036b1-4a4f-4f11-b242-ffacf29a3732.png"
+	width="304"
+	height="215"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="339px"
+	
+></p>
+<p>我们用 rd.AddForce(Vector3.right); 给刚体添加一个力，这个力我们用三维向量来指定</p>
+<p>向量有大小和方向</p>
+<p>使用Vector3.right left forward back的方式不灵活，方向和大小都固定了，可以使用创建向量的方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Hi</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Rigidbody</span> <span class="n">rd</span><span class="p">;</span> <span class="c1">// 刚体组件</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 游戏启动的初始化</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Start</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//rd = GetComponent&lt;Rigidbody&gt;(); // 初始化刚体组件</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 游戏运行后每帧调用一次</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Update</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//AddForce()添加力——&gt;需要指定力的大小和方向</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//(x, y, z) —&gt; (1, 0, 0)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rd</span><span class="p">.</span><span class="n">AddForce</span><span class="p">(</span><span class="k">new</span> <span class="n">Vector3</span><span class="p">(</span><span class="m">10</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">));</span> <span class="c1">// 给右边一个10N的力</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="114监听键盘并控制小球移动">1.1.4监听键盘并控制小球移动
+</h3><ol>
+<li><strong>监听键盘按键的按下</strong></li>
+</ol>
+<p>GetAxis得到一个轴，Horizontal 水平轴</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//AddForce()添加力——&gt;需要指定力的大小和方向（向量）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//(x, y, z) —&gt; (1, 0, 0)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//rd.AddForce(new Vector3(10, 0, 0)); // 给右边一个2N的力</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//GetAxis得到一个轴，Horizontal 水平轴</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">h</span> <span class="p">=</span> <span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&#34;Horizontal&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当我们按下a键后，得到的值是慢慢从0渐变到-1的，当按下a键一直不懂的时候，它会一直输出-1，等松开按键后，会从-1慢慢回归到0</p>
+<p><img src="/p/unity-basic/index.assets/1758679194755-9f90d510-8c83-452f-b167-e344ec787580.png"
+	width="498"
+	height="573"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="86"
+		data-flex-basis="208px"
+	
+></p>
+<p>按下a键和d键的过程相反</p>
+<p>我们可以通过它把这个键的值赋值给我们想要控制的移动的一个x轴</p>
+<p>按下a键，x轴的值为-1，相当于向左移动</p>
+<p>按下d键，x左的值为1，相当于向右移动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//AddForce()添加力——&gt;需要指定力的大小和方向（向量)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//GetAxis得到一个轴，Horizontal 水平轴</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">h</span> <span class="p">=</span> <span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&#34;Horizontal&#34;</span><span class="p">);</span> <span class="c1">// 按下a/d键会慢慢从0~1/-1</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//Debug.Log(h);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rd</span><span class="p">.</span><span class="n">AddForce</span><span class="p">(</span><span class="k">new</span> <span class="n">Vector3</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">));</span><span class="c1">//(x, y, z) —&gt; (h, 0, 0)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>控制前后按键</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//AddForce()添加力——&gt;需要指定力的大小和方向（向量）</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//GetAxis得到一个轴，Horizontal 水平轴，Vertical垂直方向的轴</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">h</span> <span class="p">=</span> <span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&#34;Horizontal&#34;</span><span class="p">);</span> <span class="c1">//1 -1</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">v</span> <span class="p">=</span> <span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&#34;Vertical&#34;</span><span class="p">);</span> <span class="c1">// w s</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rd</span><span class="p">.</span><span class="n">AddForce</span><span class="p">(</span><span class="k">new</span> <span class="n">Vector3</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="n">v</span><span class="p">));</span> <span class="c1">// (x, y, z)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为什么通过这种方式就可以左右键按下？可以设置</p>
+<p><img src="/p/unity-basic/index.assets/1758845893277-fd940297-8298-4627-a9e2-77261b908882.png"
+	width="661"
+	height="1262"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="52"
+		data-flex-basis="125px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758845969573-ac506aba-9879-4c26-adee-65ed7ebcab7c.png"
+	width="953"
+	height="732"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="130"
+		data-flex-basis="312px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758846293231-8a2c9cb0-47c6-4fe7-acb9-8d1c9501c15f.png"
+	width="955"
+	height="743"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="308px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758846395611-47788d90-5c93-48a8-81f9-ad43e00dbc1e.png"
+	width="641"
+	height="484"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="317px"
+	
+></p>
+<h3 id="115控制小球速度">1.1.5控制小球速度
+</h3><p>向量的运算：</p>
+<p>向量的乘法(1, 2, 3) * 2 = (2, 4, 6)</p>
+<p><img src="/p/unity-basic/index.assets/1758680153912-e04d2a24-4d16-4056-a463-c2191a475f86.png"
+	width="1052"
+	height="951"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="265px"
+	
+></p>
+<h3 id="116跟随相机移动">1.1.6跟随相机移动
+</h3><p><strong>1.先让小球贴地面</strong></p>
+<p>地面的位置为（0，0，0）</p>
+<p><img src="/p/unity-basic/index.assets/1758847982379-7c2af2d3-0fe6-48dd-af73-78f54580afb5.png"
+	width="1344"
+	height="744"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="180"
+		data-flex-basis="433px"
+	
+></p>
+<p>小球直径为1，所以位置为（0,0.5,0）就贴地面了</p>
+<p><img src="/p/unity-basic/index.assets/1758848015911-24b77f07-f139-4860-a402-93f297d884c9.png"
+	width="789"
+	height="246"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="320"
+		data-flex-basis="769px"
+	
+></p>
+<p><strong>2.相机跟随小球移动</strong></p>
+<p>a. 计算相机与小球之间的位置差（偏移）</p>
+<p>b. 实时设置相机的位置，让它的位置等于小球的位置+偏移</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">FollowTarget</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Transform</span> <span class="n">playerTransform</span><span class="p">;</span> <span class="c1">// 获取小球的位置</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Vector3</span> <span class="n">offset</span><span class="p">;</span> <span class="c1">// 相机与小球之间的位置差</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//偏移=当前相机的位置-玩家的位置</span>
+</span></span><span class="line"><span class="cl">        <span class="n">offset</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-</span> <span class="n">playerTransform</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//更新相机位置</span>
+</span></span><span class="line"><span class="cl">        <span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">=</span> <span class="n">playerTransform</span><span class="p">.</span><span class="n">position</span> <span class="p">+</span> <span class="n">offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="117添加墙">1.1.7添加墙
+</h3><ol>
+<li><strong>新建一个小方块，先将它的位置重置</strong></li>
+</ol>
+<p><img src="/p/unity-basic/index.assets/1758851940043-5be2868c-70eb-45b9-9c3c-d8b5ec47ca5f.png"
+	width="804"
+	height="344"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="233"
+		data-flex-basis="560px"
+	
+></p>
+<p>然后将其位置设置为(0,0.5,0)，小球就在地面上了</p>
+<ol>
+<li><strong>设置墙的大小和位置</strong></li>
+</ol>
+<p>因为地面的大小为（2,2,2），所以将墙的z方向大小设置为20即为地面的20倍</p>
+<p><img src="/p/unity-basic/index.assets/1758852469561-bae414b8-826c-4be2-881f-86582385a6a1.png"
+	width="818"
+	height="328"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="249"
+		data-flex-basis="598px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758852725799-4058f732-162b-4654-bda5-2483728eab50.png"
+	width="774"
+	height="257"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="301"
+		data-flex-basis="722px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758852680487-c0db99e0-8f89-4e91-8c2c-31193a2a3618.png"
+	width="965"
+	height="705"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="136"
+		data-flex-basis="328px"
+	
+></p>
+<h3 id="118创建空物体分类">1.1.8创建空物体分类
+</h3><p>我们可以将现在已经创建的物体分类</p>
+<p><img src="/p/unity-basic/index.assets/1758852875589-8ca4318c-e4c2-4403-a276-6509edad7249.png"
+	width="571"
+	height="772"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="73"
+		data-flex-basis="177px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758852953838-f247656a-cfd4-4676-b0c6-844647e3c654.png"
+	width="865"
+	height="249"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="347"
+		data-flex-basis="833px"
+	
+></p>
+<p>将我们环境相关的物体都拖到空物体下</p>
+<p><img src="/p/unity-basic/index.assets/1758852988938-f24b5681-8e9b-4deb-9b1b-8248799ffa0f.png"
+	width="444"
+	height="337"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="131"
+		data-flex-basis="316px"
+	
+></p>
+<h3 id="119将食物做成预制体">1.1.9将食物做成预制体
+</h3><p><strong>1.创建一个cube（食物），将它的大小改小，旋转</strong></p>
+<p><img src="/p/unity-basic/index.assets/1758853216447-358e9a6c-93b3-4315-b309-4c3b18bbdf93.png"
+	width="1467"
+	height="467"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="314"
+		data-flex-basis="753px"
+	
+></p>
+<p><strong>2.创建一个预制体</strong></p>
+<p>因为我们要一次创建多个食物，这10个食物一旦我们要做修改，是希望全部都修改的，所以不能简单地ctrl+d来复制出10个食物，需要创建模版</p>
+<p>先新建一个文件夹Prefabs，将场景中的物体拖到文件夹里面就创建好预制体了</p>
+<p><img src="/p/unity-basic/index.assets/1758853555598-913309cf-a531-46eb-b688-9d9796b72ee1.png"
+	width="506"
+	height="603"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="201px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1758854587288-db218e8b-633f-45b5-ab3a-0dea2aee90fe.png"
+	width="386"
+	height="330"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="116"
+		data-flex-basis="280px"
+	
+></p>
+<p>之后可以直接复制预制体，之后直接修改Prefabs中的预制体的属性，其它的都会修改</p>
+<p><img src="/p/unity-basic/index.assets/1758854820855-0bbde3af-5840-45f5-b2f4-fc6b823939c8.png"
+	width="332"
+	height="239"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="138"
+		data-flex-basis="333px"
+	
+></p>
+<p>如果只修改孩子，想要孩子应用到其它所有孩子，可以重写</p>
+<p><img src="/p/unity-basic/index.assets/1758854931642-ae8e8e45-7404-4ecf-8033-4e344a17bdce.png"
+	width="497"
+	height="389"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="127"
+		data-flex-basis="306px"
+	
+></p>
+<h3 id="1110控制食物旋转">1.1.10控制食物旋转
+</h3><p>我们想要所有的食物都旋转起来，只需要修改预制体，给它添加一个脚本，来控制它的旋转</p>
+<p><img src="/p/unity-basic/index.assets/1758855324726-3f1355b3-3082-4a3c-ad23-dc238381831e.png"
+	width="787"
+	height="1002"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="78"
+		data-flex-basis="188px"
+	
+></p>
+<p>旋转是transform里面的，transform.Rotate()表示物体自身的旋转，需要给一个旋转的方向以及旋转的度数——&gt;可以给一个向量，向量的方向代表围绕哪个方向旋转</p>
+<p>Vector3.up 向上旋转，力是1N的</p>
+<p>Update里面的是会执行多次的(1秒执行60次)，实际上是一度一度在旋转，但是看起来就像一直在旋转</p>
+<p><img src="/p/unity-basic/index.assets/1758856000460-ae13b139-2cf6-47c5-b430-302f8f7a7609.png"
+	width="741"
+	height="172"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="430"
+		data-flex-basis="1033px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759111319600-212897b8-f4e6-472d-a1d7-3e02d75d7f08.png"
+	width="667"
+	height="208"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="320"
+		data-flex-basis="769px"
+	
+></p>
+<h3 id="1111检测碰撞到食物并销毁">1.1.11检测碰撞到食物并销毁
+</h3><p>1.怎么知道小球和cube发生碰撞</p>
+<p>2.如何销毁cube</p>
+<p><strong>检测碰撞</strong></p>
+<p>使用系统事件(方法) OnCollisionXXX，只要发生一次碰撞，就执行一次</p>
+<ul>
+<li>碰撞开始 OnCollisionEnter</li>
+<li>碰撞中 OnCollisionStay</li>
+<li>碰撞结束 OnCollisionExit</li>
+</ul>
+<p>在这里我们只需要使用 OnCollisionEnter</p>
+<p><strong>怎么知道是和cube发生了碰撞</strong></p>
+<p>我们的小球会和很多物体发生碰撞(地面、墙、食物....)，但是我们只在小球碰撞到食物之后才让物体消失，这时我们就需要区分小球碰撞到的物体是谁</p>
+<p>区分游戏物体的两种方式：标签或名字</p>
+<p>每个游戏物体都一个名字和一个标签，标签可以指定，物体可以拥有相同的标签和名字。一般我们用标签来区分某一类游戏物体</p>
+<p><img src="/p/unity-basic/index.assets/1759114490171-2b774d63-fefe-44a7-8a75-6c0bf8bd90a0.png"
+	width="749"
+	height="532"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="140"
+		data-flex-basis="337px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759114515731-e5ee33d3-ea26-4ede-819a-0a4ba21b30ae.png"
+	width="487"
+	height="302"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="161"
+		data-flex-basis="387px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759114535025-f36bf905-84f5-4503-900c-013c556fadb5.png"
+	width="600"
+	height="77"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="779"
+		data-flex-basis="1870px"
+	
+></p>
+<p>我们这里只需要修改Prefabs的Tag就可以让所有的食物标签都修改了</p>
+<p><img src="/p/unity-basic/index.assets/1759114594574-300797b1-ea83-4487-99e7-7759382af432.png"
+	width="781"
+	height="760"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="246px"
+	
+></p>
+<p>碰撞后会保存对方的信息到Collision collision</p>
+<p>.gameObject获取到游戏物体，.tag获取到该物体的标签</p>
+<p>Destroy销毁游戏物体</p>
+<p><img src="/p/unity-basic/index.assets/1759115456097-49f9486c-b792-4592-8af4-92cfebd74566.png"
+	width="824"
+	height="571"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="346px"
+	
+></p>
+<p>我们可以通过游戏物体gameObject获得标签，也可以通过组件获取标签</p>
+<p>collider表示碰撞器，是食物身上的一个组件</p>
+<p><img src="/p/unity-basic/index.assets/1759115708809-6d79c370-b180-42c1-9130-cb6f9344cc39.png"
+	width="291"
+	height="41"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="709"
+		data-flex-basis="1703px"
+	
+></p>
+<h3 id="1112通过触发检测吃食物">1.1.12通过触发检测，吃食物
+</h3><p>我们使用碰撞检测食物并销毁的话，会发生碰撞效果，但是我们希望小球碰撞到食物后可以直接穿过去，我们可以使用触发检测</p>
+<p>触发检测是用来检测某个游戏物体是否进入某个区域（比如自动门、监控检测&hellip;）</p>
+<p><img src="/p/unity-basic/index.assets/1759116655788-a9296906-7fd7-42d0-ad59-171a82c413ab.png"
+	width="710"
+	height="709"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+></p>
+<p>把Box Collider的 Is Trigger勾上，就变成触发器了</p>
+<p>使用触发检测如何检测是否进入到物体内，是否离开物体？</p>
+<p>同样有三个方法</p>
+<p><img src="/p/unity-basic/index.assets/1759116388159-7be708a2-686f-46b1-b403-ac6607bda623.png"
+	width="671"
+	height="631"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="106"
+		data-flex-basis="255px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">private</span> <span class="k">void</span> <span class="n">OnTriggerEnter</span><span class="p">(</span><span class="n">Collider</span> <span class="n">other</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&#34;触发检测~&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">tag</span> <span class="p">==</span> <span class="s">&#34;Food&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Destroy</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">gameObject</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="1113通过ui显示得分">1.1.13通过UI显示得分
+</h3><p><strong>设置得分</strong></p>
+<p>我们可以将分数放在主角身上</p>
+<p><img src="/p/unity-basic/index.assets/1759116997531-981103be-0663-48b0-9c09-4e84b054157d.png"
+	width="579"
+	height="228"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="253"
+		data-flex-basis="609px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759117012712-c9738a96-e189-442b-99e4-be9b1949de43.png"
+	width="490"
+	height="142"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="345"
+		data-flex-basis="828px"
+	
+></p>
+<p>变量定义为public后，会出现在面板上</p>
+<p>当主角碰到食物后，让分数+1，所以在触发检测代码中：</p>
+<p><img src="/p/unity-basic/index.assets/1759117174293-df81921c-d66b-45de-bbc7-ae8925db30ab.png"
+	width="648"
+	height="401"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="161"
+		data-flex-basis="387px"
+	
+></p>
+<p><strong>让分数显示在屏幕上</strong></p>
+<p>1.创建UI</p>
+<p><img src="/p/unity-basic/index.assets/1759117307762-9e3c4001-053e-480b-8c93-08307bd1c31a.png"
+	width="807"
+	height="801"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="241px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759117440795-c07c6cae-d1fa-40fd-9812-c387cb74a306.png"
+	width="1084"
+	height="595"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="182"
+		data-flex-basis="437px"
+	
+></p>
+<p>Canvas 代表画布</p>
+<p>EventSystem 事件系统</p>
+<p><img src="/p/unity-basic/index.assets/1759118393740-0ed1a2b6-f95b-41cf-adde-6b19beef5d1a.png"
+	width="644"
+	height="821"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="78"
+		data-flex-basis="188px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759119034546-42188196-6352-477b-b9ea-192562608a6f.png"
+	width="508"
+	height="476"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="106"
+		data-flex-basis="256px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759119060913-652d1a1f-cfb3-4a69-b086-e58dd5af9757.png"
+	width="326"
+	height="393"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="82"
+		data-flex-basis="199px"
+	
+></p>
+<p>按住alt键之后选择下面的</p>
+<p><img src="/p/unity-basic/index.assets/1759119080082-8fcdb361-7190-425c-a967-0b27a8adda32.png"
+	width="338"
+	height="385"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="87"
+		data-flex-basis="210px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759119158373-de816fa0-0f3d-4837-b4ff-a56bbc6f2455.png"
+	width="1146"
+	height="556"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="206"
+		data-flex-basis="494px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759119263536-5419f9bd-9042-4a99-82d9-00a8e0b6170e.png"
+	width="954"
+	height="951"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="240px"
+	
+></p>
+<p><strong>让分数和游戏关联起来</strong></p>
+<p>每次分数发生改变，我们都需要更新UI，我们更新UI的话，主要是通过Text上的Text组件</p>
+<p><img src="/p/unity-basic/index.assets/1759119349844-e7719b04-ca69-4dcc-b9c1-7e52d9c53a99.png"
+	width="732"
+	height="360"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="203"
+		data-flex-basis="488px"
+	
+></p>
+<p>需要展开命名空间</p>
+<p><img src="/p/unity-basic/index.assets/1759119494723-817ac944-bfb0-49c4-8834-6e8946f2cb9e.png"
+	width="639"
+	height="530"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="120"
+		data-flex-basis="289px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759119556000-ca362703-15fe-4d53-a245-10a4360e29b2.png"
+	width="964"
+	height="940"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="102"
+		data-flex-basis="246px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759119692080-2ef2222f-781c-4dc8-9dbe-e4ff160f514c.png"
+	width="653"
+	height="502"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="130"
+		data-flex-basis="312px"
+	
+></p>
+<h3 id="1114显示游戏胜利">1.1.14显示游戏胜利
+</h3><p>新建一个文本对象</p>
+<p><img src="/p/unity-basic/index.assets/1759395547035-661b277b-b30a-422d-9be6-dcf9a1d742ae.png"
+	width="1567"
+	height="738"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="212"
+		data-flex-basis="509px"
+	
+></p>
+<p>我们希望默认 胜利 是不显示的，</p>
+<p>方式一：禁用Text组件</p>
+<p><img src="/p/unity-basic/index.assets/1759395720080-a300fbc3-eb68-473d-8f17-c674626110ed.png"
+	width="413"
+	height="113"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="365"
+		data-flex-basis="877px"
+	
+></p>
+<p>方式二：禁用游戏物体，等游戏胜利后，再启用游戏物体</p>
+<p><img src="/p/unity-basic/index.assets/1759396369132-6abfe128-2348-46ad-ac9c-eff0ff697565.png"
+	width="418"
+	height="242"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="414px"
+	
+></p>
+<p>先声明一个游戏物体</p>
+<p><img src="/p/unity-basic/index.assets/1759395899369-4cb6ca15-b7d1-4183-8a8d-2ee78c19a0d7.png"
+	width="575"
+	height="379"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="151"
+		data-flex-basis="364px"
+	
+></p>
+<p>在触发检测内判断</p>
+<p><img src="/p/unity-basic/index.assets/1759396392531-e7c4f9ca-0179-4807-816b-9ea28c6dd864.png"
+	width="696"
+	height="693"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="100"
+		data-flex-basis="241px"
+	
+></p>
+<h3 id="1115游戏打包">1.1.15游戏打包
+</h3><p><img src="/p/unity-basic/index.assets/1759396460134-f322372a-779c-4816-8f32-6f01f54ab3d0.png"
+	width="474"
+	height="543"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="87"
+		data-flex-basis="209px"
+	
+></p>
+<p>设置分辨率</p>
+<p><img src="/p/unity-basic/index.assets/1759397129102-7911c444-45b4-4692-abab-c97f17fc8f2d.png"
+	width="957"
+	height="894"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="107"
+		data-flex-basis="256px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759397108748-685f5770-08a1-461e-a37b-a0fcbc42ff4c.png"
+	width="961"
+	height="752"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="127"
+		data-flex-basis="306px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1759396715871-2d724ea5-2b52-4cd0-81da-6f8ff92b1bef.png"
+	width="1357"
+	height="897"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="151"
+		data-flex-basis="363px"
+	
+></p>
+<p>生成了下面几个文件</p>
+<p><img src="/p/unity-basic/index.assets/1759396972867-910e8dd7-7354-4df9-beef-3459f10fcdc8.png"
+	width="396"
+	height="235"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="168"
+		data-flex-basis="404px"
+	
+></p>
+<p>ALT+F4</p>
+<h2 id="12打砖块案例">1.2打砖块案例
+</h2><h3 id="121搭建环境">1.2.1搭建环境
+</h3><p><strong>创建地面</strong></p>
+<p>1.创建地面并重命名为Ground</p>
+<p><img src="/p/unity-basic/index.assets/1760627151627-68b1daca-b8c5-4610-8314-cbab7efdbc22.png"
+	width="809"
+	height="846"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="95"
+		data-flex-basis="229px"
+	
+></p>
+<p>2.将坐标重置为世界坐标中心</p>
+<p><img src="/p/unity-basic/index.assets/1760627091766-b50b9449-d286-437a-ba0d-5a1007400e82.png"
+	width="442"
+	height="116"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="381"
+		data-flex-basis="914px"
+	
+></p>
+<p>3.新建一个文件夹，命名为Materials并创建材质</p>
+<p><img src="/p/unity-basic/index.assets/1760627307272-fc45f6bb-62b8-4d38-9460-a11328b53988.png"
+	width="854"
+	height="805"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="106"
+		data-flex-basis="254px"
+	
+></p>
+<p>设置材质颜色，光滑度设置为0</p>
+<p><img src="/p/unity-basic/index.assets/1760627540767-b9c2fca9-a0bb-4324-ae68-01250650e254.png"
+	width="694"
+	height="297"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="233"
+		data-flex-basis="560px"
+	
+></p>
+<p>4.给地面添加材质，并设置长和宽大小</p>
+<p><img src="/p/unity-basic/index.assets/1760627496547-e7da8a68-e91f-4c91-9598-c7b89bc209a6.png"
+	width="923"
+	height="322"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="286"
+		data-flex-basis="687px"
+	
+></p>
+<p><strong>创建墙体</strong></p>
+<p>1.创建小方块，改名Brick</p>
+<p><img src="/p/unity-basic/index.assets/1760627890365-400e8159-205e-4bc5-b913-441c9de4c930.png"
+	width="1525"
+	height="531"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="287"
+		data-flex-basis="689px"
+	
+></p>
+<p>2.墙体是由多个小砖块组成的，所以我们把它设置为预制体</p>
+<p>1）新建一个文件夹Prefabs，专门用来存放预制体</p>
+<p>2）把小方块拖到这个文件夹中</p>
+<p>然后设置颜色，光滑度&hellip;.</p>
+<p><img src="/p/unity-basic/index.assets/1760628289247-4894f5e8-ea5d-4de3-8479-d350637e1078.png"
+	width="938"
+	height="303"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="309"
+		data-flex-basis="742px"
+	
+></p>
+<p>3.创建墙体，借助步移工具，让砖块之间更贴合</p>
+<p>按住ctrl再拖动物体，就会按照我们设置的步移长度每次只挪动固定的距离</p>
+<p><img src="/p/unity-basic/index.assets/1760628947514-88510d40-04d8-4f61-a5bf-20d6f58a6493.png"
+	width="750"
+	height="426"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="422px"
+	
+></p>
+<p>4.选中所有的小方框，然后右击创建一个Empty Parent 作为父亲</p>
+<p><img src="/p/unity-basic/index.assets/1760628902170-8937781d-51cd-4491-8a99-fd414762eb1c.png"
+	width="463"
+	height="394"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="117"
+		data-flex-basis="282px"
+	
+></p>
+<h3 id="122控制相机左右移动">1.2.2控制相机左右移动
+</h3><p>目标：通过上下左右键控制相机的位置</p>
+<p>同时，相机所在的位置也是子弹发射的位置</p>
+<p><strong>1.给相机添加一个移动脚本</strong></p>
+<p><img src="/p/unity-basic/index.assets/1760629160737-a6f15218-d995-4311-be20-ed45a5fa49d3.png"
+	width="913"
+	height="1124"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="81"
+		data-flex-basis="194px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1760629134367-80d3acfd-cb91-4247-a8fc-a17cc90db391.png"
+	width="327"
+	height="463"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="70"
+		data-flex-basis="169px"
+	
+></p>
+<p><strong>2.通过transform组件可以控制相机的位置</strong></p>
+<p>1）得到组件，但transform组件可以直接使用</p>
+<p>2）transform.Translate() 变换方法，既可以改位置也可以改旋转角度&hellip;</p>
+<p>3）参数可以填Vector3.right等</p>
+<p><strong>3.通过按键控制相机左右移动</strong></p>
+<p>我们只需要控制相机在 x轴和y轴上移动，不需要进行前后移动</p>
+<p>1）GetAxis得到一个轴，Horizontal 水平轴，用来控制相机左右移动</p>
+<p>2）h取值范围 1~-1，按下左箭头是负数，正好是向左移动，按下右箭头，正好是正数，向右移动</p>
+<p>按下左键，慢慢从0变化到-1；按下右键，慢慢从0变化到1</p>
+<p>3）但是相机的移动速度和update的执行速度有关了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//GetAxis得到一个轴，Horizontal 水平轴</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//水平轴，用来控制相机左右移动</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">h</span> <span class="p">=</span> <span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&#34;Horizontal&#34;</span><span class="p">);</span><span class="c1">// h值控制x轴移动，取值-1~1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transform</span><span class="p">.</span><span class="n">Translate</span><span class="p">(</span><span class="k">new</span> <span class="n">Vector3</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">));</span><span class="c1">//h为正/负—&gt;x轴正/负 </span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>4.控制物体的运动速度</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span> <span class="c1">// 每一帧会执行一次update</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Time.deltaTime 上一帧的执行时间</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//1秒除以一帧执行的时间——&gt;1秒执行了多少次</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&#34;FPS：&#34;</span> <span class="p">+</span> <span class="m">1</span> <span class="p">/</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span> <span class="c1">// FPS frame per second</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>控制相机运动的速度+控制相机上下移动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">speed</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//GetAxis得到一个轴，Horizontal 水平轴</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//水平轴，用来控制相机左右移动</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">h</span> <span class="p">=</span> <span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&#34;Horizontal&#34;</span><span class="p">);</span><span class="c1">// h值控制x轴移动，取值-1~1</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float</span> <span class="n">v</span> <span class="p">=</span> <span class="n">Input</span><span class="p">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="s">&#34;Vertical&#34;</span><span class="p">);</span><span class="c1">// v值控制y轴移动，取值-1~1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//运动距离 = 速度 * 时间</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//new Vector3(h, 0, 0) 可以看做是速度，1秒1米</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transform</span><span class="p">.</span><span class="n">Translate</span><span class="p">(</span><span class="k">new</span> <span class="n">Vector3</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span> <span class="p">*</span> <span class="n">speed</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span><span class="c1">//h为正/负—&gt;x轴正/负 </span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="补充fixedupdate">补充：FixedUpdate
+</h3><p>每秒执行固定次数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-csharp" data-lang="csharp"><span class="line"><span class="cl"> <span class="kd">private</span> <span class="k">void</span> <span class="n">FixedUpdate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Update</span><span class="p">()</span> <span class="c1">// 每一帧会执行一次update</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Time.deltaTime 上一帧的执行时间</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//1秒除以一帧执行的时间——&gt;1秒执行了多少次</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Debug</span><span class="p">.</span><span class="n">Log</span><span class="p">(</span><span class="s">&#34;FPS：&#34;</span> <span class="p">+</span> <span class="m">1</span> <span class="p">/</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span> <span class="c1">// FPS frame per second</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/unity-basic/index.assets/1761236729965-4528209e-63de-429a-91af-0af98e881a12.png"
+	width="945"
+	height="735"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="308px"
+	
+></p>
+<h3 id="123创建子弹">1.2.3创建子弹(小球)
+</h3><p>做成预制体</p>
+<p>当我们按下鼠标左键时，才创建子弹</p>
+<p>相机相当于是我们的主角</p>
+<p><img src="/p/unity-basic/index.assets/1764904106043-1174e3da-7c6d-4d6c-a0f6-a6d6cdcf6c96.png"
+	width="900"
+	height="1283"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="70"
+		data-flex-basis="168px"
+	
+></p>
+<h1 id="02入门">02入门🌈
+</h1><h2 id="1入门知识">1.入门知识
+</h2><h3 id="反射机制">反射机制
+</h3><p><strong>反射</strong></p>
+<p>程序正在运行时，可以查看其它程序集或者自身的元数据</p>
+<p>运行的程序查看本身或者其它程序的元数据的行为就叫做反射</p>
+<p>在程序运行时，通过反射可以得到其它程序集或者自己程序集中</p>
+<p>代码的各种信息，比如类，函数，变量，对象等等</p>
+<p>我们可以实例化它们，执行它们，操作它们</p>
+<p><strong>Unity中的反射机制</strong></p>
+<p>Unity引擎本质是一个软件，使用它时是处于运行中的</p>
+<p>我们是在一个运行中的软件里制作游戏的Unity开发的本质就是，</p>
+<p>在Unity引擎的基础上，利用反射和引擎提供的各种功能进行的拓展开发</p>
+<p><strong>场景中对象的本质是什么</strong></p>
+<p>GameObject类对象是Unity引擎提供给我们的，作为场景中所有对象的根本，</p>
+<p>在游戏场景中出现一个对象，不管是图片、模型、音效、摄像机等等都是依附于GameObject对象的</p>
+<p>拟人化记忆：GameObject就是没有剧本的演员</p>
+<p><strong>Transform是什么</strong></p>
+<p>GameObject对象作为一个出现在舞台（3D场景）中的演员必须有一个表示自己所在位置的信息。Transform就是一个必不可少的剧本，它的本质就是发了一本表示位置的剧本给演员（相当于就是用一个Transform类对象和GameObject类对象进行关联）用于设置和得到演员在世界中的位置角度缩放等信息</p>
+<p><strong>反射机制的体现</strong></p>
+<p>除了Transform这个表示位置的标配剧本外，我们可以为这个演员（GameObject）关联各种剧本（C#脚本让它按照我们剧本中（代码逻辑中）的命令来处理事情，而为演员添加剧本的这个过程，就是在利用反射new一个新的剧本对象和演员（GameObject）对象进行关联，让其按我们的命令做事)</p>
+<p><img src="/p/unity-basic/index.assets/1765070654635-bde254bf-14d6-4c05-8c08-2dded065d9a6.png"
+	width="1342"
+	height="418"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="321"
+		data-flex-basis="770px"
+	
+></p>
+<p><strong>举例体现</strong></p>
+<p>前提：Unity帮助我们实现了对象查找和关联</p>
+<p>1.修改lnspector面板中Transform的内容</p>
+<p>利用反射：已知对象，类名，变量名，通过反射为该对象设置变量值</p>
+<p>2.新建一个脚本后，添加给一个指定的GameObject对象</p>
+<p>利用反射：已知类名，可以获取所有公共成员，故可以在lnspector面板上创建各公共字段信息</p>
+<h3 id="游戏场景">游戏场景
+</h3><p><strong>新建场景</strong></p>
+<p><img src="/p/unity-basic/index.assets/1765071118642-9f29e3cf-6498-4750-8ec0-7e2c4b1d58e1.png"
+	width="366"
+	height="237"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
+	
+></p>
+<p><strong>多个游戏场景叠加显示</strong></p>
+<p><img src="/p/unity-basic/index.assets/1765071314635-8c4e96ec-adbd-4413-8bac-ba3908ddfbc2.png"
+	width="669"
+	height="353"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="189"
+		data-flex-basis="454px"
+	
+></p>
+<p>一般是编辑模式下为了方便将一个场景的某些物体复制到另一个场景中</p>
+<p><img src="/p/unity-basic/index.assets/1765071376885-87fbd8d2-030c-4728-ad3b-092059dea31c.png"
+	width="440"
+	height="596"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="73"
+		data-flex-basis="177px"
+	
+></p>
+<p><strong>游戏场景的本质就是配置文件</strong></p>
+<p>游戏场景文件，后缀为.unity，它的本质就是一个配置文件</p>
+<p>Unity有一套自己识别处理它的机制，但是本质就是把场景对象相关信息读取出来通过反射来创建各个对象关联各个脚本对象</p>
+<p>Unity的工作机制，本质就是利用反射，动态的创建GameObject对象并且关联各种C#脚本对象在其上，让不同的GameObject对象各司其职扮演好自己的角色根据Unity提供以及我们书写的剧本（C#脚本）呈现一出游戏戏剧。</p>
+<p>其中对于一个演员来说，GameObject和Transform是必不可少的关键因素</p>
+<h3 id="预制体和资源包的导入导出">预制体和资源包的导入导出
+</h3><p><img src="/p/unity-basic/index.assets/1765072412672-943a02e3-7b60-48a6-86fe-a40cea9203b0.png"
+	width="446"
+	height="422"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="105"
+		data-flex-basis="253px"
+	
+></p>
+<p>重置到所有就是取消修改</p>
+<p>应用到所有就是保存改变</p>
+<p>open打开预制体，对预制体做一些操作</p>
+<p><img src="/p/unity-basic/index.assets/1765072684716-ad545f59-b748-4dfc-bfd2-45447b11a81d.png"
+	width="1097"
+	height="384"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="285"
+		data-flex-basis="685px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765072997607-658e465e-4a77-4cc1-95d7-af35efa1d8e3.png"
+	width="527"
+	height="736"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="71"
+		data-flex-basis="171px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765073035260-d9a44ad8-0465-4796-a592-708975215a97.png"
+	width="1139"
+	height="387"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="294"
+		data-flex-basis="706px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765073140833-90dfdcfb-c4ab-4f8c-83c6-e2f3626c3385.png"
+	width="617"
+	height="883"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="69"
+		data-flex-basis="167px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765073216950-bda5328f-514a-4509-b682-265fbcbfb350.png"
+	width="597"
+	height="574"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="104"
+		data-flex-basis="249px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765073294283-e7237a68-b0d2-406d-8ea0-c70effe2527a.png"
+	width="235"
+	height="55"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="427"
+		data-flex-basis="1025px"
+	
+></p>
+<h3 id="脚本基本规则">脚本基本规则
+</h3><p><img src="/p/unity-basic/index.assets/1765075214283-a508f619-f1d3-4337-b888-2459a707a1a9.png"
+	width="1145"
+	height="189"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="605"
+		data-flex-basis="1453px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765075237481-86a766c4-9a55-477c-af6a-afd8868b8e3b.png"
+	width="569"
+	height="703"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="80"
+		data-flex-basis="194px"
+	
+></p>
+<blockquote>
+<p><strong>设置编程工具：edit-&gt;preferences-&gt;external tools</strong></p>
+<p><img src="/p/unity-basic/index.assets/1765073433970-7e6b2a59-f15f-4514-8d3c-eb964f938eba.png"
+	width="540"
+	height="1060"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="50"
+		data-flex-basis="122px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765073491209-51e84e43-724d-4d83-8447-41ce33e79711.png"
+	width="1107"
+	height="747"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="148"
+		data-flex-basis="355px"
+	
+></p>
+</blockquote>
+<p><strong>创建规则</strong></p>
+<p>1）不在VS中创建脚本了</p>
+<p>2）可以放在Assets文件夹下的任何位置（建议同一文件夹管理）</p>
+<p><img src="/p/unity-basic/index.assets/1765073803219-17f40110-8a5a-4bef-a19d-5b6fbb8e0e50.png"
+	width="362"
+	height="256"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="339px"
+	
+></p>
+<p>3）类名和文件名必须一致，不然不能挂载（因为反射机制创建对象，会通过文件名去找Type)</p>
+<p>4）建议不要使用中文名命名</p>
+<p>5）没有特殊需求不用管命名空间</p>
+<p>6）创建的脚本默认继承MonoBehavior，继承了MonoBehavior就能挂载到场景中的对象上</p>
+<p><strong>MonoBehavior基类</strong></p>
+<p>1）创建的脚本默认都继承MonoBehaviour，继承了它才能够挂载在GameObject上</p>
+<p>2）继承了MonoBehavior的脚本不能new只能挂</p>
+<p>3）继承了MonnBehavior的脚本不要去写构造函数，因为我们不会去new它，写构造函数没有任何意义</p>
+<p>4）继承了MonoBehavior的脚本可以在一个对象上挂多个（如果没有加DisallowMultipleComponent特性)</p>
+<p><img src="/p/unity-basic/index.assets/1765074533553-f9d4f374-3653-404c-a205-fdd10355222a.png"
+	width="853"
+	height="770"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="110"
+		data-flex-basis="265px"
+	
+></p>
+<p>5）继承MonoBehavior的类也可以再次被继承，遵循面向对象继承多态的规则</p>
+<p><strong>不继承MonoBehavior的类</strong></p>
+<p>1）不继承Mono的类 不能挂载在GameObject上</p>
+<p>2）不继承Mono的类想怎么写怎么写如果要使用需要自己new</p>
+<p>可以在继承MonoBehavior的类中去new它</p>
+<p>3）不继承Mono的类一般是单例模式的类（用于管理模块）或者数据结松类 (用于存储数据)</p>
+<p>4）不继承Mono的类不用保留默认出现的几个函数（start和update）</p>
+<h3 id="生命周期函数">生命周期函数
+</h3><p>游戏的本质就是一个死循环，每一次循环处理游戏逻辑就会更新一次画面，之所以能看到画面在动，是因为切换画面的速度到达一定时，人眼就认为画面是流畅的，一帧就是执行一次循环</p>
+<p>fps (Frames Per Second) ：即每秒钟帧数</p>
+<p>一般我们说的60帧30帧，意思是1秒更新60次、30次画面</p>
+<p>1s = 1000ms</p>
+<p>60帧：1帧为1000ms/60=16.66ms</p>
+<p>30帧：1帧为1000ms/30=33.33ms</p>
+<p>人眼放松时可视帧数是每秒24帧</p>
+<p>游戏卡顿的原因：跑1帧游戏逻辑中的计算量过大，或者CPU不给力，不能在一帧的时间内处理完所有游戏逻辑</p>
+<p>​    <strong>一、了解帧的概念</strong></p>
+<p>​    Unity底层已经帮助我们做好了死循环</p>
+<p>​    我们需要学习unity的生命周期函数</p>
+<p>​    利用它做好的规则来执行我们的游戏逻辑就行</p>
+<p>​    <strong>二、生命周期函数的概念</strong></p>
+<p>​    所有继承MonoBehavior的脚本最终都会挂载到Gameobject游戏对象上</p>
+<p>​    生命周期函数就是该脚本对象依附的Gameobject对象从出生到消亡整个生命周期中//会通过反射自动调用的一些特殊函数</p>
+<p>​    unity帮助我们记录了一个Gameobject对象依附了哪些脚本</p>
+<p>​    会自动的得到这些对象，通过反射去执行一些固定名字的函数</p>
+<p>​    <strong>三、生命周期函数</strong></p>
+<p>​    注意：</p>
+<p>​    生命周期函数的访问修饰符一般为private和protected</p>
+<p>​    因为不需要再外部自己调用生命周期函数都是unity自己帮助我们调用的</p>
+<p><img src="/p/unity-basic/index.assets/1765085223000-8aa5a158-81c7-457c-9f1a-bc1dacd2f61d.jpeg"
+	width="1387"
+	height="1931"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="71"
+		data-flex-basis="172px"
+	
+></p>
+<blockquote>
+<p>说明：</p>
+<ul>
+<li>蓝色的只会调用一次</li>
+<li>粉色的是激活、失活时都会调用</li>
+<li>绿色的是每一次循环都会去调用</li>
+</ul>
+</blockquote>
+<p><img src="/p/unity-basic/index.assets/1765081061196-ddca161f-92eb-4ff2-b9ab-2ac3a39c2185.png"
+	width="1482"
+	height="531"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="279"
+		data-flex-basis="669px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Lesson1</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//当对象(自己这个类对象)创建时，才会调用该生命周期函数</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//类似构造函数的存在，我们可以在一个类对象刚创建时，进行一些操作</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="k">void</span> <span class="n">Awake</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//在Unity中打印信息的两种方式</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//1.没有继承MonoBehavior类的时候</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Debug.Log(&#34;123&#34;);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Debug.LogError(&#34;出错了！！！&#34;);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Debug.LogWarning(&#34;警告！！！&#34;);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//2.继承了MonoBehavior，有现成的方法可以使用</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;Awake&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//依附的GameObject对象每次激活时调用</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//想要当一个对象被激活时，进行一些逻辑处理，就可以写在这个函数</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">OnEnable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;OnEnable&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//从自己被创建出来后，第一次帧更新之前调用一个对象只会调用一次</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//主要作用还是用于初始化信息的，但是它相对Awake来说，要晚一点</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//因为它是在对象进行第一次帧更新之前才会执行的</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;Start&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//物理帧更新，固定间隔时间执行，间隔时间可以设置</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//它是每一帧执行的，但是这里的帧和游戏帧有点不同</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">FixedUpdate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;FixedUpdate&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//主要用于处理游戏核心逻辑更新的函数</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;update&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//每帧执行，于Update之后执行</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//一般这个更新是用来处理摄像机位置更新相关内容的</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//Update和LateUpdate之间，Unity进行了一些处理，是我们动画相关的更新</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">LateUpdate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;LateUpdate&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//依附的GameObject对象每次失活时调用</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//如果我们希望在一个对象失活时做一些处理，就可以在该函数中写逻辑</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//但是GameObject对象失活之后，上面所有的生命周期函数都会停止调用</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">OnDisable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;OnDisable&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//对象销毁时调用，依附的GameObjec象被删除时</span>
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">OnDestroy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;OnDestroy&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/unity-basic/index.assets/1765081964942-33455443-665c-4964-a6fc-4293197855f8.png"
+	width="526"
+	height="1128"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="46"
+		data-flex-basis="111px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765082128091-fa6d4e62-be59-4024-a4c8-29acf8070ca2.png"
+	width="963"
+	height="747"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="128"
+		data-flex-basis="309px"
+	
+></p>
+<p><img src="/p/unity-basic/index.assets/1765083357287-7419445c-4f25-488d-ad9a-2982482f614f.png"
+	width="1005"
+	height="756"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="132"
+		data-flex-basis="319px"
+	
+></p>
+<h3 id="协同程序简称协程"><strong>协同程序简称协程</strong>
+</h3><p>它是“假”的多线程，它不是多线程</p>
+<p>它的主要作用是将代码分时执行，不卡主线程</p>
+<p>简单理解，是把可能会让主线程卡顿的耗时的逻辑分时分步执行</p>
+<p>主要使用场景</p>
+<ul>
+<li>场景异步加载</li>
+<li>异步下载文件</li>
+<li>异步加载文件</li>
+<li>批量创建时防止卡顿</li>
+</ul>
+<h4 id="协同程序和线程的区别"><strong>协同程序和线程的区别</strong>
+</h4><p>新开一个线程是独立的一个管道，和主线程并行执行</p>
+<p>新开一个协程是在原线程之上开启，进行逻辑分时分步执行</p>
+<h4 id="协程的使用"><strong>协程的使用</strong>
+</h4><p>继承 MonoBehavior的类 都可以开启 协程函数</p>
+<p><strong>第一步：声明协程函数</strong></p>
+<p>协程函数2个关键点</p>
+<p>1-1返回值为工 Enumerator 类型及其子类</p>
+<p>1-2函数中通过 yield return 返回值；进行返回</p>
+<p><img src="/p/unity-basic/index.assets/1762479490144-f64161de-c0dd-4d1a-a5b1-03cc5a4cd26f.png"
+	width="1004"
+	height="310"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="323"
+		data-flex-basis="777px"
+	
+></p>
+<p>分析</p>
+<p><img src="/p/unity-basic/index.assets/1762480607565-037a2087-070c-43cb-9051-cedf50c2bb4a.png"
+	width="1104"
+	height="323"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="341"
+		data-flex-basis="820px"
+	
+></p>
+<p><strong>第二步：开启协程函数</strong></p>
+<p>协程函数是不能够直接调用该函数去执行的，直接执行没有任何效果</p>
+<p>常用开启方式</p>
+<p>使用StartCoroutine()，StartCoroutine() 里面要传一个IEnumerator类型的对象</p>
+<p>StartCoroutine(协程函数);</p>
+<p>例子：</p>
+<p>方式一</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">StartCoroutine</span><span class="p">(</span><span class="n">MyCoroutine</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="s">&#34;123&#34;</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>方式二</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">IEnumerator</span> <span class="n">ie</span> <span class="p">=</span> <span class="n">MyCoroutine</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="s">&#34;123&#34;</span><span class="p">);</span> <span class="n">StartCoroutine</span><span class="p">(</span><span class="n">MyCoroutine</span><span class="p">(</span><span class="n">ie</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>第三步：关闭协程</strong></p>
+<p>关闭所有协程</p>
+<p>关闭指定协程</p>
+<h1 id="03基础">03基础🔥
+</h1><h1 id="总结">总结
+</h1><h2 id="1快捷键">1.快捷键
+</h2><ol>
+<li>视图的切换</li>
+</ol>
+<ul>
+<li>按下鼠标中间，可以随意平移拖动场景的视野</li>
+</ul>
+<p><img src="/p/unity-basic/index.assets/1758027116744-6cf998f8-9842-40a4-bafb-37cae22d828c.png"
+	width="719"
+	height="524"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="137"
+		data-flex-basis="329px"
+	
+></p>
+<ul>
+<li>按下鼠标右键，可以旋转视图</li>
+<li>通过鼠标滑轮，可以拉近拉远视图</li>
+<li>或按住alt键加鼠标 左键/中键/右键</li>
+<li>鼠标右键按下+WASD+Shift 快速漫游场景</li>
+</ul>
+<ol>
+<li>复制物体：ctrl+d</li>
+<li>聚焦物体：双击层级面板中的物体 或 F</li>
+<li>步移工具：按住ctrl拖动物体，就是一格一格地移动</li>
+</ol>
+<p>方式二：选中磁铁图标</p>
+<p><img src="/p/unity-basic/index.assets/1760628656343-4788eeb1-57a2-4873-af9d-fe04022abdf4.png"
+	width="584"
+	height="135"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="432"
+		data-flex-basis="1038px"
+	
+></p>
+<p>特效</p>
+<p><img src="/p/unity-basic/index.assets/1763974664016-0b13da0c-4ece-495a-a860-00c4a1fbd1bd.png"
+	width="1494"
+	height="720"
+	
+	loading="lazy"
+	
+		alt="img"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<h2 id="2常用英文">2.常用英文
+</h2><p>场景：Scene</p>
+<p>游戏物体：GameObject</p>
+<p>组件：Component</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/unity/">Unity</a>
+        
+    </section>
+
+
+    
+</footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/unity-csharp-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/unity-csharp-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%95%86%E5%BA%97-%E5%A4%9C%E6%99%9A.284925e7504bf3f53ed7681a447f7a3a_hu_c662aa6d68acc650.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【unity3d游戏开发】C#学习"
+                        data-key="unity-csharp-basic" 
+                        data-hash="md5-KEkl51BL8/U&#43;12gaRH96Og==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【unity3d游戏开发】C#学习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/ue-basic-new/">
+        
+        
+            <div class="article-image">
+                <img src="/p/ue-basic-new/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%8F%E6%97%A5%E6%B5%B7%E8%BE%B9-%E5%A4%8F%E6%97%A5%E9%A3%8E%E6%83%85.bd80bf93a09ddc29e23918b10adbbbc5_hu_be6a4631f4b02c35.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【虚幻引擎】-ue入门-新"
+                        data-key="ue-basic-new" 
+                        data-hash="md5-vYC/k6Cd3CniORixCtu7xQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【虚幻引擎】-ue入门-新</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/ue-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/ue-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%8F%E6%97%A5%E6%B5%B7%E8%BE%B9-%E5%A4%8F%E6%97%A5%E9%A3%8E%E6%83%85.bd80bf93a09ddc29e23918b10adbbbc5_hu_be6a4631f4b02c35.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【虚幻引擎】-ue基础入门"
+                        data-key="ue-basic" 
+                        data-hash="md5-vYC/k6Cd3CniORixCtu7xQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【虚幻引擎】-ue基础入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/stl-review/">
+        
+        
+            <div class="article-image">
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】容器复习"
+                        data-key="stl-review" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】容器复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/network/">
+        
+        
+            <div class="article-image">
+                <img src="/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.0e4d713511fda100cc58bfb66dac6b98_hu_f1a2caa5328ffc0d.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux网络编程】02Socket编程UDP"
+                        data-key="network" 
+                        data-hash="md5-Dk1xNRH9oQDMWL&#43;2baxrmA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux网络编程】02Socket编程UDP</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.9c1a6570230d4822a0bae7b9729a4d803a1d6e81a2ebc4dbb042dd1c2902034a.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+  
+
+  const live2d_path = "https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/";
+  const cssPath = "https://Amarantos-Arrebol.github.io/waifu/waifu.css"
+  const waifuTipsJsonPath = "https://Amarantos-Arrebol.github.io/waifu/waifu-tips.json"
+
+  function loadExternalResource(url, type) {
+    return new Promise((resolve, reject) => {
+      let tag;
+      if (type === "css") {
+        tag = document.createElement("link");
+        tag.rel = "stylesheet";
+        tag.href = url;
+      } else if (type === "js") {
+        tag = document.createElement("script");
+        tag.type = "module";
+        tag.src = url;
+      }
+      if (tag) {
+        tag.onload = () => resolve(url);
+        tag.onerror = () => reject(url);
+        document.head.appendChild(tag);
+      }
+    });
+  }
+
+  (async () => {
+    const OriginalImage = window.Image;
+    window.Image = function (...args) {
+      const img = new OriginalImage(...args);
+      img.crossOrigin = "anonymous";
+      return img;
+    };
+    window.Image.prototype = OriginalImage.prototype;
+    await Promise.all([
+      loadExternalResource(cssPath, "css"),
+      loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+    ]);
+    initWidget({
+      waifuPath: waifuTipsJsonPath,
+      cubism2Path: live2d_path + "live2d.min.js",
+      cubism5Path: "https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js",
+      tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"],
+      logLevel: "warn",
+      drag: false,
+    });
+  })();
+
+  
+  function initTocActive精准() {
+    
+    const tocContainer = document.querySelector("#TableOfContents");
+    const articleTitles = document.querySelectorAll("article h1, article h2, article h3, article h4, article h5, article h6");
+    if (!tocContainer || !articleTitles.length) return;
+
+    
+    const titleTocMap = new Map();
+    tocContainer.querySelectorAll("a").forEach(tocLink => {
+      const href = tocLink.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        const targetId = href.slice(1); 
+        const targetTitle = document.getElementById(targetId);
+        if (targetTitle) {
+          titleTocMap.set(targetTitle, tocLink.parentElement); 
+        }
+      }
+    });
+
+    
+    function handleTocFold() {
+      
+      let openUl = document.querySelectorAll(".open");
+      if (openUl.length > 0) {
+        openUl.forEach((ul) => {
+          ul.classList.remove("open");
+        });
+      }
+      
+      let currentLi = document.querySelector(".active-class");
+      if (!currentLi) return;
+      
+      if (currentLi.children.length > 1) {
+        currentLi.children[1].classList.add("open");
+      }
+      
+      let ul = currentLi.parentElement;
+      do {
+        ul.classList.add("open");
+        ul = ul.parentElement?.parentElement;
+      } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'));
+    }
+
+    
+    function updateActiveToc() {
+      
+      tocContainer.querySelectorAll(".active-class").forEach(li => {
+        li.classList.remove("active-class");
+      });
+
+      let currentActiveTitle = null;
+      const scrollTop = window.scrollY + 100; 
+
+      
+      articleTitles.forEach(title => {
+        const titleTop = title.getBoundingClientRect().top + window.scrollY;
+        if (titleTop <= scrollTop) {
+          currentActiveTitle = title;
+        }
+      });
+
+      
+      if (currentActiveTitle && titleTocMap.has(currentActiveTitle)) {
+        const activeLi = titleTocMap.get(currentActiveTitle);
+        activeLi.classList.add("active-class");
+      }
+
+      
+      handleTocFold();
+    }
+
+    
+    function throttle(fn, delay = 100) {
+      let timer = null;
+      return () => {
+        if (!timer) {
+          timer = setTimeout(() => {
+            fn();
+            timer = null;
+          }, delay);
+        }
+      };
+    }
+
+    
+    window.addEventListener("scroll", throttle(updateActiveToc));
+    updateActiveToc(); 
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", initTocActive精准);
+</script>
+
+
+<style>
+   
+  #TableOfContents,
+  #TableOfContents ul,
+  #TableOfContents ol {
+    list-style: none !important;  
+    padding-left: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+
+   
+  #TableOfContents > ul ul,
+  #TableOfContents > ul ol,
+  #TableOfContents > ol ul,
+  #TableOfContents > ol ol {
+    display: none !important;  
+  }
+  #TableOfContents .open {
+    display: block !important;  
+  }
+
+   
+  #TableOfContents ul ul,
+  #TableOfContents ol ol {
+    padding-left: 16px !important;
+  }
+
+   
+  #TableOfContents * {
+    font-weight: normal !important;
+    font-weight: 400 !important;
+  }
+
+   
+  #TableOfContents .active-class > a {
+    color: #3ed1c2 !important;
+    font-weight: normal !important;
+  }
+
+   
+  #TableOfContents strong,
+  #TableOfContents b,
+  #TableOfContents a strong {
+    font-weight: normal !important;
+  }
+</style>
+
+
+
+
+
+
+<div id="particles-js"></div>
+
+<script src=https://Amarantos-Arrebol.github.io/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "https://Amarantos-Arrebol.github.io/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+</style>
+
+    </body>
+</html>

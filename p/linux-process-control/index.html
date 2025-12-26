@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握进程创建、等待与替换的核心机制">
 <title>【Linux系统编程】04进程控制</title>
@@ -10,7 +10,7 @@
 <meta property='og:description' content="掌握进程创建、等待与替换的核心机制">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-18T20:06:59&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='进程控制' /><meta property='article:tag' content='fork' /><meta property='article:tag' content='exec' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-26T09:17:28&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux系统编程】04进程控制">
 <meta name="twitter:description" content="掌握进程创建、等待与替换的核心机制"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1467,8 +1467,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/linux-process-control/">
-                <img src="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png"
-                        srcset="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_f8a80488315bd5f9.png 800w, /p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_a76c8c5ca0be0093.png 1600w"
+                <img src="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_aef4b7ddc46851de.png"
+                        srcset="/p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_aef4b7ddc46851de.png 800w, /p/linux-process-control/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3_hu_7c741f477607f744.png 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1532,12 +1532,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2025-12-18
+        2025-12-26
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">12899 字 </span>
+      <span class="article-time--wordcount">12981 字 </span>
     </div>
      
 
@@ -1563,7 +1563,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">pid_t</span> <span class="nf">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>返回值：</p>
@@ -1738,7 +1738,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;strerror.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -1881,7 +1881,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;errno.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;func begin!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
@@ -2107,7 +2107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;func begin!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
@@ -2121,7 +2121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//子进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个子进程，pid：%d，ppid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="nf">getpid</span><span class="p">()</span><span class="err">，</span><span class="nf">getppid</span><span class="p">());</span>
@@ -2133,11 +2133,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="nf">sLeep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//父进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success，rid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="n">rid</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -2219,7 +2219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">func</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">printfC</span><span class="s">&#34;func begin!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
@@ -2233,7 +2233,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//子进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="n">cnt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个子进程，pid：%d，ppid：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="nf">getpid</span><span class="p">()</span><span class="err">，</span><span class="nf">getppid</span><span class="p">());</span>
@@ -2244,13 +2244,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//父进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//1.子进程退出
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//2.子进程没退出呢?
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//1.子进程退出
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//2.子进程没退出呢?
+</span></span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success, rid: %d，status：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="p">(</span><span class="n">status</span><span class="o">&gt;&gt;</span><span class="mi">8</span><span class="p">)</span><span class="o">&amp;</span><span class="mh">0xFF</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid  
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait failed: %d: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">errno</span><span class="p">,</span> <span class="nf">strerror</span><span class="p">(</span><span class="n">errno</span><span class="p">));</span>
@@ -2502,14 +2502,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">forkC</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//子进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
@@ -2521,14 +2521,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//父进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="n">WNOHANG</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success，rid：%d，exit code:%d，exit signal：%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="err">，</span><span class="n">rid</span><span class="err">，</span><span class="nf">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="err">，</span><span class="n">status</span><span class="o">&amp;</span><span class="n">ox7F</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">break</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
@@ -2650,14 +2650,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//函数指针类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="kt">func_t</span><span class="p">)();</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="kt">func_t</span><span class="p">)();</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define NUM 5
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">func_t</span> <span class="n">handlers</span><span class="p">[</span><span class="n">NUM</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">func_t</span> <span class="n">handlers</span><span class="p">[</span><span class="n">NUM</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//任务
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">DownLoad</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">DownLoad</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;我是一个下载的任务...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -2673,7 +2673,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//注册
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">registerHander</span><span class="p">(</span><span class="kt">func_t</span> <span class="n">h</span><span class="p">[],</span> <span class="kt">func_t</span> <span class="n">f</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">registerHander</span><span class="p">(</span><span class="kt">func_t</span> <span class="n">h</span><span class="p">[],</span> <span class="kt">func_t</span> <span class="n">f</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">(;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
@@ -2695,7 +2695,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//子进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
@@ -2707,19 +2707,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">                   
 </span></span><span class="line"><span class="cl">    <span class="c1">//父进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="nf">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="n">WNOHANG</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wait success， rid:%d， exit code: %d， exit signal:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">rid</span><span class="p">,</span> <span class="nf">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">)</span><span class="err">，</span> <span class="n">status</span><span class="o">&amp;</span><span class="n">ox7F</span><span class="p">);</span><span class="c1">//rid应该等于子进程的pid
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">break</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//函数指针进行回调处理
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(;</span> <span class="n">handlers</span><span class="p">[</span><span class="n">il</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                  <span class="n">handlers</span><span class="p">[</span><span class="n">i</span><span class="p">]();</span>
@@ -2809,7 +2809,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2952,7 +2952,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;hello C++&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -2998,7 +2998,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3070,7 +3070,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;I am other.cc，my pid is &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">getpid</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -3118,7 +3118,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3391,7 +3391,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">newenv</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="s">&#34;myVAL=66666666&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span> <span class="k">const</span> <span class="n">addenv</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;MYVAL=123456789&#34;</span><span class="p">,</span>
@@ -3407,9 +3407,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nf">fork</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//printf(&#34;I am child, my pid is %d\n&#34;, getpid());
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//execl(&#34;./other&#34;, &#34;other&#34;, NULL);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="kt">char</span><span class="o">*</span> <span class="k">const</span> <span class="n">argv</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;other&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="p">)</span><span class="s">&#34;-a&#34;</span><span class="p">,</span>
@@ -3420,12 +3420,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">        <span class="p">};</span>
 </span></span><span class="line"><span class="cl">		
 </span></span><span class="line"><span class="cl">        <span class="c1">//把环境变量表以新增的方式给子进程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">addenv</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">addenv</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">putenv</span><span class="p">(</span><span class="n">addenv</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span> 
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">environ</span><span class="p">;</span><span class="c1">//environ 全局变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">execvpe</span><span class="p">(</span><span class="s">&#34;./other&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">environ</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nf">execvpe</span><span class="p">(</span><span class="s">&#34;./other&#34;</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">environ</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="nf">putenv</span><span class="p">(</span><span class="n">newenv</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -3520,11 +3520,11 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>能理解shell的允许原理</p>
 <h2 id="52实现流程">5.2实现流程
 </h2><h3 id="第一步输出命令行提示符">第一步：输出命令行提示符
-</h3><p>1）获取当前用户名——通过getenv获取</p>
-<p>2）获取当前的主机名——通过getenv获取</p>
-<p>3）获取当前路径——通过getenv获取</p>
+</h3><p>1）获取当前用户名——通过<code>getenv(&quot;USER&quot;)</code>获取</p>
+<p>2）获取当前的主机名——通过<code>getenv(&quot;HOSTNAME&quot;)</code>获取</p>
+<p>3）获取当前路径——通过<code>getenv(&quot;PWD&quot;)</code>获取</p>
 <blockquote>
-<p>fgets读一行：<code>char *fgets(char *s, int size, FILE *stream);</code></p>
+<p>fgets从FILE*指向的流里面读一个字符串，写到字符到str中：<code>char *fgets(char *s, int size, FILE *stream);</code></p>
 <p>gets读取一行字符串：<code>char *gets(char *s);</code></p>
 <p><img src="/p/linux-process-control/index.assets/image-20251129174000104.png"
 	width="989"
@@ -3626,11 +3626,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define COMMAND_SIZE 1024
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define FORMAT &#34;[%s@%s %s]# &#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">Shell命令行字符串的实现
 </span></span></span><span class="line"><span class="cl"><span class="cm">1.获取当前用户名
@@ -3639,31 +3639,31 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cm">**/</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取当前用户名
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetUserName</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetUserName</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="nf">getenv</span><span class="p">(</span><span class="s">&#34;USER&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">name</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;None&#34;</span> <span class="o">:</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取当前主机名
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHostName</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHostName</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">hostName</span> <span class="o">=</span> <span class="nf">getenv</span><span class="p">(</span><span class="s">&#34;HOSTNAME&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">hostName</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;None&#34;</span> <span class="o">:</span> <span class="n">hostName</span><span class="p">;</span>	
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取当前路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetPwd</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetPwd</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span> <span class="o">=</span> <span class="nf">getenv</span><span class="p">(</span><span class="s">&#34;PWD&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">pwd</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;None&#34;</span> <span class="o">:</span> <span class="n">pwd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//只要最后一个目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">DirName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">DirName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define SLASH &#34;/&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">pwd</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">pwd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">dir</span> <span class="o">==</span> <span class="n">SLASH</span><span class="p">)</span> <span class="k">return</span> <span class="n">SLASH</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">dir</span><span class="p">.</span><span class="nf">rfind</span><span class="p">(</span><span class="n">SLASH</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span> <span class="k">return</span> <span class="s">&#34;BUG?&#34;</span><span class="p">;</span>
@@ -3679,7 +3679,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//打印命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">PrintCommandPrompt</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PrintCommandPrompt</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">prompt</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">MakeCommandLine</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">prompt</span><span class="p">));</span>
@@ -3690,10 +3690,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//shell本质是个死循环，它不断在打印提示符，并且获取用户输入
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//1.输出命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">PrintCommandPrompt</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="nf">PrintCommandPrompt</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -3737,17 +3737,17 @@ document.addEventListener('DOMContentLoaded', function() {
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//....
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">GetCommandLine</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">out</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">GetCommandLine</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">out</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">   <span class="c1">//我们在命令行输入的ls -a -l 其实是 &#34;ls -a -l\n&#34; 字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="n">fgets</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">   <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="n">fgets</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">   <span class="n">out</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 清理\n
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">if</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -3756,10 +3756,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//1.输出命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//2.获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GetCommandLine</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">commandline</span><span class="p">)))</span> <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -3850,31 +3850,31 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstring&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//定义全局的命令行参数表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define MAXARGC 128
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span><span class="o">*</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">MAXARGC</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAXARGC 128
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">MAXARGC</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">g_argc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//拆分命令行字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">CommandParse</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">commandline</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">CommandParse</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">commandline</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define SEP &#34; &#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="c1">//1)拆分命令行字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//2)将拆分出来字符串放到我们自己定义的命令行参数表g_argv中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//3)统计一共有多少命令行参数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">g_argc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//1)拆分命令行字符串
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//2)将拆分出来字符串放到我们自己定义的命令行参数表g_argv中
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//3)统计一共有多少命令行参数
+</span></span></span><span class="line"><span class="cl">    <span class="n">g_argc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_argv</span><span class="p">[</span><span class="n">g_argc</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">strtok</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="n">SEP</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">((</span><span class="kt">bool</span><span class="p">)(</span><span class="n">g_argv</span><span class="p">[</span><span class="n">g_argc</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">strtok</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span> <span class="n">SEP</span><span class="p">)));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_argc</span><span class="o">--</span><span class="p">;</span><span class="c1">//null不统计
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nb">true</span> <span class="o">:</span> <span class="nb">false</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">argc</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nb">true</span> <span class="o">:</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//测试
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">PrintArgv</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PrintArgv</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -3888,15 +3888,15 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//1.输出命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//2.获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GetCommandLine</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">commandline</span><span class="p">)))</span> <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//3.命令行分析
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">            	<span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -4070,31 +4070,31 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define COMMAND_SIZE 1024
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define FORMAT &#34;[%s@%s %s]# &#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//定义全局的命令行参数表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define MAXARGC 128
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span><span class="o">*</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">MAXARGC</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAXARGC 128
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">MAXARGC</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">g_argc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取家目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHome</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHome</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">home</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&#34;HOME&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">home</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;&#34;</span> <span class="o">:</span> <span class="n">home</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//内建命令，由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">cd</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">cd</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">g_argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">   <span class="p">{</span>
 </span></span><span class="line"><span class="cl">       <span class="c1">//cd 切换到家目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">home</span> <span class="o">=</span> <span class="n">GetHome</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">       <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">home</span> <span class="o">=</span> <span class="n">GetHome</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">       <span class="k">if</span><span class="p">(</span><span class="n">home</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">       <span class="n">chdir</span><span class="p">(</span><span class="n">home</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">   <span class="p">}</span>
@@ -4102,43 +4102,43 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">   <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">where</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//cd - / cd ~
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">where</span> <span class="o">==</span> <span class="s">&#34;-&#34;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">where</span> <span class="o">==</span> <span class="s">&#34;-&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//切换到最近一次路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">where</span> <span class="o">==</span> <span class="s">&#34;~&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//切换到用户家目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> 
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//切换到其它路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">chdir</span><span class="p">(</span><span class="n">where</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">chdir</span><span class="p">(</span><span class="n">where</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">   <span class="p">}</span>
 </span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//echo命令是内建命令，由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">Echo</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">Echo</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">g_argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">       <span class="c1">//echo &#34;hello world&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="c1">//echo $?
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="c1">//echo $PATH
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">       <span class="c1">//echo $?
+</span></span></span><span class="line"><span class="cl">       <span class="c1">//echo $PATH
+</span></span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">opt</span> <span class="o">==</span> <span class="s">&#34;$?&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//输出上一个进程的退出码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lastcode</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lastcode</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//输出后，退出码清零
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">lastcode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">lastcode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">opt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;$&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//查一个环境变量的内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">env_name</span> <span class="o">=</span> <span class="n">opt</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">env_name</span> <span class="o">=</span> <span class="n">opt</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">env_value</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="n">env_name</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">env_value</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">env_value</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -4146,7 +4146,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> 
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//打印echo后面的内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">opt</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">opt</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -4154,19 +4154,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//检测是否是内建命令，如果是就执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">CheckAndExecuBuiltin</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">CheckAndExecuBuiltin</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmd</span> <span class="o">==</span> <span class="s">&#34;cd&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//是内建命令，由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">cd</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">cd</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">cmd</span> <span class="o">==</span> <span class="s">&#34;echo&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//我们认为echo也是内建命令，需要由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Echo</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Echo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -4178,21 +4178,21 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//1.输出命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//2.获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GetCommandLine</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">commandline</span><span class="p">)))</span> 
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//3.命令行分析
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//PrintArgv()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//4.检测并执行内建命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -4240,18 +4240,18 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//测试
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="n">cwd</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">cwd</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">cwdenv</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取当前路径并导出环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetPwd</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetPwd</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//const char* pwd = getcwd(&#34;PWD&#34;);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span> <span class="o">=</span> <span class="n">getcwd</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwd</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span> <span class="o">=</span> <span class="n">getcwd</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwd</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">pwd</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//导出环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">snprintf</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">),</span> <span class="s">&#34;PWD=%s&#34;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">snprintf</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">),</span> <span class="s">&#34;PWD=%s&#34;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">putenv</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">pwd</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;None&#34;</span> <span class="o">:</span> <span class="n">pwd</span><span class="p">;</span>
@@ -4323,24 +4323,24 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//创建一个子进程来执行命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">Execute</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Execute</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">     <span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">     <span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">     <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//child
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>         <span class="n">execvp</span><span class="p">(</span><span class="n">g_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">g_argv</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">         <span class="n">execvp</span><span class="p">(</span><span class="n">g_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">g_argv</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">     <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">     <span class="c1">//father
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>     <span class="n">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">     <span class="n">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">     <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">rid</span><span class="p">;</span> <span class="c1">// 使用一下，目的是让编译器不要报警告
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -4349,22 +4349,22 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//1.输出命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//2.获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GetCommandLine</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">commandline</span><span class="p">)))</span> <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//3.命令行分析
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
+</span></span></span><span class="line"><span class="cl">        <span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//4.检测并执行内建命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//5.执行命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Execute</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Execute</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -4450,35 +4450,35 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//定义全局的环境变量表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define MAX_ENVS 100
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span><span class="o">*</span> <span class="n">g_env</span><span class="p">[</span><span class="n">MAX_ENVS</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAX_ENVS 100
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">g_env</span><span class="p">[</span><span class="n">MAX_ENVS</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">g_envs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//初始化环境变量表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">InitEnv</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">InitEnv</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">environ</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//先把我们的环境变量表置空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">memset</span><span class="p">(</span><span class="n">g_env</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">g_env</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">g_env</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">g_env</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_envs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//本来要从配置文件中来
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//1.获取环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//1.获取环境变量
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//1)申请空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//2)将shell的环境变量拷贝到我们自己的环境变量表中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">strcpy</span><span class="p">(</span><span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">strcpy</span><span class="p">(</span><span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">g_envs</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_env</span><span class="p">[</span><span class="n">g_envs</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="s">&#34;HAHA=for_tast&#34;</span><span class="p">;</span> <span class="c1">// 测试
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">g_env</span><span class="p">[</span><span class="n">g_envs</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">g_env</span><span class="p">[</span><span class="n">g_envs</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//2.将获取的环境变量导到我们自己的环境变量空间中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">putenv</span><span class="p">(</span><span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -4486,38 +4486,38 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//shell启动的时候，从系统中获取环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//我们的系统环境变量信息应该从父shell统一来
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">InitEnv</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//我们的系统环境变量信息应该从父shell统一来
+</span></span></span><span class="line"><span class="cl">    <span class="n">InitEnv</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//1.输出命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//2.获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GetCommandLine</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">commandline</span><span class="p">)))</span> 
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//3.命令行分析
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//PrintArgv()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//4.检测并执行内建命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//5.执行命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Execute</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Execute</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//cleanup();
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -4855,29 +4855,29 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/wait.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unordered_map&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define COMMAND_SIZE 1024
 </span></span></span><span class="line"><span class="cl"><span class="cp">#define FORMAT &#34;[%s@%s %s]# &#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//1.定义全局的命令行参数表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define MAXARGC 128
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span><span class="o">*</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">MAXARGC</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAXARGC 128
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">MAXARGC</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">g_argc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//2.定义全局的环境变量表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define MAX_ENVS 100
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">char</span><span class="o">*</span> <span class="n">g_env</span><span class="p">[</span><span class="n">MAX_ENVS</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAX_ENVS 100
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">g_env</span><span class="p">[</span><span class="n">MAX_ENVS</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">g_envs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//3.别名映射表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">alias_list</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">alias_list</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//测试
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">char</span> <span class="n">cwd</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">cwd</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">cwdenv</span><span class="p">[</span><span class="mi">1024</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//最近一个程序的退出码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">lastcode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">lastcode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">Shell命令行字符串的实现
@@ -4887,63 +4887,63 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></span><span class="line"><span class="cl"><span class="cm">**/</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取当前用户名
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetUserName</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetUserName</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&#34;USER&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">name</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;None&#34;</span> <span class="o">:</span> <span class="n">name</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取当前主机名
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHostName</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHostName</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">hostName</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&#34;HOSTNAME&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">hostName</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;None&#34;</span> <span class="o">:</span> <span class="n">hostName</span><span class="p">;</span>	
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取当前路径并导出环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetPwd</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetPwd</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//const char* pwd = getcwd(&#34;PWD&#34;);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span> <span class="o">=</span> <span class="n">getcwd</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwd</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span> <span class="o">=</span> <span class="n">getcwd</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwd</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">pwd</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//导出环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">snprintf</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">),</span> <span class="s">&#34;PWD=%s&#34;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">snprintf</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">),</span> <span class="s">&#34;PWD=%s&#34;</span><span class="p">,</span> <span class="n">cwd</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">putenv</span><span class="p">(</span><span class="n">cwdenv</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">pwd</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;None&#34;</span> <span class="o">:</span> <span class="n">pwd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取家目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHome</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="nf">GetHome</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">home</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s">&#34;HOME&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">home</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">?</span> <span class="s">&#34;&#34;</span> <span class="o">:</span> <span class="n">home</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//初始化环境变量表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">InitEnv</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">InitEnv</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">extern</span> <span class="kt">char</span><span class="o">**</span> <span class="n">environ</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//先把我们的环境变量表置空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">memset</span><span class="p">(</span><span class="n">g_env</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">g_env</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">g_env</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">g_env</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_envs</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//本来要从配置文件中来
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//1.获取环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//1.获取环境变量
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//1)申请空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//2)将shell的环境变量拷贝到我们自己的环境变量表中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">strcpy</span><span class="p">(</span><span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">strcpy</span><span class="p">(</span><span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">environ</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">g_envs</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_env</span><span class="p">[</span><span class="n">g_envs</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="s">&#34;HAHA=for_tast&#34;</span><span class="p">;</span> <span class="c1">// 测试
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">g_env</span><span class="p">[</span><span class="n">g_envs</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">g_env</span><span class="p">[</span><span class="n">g_envs</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//2.将获取的环境变量导到我们自己的环境变量空间中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">putenv</span><span class="p">(</span><span class="n">g_env</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -4951,10 +4951,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//只要最后一个目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">DirName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">DirName</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">pwd</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define SLASH &#34;/&#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">pwd</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">pwd</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">dir</span> <span class="o">==</span> <span class="n">SLASH</span><span class="p">)</span> <span class="k">return</span> <span class="n">SLASH</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">dir</span><span class="p">.</span><span class="n">rfind</span><span class="p">(</span><span class="n">SLASH</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">pos</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span> <span class="k">return</span> <span class="s">&#34;BUG?&#34;</span><span class="p">;</span>
@@ -4970,7 +4970,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//打印命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">PrintCommandPrompt</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PrintCommandPrompt</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">prompt</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">MakeCommandLine</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">prompt</span><span class="p">));</span>
@@ -4979,33 +4979,33 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">GetCommandLine</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">out</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">GetCommandLine</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">out</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">   <span class="c1">//我们在命令行输入的ls -a -l 其实是 &#34;ls -a -l\n&#34; 字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="n">fgets</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">   <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="n">fgets</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">   <span class="n">out</span><span class="p">[</span><span class="n">strlen</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 清理\n
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">if</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">strlen</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//命令行拆分
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">CommandParse</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">commandline</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">CommandParse</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">commandline</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#define SEP &#34; &#34;
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>    <span class="c1">//1)拆分命令行字符串
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//2)将拆分出来字符串放到我们自己定义的命令行参数表g_argv中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//3)统计一共有多少命令行参数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">g_argc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//1)拆分命令行字符串
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//2)将拆分出来字符串放到我们自己定义的命令行参数表g_argv中
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//3)统计一共有多少命令行参数
+</span></span></span><span class="line"><span class="cl">    <span class="n">g_argc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_argv</span><span class="p">[</span><span class="n">g_argc</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">strtok</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="n">SEP</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">((</span><span class="kt">bool</span><span class="p">)(</span><span class="n">g_argv</span><span class="p">[</span><span class="n">g_argc</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">strtok</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span> <span class="n">SEP</span><span class="p">)));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">g_argc</span><span class="o">--</span><span class="p">;</span><span class="c1">//null不统计
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">g_argc</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nb">true</span> <span class="o">:</span> <span class="nb">false</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">g_argc</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="nb">true</span> <span class="o">:</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//测试
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">PrintArgv</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PrintArgv</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">g_argv</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -5015,12 +5015,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"> 
 </span></span><span class="line"><span class="cl"><span class="c1">//cd是内建命令，由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">cd</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">cd</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">g_argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">   <span class="p">{</span>
 </span></span><span class="line"><span class="cl">       <span class="c1">//cd 切换到家目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">home</span> <span class="o">=</span> <span class="n">GetHome</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">       <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">home</span> <span class="o">=</span> <span class="n">GetHome</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">       <span class="k">if</span><span class="p">(</span><span class="n">home</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">       <span class="n">chdir</span><span class="p">(</span><span class="n">home</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">   <span class="p">}</span>
@@ -5028,43 +5028,43 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">   <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">where</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//cd - / cd ~
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">where</span> <span class="o">==</span> <span class="s">&#34;-&#34;</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">where</span> <span class="o">==</span> <span class="s">&#34;-&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//切换到最近一次路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">where</span> <span class="o">==</span> <span class="s">&#34;~&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//切换到用户家目录
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> 
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//切换到其它路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">chdir</span><span class="p">(</span><span class="n">where</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">chdir</span><span class="p">(</span><span class="n">where</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">   <span class="p">}</span>
 </span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//echo命令是内建命令，由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">Echo</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">Echo</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">g_argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">       <span class="c1">//echo &#34;hello world&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="c1">//echo $?
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>       <span class="c1">//echo $PATH
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">       <span class="c1">//echo $?
+</span></span></span><span class="line"><span class="cl">       <span class="c1">//echo $PATH
+</span></span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">opt</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">opt</span> <span class="o">==</span> <span class="s">&#34;$?&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//输出上一个进程的退出码
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lastcode</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lastcode</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//输出后，退出码清零
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">lastcode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">lastcode</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">opt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;$&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//查一个环境变量的内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">env_name</span> <span class="o">=</span> <span class="n">opt</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">env_name</span> <span class="o">=</span> <span class="n">opt</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">            <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">env_value</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="n">env_name</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">env_value</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">env_value</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
@@ -5072,7 +5072,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> 
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="c1">//打印echo后面的内容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">opt</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">opt</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -5080,48 +5080,48 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//检测是否是内建命令，如果是就执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">bool</span> <span class="nf">CheckAndExecuBuiltin</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">CheckAndExecuBuiltin</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">g_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">cmd</span> <span class="o">==</span> <span class="s">&#34;cd&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//cd是内建命令，由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">cd</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">cd</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">cmd</span> <span class="o">==</span> <span class="s">&#34;echo&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//我们认为echo也是内建命令，需要由父进程亲自执行
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Echo</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Echo</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">cmd</span> <span class="o">==</span> <span class="s">&#34;export&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">cmd</span> <span class="o">==</span> <span class="s">&#34;alias&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//std::string nickname = g_argv[1];
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//alias_list.insert(k, v);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//alias_list.insert(k, v);
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//创建一个子进程来执行命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">Execute</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">Execute</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">     <span class="n">pid_t</span> <span class="n">id</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">     <span class="k">if</span><span class="p">(</span><span class="n">id</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">     <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//child
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>         <span class="n">execvp</span><span class="p">(</span><span class="n">g_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">g_argv</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">         <span class="n">execvp</span><span class="p">(</span><span class="n">g_argv</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">g_argv</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">         <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">     <span class="p">}</span>
 </span></span><span class="line"><span class="cl">     <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">     <span class="c1">//father
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>     <span class="n">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">     <span class="n">pid_t</span> <span class="n">rid</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">     <span class="k">if</span><span class="p">(</span><span class="n">rid</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">     <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="n">lastcode</span> <span class="o">=</span> <span class="n">WEXITSTATUS</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
@@ -5133,36 +5133,36 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//shell启动的时候，从系统中获取环境变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//我们的系统环境变量信息应该从父shell统一来
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">InitEnv</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//我们的系统环境变量信息应该从父shell统一来
+</span></span></span><span class="line"><span class="cl">    <span class="n">InitEnv</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">         <span class="c1">//1.输出命令行提示符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">PrintCommandPrompt</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//2.获取用户输入的命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">        <span class="kt">char</span> <span class="n">commandline</span><span class="p">[</span><span class="n">COMMAND_SIZE</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">GetCommandLine</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">commandline</span><span class="p">)))</span> 
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//3.命令行分析
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//&#34;ls -a -l&#34; =&gt; &#34;ls&#34; &#34;-a&#34; &#34;-l&#34;
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">CommandParse</span><span class="p">(</span><span class="n">commandline</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">//PrintArgv()
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//检测别名
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        
+</span></span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//4.检测并执行内建命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">CheckAndExecuBuiltin</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">            <span class="k">continue</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">        
 </span></span><span class="line"><span class="cl">        <span class="c1">//5.执行命令
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Execute</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">Execute</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//cleanup();
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -5228,7 +5228,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                <img src="/p/linux-interprocess-communication/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_12037bb3f9373e37.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -5252,7 +5252,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                <img src="/p/linux-process-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_172fdf4477577722.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -5276,7 +5276,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                <img src="/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_172fdf4477577722.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -5300,7 +5300,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/linux-thread/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_be2653989c4bea76.png" 
+                <img src="/p/linux-thread/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%A4%95%E9%98%B3-%E6%8F%92%E7%94%BB-%E6%A2%A6%E5%B9%BB%E5%B0%8F%E5%B1%8B.c9fc95b3b458f211363640c957d64c3b_hu_12037bb3f9373e37.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -5324,7 +5324,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_d59cb710464abe1b.png" 
+                <img src="/p/linux-basic-instruction/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.425192012b5ffa0b939bfaa25c31245b_hu_172fdf4477577722.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

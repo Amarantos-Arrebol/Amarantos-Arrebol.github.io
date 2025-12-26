@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="理清内存分布与动态分配：new/delete 的底层逻辑">
 <title>【C&#43;&#43;初阶】05内存管理</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1410,8 +1410,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/c-memory-management/">
-                <img src="/p/c-memory-management/05_hu_b8919288d2854c57.jpg"
-                        srcset="/p/c-memory-management/05_hu_b8919288d2854c57.jpg 800w, /p/c-memory-management/05_hu_378bf29a6fc64bf0.jpg 1600w"
+                <img src="/p/c-memory-management/05_hu_49481c9dc360af60.jpg"
+                        srcset="/p/c-memory-management/05_hu_49481c9dc360af60.jpg 800w, /p/c-memory-management/05_hu_f6d596a0e78dd325.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1577,7 +1577,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请int类型的空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr4</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr4</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -1590,7 +1590,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请int类型的空间并初始化为10
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr5</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr5</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -1603,7 +1603,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请10个int类型的空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr6</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr6</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -1617,7 +1617,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//动态申请一个数组并初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr7</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr7</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">3</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr8</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">5</span><span class="p">]{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span><span class="c1">//可以不完全初始化
 </span></span></span></code></pre></td></tr></table>
 </div>
@@ -1691,18 +1691,18 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 只申请空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 申请空间+构造函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">;</span><span class="c1">//有默认构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//没有默认构造，可以传参
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">;</span><span class="c1">//有默认构造
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//没有默认构造，可以传参
+</span></span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//只释放空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">free</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//析构函数+释放空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">delete</span> <span class="n">p2</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">p2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">p3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -1736,17 +1736,17 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//申请空间+10次构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p6</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p6</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="k">delete</span><span class="p">[]</span> <span class="n">p6</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//使用有名对象初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span> <span class="n">aa1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">aa1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span> <span class="n">aa2</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p7</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">]{</span> <span class="n">aa1</span><span class="p">,</span> <span class="n">aa2</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">delete</span><span class="p">[]</span> <span class="n">p6</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//使用隐式类型转换初始化对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p8</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">]{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p8</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">[</span><span class="mi">10</span><span class="p">]{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">    <span class="k">delete</span><span class="p">[]</span> <span class="n">p8</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -1852,13 +1852,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="o">*</span><span class="n">__CRTDECL</span> <span class="k">operator</span> <span class="nf">new</span><span class="p">(</span><span class="n">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="n">_THROW1</span><span class="p">(</span><span class="n">_STD</span> <span class="n">bad_alloc</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// try to allocate size bytes
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">_callnewh</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// report no memory
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 如果申请内存失败了，这里会抛出bad_alloc 类型异常
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span> <span class="n">nomem</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// 如果申请内存失败了，这里会抛出bad_alloc 类型异常
+</span></span></span><span class="line"><span class="cl">        <span class="k">static</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">bad_alloc</span> <span class="n">nomem</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">_RAISE</span><span class="p">(</span><span class="n">nomem</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>   
 </span></span><span class="line"><span class="cl">    
@@ -2069,7 +2069,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span> <span class="c1">// 失败会抛异常
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2122,16 +2122,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//new是库里面的一个全局的函数，返回值是void*
 </span></span></span><span class="line"><span class="cl"><span class="c1">//失败了会抛异常，所以不用检查返回值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span><span class="c1">//不会调构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span><span class="c1">//不会调构造
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//构造函数不支持显示调用
 </span></span></span><span class="line"><span class="cl"><span class="c1">//p1-&gt;A(1);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//会对p1指向的那块空间当成A对象调用构造函数初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">new</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="c1">//如果没有参数，new(p1)A;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl"><span class="k">new</span><span class="p">(</span><span class="n">p1</span><span class="p">)</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="c1">//如果没有参数，new(p1)A;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//析构函数支持显示调用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">p1</span><span class="o">-&gt;~</span><span class="n">A</span><span class="p">();</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">p1</span><span class="o">-&gt;~</span><span class="n">A</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="k">operator</span> <span class="nf">delete</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2169,7 +2169,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//对
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">A</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">A</span><span class="o">*</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl"><span class="k">new</span><span class="p">(</span><span class="n">p2</span><span class="p">)</span><span class="n">A</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">p2</span><span class="o">-&gt;~</span><span class="n">A</span><span class="p">();</span>
@@ -2205,9 +2205,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//operator new不会初始化，所以指针是随机值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">p1</span><span class="p">;</span><span class="c1">//~A()释放了一块随机地址的空间   
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2271,8 +2271,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="p">)</span><span class="k">operator</span> <span class="k">new</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">A</span><span class="p">));</span><span class="c1">//只开了空间，没有初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">delete</span> <span class="n">p1</span><span class="p">;</span> <span class="c1">// 清理了野指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">delete</span> <span class="n">p1</span><span class="p">;</span> <span class="c1">// 清理了野指针
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2311,8 +2311,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="o">*</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//如果只使用free()，会内存泄露
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//free(p1);//只会把p1这块空间释放，但是_P指向的那块空间没有释放
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">delete</span> <span class="n">p1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//free(p1);//只会把p1这块空间释放，但是_P指向的那块空间没有释放
+</span></span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">p1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -2426,7 +2426,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89.81b3ceb51802d0a3ad60ef85a155c883_hu_a3dc1bb1caca428a.png" 
+                <img src="/p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89.81b3ceb51802d0a3ad60ef85a155c883_hu_27b6e159affce705.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2450,7 +2450,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2470,11 +2470,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
-    <a href="/p/start-c-/">
+    <a href="/p/start-c/">
         
         
             <div class="article-image">
-                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                <img src="/p/start-c/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2498,7 +2498,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_20fb7e02d8434236.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2522,7 +2522,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                <img src="/p/class-with-object-02/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_20fb7e02d8434236.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

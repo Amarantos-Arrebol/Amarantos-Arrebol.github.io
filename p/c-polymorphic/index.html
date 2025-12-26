@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从虚函数到抽象类，理解多态的核心原理">
 <title>【C&#43;&#43;进阶】02多态</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1415,8 +1415,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/c-polymorphic/">
-                <img src="/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1_hu_d086b0327e8571d1.png"
-                        srcset="/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1_hu_d086b0327e8571d1.png 800w, /p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1_hu_456ea354c4c822ac.png 1600w"
+                <img src="/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1_hu_215fd48c5de491c2.png"
+                        srcset="/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1_hu_215fd48c5de491c2.png 800w, /p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1_hu_4927d7185a6aa88c.png 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1622,8 +1622,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">(</span><span class="n">Person</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//虽然都是Person指针ptr在调用BuyTicket
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//但是跟ptr无关，而是由ptr指向的对象决定
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">BuyTicket</span><span class="p">();</span> 
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//但是跟ptr无关，而是由ptr指向的对象决定
+</span></span></span><span class="line"><span class="cl">	<span class="n">ptr</span><span class="o">-&gt;</span><span class="n">BuyTicket</span><span class="p">();</span> 
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -1984,7 +1984,7 @@ B的析构函数，就会导致内存泄漏问题，因为</del>B()中在释放�
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//Car c; //抽象类无法实例化出对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">Car</span><span class="o">*</span> <span class="n">pBenz</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Benz</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">pBenz</span><span class="o">-&gt;</span><span class="n">Drive</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
@@ -2335,7 +2335,7 @@ A.编译报错    B.运行报错   C.8    D.12</p>
         
         
             <div class="article-image">
-                <img src="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E.fc890614cbf7e2e47fe2cedb91347a73_hu_3efb3d15b9c9b9c6.png" 
+                <img src="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E.fc890614cbf7e2e47fe2cedb91347a73_hu_41fb1bdd5f1d23b7.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2359,7 +2359,7 @@ A.编译报错    B.运行报错   C.8    D.12</p>
         
         
             <div class="article-image">
-                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_3c313d6fab93eb2b.png" 
+                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_29627e58e8a4ce76.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2383,7 +2383,7 @@ A.编译报错    B.运行报错   C.8    D.12</p>
         
         
             <div class="article-image">
-                <img src="/p/abnormal/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_ffd55995b1c88359.jpg" 
+                <img src="/p/abnormal/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_cdaeba472cddbfb9.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2407,7 +2407,7 @@ A.编译报错    B.运行报错   C.8    D.12</p>
         
         
             <div class="article-image">
-                <img src="/p/map-and-set/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8-%E5%8A%A8%E6%BC%AB%E5%A4%A9%E7%A9%BA.61389300f7e50cd4ca6d67c3c1ccedd2_hu_1eb3df9e72359bb6.png" 
+                <img src="/p/map-and-set/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8-%E5%8A%A8%E6%BC%AB%E5%A4%A9%E7%A9%BA.61389300f7e50cd4ca6d67c3c1ccedd2_hu_d7f39de795be06db.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2431,7 +2431,7 @@ A.编译报错    B.运行报错   C.8    D.12</p>
         
         
             <div class="article-image">
-                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_20fb7e02d8434236.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="掌握指针与内存操作，理解程序底层机制">
 <title>【从零开始学C&#43;&#43;】06指针和动态内存管理</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1411,8 +1411,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/">
-                <img src="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03_hu_b3ba7175c442d010.jpg"
-                        srcset="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03_hu_b3ba7175c442d010.jpg 800w, /p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03_hu_204f31e91d7f242e.jpg 1600w"
+                <img src="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03_hu_4bc56ec06be7df5b.jpg"
+                        srcset="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03_hu_4bc56ec06be7df5b.jpg 800w, /p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03_hu_a3946bfbc6734024.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1566,14 +1566,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//创建a变量的时候，其实是向内存申请4个字节的空间，存放10这个数值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1600,8 +1600,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">pa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="c1">//pa就是一个存放地址的变量 -- 指针变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//编号 &lt;mark&gt; 地址 &lt;/mark&gt; 指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//编号 &lt;mark&gt; 地址 &lt;/mark&gt; 指针
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1670,8 +1670,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">pa</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="n">pa</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span><span class="c1">//* -- 解引用操作符
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">//100
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span><span class="c1">//100
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1709,10 +1709,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//int* p = NULL;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//*p = 100;//err
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//*p = 100;//err
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//正确写法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -1829,7 +1829,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">test</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -1875,12 +1875,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">parr</span> <span class="o">=</span> <span class="n">arr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//赋值1~10
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="o">*</span><span class="p">(</span><span class="n">parr</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//打印
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">parr</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">parr</span><span class="o">++</span><span class="p">;</span>
@@ -1987,12 +1987,12 @@ document.addEventListener('DOMContentLoaded', function() {
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//申请内存
 </span></span></span><span class="line"><span class="cl"><span class="c1">//申请一块整型空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr1</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//申请一块整型空间的时候，给它初始化一个值10
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span><span class="o">*</span> <span class="n">ptr2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr2</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//释放
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span> <span class="n">ptr1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">delete</span> <span class="n">ptr1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">ptr1</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">delete</span> <span class="n">ptr2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">ptr2</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -2024,7 +2024,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span><span class="o">*</span> <span class="n">ptr3</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//...
 </span></span></span><span class="line"><span class="cl"><span class="c1">//释放
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">delete</span><span class="p">[]</span> <span class="n">ptr3</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span> <span class="n">ptr3</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img src="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/%E3%80%90%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6C&#43;&#43;%E3%80%9106%E6%8C%87%E9%92%88%E5%92%8C%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86.assets/1738583609885.png"
@@ -2088,21 +2088,21 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span><span class="o">*</span> <span class="n">ptr3</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//使用ptr3给数组赋值：1~10
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="o">*</span><span class="p">(</span><span class="n">ptr3</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//打印
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="p">(</span><span class="n">ptr3</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//释放
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr3</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">delete</span><span class="p">[]</span> <span class="n">ptr3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">ptr3</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -2154,7 +2154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-implement-the-linked-list/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-implement-the-linked-list/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2178,7 +2178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-io-and-circulation/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-io-and-circulation/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2202,7 +2202,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-array-and-string/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-array-and-string/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2226,7 +2226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-io-and-function/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-io-and-function/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2250,7 +2250,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-bit-operator/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-bit-operator/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"

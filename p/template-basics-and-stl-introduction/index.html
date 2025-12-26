@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="泛型编程入门：模板与 STL 的初见">
 <title>【C&#43;&#43;初阶】06模版初阶&#43;STL简介</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1422,8 +1422,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/template-basics-and-stl-introduction/">
-                <img src="/p/template-basics-and-stl-introduction/09_hu_92106cf6c3c1eb01.jpg"
-                        srcset="/p/template-basics-and-stl-introduction/09_hu_92106cf6c3c1eb01.jpg 800w, /p/template-basics-and-stl-introduction/09_hu_273d9757abff0765.jpg 1600w"
+                <img src="/p/template-basics-and-stl-introduction/09_hu_2682a67f0f896fc4.jpg"
+                        srcset="/p/template-basics-and-stl-introduction/09_hu_2682a67f0f896fc4.jpg 800w, /p/template-basics-and-stl-introduction/09_hu_bfa63344b01585bd.jpg 1600w"
                         width="800" 
                         height="443" 
                         loading="lazy"
@@ -1600,8 +1600,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T1</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T2</span><span class="o">&gt;</span>   <span class="c1">//类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="n">Swap</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> <span class="c1">//对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Swap</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> <span class="c1">//对象
+</span></span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">T1</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">left</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">right</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
@@ -1727,7 +1727,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">	<span class="c1">//强转
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">d1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> 
+</span></span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">d1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> 
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">a1</span><span class="p">,</span> <span class="n">d1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1907,7 +1907,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//优先匹配 template&lt;class T&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Add</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1929,7 +1929,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="err">类模版名</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//类内成员定义
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>例如我们写一个栈的模版</p>
@@ -1996,10 +1996,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//实例化生成对应的类，这里是两个不同的类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//Stack是类名，Stack&lt;int&gt;才是类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st1</span><span class="p">;</span>        <span class="c1">//存储int的栈
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Stack</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">st2</span><span class="p">;</span>     <span class="c1">//存储double的栈
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//Stack是类名，Stack&lt;int&gt;才是类型
+</span></span></span><span class="line"><span class="cl">	<span class="n">Stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st1</span><span class="p">;</span>        <span class="c1">//存储int的栈
+</span></span></span><span class="line"><span class="cl">	<span class="n">Stack</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">st2</span><span class="p">;</span>     <span class="c1">//存储double的栈
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2058,11 +2058,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//再次声明
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Stack</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">Push</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">data</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">_arr</span><span class="p">[</span><span class="n">_size</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">_arr</span><span class="p">[</span><span class="n">_size</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2213,7 +2213,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2237,7 +2237,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2261,7 +2261,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/vector/13.b32c44158f387d339e826524f7e8a619_hu_d0f349295da2529a.png" 
+                <img src="/p/vector/13.b32c44158f387d339e826524f7e8a619_hu_4a9e287e55b3b74.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2285,7 +2285,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.5b49cc3b94595099b38dbc27c72871a9_hu_eefe78b0159391d8.png" 
+                <img src="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.5b49cc3b94595099b38dbc27c72871a9_hu_624ce564250aa11a.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2309,7 +2309,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/stack-and-queue/14.a5fbc440edb2d9b059a25579d8165fbf_hu_323306d3c32af746.png" 
+                <img src="/p/stack-and-queue/14.a5fbc440edb2d9b059a25579d8165fbf_hu_58ae6ee75e970924.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

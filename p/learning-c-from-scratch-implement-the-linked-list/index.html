@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="手写单链表，理解数据结构的本质与思维方式">
 <title>【从零开始学C&#43;&#43;】07使用指针实现链表</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1422,8 +1422,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/learning-c-from-scratch-implement-the-linked-list/">
-                <img src="/p/learning-c-from-scratch-implement-the-linked-list/bz03_hu_b3ba7175c442d010.jpg"
-                        srcset="/p/learning-c-from-scratch-implement-the-linked-list/bz03_hu_b3ba7175c442d010.jpg 800w, /p/learning-c-from-scratch-implement-the-linked-list/bz03_hu_204f31e91d7f242e.jpg 1600w"
+                <img src="/p/learning-c-from-scratch-implement-the-linked-list/bz03_hu_4bc56ec06be7df5b.jpg"
+                        srcset="/p/learning-c-from-scratch-implement-the-linked-list/bz03_hu_4bc56ec06be7df5b.jpg 800w, /p/learning-c-from-scratch-implement-the-linked-list/bz03_hu_a3946bfbc6734024.jpg 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1604,10 +1604,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//声明一个节点的类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Node</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Node</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
@@ -1705,7 +1705,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//声明一个节点的类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Node</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Node</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
@@ -1838,7 +1838,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PushFront</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="o">&amp;</span><span class="n">phead</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">phead</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">//空链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">phead</span> <span class="o">=</span> <span class="n">CreateNode</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span>
@@ -1902,21 +1902,21 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PushBack</span><span class="p">(</span><span class="n">Node</span><span class="o">*&amp;</span> <span class="n">phead</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//1.创建新节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Node</span><span class="o">*</span> <span class="n">newnode</span> <span class="o">=</span> <span class="n">CreateNode</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Node</span><span class="o">*</span> <span class="n">newnode</span> <span class="o">=</span> <span class="n">CreateNode</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">phead</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">//空链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">phead</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="c1">//非空链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">//2.找尾结点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Node</span><span class="o">*</span> <span class="n">ptail</span> <span class="o">=</span> <span class="n">phead</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">Node</span><span class="o">*</span> <span class="n">ptail</span> <span class="o">=</span> <span class="n">phead</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">while</span> <span class="p">(</span><span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">ptail</span> <span class="o">=</span> <span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">//3.让尾结点的next指针指向新节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2049,13 +2049,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PopBack</span><span class="p">(</span><span class="n">Node</span><span class="o">*&amp;</span> <span class="n">phead</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">phead</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">//链表为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;链表为空，不可删除&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="c1">//链表不为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">phead</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">//链表只有一个节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">delete</span> <span class="n">phead</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="n">phead</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
@@ -2069,10 +2069,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">					<span class="n">tail</span> <span class="o">=</span> <span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">				<span class="p">}</span>
 </span></span><span class="line"><span class="cl">				<span class="c1">//释放tail节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">delete</span> <span class="n">tail</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">				<span class="k">delete</span> <span class="n">tail</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">				<span class="n">tail</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">				<span class="c1">//前一个节点prev的next置为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">				<span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -2314,32 +2314,32 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//声明一个节点的类型
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Node</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Node</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">List</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">List</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//成员变量
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Node</span><span class="o">*</span> <span class="n">phead</span><span class="p">;</span> <span class="c1">// 指向第一个节点的指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Node</span><span class="o">*</span> <span class="n">phead</span><span class="p">;</span> <span class="c1">// 指向第一个节点的指针
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//成员函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//构造函数
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">List</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//构造函数
+</span></span></span><span class="line"><span class="cl">	<span class="n">List</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;调用构造函数&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">phead</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//析构函数 - 释放链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">~</span><span class="n">List</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="o">~</span><span class="n">List</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;调用析构函数&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">while</span> <span class="p">(</span><span class="n">phead</span><span class="p">)</span>
@@ -2349,7 +2349,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//创建节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Node</span><span class="o">*</span> <span class="nf">CreateNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Node</span><span class="o">*</span> <span class="nf">CreateNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">Node</span><span class="o">*</span> <span class="n">pn</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">pn</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
@@ -2359,7 +2359,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//链表元素的打印
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">PrintList</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">PrintList</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">Node</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">phead</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="p">)</span>
@@ -2371,7 +2371,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//头插
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">PushFront</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">PushFront</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">Node</span><span class="o">*</span> <span class="n">newNode</span> <span class="o">=</span> <span class="n">CreateNode</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="n">newNode</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">phead</span><span class="p">;</span>
@@ -2379,29 +2379,29 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//尾插
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">PushBack</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">PushBack</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">//1.创建新节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Node</span><span class="o">*</span> <span class="n">newnode</span> <span class="o">=</span> <span class="n">CreateNode</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">Node</span><span class="o">*</span> <span class="n">newnode</span> <span class="o">=</span> <span class="n">CreateNode</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">phead</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">//空链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">phead</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="c1">//非空链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="c1">//2.找尾结点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">Node</span><span class="o">*</span> <span class="n">ptail</span> <span class="o">=</span> <span class="n">phead</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="n">Node</span><span class="o">*</span> <span class="n">ptail</span> <span class="o">=</span> <span class="n">phead</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="k">while</span> <span class="p">(</span><span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="n">ptail</span> <span class="o">=</span> <span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
 </span></span><span class="line"><span class="cl">			<span class="c1">//3.让尾结点的next指针指向新节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="n">ptail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">newnode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//头删
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">PopFront</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">PopFront</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">phead</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
@@ -2416,16 +2416,16 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//尾删
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">void</span> <span class="nf">PopBack</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">void</span> <span class="nf">PopBack</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">phead</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">//链表为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;链表为空，不可删除&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="c1">//链表不为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">phead</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span><span class="c1">//链表只有一个节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">			<span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="k">delete</span> <span class="n">phead</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">				<span class="n">phead</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
@@ -2439,10 +2439,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">					<span class="n">tail</span> <span class="o">=</span> <span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">				<span class="p">}</span>
 </span></span><span class="line"><span class="cl">				<span class="c1">//释放tail节点
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">delete</span> <span class="n">tail</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">				<span class="k">delete</span> <span class="n">tail</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">				<span class="n">tail</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">				<span class="c1">//前一个节点prev的next置为空
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">				<span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -2451,13 +2451,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">List</span> <span class="n">list1</span><span class="p">;</span><span class="c1">//创建了一个空链表
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">list1</span><span class="p">.</span><span class="n">PushBack</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">list1</span><span class="p">.</span><span class="n">PushBack</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">list1</span><span class="p">.</span><span class="n">PushBack</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">list1</span><span class="p">.</span><span class="n">PushBack</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">list1</span><span class="p">.</span><span class="n">PushBack</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">list1</span><span class="p">.</span><span class="n">PrintList</span><span class="p">();</span><span class="c1">//1 2 3 4
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2502,7 +2502,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-pointer-and-dynamic-memory-management/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2526,7 +2526,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-io-and-circulation/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-io-and-circulation/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2550,7 +2550,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-array-and-string/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-array-and-string/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2574,7 +2574,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-io-and-function/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-io-and-function/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2598,7 +2598,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/learning-c-from-scratch-bit-operator/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/learning-c-from-scratch-bit-operator/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"

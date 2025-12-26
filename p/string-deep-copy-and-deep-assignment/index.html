@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="探索 string 的拷贝与赋值本质">
 <title>【C&#43;&#43;初阶】string深拷贝和深赋值</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1412,8 +1412,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/string-deep-copy-and-deep-assignment/">
-                <img src="/p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89_hu_f40693759bdbdf99.png"
-                        srcset="/p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89_hu_f40693759bdbdf99.png 800w, /p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89_hu_a66574ca846af6c8.png 1600w"
+                <img src="/p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89_hu_a1b252742a2c9f1f.png"
+                        srcset="/p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89_hu_a1b252742a2c9f1f.png 800w, /p/string-deep-copy-and-deep-assignment/4.Water%20World%EF%BC%88%E6%B0%B4%E3%81%AE%E4%B8%96%E7%95%8C%EF%BC%89_hu_d22c5ca3d7972195.png 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1618,7 +1618,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="n">zhangsan</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">(</span><span class="s">&#34;xxxxxxxxxxxxxxxxxxxxx&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//swap(s1, s2);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">s1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">s1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1697,7 +1697,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//交换内置类型调用算法库中的swap即可
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">_str</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_str</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">_str</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_str</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">_size</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_size</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">_capacity</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_capacity</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1726,7 +1726,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="n">zhangsan</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">(</span><span class="s">&#34;xxxxxxxxxxxxxxxxxxxxx&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//swap(s1, s2);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">s1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">s1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1770,7 +1770,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//string全局的swap
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s1</span><span class="p">,</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s2</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s1</span><span class="p">,</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">s1</span><span class="p">.</span><span class="n">swap</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1813,7 +1813,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//s2(s1)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">string</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">_str</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">s</span><span class="p">.</span><span class="n">_capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">strcpy</span><span class="p">(</span><span class="n">_str</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_str</span><span class="p">);</span>
@@ -1834,7 +1834,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//s2(s1)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">string</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="nf">tmp</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_str</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
@@ -1876,10 +1876,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// s1 = s3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="c1">// 防止出现自己给自己赋值的情况
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">_str</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">_str</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">s</span><span class="p">.</span><span class="n">_capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="n">strcpy</span><span class="p">(</span><span class="n">_str</span><span class="p">,</span> <span class="n">s</span><span class="p">.</span><span class="n">_str</span><span class="p">);</span>
@@ -1909,10 +1909,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// s1 = s3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">this</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">)</span> <span class="c1">// 防止出现自己给自己赋值的情况
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">string</span> <span class="nf">tmp</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">_str</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="n">swap</span><span class="p">(</span><span class="n">tmp</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -1934,7 +1934,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//s1 = s3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">string</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
@@ -2059,7 +2059,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/c-memory-management/05.e21599781b5af128cb4088245af86b9d_hu_39c641d01d069a51.jpg" 
+                <img src="/p/c-memory-management/05.e21599781b5af128cb4088245af86b9d_hu_f6d40867b0fbfc4a.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2083,7 +2083,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2107,7 +2107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2127,11 +2127,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
                 
 <article class="has-image">
-    <a href="/p/start-c-/">
+    <a href="/p/start-c/">
         
         
             <div class="article-image">
-                <img src="/p/start-c-/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                <img src="/p/start-c/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2155,7 +2155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_20fb7e02d8434236.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

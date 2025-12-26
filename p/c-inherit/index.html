@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从基类到派生类，理解继承与多继承的关系">
 <title>【C&#43;&#43;进阶】01继承</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1422,8 +1422,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/c-inherit/">
-                <img src="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_528927338237fab5.png"
-                        srcset="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_528927338237fab5.png 800w, /p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_c9207ab5fc9ee710.png 1600w"
+                <img src="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_dfb58fa5bc5521d8.png"
+                        srcset="/p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_dfb58fa5bc5521d8.png 800w, /p/c-inherit/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%BC%91%E9%97%B2-%E5%92%96%E5%95%A1%E9%A6%86-%E6%89%8B%E7%BB%98%E9%A3%8E_hu_3d1ad032f390743c.png 1600w"
                         width="800" 
                         height="504" 
                         loading="lazy"
@@ -1645,22 +1645,22 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">dyy</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//用继承的方式实现栈
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//stack和vector既符合is-a的关系，也符合has-a的关系
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//stack和vector既符合is-a的关系，也符合has-a的关系
+</span></span></span><span class="line"><span class="cl">	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">class</span> <span class="nc">stack</span> <span class="o">:</span> <span class="k">public</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="n">push</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="c1">//父类是类模版时，需要指定一下类域，否则编译报错
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//因为stack&lt;int&gt;实例化时，也实例化vector&lt;int&gt;了
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//但是模版是需要按需实例化，push_back等成员函数未实例化，所以找不到
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//因为stack&lt;int&gt;实例化时，也实例化vector&lt;int&gt;了
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//但是模版是需要按需实例化，push_back等成员函数未实例化，所以找不到
+</span></span></span><span class="line"><span class="cl">			<span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">pop</span><span class="p">()</span>
@@ -1777,7 +1777,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Student</span> <span class="n">stu</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//1.子类对象可以赋值给父类的指针/引用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Person</span><span class="o">*</span> <span class="n">pp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">stu</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Person</span><span class="o">*</span> <span class="n">pp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">stu</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Person</span><span class="o">&amp;</span> <span class="n">rp</span> <span class="o">=</span> <span class="n">stu</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl"> 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -1814,7 +1814,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//单参数的构造支持隐式类型转换，产生临时对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&#34;11111&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&#34;11111&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&#34;11111&#34;</span><span class="p">;</span> 
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1882,8 +1882,8 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl">	<span class="n">B</span> <span class="n">b</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="p">.</span><span class="n">func</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">b</span><span class="p">.</span><span class="n">func</span><span class="p">();</span> <span class="c1">// 编译报错，子类父类之前同名函数，构成隐藏，如果要调用父类的func函数，需要显示指定类域
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">b</span><span class="p">.</span><span class="n">A</span><span class="o">::</span><span class="n">func</span><span class="p">();</span> <span class="c1">// ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">b</span><span class="p">.</span><span class="n">A</span><span class="o">::</span><span class="n">func</span><span class="p">();</span> <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1999,7 +1999,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Func</span><span class="p">(</span><span class="n">Person</span> <span class="n">ptr</span><span class="p">)</span> <span class="c1">// 不管传父类对象还是子类对象，调用的都是父类的拷贝构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">ptr</span><span class="p">.</span><span class="n">BuyTicket</span><span class="p">();</span> 
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -2010,7 +2010,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Func</span><span class="p">(</span><span class="n">stu</span><span class="p">);</span> <span class="c1">// 调用的是父类的拷贝构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2067,10 +2067,10 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;~Student()&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//delete[] _ptr;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//~Person(); // err
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Person</span><span class="o">::~</span><span class="n">Person</span><span class="p">();</span> <span class="c1">// ok
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">Person</span><span class="o">::~</span><span class="n">Person</span><span class="p">();</span> <span class="c1">// ok
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>**注意：**如果我们要显示写子类的析构，<span style="color: #FF0000;">不需要显示调用父类析构</span></p>
@@ -2235,15 +2235,15 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl">	<span class="n">Student</span> <span class="n">s</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//对于非静态成员，子类继承后，子类对象和父类对象各一份
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">.</span><span class="n">_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">.</span><span class="n">_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">.</span><span class="n">_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//子类和父类共用同一份静态成员
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">.</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">.</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">.</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="c1">//公有的情况下，父类子类都可以通过指定类域访问静态成员
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">Person</span><span class="o">::</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">&amp;</span><span class="n">Student</span><span class="o">::</span><span class="n">_count</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -2376,27 +2376,27 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span> <span class="c1">// 学号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Teacher</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Person</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span> <span class="c1">// 职工编号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Assistant</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Student</span><span class="p">,</span> <span class="k">public</span> <span class="n">Teacher</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_majorCourse</span><span class="p">;</span> <span class="c1">// 主修课程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Assistant</span> <span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//a._name = &#34;peter&#34;; // 编译报错，对 &#34;_name&#34; 的访问不明确
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//需要显示指定访问哪个父类的成员可以解决二义性问题，但数据冗余问题无法解决
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">a</span><span class="p">.</span><span class="n">Student</span><span class="o">::</span><span class="n">_name</span> <span class="o">=</span> <span class="s">&#34;小王&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="p">.</span><span class="n">Student</span><span class="o">::</span><span class="n">_name</span> <span class="o">=</span> <span class="s">&#34;小王&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">a</span><span class="p">.</span><span class="n">Teacher</span><span class="o">::</span><span class="n">_name</span> <span class="o">=</span> <span class="s">&#34;王老师&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -2521,7 +2521,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_num</span><span class="p">;</span> <span class="c1">// 学号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Teacher</span> <span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">Person</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2533,7 +2533,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">_id</span><span class="p">;</span> <span class="c1">// 职工编号
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Assistant</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Student</span><span class="p">,</span> <span class="k">public</span> <span class="n">Teacher</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -2545,15 +2545,15 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></span><span class="line"><span class="cl">	<span class="p">{}</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">	<span class="n">string</span> <span class="n">_majorCourse</span><span class="p">;</span> <span class="c1">// 主修课程
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//不会走三次Person的构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//已经是虚继承了，Person不在 Teacher 和 Student里面，而在一个公共的区域 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//所以调Teacher 和 Student的构造时，不会走Person的构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Assistant</span> <span class="n">a</span><span class="p">(</span><span class="s">&#34;张三&#34;</span><span class="p">,</span> <span class="s">&#34;李四&#34;</span><span class="p">,</span> <span class="s">&#34;王五&#34;</span><span class="p">);</span> <span class="c1">// name=&#34;王五&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//已经是虚继承了，Person不在 Teacher 和 Student里面，而在一个公共的区域 
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//所以调Teacher 和 Student的构造时，不会走Person的构造
+</span></span></span><span class="line"><span class="cl">	<span class="n">Assistant</span> <span class="n">a</span><span class="p">(</span><span class="s">&#34;张三&#34;</span><span class="p">,</span> <span class="s">&#34;李四&#34;</span><span class="p">,</span> <span class="s">&#34;王五&#34;</span><span class="p">);</span> <span class="c1">// name=&#34;王五&#34;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2689,7 +2689,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//组合
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">A</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span>
 </span></span><span class="line"><span class="cl"><span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span>
@@ -2790,7 +2790,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
         
         
             <div class="article-image">
-                <img src="/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1.5e36117cff17b329cec62853f3c4a367_hu_56ab0bc6663b9382.png" 
+                <img src="/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1.5e36117cff17b329cec62853f3c4a367_hu_3be292500fd745d8.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2814,7 +2814,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
         
         
             <div class="article-image">
-                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_3c313d6fab93eb2b.png" 
+                <img src="/p/c-11/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_29627e58e8a4ce76.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2838,7 +2838,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
         
         
             <div class="article-image">
-                <img src="/p/abnormal/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_ffd55995b1c88359.jpg" 
+                <img src="/p/abnormal/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_cdaeba472cddbfb9.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2862,7 +2862,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
         
         
             <div class="article-image">
-                <img src="/p/map-and-set/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8-%E5%8A%A8%E6%BC%AB%E5%A4%A9%E7%A9%BA.61389300f7e50cd4ca6d67c3c1ccedd2_hu_1eb3df9e72359bb6.png" 
+                <img src="/p/map-and-set/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A3%81%E7%BA%B8-%E5%8A%A8%E6%BC%AB%E5%A4%A9%E7%A9%BA.61389300f7e50cd4ca6d67c3c1ccedd2_hu_d7f39de795be06db.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2886,7 +2886,7 @@ stack和vector既符合is-a的关系，也符合has-a的关系</p>
         
         
             <div class="article-image">
-                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_94f24ba070ea6f3e.png" 
+                <img src="/p/class-with-object-01/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI-AI%E9%A3%8E%E6%99%AF.d3876019e9ad712ed55030ebd42e3df3_hu_20fb7e02d8434236.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

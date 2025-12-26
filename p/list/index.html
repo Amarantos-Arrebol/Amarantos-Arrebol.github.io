@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="链表容器的使用与实现，对比 vector 的差异">
 <title>【C&#43;&#43;初阶】09list</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1431,8 +1431,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/list/">
-                <img src="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_2efe09280f23e021.png"
-                        srcset="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_2efe09280f23e021.png 800w, /p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_8c8b4a5dc4d72c23.png 1600w"
+                <img src="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_fa221c6d03ef65ca.png"
+                        srcset="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_fa221c6d03ef65ca.png 800w, /p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_8194bf437844e31c.png 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1585,7 +1585,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//支持迭代器就支持范围for
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">lt2</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">lt2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -1742,7 +1742,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;list&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -1755,7 +1755,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//输入一个值，如果一个值存在，就把它转移到头部
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">auto</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">lt1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">lt1</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">x</span><span class="p">);</span>
@@ -1838,7 +1838,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;list&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -1942,7 +1942,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;list&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -1955,11 +1955,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//降序
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="cm">/*greater&lt;int&gt; gt;
+</span></span></span><span class="line"><span class="cl">	<span class="cm">/*greater&lt;int&gt; gt;
 </span></span></span><span class="line"><span class="cl"><span class="cm">	lt1.sort(gt); */</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">	<span class="n">lt1</span><span class="p">.</span><span class="n">sort</span><span class="p">(</span><span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span> <span class="c1">// 一般传匿名对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">lt1</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">lt1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -2017,7 +2017,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
@@ -2031,8 +2031,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//sort(v1.begin(), v1.end());//升序
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">sort</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v1</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span><span class="c1">//降序
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">v1</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">sort</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v1</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">());</span><span class="c1">//降序
+</span></span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">v1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -2133,13 +2133,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="n">Pos</span> <span class="n">p1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">lt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span><span class="c1">//有名对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">lt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Pos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span><span class="c1">//匿名对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">lt</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="p">});</span> <span class="c1">// 隐式类型转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">lt</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Pos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span><span class="c1">//匿名对象
+</span></span></span><span class="line"><span class="cl">	<span class="n">lt</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="p">});</span> <span class="c1">// 隐式类型转换
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">lt</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">lt</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">Pos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//lt.emplace_back({ 3, 3 }); // 不支持隐式类型转换，因为类型不确定
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">lt</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -2205,17 +2205,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">dyy</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//全部都是公有，一般用struct
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="nc">list_node</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">T</span> <span class="n">_data</span><span class="p">;</span>
@@ -2328,7 +2328,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="n">Node</span><span class="o">*</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">_prev</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//prev new_node cur
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">cur</span><span class="o">-&gt;</span><span class="n">_prev</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">prev</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
@@ -2562,7 +2562,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//前置++返回自己类型的值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">_node</span> <span class="o">=</span> <span class="n">_node</span><span class="o">-&gt;</span><span class="n">_next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
@@ -2575,7 +2575,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//后置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">Self</span> <span class="nf">tmp</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -2687,7 +2687,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;list.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Pos</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
@@ -2710,15 +2710,15 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="n">dyy</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">Pos</span><span class="o">&gt;</span> <span class="n">lt2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Pos</span> <span class="n">p1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="n">lt2</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span> <span class="c1">// 有名对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">lt2</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Pos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// 匿名对象
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">lt2</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span> <span class="c1">// 隐式类型转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">lt2</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">Pos</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">));</span> <span class="c1">// 匿名对象
+</span></span></span><span class="line"><span class="cl">	<span class="n">lt2</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">});</span> <span class="c1">// 隐式类型转换
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="n">dyy</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">Pos</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it2</span> <span class="o">=</span> <span class="n">lt2</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">it2</span> <span class="o">!=</span> <span class="n">lt2</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">//cout &lt;&lt; (*it2)._row &lt;&lt; &#34;:&#34; &lt;&lt; (*it2)._col &lt;&lt; endl;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//为了可读性，特殊处理，省略了一个-&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it2</span><span class="o">-&gt;</span><span class="n">_row</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">it2</span><span class="o">-&gt;</span><span class="n">_col</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">        <span class="c1">//为了可读性，特殊处理，省略了一个-&gt;
+</span></span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it2</span><span class="o">-&gt;</span><span class="n">_row</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">it2</span><span class="o">-&gt;</span><span class="n">_col</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it2</span><span class="p">.</span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">_row</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;:&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">it2</span><span class="p">.</span><span class="k">operator</span><span class="o">-&gt;</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">_col</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="o">++</span><span class="n">it2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -2884,7 +2884,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//前置++返回自己类型的值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">_node</span> <span class="o">=</span> <span class="n">_node</span><span class="o">-&gt;</span><span class="n">_next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
@@ -2897,7 +2897,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//后置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">Self</span> <span class="nf">tmp</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -3017,7 +3017,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//前置++返回自己类型的值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">_node</span> <span class="o">=</span> <span class="n">_node</span><span class="o">-&gt;</span><span class="n">_next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
@@ -3030,7 +3030,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//后置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">Self</span> <span class="nf">tmp</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -3111,10 +3111,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="o">&gt;</span> <span class="n">const_reverse_iterator</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="o">&gt;</span> <span class="n">const_reverse_iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">iterator</span><span class="o">&gt;</span> <span class="n">reverse_iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#else </span><span class="cm">/* __STL_CLASS_PARTIAL_SPECIALIZATION */</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">const_reference</span><span class="p">,</span> 
+</span></span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">const_reference</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">                           <span class="n">difference_type</span><span class="o">&gt;</span>  <span class="n">const_reverse_iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">iterator</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="n">difference_type</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">          <span class="n">reverse_iterator</span><span class="p">;</span>
@@ -3138,10 +3138,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="o">&gt;</span> <span class="n">const_reverse_iterator</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="o">&gt;</span> <span class="n">const_reverse_iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">iterator</span><span class="o">&gt;</span> <span class="n">reverse_iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#else </span><span class="cm">/* __STL_CLASS_PARTIAL_SPECIALIZATION */</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="k">typedef</span> <span class="n">reverse_bidirectional_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_bidirectional_iterator</span><span class="o">&lt;</span><span class="n">const_iterator</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="n">const_reference</span><span class="p">,</span> <span class="n">difference_type</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">const_reverse_iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_bidirectional_iterator</span><span class="o">&lt;</span><span class="n">iterator</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span>
@@ -3169,13 +3169,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#ifdef __STL_CLASS_PARTIAL_SPECIALIZATION
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// This is the new version of reverse_iterator, as defined in the
 </span></span></span><span class="line"><span class="cl"><span class="c1">//  draft C++ standard.  It relies on the iterator_traits template,
 </span></span></span><span class="line"><span class="cl"><span class="c1">//  which in turn relies on partial specialization.  The class
 </span></span></span><span class="line"><span class="cl"><span class="c1">//  reverse_bidirectional_iterator is no longer part of the draft
 </span></span></span><span class="line"><span class="cl"><span class="c1">//  standard, but it is retained for backward compatibility.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">Iterator</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">reverse_iterator</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3200,13 +3200,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#ifndef __STL_LIMITED_DEFAULT_TEMPLATES
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomAccessIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span> <span class="o">=</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomAccessIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span> <span class="o">=</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="k">class</span> <span class="nc">Distance</span> <span class="o">=</span> <span class="n">ptrdiff_t</span><span class="o">&gt;</span> 
 </span></span><span class="line"><span class="cl"><span class="cp">#else
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomAccessIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span><span class="p">,</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">RandomAccessIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">          <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span> 
 </span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">class</span> <span class="nc">reverse_iterator</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">reverse_iterator</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_iterator</span><span class="o">&lt;</span><span class="n">RandomAccessIterator</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Reference</span><span class="p">,</span> <span class="n">Distance</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">self</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
@@ -3230,13 +3230,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#ifndef __STL_LIMITED_DEFAULT_TEMPLATES
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">BidirectionalIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span> <span class="o">=</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> 
+</span></span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">BidirectionalIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span> <span class="o">=</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">          <span class="k">class</span> <span class="nc">Distance</span> <span class="o">=</span> <span class="n">ptrdiff_t</span><span class="o">&gt;</span> 
 </span></span><span class="line"><span class="cl"><span class="cp">#else
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">BidirectionalIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span><span class="p">,</span> 
+</span></span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">BidirectionalIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Reference</span><span class="p">,</span> 
 </span></span><span class="line"><span class="cl">          <span class="k">class</span> <span class="nc">Distance</span><span class="o">&gt;</span> 
 </span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">class</span> <span class="nc">reverse_bidirectional_iterator</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">reverse_bidirectional_iterator</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">typedef</span> <span class="n">reverse_bidirectional_iterator</span><span class="o">&lt;</span><span class="n">BidirectionalIterator</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Reference</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                                         <span class="n">Distance</span><span class="o">&gt;</span> <span class="n">self</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
@@ -3263,7 +3263,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">Reference</span> <span class="k">operator</span><span class="o">*</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="n">current</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span> <span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -3344,7 +3344,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Iterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ref</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ptr</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">ReverseIterator</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3459,7 +3459,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//lt2(lt1)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">list</span><span class="p">(</span><span class="k">const</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lt</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">list</span><span class="p">(</span><span class="k">const</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">empty_init</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
@@ -3494,10 +3494,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//lt2 = lt3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">lt</span><span class="p">)</span> <span class="c1">// lt拷贝构造lt3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">lt</span><span class="p">)</span> <span class="c1">// lt拷贝构造lt3
+</span></span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="n">lt</span><span class="p">);</span><span class="c1">//交换lt3好和lt2的头节点指针，出作用域后lt3会销毁
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -3571,7 +3571,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Iterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ref</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ptr</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">ReverseIterator</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3931,18 +3931,18 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;assert.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;iterator.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">dyy</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//全部都是公有，一般用struct
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="nc">list_node</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">T</span> <span class="n">_data</span><span class="p">;</span>
@@ -3957,8 +3957,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//typedef list_iterator&lt;T, T&amp;, T*&gt; iterator;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//typedef list_iterator&lt;T, const T&amp;, const T*&gt; const_iterator;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//typedef list_iterator&lt;T, const T&amp;, const T*&gt; const_iterator;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ref</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ptr</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="nc">list_iterator</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
@@ -3981,7 +3981,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//前置++返回自己类型的值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">Self</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">++</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">_node</span> <span class="o">=</span> <span class="n">_node</span><span class="o">-&gt;</span><span class="n">_next</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
@@ -3994,7 +3994,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//后置
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">Self</span> <span class="k">operator</span><span class="o">++</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">Self</span> <span class="nf">tmp</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -4028,8 +4028,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">		<span class="c1">//typedef list_iterator&lt;T&gt; iterator;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">//typedef list_const_iterator&lt;T&gt; const_iterator;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">		<span class="c1">//typedef list_const_iterator&lt;T&gt; const_iterator;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="k">typedef</span> <span class="n">list_iterator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">T</span><span class="o">*&gt;</span> <span class="n">iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">typedef</span> <span class="n">list_iterator</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">*&gt;</span> <span class="n">const_iterator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="k">typedef</span> <span class="n">ReverseIterator</span><span class="o">&lt;</span><span class="n">iterator</span><span class="p">,</span> <span class="n">T</span><span class="o">&amp;</span><span class="p">,</span> <span class="n">T</span><span class="o">*&gt;</span> <span class="n">reverse_iterator</span><span class="p">;</span>
@@ -4089,7 +4089,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//lt2(lt1)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">list</span><span class="p">(</span><span class="k">const</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lt</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">list</span><span class="p">(</span><span class="k">const</span> <span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">lt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">empty_init</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
@@ -4115,7 +4115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//lt2 = lt3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">lt</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">list</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">lt</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">swap</span><span class="p">(</span><span class="n">lt</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="o">*</span><span class="k">this</span><span class="p">;</span>
@@ -4141,14 +4141,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">push_back</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="c1">//Node* new_node = new Node(x);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//Node* tail = _head-&gt;_prev;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//Node* tail = _head-&gt;_prev;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//tail-&gt;_next = new_node;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//new_node-&gt;_prev = tail;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//new_node-&gt;_prev = tail;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//new_node-&gt;_next = _head;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//_head-&gt;_prev = new_node;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//_head-&gt;_prev = new_node;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="n">insert</span><span class="p">(</span><span class="n">end</span><span class="p">(),</span> <span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -4174,7 +4174,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">			<span class="n">Node</span><span class="o">*</span> <span class="n">prev</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">_prev</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//prev new_node cur
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">new_node</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="n">new_node</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="n">cur</span><span class="o">-&gt;</span><span class="n">_prev</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="n">prev</span><span class="o">-&gt;</span><span class="n">_next</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>
@@ -4295,7 +4295,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4319,7 +4319,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/template-basics-and-stl-introduction/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_ffd55995b1c88359.jpg" 
+                <img src="/p/template-basics-and-stl-introduction/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_cdaeba472cddbfb9.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4343,7 +4343,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4367,7 +4367,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/vector/13.b32c44158f387d339e826524f7e8a619_hu_d0f349295da2529a.png" 
+                <img src="/p/vector/13.b32c44158f387d339e826524f7e8a619_hu_4a9e287e55b3b74.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4391,7 +4391,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/stack-and-queue/14.a5fbc440edb2d9b059a25579d8165fbf_hu_323306d3c32af746.png" 
+                <img src="/p/stack-and-queue/14.a5fbc440edb2d9b059a25579d8165fbf_hu_58ae6ee75e970924.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

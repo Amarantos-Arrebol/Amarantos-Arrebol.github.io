@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="从使用到模拟实现，深入理解动态数组">
 <title>【C&#43;&#43;初阶】08vector</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1446,8 +1446,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/vector/">
-                <img src="/p/vector/13_hu_a2cea79851e40e38.png"
-                        srcset="/p/vector/13_hu_a2cea79851e40e38.png 800w, /p/vector/13_hu_f0d34bb037171833.png 1600w"
+                <img src="/p/vector/13_hu_b8366ff241cb8510.png"
+                        srcset="/p/vector/13_hu_b8366ff241cb8510.png 800w, /p/vector/13_hu_5598bc4e88d9de80.png 1600w"
                         width="800" 
                         height="500" 
                         loading="lazy"
@@ -1564,12 +1564,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 创建了一个名为a1的可变长数组，里面都是int类型的数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="c1">//创建一个大小为10的可变长数组，初始化为1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> 
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> 
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//使用push_back插入数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
@@ -1608,7 +1608,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">};</span> <span class="c1">// 隐式类型转换
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">({</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">});</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">({</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">il1</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="n">initializer_list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">il2</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">};</span>
@@ -1676,18 +1676,18 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="n">vstr</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="s">&#34;李四&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//传引用，减少拷贝
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">vstr</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">vstr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//vstr[0]是string字符串，可以使用+=
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vstr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span> <span class="c1">// vstr.operator[](0) 等价于 vstr[0] 即s1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vstr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="s">&#34;apple&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">vstr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="sc">&#39;x&#39;</span><span class="p">;</span> <span class="c1">// vstr.operator[](0) 等价于 vstr[0] 即s1
+</span></span></span><span class="line"><span class="cl"><span class="n">vstr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="s">&#34;apple&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">vstr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">vstr</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">++</span><span class="p">;</span> <span class="c1">// 等价于 vstr.operator[](0).operator[](1)++;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">vstr</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
@@ -2194,13 +2194,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numRows</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">ret</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resize</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 开空间的同时初始化
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//填值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ret</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">// 从第3行开始填
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ret</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">// 从第3行开始填
+</span></span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">ret</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="c1">// 只填中间的
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">            <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                <span class="n">ret</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ret</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
@@ -2381,16 +2381,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">push_back</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">////空间不够，扩容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//if (_finish == _endofstorage)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//{
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//	reserve(capacity() == 0 ? 4 : capacity() * 2);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//}
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//if (_finish == _endofstorage)
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//{
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//	reserve(capacity() == 0 ? 4 : capacity() * 2);
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//}
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//*_finish = x;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//++_finish;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//++_finish;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//复用insert
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">insert</span><span class="p">(</span><span class="n">_finish</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">insert</span><span class="p">(</span><span class="n">_finish</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2422,18 +2422,18 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="n">capacity</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">size_t</span> <span class="n">oldSize</span> <span class="o">=</span> <span class="n">size</span><span class="p">();</span> <span class="c1">// 记录旧size
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">T</span><span class="o">*</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">n</span><span class="p">];</span> <span class="c1">// 开新空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">_start</span><span class="p">)</span> <span class="c1">// 如果是第一次扩容，不需要拷贝旧数据和释放旧空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_start</span><span class="p">)</span> <span class="c1">// 如果是第一次扩容，不需要拷贝旧数据和释放旧空间
+</span></span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">memcpy</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">_start</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">oldSize</span><span class="p">);</span> <span class="c1">// 拷贝旧数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">delete</span><span class="p">[]</span> <span class="n">_start</span><span class="p">;</span> <span class="c1">// 释放旧空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">            <span class="k">delete</span><span class="p">[]</span> <span class="n">_start</span><span class="p">;</span> <span class="c1">// 释放旧空间
+</span></span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">_start</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span> <span class="c1">// 指向新空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_finish</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">oldSize</span><span class="p">;</span> <span class="c1">// 更新_finish
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">_endofstorage</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// 更新_endofstorage
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">        <span class="n">_finish</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">oldSize</span><span class="p">;</span> <span class="c1">// 更新_finish
+</span></span></span><span class="line"><span class="cl">        <span class="n">_endofstorage</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// 更新_endofstorage
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2554,18 +2554,18 @@ document.addEventListener('DOMContentLoaded', function() {
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">insert</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//判断pos是否合法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;=</span> <span class="n">_finish</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;=</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//空间不够，扩容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">_start</span><span class="p">;</span> <span class="c1">// 计算pos和_start之间的相对距离
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">reserve</span><span class="p">(</span><span class="n">capacity</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="n">capacity</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">reserve</span><span class="p">(</span><span class="n">capacity</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="n">capacity</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="n">pos</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">len</span><span class="p">;</span> <span class="c1">// 更新pos
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//挪数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">_finish</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">_finish</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">pos</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
@@ -2573,7 +2573,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//赋值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">*</span><span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">++</span><span class="n">_finish</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2613,21 +2613,21 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//迭代器失效
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">iterator</span> <span class="nf">insert</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">iterator</span> <span class="nf">insert</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//判断pos是否合法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;=</span> <span class="n">_finish</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;=</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//空间不够，扩容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="n">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">_start</span><span class="p">;</span> <span class="c1">// 计算pos和_start之间的相对距离
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">reserve</span><span class="p">(</span><span class="n">capacity</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="n">capacity</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">reserve</span><span class="p">(</span><span class="n">capacity</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="n">capacity</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="n">pos</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">len</span><span class="p">;</span> <span class="c1">// 更新pos
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//挪数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">_finish</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">_finish</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">pos</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
@@ -2635,7 +2635,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">//赋值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">*</span><span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="o">++</span><span class="n">_finish</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">pos</span><span class="p">;</span>
@@ -2682,7 +2682,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">    <span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//后面数据往前挪
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
@@ -2779,7 +2779,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">        <span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">//插入数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">while</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">&lt;</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">&lt;</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="o">*</span><span class="n">_finish</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">            <span class="o">++</span><span class="n">_finish</span><span class="p">;</span>
@@ -2896,7 +2896,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">    <span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;=</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//空间不够，扩容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">_start</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">reserve</span><span class="p">(</span><span class="n">capacity</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="n">capacity</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
@@ -2954,7 +2954,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">    <span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//后面数据往前挪
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
@@ -3006,7 +3006,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">    <span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//后面数据往前挪
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
@@ -3076,7 +3076,7 @@ int k(2);</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//v2(v1)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">reserve</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">()));</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">v</span><span class="p">)</span>
@@ -3113,7 +3113,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//v1 = v3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">swap</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -3139,7 +3139,7 @@ int k(2);</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//类模版的成员函数，也可以是一个函数模版
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIterator</span><span class="o">&gt;</span>
+</span></span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIterator</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">first</span> <span class="o">!=</span> <span class="n">last</span><span class="p">)</span>
@@ -3189,7 +3189,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">    <span class="n">v1</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//可以是自己容器的迭代器区间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v1</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v1</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">v2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
@@ -3197,7 +3197,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">//也可以是其他容器的迭代器区间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">string</span> <span class="n">s1</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">s1</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v3</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">s1</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">v3</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
@@ -3223,7 +3223,7 @@ int k(2);</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//n个val构造
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">vector</span><span class="p">(</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">val</span> <span class="o">=</span> <span class="n">T</span><span class="p">())</span>
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="p">(</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">val</span> <span class="o">=</span> <span class="n">T</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -3461,7 +3461,7 @@ int k(2);</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">Iterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ref</span><span class="p">,</span> <span class="k">class</span> <span class="nc">Ptr</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">ReverseIterator</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -3802,7 +3802,7 @@ int k(2);</p>
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#pragma once
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cassert&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;iterator.h&#34;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">dyy</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
@@ -3861,7 +3861,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span> <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//类模版的成员函数，也可以是一个函数模版
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIterator</span><span class="o">&gt;</span>
+</span></span></span><span class="line"><span class="cl">		<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIterator</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">vector</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">while</span> <span class="p">(</span><span class="n">first</span> <span class="o">!=</span> <span class="n">last</span><span class="p">)</span>
@@ -3872,7 +3872,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//vector&lt;int&gt; v4(10, 1)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">vector</span><span class="p">(</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">val</span> <span class="o">=</span> <span class="n">T</span><span class="p">())</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">vector</span><span class="p">(</span><span class="n">size_t</span> <span class="n">n</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">val</span> <span class="o">=</span> <span class="n">T</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">			
@@ -3906,7 +3906,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//v2(v1)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">vector</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">vector</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">reserve</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">capacity</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">			<span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">e</span> <span class="p">:</span> <span class="n">v</span><span class="p">)</span>
@@ -3923,7 +3923,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//v1 = v3
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="k">operator</span><span class="o">=</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="n">swap</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -3972,10 +3972,10 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">			<span class="k">else</span>
 </span></span><span class="line"><span class="cl">			<span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="c1">//扩容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">				<span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">//插入数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">while</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">&lt;</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">				<span class="k">while</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">&lt;</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">				<span class="p">{</span>
 </span></span><span class="line"><span class="cl">					<span class="o">*</span><span class="n">_finish</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">					<span class="o">++</span><span class="n">_finish</span><span class="p">;</span>
@@ -3988,38 +3988,38 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="n">capacity</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">			<span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="n">size_t</span> <span class="n">oldSize</span> <span class="o">=</span> <span class="n">size</span><span class="p">();</span> <span class="c1">// 记录旧size
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="n">T</span><span class="o">*</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">T</span><span class="p">[</span><span class="n">n</span><span class="p">];</span> <span class="c1">// 开新空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">if</span> <span class="p">(</span><span class="n">_start</span><span class="p">)</span> <span class="c1">// 如果是第一次扩容，不需要拷贝旧数据和释放旧空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="p">(</span><span class="n">_start</span><span class="p">)</span> <span class="c1">// 如果是第一次扩容，不需要拷贝旧数据和释放旧空间
+</span></span></span><span class="line"><span class="cl">				<span class="p">{</span>
 </span></span><span class="line"><span class="cl">					<span class="c1">//memcpy(tmp, _start, sizeof(T) * oldSize); // 拷贝旧数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>					<span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">oldSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">					<span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">oldSize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">					<span class="p">{</span>
 </span></span><span class="line"><span class="cl">						<span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">_start</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">					<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">					<span class="k">delete</span><span class="p">[]</span> <span class="n">_start</span><span class="p">;</span> <span class="c1">// 释放旧空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">				<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="n">_start</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span> <span class="c1">// 指向新空间
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">_finish</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">oldSize</span><span class="p">;</span> <span class="c1">// 更新_finish
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">_endofstorage</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// 更新_endofstorage
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">				<span class="n">_finish</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">oldSize</span><span class="p">;</span> <span class="c1">// 更新_finish
+</span></span></span><span class="line"><span class="cl">				<span class="n">_endofstorage</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// 更新_endofstorage
+</span></span></span><span class="line"><span class="cl">			<span class="p">}</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="kt">void</span> <span class="nf">push_back</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="c1">////空间不够，扩容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//if (_finish == _endofstorage)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//{
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//	reserve(capacity() == 0 ? 4 : capacity() * 2);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//}
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//if (_finish == _endofstorage)
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//{
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//	reserve(capacity() == 0 ? 4 : capacity() * 2);
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//}
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//*_finish = x;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="c1">//++_finish;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">			<span class="c1">//++_finish;
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//复用insert
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">insert</span><span class="p">(</span><span class="n">_finish</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">			<span class="n">insert</span><span class="p">(</span><span class="n">_finish</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="kt">bool</span> <span class="nf">empty</span><span class="p">()</span>
@@ -4035,21 +4035,21 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">//迭代器失效
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">iterator</span> <span class="nf">insert</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">iterator</span> <span class="nf">insert</span><span class="p">(</span><span class="n">iterator</span> <span class="n">pos</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="c1">//判断pos是否合法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;=</span> <span class="n">_finish</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">			<span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;=</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//空间不够，扩容
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">_finish</span> <span class="o">==</span> <span class="n">_endofstorage</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="n">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">_start</span><span class="p">;</span> <span class="c1">// 计算pos和_start之间的相对距离
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">reserve</span><span class="p">(</span><span class="n">capacity</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="n">capacity</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">				<span class="n">reserve</span><span class="p">(</span><span class="n">capacity</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="n">capacity</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="n">pos</span> <span class="o">=</span> <span class="n">_start</span> <span class="o">+</span> <span class="n">len</span><span class="p">;</span> <span class="c1">// 更新pos
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">			<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//挪数据
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">_finish</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">_finish</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">pos</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
@@ -4057,7 +4057,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">			<span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//赋值
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="o">*</span><span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="o">*</span><span class="n">pos</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="o">++</span><span class="n">_finish</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">pos</span><span class="p">;</span>
@@ -4068,7 +4068,7 @@ int k(2);</p>
 </span></span><span class="line"><span class="cl">			<span class="n">assert</span><span class="p">(</span><span class="n">pos</span> <span class="o">&gt;=</span> <span class="n">_start</span> <span class="o">&amp;&amp;</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">//后面数据往前挪
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">			<span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">			<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">_finish</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="p">{</span>
 </span></span><span class="line"><span class="cl">				<span class="o">*</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
@@ -4128,7 +4128,7 @@ int k(2);</p>
         
         
             <div class="article-image">
-                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_38cad4bcb7d0b81e.png" 
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4152,7 +4152,7 @@ int k(2);</p>
         
         
             <div class="article-image">
-                <img src="/p/template-basics-and-stl-introduction/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_ffd55995b1c88359.jpg" 
+                <img src="/p/template-basics-and-stl-introduction/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_cdaeba472cddbfb9.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4176,7 +4176,7 @@ int k(2);</p>
         
         
             <div class="article-image">
-                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_370e938fadf122a9.jpg" 
+                <img src="/p/string-class/bz03.e3907570bcc7a3773ac5284f57a3ac69_hu_fe4867d49ec3ffa3.jpg" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4200,7 +4200,7 @@ int k(2);</p>
         
         
             <div class="article-image">
-                <img src="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.5b49cc3b94595099b38dbc27c72871a9_hu_eefe78b0159391d8.png" 
+                <img src="/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.5b49cc3b94595099b38dbc27c72871a9_hu_624ce564250aa11a.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -4224,7 +4224,7 @@ int k(2);</p>
         
         
             <div class="article-image">
-                <img src="/p/stack-and-queue/14.a5fbc440edb2d9b059a25579d8165fbf_hu_323306d3c32af746.png" 
+                <img src="/p/stack-and-queue/14.a5fbc440edb2d9b059a25579d8165fbf_hu_58ae6ee75e970924.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

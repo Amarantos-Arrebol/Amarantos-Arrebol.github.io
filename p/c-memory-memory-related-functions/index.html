@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
+<html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="理解memcpy、memmove、memset与memcmp的应用与实现">
 <title>【C语言基础】内存相关的函数</title>
@@ -1135,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="/">
            
         <img
-          src="/img/avatar_hu_c3bef4dff24cf0d9.png"
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
           width="300"
           height="300"
           class="site-logo"
@@ -1420,8 +1420,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <header class="article-header">
         <div class="article-image">
             <a href="/p/c-memory-memory-related-functions/">
-                <img src="/p/c-memory-memory-related-functions/04_hu_373845668b196388.png"
-                        srcset="/p/c-memory-memory-related-functions/04_hu_373845668b196388.png 800w, /p/c-memory-memory-related-functions/04_hu_576771f7eb678e5.png 1600w"
+                <img src="/p/c-memory-memory-related-functions/04_hu_ffd210f38ba507e1.png"
+                        srcset="/p/c-memory-memory-related-functions/04_hu_ffd210f38ba507e1.png 800w, /p/c-memory-memory-related-functions/04_hu_1bd7f9238fc94fa4.png 1600w"
                         width="800" 
                         height="450" 
                         loading="lazy"
@@ -1569,19 +1569,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">arr1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">arr2</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//将arr1中的3,4,5,6,7拷贝放到arr2中
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">memcpy</span><span class="p">(</span><span class="n">arr2</span><span class="p">,</span> <span class="n">arr1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span><span class="c1">//拷贝5个整型--20字节
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span></span><span class="line"><span class="cl">	<span class="nf">memcpy</span><span class="p">(</span><span class="n">arr2</span><span class="p">,</span> <span class="n">arr1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span><span class="c1">//拷贝5个整型--20字节
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">       <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">arr2</span> <span class="o">+</span> <span class="n">i</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">//输出结果3 4 5 6 7 0 0 0 0 0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1632,18 +1632,18 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;assert.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span><span class="o">*</span> <span class="nf">my_memcpy</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">dest</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">num</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">my_memcpy</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">dest</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">num</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">void</span><span class="o">*</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">dest</span><span class="p">;</span><span class="c1">//记录目标空间的起始地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">assert</span><span class="p">(</span><span class="n">dest</span> <span class="o">&amp;&amp;</span> <span class="n">src</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">	<span class="nf">assert</span><span class="p">(</span><span class="n">dest</span> <span class="o">&amp;&amp;</span> <span class="n">src</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">num</span><span class="o">--</span><span class="p">)</span><span class="c1">//循环赋值/拷贝
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">dest</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">src</span><span class="p">);</span><span class="c1">//强转为字符型指针
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="n">dest</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">dest</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">		<span class="n">dest</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">dest</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">		<span class="n">src</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">src</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span><span class="c1">//返回目标空间的起始地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -1701,16 +1701,16 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">arr1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">memmove</span><span class="p">(</span><span class="n">arr1</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">arr1</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span><span class="c1">//将1,2,3,4,5拷贝到3,4,5,6,7处
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">arr1</span> <span class="o">+</span> <span class="n">i</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//输出结果：1,2,1,2,3,4,5,6,7,8，9,10
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1771,19 +1771,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;assert.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span><span class="o">*</span> <span class="nf">my_memmove</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">dest</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">num</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span><span class="o">*</span> <span class="nf">my_memmove</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">dest</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">src</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">num</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">void</span><span class="o">*</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">dest</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">assert</span><span class="p">(</span><span class="n">dest</span> <span class="o">&amp;&amp;</span> <span class="n">src</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">src</span> <span class="o">&lt;</span> <span class="n">dest</span><span class="p">)</span><span class="c1">//从后往前拷贝
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">while</span> <span class="p">(</span><span class="n">num</span><span class="o">--</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">dest</span> <span class="o">+</span> <span class="n">num</span> <span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">src</span> <span class="o">+</span> <span class="n">num</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">else</span><span class="c1">//从前往后拷贝
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">while</span> <span class="p">(</span><span class="n">num</span><span class="o">--</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">dest</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="n">src</span><span class="p">);</span>
@@ -1792,7 +1792,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl">		<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span><span class="c1">//返回目标空间的起始地址
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -1870,13 +1870,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">char</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;hello world&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">memset</span><span class="p">(</span><span class="n">arr</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="sc">&#39;*&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">arr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="c1">//输出结果 hello *****
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1905,13 +1905,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">memset</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span><span class="c1">//改前10个字节为1
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//arr中前10个字节 01 01 01 01  01 01 01 01  01 01 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//arr中的数值为 16843009 16843009 257 0 0 0 0 0 0 0 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//arr中前10个字节 01 01 01 01  01 01 01 01  01 01 
+</span></span></span><span class="line"><span class="cl">	<span class="c1">//arr中的数值为 16843009 16843009 257 0 0 0 0 0 0 0 
+</span></span></span><span class="line"><span class="cl"> 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span> 
 </span></span></code></pre></td></tr></table>
 </div>
@@ -1972,13 +1972,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span><span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">arr1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">arr2</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">ret1</span> <span class="o">=</span> <span class="nf">memcmp</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span><span class="c1">//返回0
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kt">int</span> <span class="n">ret2</span> <span class="o">=</span> <span class="nf">memcmp</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span><span class="c1">//返回小于0的数字
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">ret2</span> <span class="o">=</span> <span class="nf">memcmp</span><span class="p">(</span><span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">,</span> <span class="mi">13</span><span class="p">);</span><span class="c1">//返回小于0的数字
+</span></span></span><span class="line"><span class="cl">	
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2045,7 +2045,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/c-dynamic-memory-management/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_586fa9faf358957.png" 
+                <img src="/p/c-dynamic-memory-management/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_5e866b5ecf5e3b47.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2069,7 +2069,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/c-char-and-string-function/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_586fa9faf358957.png" 
+                <img src="/p/c-char-and-string-function/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_5e866b5ecf5e3b47.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2093,7 +2093,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/c-pointer-basic/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_586fa9faf358957.png" 
+                <img src="/p/c-pointer-basic/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_5e866b5ecf5e3b47.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2117,7 +2117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/c-struct/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_586fa9faf358957.png" 
+                <img src="/p/c-struct/04.56f238804d2899b0bbfdeb2ecda0b14a_hu_5e866b5ecf5e3b47.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
@@ -2141,7 +2141,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         
             <div class="article-image">
-                <img src="/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_3c313d6fab93eb2b.png" 
+                <img src="/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_29627e58e8a4ce76.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"

@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Thu, 18 Dec 2025 20:06:59 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E5%9F%BA%E7%A1%80io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 15 Mar 2026 18:20:05 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E5%9F%BA%E7%A1%80io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【Linux系统编程】05基础IO</title>
         <link>https://Amarantos-Arrebol.github.io/p/linux-basic-io/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -1224,7 +1224,66 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description>
+&lt;/div&gt;&lt;h1 id=&#34;5理解一切皆文件&#34;&gt;5.理解一切皆文件
+&lt;/h1&gt;&lt;p&gt;一切皆文件是通过VFS虚拟文件系统实现的，我们用到的struct file是属于虚拟文件系统，VFS中有文件相关的基本属性，未来能帮我们找到文件的相关属性、一些操作、缓冲区，其中struct_file里面包含函数指针，可以指向底层不同设备/资源的读写方法，屏蔽底层差异。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-io/index.assets/image-20260101212126527.png&#34;
+	width=&#34;1628&#34;
+	height=&#34;624&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260101212126527&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;260&#34;
+		data-flex-basis=&#34;626px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-io/index.assets/image-20260101212341313.png&#34;
+	width=&#34;1211&#34;
+	height=&#34;482&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260101212341313&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;251&#34;
+		data-flex-basis=&#34;602px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;6缓冲区&#34;&gt;6.缓冲区
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;什么是缓冲区&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;缓冲区就是内存的一段空间&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;为什么需要缓冲区&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;提高效率&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;类比菜鸟驿站，有了菜鸟驿站，送快递的人不需要跟用户直接打交道，而是跟驿站打交道，用户也不需要在快递到的时候立刻去取，而是可以等自己空闲的时候直接到楼下的菜鸟驿站取即可。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;我们口中的缓冲区，究竟是什么&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-io/index.assets/image-20260101220216633.png&#34;
+	width=&#34;1401&#34;
+	height=&#34;576&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260101220216633&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;243&#34;
+		data-flex-basis=&#34;583px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
         </item>
         
     </channel>

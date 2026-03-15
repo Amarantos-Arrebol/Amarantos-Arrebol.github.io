@@ -1,0 +1,3056 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 必修：\n高级测试基础（文字性-面试时候） 测试牵扯文档：需求文档、测试计划、测试用例、怎么提交bug、测试报告\n要求：细致、整洁、格式统一\nWeb测试\nAPP测试（adb命令、monkey测试、压力测试）\n">
+<title>【软件测试】01高级测试基础</title>
+
+<link rel='canonical' href='https://Amarantos-Arrebol.github.io/p/test-basic/'>
+
+<link rel="stylesheet" href="/scss/style.min.3a2e0dabd37ad6d838b007eb48be52d094d892667b94840716e02c99e56f8bbd.css"><meta property='og:title' content="【软件测试】01高级测试基础">
+<meta property='og:description' content=" 必修：\n高级测试基础（文字性-面试时候） 测试牵扯文档：需求文档、测试计划、测试用例、怎么提交bug、测试报告\n要求：细致、整洁、格式统一\nWeb测试\nAPP测试（adb命令、monkey测试、压力测试）\n">
+<meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/test-basic/'>
+<meta property='og:site_name' content='PursUnre的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:published_time' content='2026-01-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T18:20:05&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
+<meta name="twitter:title" content="【软件测试】01高级测试基础">
+<meta name="twitter:description" content=" 必修：\n高级测试基础（文字性-面试时候） 测试牵扯文档：需求文档、测试计划、测试用例、怎么提交bug、测试报告\n要求：细致、整洁、格式统一\nWeb测试\nAPP测试（adb命令、monkey测试、压力测试）\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' /><link rel="stylesheet" href="/css/custom.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    
+    $.getScript("https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/fairyDustCursor.min.js");
+});
+</script>
+
+
+<style type="text/css">
+.main-content img, body {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/Arrow.cur), auto;
+}
+
+.actions > div,
+.expand-done,
+.main-content figure > figcaption div,
+.navbar-above .navbar-nav .item,
+.navbar-searchicon,
+.navbar-slideicon,
+.photos .picture-details,
+.widget .ad-tag .click-close,
+a,
+button {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/Hand.cur), auto;
+}
+
+blockquote,
+code,
+h1, h2, h3, h4, h5, h6,
+hr,
+input[type=text],
+li,
+p,
+td,
+textarea,
+th {
+    cursor: url(https://cdn.jsdelivr.net/gh/huangwb8/bloghelper@latest/mouse/halo-dream/cursor/breeze/IBeam.cur), auto;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const articleContent = document.querySelector('.article-content');
+    if (!articleContent) return;
+    
+    
+    function processTextNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent;
+            
+            const regex = /==([^=\n`]+?)==/g;
+            
+            if (regex.test(text)) {
+                const parent = node.parentNode;
+                
+                if (parent && !['CODE', 'PRE', 'KBD', 'SAMP'].includes(parent.tagName)) {
+                    const fragment = document.createDocumentFragment();
+                    let lastIndex = 0;
+                    
+                    text.replace(/==([^=\n`]+?)==/g, function(match, content, offset) {
+                        
+                        if (offset > lastIndex) {
+                            fragment.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                        }
+                        
+                        
+                        const mark = document.createElement('mark');
+                        mark.textContent = content;
+                        fragment.appendChild(mark);
+                        
+                        lastIndex = offset + match.length;
+                        return match;
+                    });
+                    
+                    
+                    if (lastIndex < text.length) {
+                        fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+                    }
+                    
+                    parent.replaceChild(fragment, node);
+                }
+            }
+        } else if (node.nodeType === Node.ELEMENT_NODE && 
+                   !['CODE', 'PRE', 'SCRIPT', 'STYLE', 'KBD', 'SAMP'].includes(node.tagName)) {
+            
+            Array.from(node.childNodes).forEach(processTextNode);
+        }
+    }
+    
+    processTextNode(articleContent);
+});
+</script>
+<div class="loading">
+  
+  <div class="scene">
+    <div class="forest">
+      <div class="tree tree1">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+      </div>
+
+      <div class="tree tree2">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree3">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree4">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree5">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree6">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+
+      <div class="tree tree7">
+        <div class="branch branch-top"></div>
+        <div class="branch branch-middle"></div>
+        <div class="branch branch-bottom"></div>
+      </div>
+    </div>
+
+    <div class="tent">
+      <div class="roof"></div>
+      <div class="roof-border-left">
+        <div class="roof-border roof-border1"></div>
+        <div class="roof-border roof-border2"></div>
+        <div class="roof-border roof-border3"></div>
+      </div>
+      <div class="entrance">
+        <div class="door left-door">
+          <div class="left-door-inner"></div>
+        </div>
+        <div class="door right-door">
+          <div class="right-door-inner"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="floor">
+      <div class="ground ground1"></div>
+      <div class="ground ground2"></div>
+    </div>
+
+    <div class="fireplace">
+      <div class="support"></div>
+      <div class="support"></div>
+      <div class="bar"></div>
+      <div class="hanger"></div>
+      <div class="smoke"></div>
+      <div class="pan"></div>
+      <div class="fire">
+        <div class="line line1">
+          <div class="particle particle1"></div>
+          <div class="particle particle2"></div>
+          <div class="particle particle3"></div>
+          <div class="particle particle4"></div>
+        </div>
+        <div class="line line2">
+          <div class="particle particle1"></div>
+          <div class="particle particle2"></div>
+          <div class="particle particle3"></div>
+          <div class="particle particle4"></div>
+        </div>
+        <div class="line line3">
+          <div class="particle particle1"></div>
+          <div class="particle particle2"></div>
+          <div class="particle particle3"></div>
+          <div class="particle particle4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="time-wrapper">
+      <div class="time">
+        <div class="day"></div>
+        <div class="night">
+          <div class="moon"></div>
+          <div class="star star1 star-big"></div>
+          <div class="star star2 star-big"></div>
+          <div class="star star3 star-big"></div>
+          <div class="star star4"></div>
+          <div class="star star5"></div>
+          <div class="star star6"></div>
+          <div class="star star7"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .loading {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-color: #f5f5fa;
+  }
+
+   
+  @keyframes stageBackground {
+    0%,
+    10%,
+    90%,
+    100% {
+      background-color: #00b6bb;
+    }
+
+    25%,
+    75% {
+      background-color: #0094bd;
+    }
+  }
+
+  @keyframes earthRotation {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes sunrise {
+    0%,
+    10%,
+    90%,
+    100% {
+      box-shadow: 0 0 0 25px #5ad6bd, 0 0 0 40px #4acead,
+        0 0 0 60px rgba(74, 206, 173, 0.6), 0 0 0 90px rgba(74, 206, 173, 0.3);
+    }
+
+    25%,
+    75% {
+      box-shadow: 0 0 0 0 #5ad6bd, 0 0 0 0 #4acead,
+        0 0 0 0 rgba(74, 206, 173, 0.6), 0 0 0 0 rgba(74, 206, 173, 0.3);
+    }
+  }
+
+  @keyframes moonOrbit {
+    25% {
+      transform: rotate(-60deg);
+    }
+
+    50% {
+      transform: rotate(-60deg);
+    }
+
+    75% {
+      transform: rotate(-120deg);
+    }
+
+    0%,
+    100% {
+      transform: rotate(-180deg);
+    }
+  }
+
+  @keyframes nightTime {
+    0%,
+    90% {
+      opacity: 0;
+    }
+
+    50%,
+    75% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes hotPan {
+    0%,
+    90% {
+      background-color: #74667e;
+    }
+
+    50%,
+    75% {
+      background-color: #b2241c;
+    }
+  }
+
+  @keyframes heat {
+    0%,
+    90% {
+      box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0.3);
+    }
+
+    50%,
+    75% {
+      box-shadow: inset 0 -2px 0 0 white;
+    }
+  }
+
+  @keyframes smoke {
+    0%,
+    50%,
+    90%,
+    100% {
+      opacity: 0;
+    }
+
+    50%,
+    75% {
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes fire {
+    0%,
+    90%,
+    100% {
+      opacity: 0;
+    }
+
+    50%,
+    75% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes treeShake {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    25% {
+      transform: rotate(-2deg);
+    }
+
+    40% {
+      transform: rotate(4deg);
+    }
+
+    50% {
+      transform: rotate(-4deg);
+    }
+
+    60% {
+      transform: rotate(6deg);
+    }
+
+    75% {
+      transform: rotate(-6deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes fireParticles {
+    0% {
+      height: 30%;
+      opacity: 1;
+      top: 75%;
+    }
+
+    25% {
+      height: 25%;
+      opacity: 0.8;
+      top: 40%;
+    }
+
+    50% {
+      height: 15%;
+      opacity: 0.6;
+      top: 20%;
+    }
+
+    75% {
+      height: 10%;
+      opacity: 0.3;
+      top: 0;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fireLines {
+    0%,
+    25%,
+    75%,
+    100% {
+      bottom: 0;
+    }
+
+    50% {
+      bottom: 5%;
+    }
+  }
+
+  .scene {
+    display: flex;
+    margin: 0 auto 80px auto;
+    justify-content: center;
+    align-items: flex-end;
+    width: 400px;
+    height: 300px;
+    position: relative;
+  }
+
+  .forest {
+    display: flex;
+    width: 75%;
+    height: 90%;
+    position: relative;
+  }
+
+  .tree {
+    display: block;
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0.4;
+  }
+
+  .tree .branch {
+    width: 80%;
+    height: 0;
+    margin: 0 auto;
+    padding-left: 40%;
+    padding-bottom: 50%;
+    overflow: hidden;
+  }
+
+  .tree .branch:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    margin-left: -600px;
+    border-left: 600px solid transparent;
+    border-right: 600px solid transparent;
+    border-bottom: 950px solid #000;
+  }
+
+  .tree .branch.branch-top {
+    transform-origin: 50% 100%;
+    animation: treeShake 0.5s linear infinite;
+  }
+
+  .tree .branch.branch-middle {
+    width: 90%;
+    padding-left: 45%;
+    padding-bottom: 65%;
+    margin: 0 auto;
+    margin-top: -25%;
+  }
+
+  .tree .branch.branch-bottom {
+    width: 100%;
+    padding-left: 50%;
+    padding-bottom: 80%;
+    margin: 0 auto;
+    margin-top: -40%;
+  }
+
+  .tree1 {
+    width: 31%;
+  }
+
+  .tree1 .branch-top {
+    transition-delay: 0.3s;
+  }
+
+  .tree2 {
+    width: 39%;
+    left: 9%;
+  }
+
+  .tree2 .branch-top {
+    transition-delay: 0.4s;
+  }
+
+  .tree3 {
+    width: 32%;
+    left: 24%;
+  }
+
+  .tree3 .branch-top {
+    transition-delay: 0.5s;
+  }
+
+  .tree4 {
+    width: 37%;
+    left: 34%;
+  }
+
+  .tree4 .branch-top {
+    transition-delay: 0.6s;
+  }
+
+  .tree5 {
+    width: 44%;
+    left: 44%;
+  }
+
+  .tree5 .branch-top {
+    transition-delay: 0.7s;
+  }
+
+  .tree6 {
+    width: 34%;
+    left: 61%;
+  }
+
+  .tree6 .branch-top {
+    transition-delay: 0.2s;
+  }
+
+  .tree7 {
+    width: 24%;
+    left: 76%;
+  }
+
+  .tree7 .branch-top {
+    transition-delay: 0.1s;
+  }
+
+  .tent {
+    width: 60%;
+    height: 25%;
+    position: absolute;
+    bottom: -0.5%;
+    right: 15%;
+    z-index: 1;
+    text-align: right;
+  }
+
+  .roof {
+    display: inline-block;
+    width: 45%;
+    height: 100%;
+    margin-right: 10%;
+    position: relative;
+     
+    z-index: 1;
+    border-top: 4px solid #4d4454;
+    border-right: 4px solid #4d4454;
+    border-left: 4px solid #4d4454;
+    border-top-right-radius: 6px;
+    transform: skew(30deg);
+    box-shadow: inset -3px 3px 0px 0px #f7b563;
+     
+    background: #f6d484;
+  }
+
+  .roof:before {
+    content: "";
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    z-index: 0;
+    border-radius: 10%;
+    background-color: #e78c20;
+  }
+
+  .roof:after {
+    content: "";
+    height: 75%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to bottom,
+      rgba(231, 140, 32, 0.4) 0%,
+      rgba(231, 140, 32, 0.4) 64%,
+      rgba(231, 140, 32, 0.8) 65%,
+      rgba(231, 140, 32, 0.8) 100%
+    );
+  }
+
+  .roof-border-left {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 1%;
+    height: 125%;
+    position: absolute;
+    top: 0;
+    left: 35.7%;
+    z-index: 1;
+    transform-origin: 50% 0%;
+    transform: rotate(35deg);
+  }
+
+  .roof-border-left .roof-border {
+    display: block;
+    width: 100%;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+  }
+
+  .roof-border-left .roof-border1 {
+    height: 40%;
+  }
+
+  .roof-border-left .roof-border2 {
+    height: 10%;
+  }
+
+  .roof-border-left .roof-border3 {
+    height: 40%;
+  }
+
+  .door {
+    width: 55px;
+    height: 92px;
+    position: absolute;
+    bottom: 2%;
+    overflow: hidden;
+    z-index: 0;
+    transform-origin: 0 105%;
+  }
+
+  .left-door {
+    transform: rotate(35deg);
+    position: absolute;
+    left: 13.5%;
+    bottom: -3%;
+    z-index: 0;
+  }
+
+  .left-door .left-door-inner {
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 105%;
+    transform: rotate(-35deg);
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    background-color: #edddc2;
+  }
+
+  .left-door .left-door-inner:before {
+    content: "";
+    width: 15%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: repeating-linear-gradient(
+      #d4bc8b,
+      #d4bc8b 4%,
+      #e0d2a8 5%,
+      #e0d2a8 10%
+    );
+  }
+
+  .left-door .left-door-inner:after {
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    transform: rotate(25deg);
+    background-color: #fff;
+  }
+
+  .right-door {
+    height: 89px;
+    right: 21%;
+    transform-origin: 0 105%;
+    transform: rotate(-30deg) scaleX(-1);
+    position: absolute;
+    bottom: -3%;
+    z-index: 0;
+  }
+
+  .right-door .right-door-inner {
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 120%;
+    transform: rotate(-30deg);
+    position: absolute;
+    bottom: 0px;
+    overflow: hidden;
+    background-color: #efe7cf;
+  }
+
+  .right-door .right-door-inner:before {
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    right: -28%;
+    z-index: 1;
+    transform: rotate(15deg);
+    background-color: #524a5a;
+  }
+
+  .right-door .right-door-inner:after {
+    content: "";
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 15%;
+    right: -20%;
+    transform: rotate(20deg);
+    background-color: #fff;
+  }
+
+  .floor {
+    width: 80%;
+    position: absolute;
+    right: 10%;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .floor .ground {
+    position: absolute;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+  }
+
+  .floor .ground.ground1 {
+    width: 65%;
+    left: 0;
+  }
+
+  .floor .ground.ground2 {
+    width: 30%;
+    right: 0;
+  }
+
+  .fireplace {
+    display: block;
+    width: 24%;
+    height: 20%;
+    position: absolute;
+    left: 5%;
+  }
+
+  .fireplace:before {
+    content: "";
+    display: block;
+    width: 8%;
+    position: absolute;
+    bottom: -4px;
+    left: 2%;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+    background: #4d4454;
+  }
+
+  .fireplace .support {
+    display: block;
+    height: 105%;
+    width: 2px;
+    position: absolute;
+    bottom: -5%;
+    left: 10%;
+    border: 2px solid #4d4454;
+  }
+
+  .fireplace .support:before {
+    content: "";
+    width: 100%;
+    height: 15%;
+    position: absolute;
+    top: -18%;
+    left: -4px;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+    transform-origin: 100% 100%;
+    transform: rotate(45deg);
+  }
+
+  .fireplace .support:after {
+    content: "";
+    width: 100%;
+    height: 15%;
+    position: absolute;
+    top: -18%;
+    left: 0px;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+    transform-origin: 0 100%;
+    transform: rotate(-45deg);
+  }
+
+  .fireplace .support:nth-child(1) {
+    left: 85%;
+  }
+
+  .fireplace .bar {
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    border: 2px solid #4d4454;
+  }
+
+  .fireplace .hanger {
+    display: block;
+    width: 2px;
+    height: 25%;
+    margin-left: -4px;
+    position: absolute;
+    left: 50%;
+    border: 2px solid #4d4454;
+  }
+
+  .fireplace .pan {
+    display: block;
+    width: 25%;
+    height: 50%;
+    border-radius: 50%;
+    border: 4px solid #4d4454;
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    overflow: hidden;
+    animation: heat 5s linear infinite;
+  }
+
+  .fireplace .pan:before {
+    content: "";
+    display: block;
+    height: 53%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    border-top: 4px solid #4d4454;
+    background-color: #74667e;
+    animation: hotPan 5s linear infinite;
+  }
+
+  .fireplace .smoke {
+    display: block;
+    width: 20%;
+    height: 25%;
+    position: absolute;
+    top: 25%;
+    left: 37%;
+    background-color: white;
+    filter: blur(5px);
+    animation: smoke 5s linear infinite;
+  }
+
+  .fireplace .fire {
+    display: block;
+    width: 25%;
+    height: 120%;
+    position: absolute;
+    bottom: 0;
+    left: 33%;
+    z-index: 1;
+    animation: fire 5s linear infinite;
+  }
+
+  .fireplace .fire:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: -4px;
+    z-index: 1;
+    border-radius: 2px;
+    border: 1px solid #efb54a;
+    background-color: #efb54a;
+  }
+
+  .fireplace .fire .line {
+    display: block;
+    width: 2px;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    animation: fireLines 1s linear infinite;
+  }
+
+  .fireplace .fire .line2 {
+    left: 50%;
+    margin-left: -1px;
+    animation-delay: 0.3s;
+  }
+
+  .fireplace .fire .line3 {
+    right: 0;
+    animation-delay: 0.5s;
+  }
+
+  .fireplace .fire .line .particle {
+    height: 10%;
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+    border-radius: 2px;
+    border: 2px solid #efb54a;
+    animation: fireParticles 0.5s linear infinite;
+  }
+
+  .fireplace .fire .line .particle1 {
+    animation-delay: 0.1s;
+  }
+
+  .fireplace .fire .line .particle2 {
+    animation-delay: 0.3s;
+  }
+
+  .fireplace .fire .line .particle3 {
+    animation-delay: 0.6s;
+  }
+
+  .fireplace .fire .line .particle4 {
+    animation-delay: 0.9s;
+  }
+
+  .time-wrapper {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .time {
+    display: block;
+    width: 100%;
+    height: 200%;
+    position: absolute;
+    transform-origin: 50% 50%;
+    transform: rotate(270deg);
+    animation: earthRotation 5s linear infinite;
+  }
+
+  .time .day {
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 25px #5ad6bd, 0 0 0 40px #4acead,
+      0 0 0 60px rgba(74, 206, 173, 0.6), 0 0 0 90px rgba(74, 206, 173, 0.3);
+    animation: sunrise 5s ease-in-out infinite;
+    background-color: #ef9431;
+  }
+
+  .time .night {
+    animation: nightTime 5s ease-in-out infinite;
+  }
+
+  .time .night .star {
+    display: block;
+    width: 4px;
+    height: 4px;
+    position: absolute;
+    bottom: 10%;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+
+  .time .night .star-big {
+    width: 6px;
+    height: 6px;
+  }
+
+  .time .night .star1 {
+    right: 23%;
+    bottom: 25%;
+  }
+
+  .time .night .star2 {
+    right: 35%;
+    bottom: 18%;
+  }
+
+  .time .night .star3 {
+    right: 47%;
+    bottom: 25%;
+  }
+
+  .time .night .star4 {
+    right: 22%;
+    bottom: 20%;
+  }
+
+  .time .night .star5 {
+    right: 18%;
+    bottom: 30%;
+  }
+
+  .time .night .star6 {
+    right: 60%;
+    bottom: 20%;
+  }
+
+  .time .night .star7 {
+    right: 70%;
+    bottom: 23%;
+  }
+
+  .time .night .moon {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 22%;
+    right: 33%;
+    border-radius: 50%;
+    transform: rotate(-60deg);
+    box-shadow: 9px 9px 3px 0 white;
+    filter: blur(1px);
+    animation: moonOrbit 5s ease-in-out infinite;
+  }
+
+  .time .night .moon:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: -9px;
+    left: 9px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.05),
+      0 0 0 15px rgba(255, 255, 255, 0.05), 0 0 0 25px rgba(255, 255, 255, 0.05),
+      0 0 0 35px rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+</style>
+
+<script>
+  function initLoading() {
+    let loading = document.querySelector(".loading");
+    document.addEventListener("DOMContentLoaded", function () {
+      
+      loading.style.display = "none";
+    });
+  }
+
+  initLoading();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside
+  class="sidebar left-sidebar sticky "
+>
+  <button
+    class="hamburger hamburger--spin"
+    type="button"
+    id="toggle-menu"
+    aria-label="切换菜单"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+  </button>
+
+  <header>
+     
+    <figure class="site-avatar">
+      <a href="/">
+           
+        <img
+          src="/img/avatar_hu_baa8b61f08fb97d0.png"
+          width="300"
+          height="300"
+          class="site-logo"
+          loading="lazy"
+          alt="Avatar"
+        />
+         
+      </a>
+      
+      <span class="emoji">🌿</span>
+      
+    </figure>
+     
+
+    <div class="site-meta">
+      <h1 class="site-name">
+        <a href="/">PursUnre的博客</a>
+      </h1>
+      <h2 class="site-description">欢迎来到我的网站，此博客由【Hugo&#43;Stack】来进行搭建，主要分享个人学习笔记</h2>
+    </div>
+  </header><ol class="menu-social">
+    
+    <li>
+      <a
+        href="https://blog.csdn.net/green_tangerine?spm=1000.2115.3001.5343"
+        target="_blank"
+        
+        title="CSDN"
+        
+        rel="me"
+      >
+          <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762020245107" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4643" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M568.917333 626.005333l16.213334 2.474667c5.674667-0.64 10.965333-1.109333 15.914666-1.578667 9.941333-0.938667 18.688-1.792 27.221334-3.498666 38.4-7.68 67.968-27.434667 83.2-64.768 10.325333-25.002667 11.690667-51.242667 8.533333-77.653334-4.864-41.088-23.68-72.96-64.085333-88.106666-39.125333-14.634667-78.336-9.301333-117.077334 2.56-6.186667 1.92-9.685333 6.954667-10.24 13.653333-1.152 13.141333-2.304 26.24-3.541333 39.338667-4.821333 51.328-9.557333 102.656-14.208 153.984-0.896 9.642667 2.304 14.506667 12.202667 16.213333 15.744 2.816 31.445333 5.205333 45.866666 7.381333z m21.589334-33.450666c-2.602667 0.170667-5.12 0.341333-7.381334 0.554666l-10.624-0.725333a2204.416 2204.416 0 0 0-15.36-0.981333c-5.76-0.256-8.149333-2.816-7.509333-8.96 1.536-15.36 2.901333-30.634667 4.266667-45.994667l2.048-22.912 2.858666-30.848 4.693334-51.114667v-0.170666c0.426667-4.565333 0.768-8.533333 6.4-9.770667 20.053333-4.352 40.234667-6.698667 60.458666-1.962667 28.032 6.570667 43.093333 25.813333 49.194667 52.906667 5.546667 24.618667 5.205333 49.152-4.565333 72.746667-11.776 28.416-36.096 40.021333-64.426667 45.141333-6.826667 1.28-13.781333 1.706667-20.053333 2.133333zM308.437333 606.208c23.765333 16.341333 50.986667 20.778667 79.189334 20.992 17.152 0.170667 34.005333-1.706667 49.92-8.448 25.216-10.666667 38.101333-30.421333 41.429333-56.917333 3.328-26.496-6.144-47.744-29.098667-61.568a242.346667 242.346667 0 0 0-38.4-18.218667c-8.405333-3.242667-16.981333-5.930667-25.514666-8.618667a367.957333 367.957333 0 0 1-29.781334-10.325333c-17.28-7.253333-18.517333-19.498667-5.034666-32.725333 17.237333-16.896 49.621333-18.176 69.888-2.133334 5.845333 4.608 10.837333 10.368 15.744 16.085334l1.365333 1.578666c6.144 7.125333 12.757333 8.021333 19.925333 1.962667 11.776-9.813333 11.690667-25.6-0.426666-36.693333-22.570667-20.650667-49.408-29.696-79.573334-26.197334-27.904 3.242667-51.626667 15.189333-66.986666 39.936-13.994667 22.613333-9.088 48.554667 13.397333 62.634667 10.24 6.442667 21.973333 10.666667 33.536 14.933333 2.133333 0.725333 4.181333 1.493333 6.229333 2.261334 8.234667 3.029333 16.512 5.802667 24.874667 8.533333 10.368 3.413333 20.736 6.869333 30.890667 10.837333 12.458667 4.906667 19.498667 14.677333 19.029333 28.885334-0.597333 16.512-7.637333 28.586667-23.808 33.792-27.946667 9.130667-83.2 6.4-102.058667-30.421334-3.84-7.296-10.368-8.021333-17.792-3.925333-13.44 7.466667-17.28 23.04-7.466666 34.986667 5.930667 7.168 12.8 13.482667 20.48 18.773333zM805.674667 410.538667c3.882667-1.962667 7.850667-4.181333 11.861333-6.485334 9.130667-5.12 18.730667-10.581333 29.013333-13.653333 30.592-9.130667 61.269333-7.509333 88.490667 11.136 21.162667 14.506667 30.293333 36.096 28.458667 61.354667-2.346667 32.085333-5.205333 64.170667-8.021334 96.256-1.408 15.786667-2.816 31.530667-4.138666 47.274666-1.408 16.725333-18.56 26.453333-33.066667 18.090667-2.688-1.536-4.778667-6.826667-4.565333-10.24 1.365333-21.12 3.157333-42.197333 4.992-63.232l0.768-9.002667 2.261333-25.216c1.749333-19.2 3.498667-38.4 4.693333-57.6 0.896-13.141333-4.693333-23.893333-16.298666-31.232-30.848-19.498667-71.68-9.728-94.208 22.485334-15.616 22.442667-21.205333 47.616-23.04 74.410666-1.365333 20.352-3.328 40.661333-5.333334 60.928l-2.944 30.890667c-0.512 5.973333-3.669333 9.002667-9.386666 9.386667a89.386667 89.386667 0 0 1-12.373334 0c-10.496-0.810667-14.890667-6.656-13.994666-17.066667 2.304-26.197333 4.48-52.48 6.656-78.677333l2.773333-32.853334 2.005333-24.234666c1.493333-18.474667 2.986667-36.906667 4.693334-55.338667 1.365333-15.018667 19.328-25.856 32.64-19.072 2.986667 1.536 4.778667 5.248 6.314666 8.362667 0.597333 1.28 1.152 2.432 1.749334 3.328zM95.445333 603.008c22.698667 18.346667 49.493333 23.893333 77.952 24.064 27.946667-0.128 54.570667-5.12 78.549334-20.650667a22.357333 22.357333 0 0 0 10.965333-23.893333 22.186667 22.186667 0 0 0-13.184-17.706667c-6.698667-2.901333-11.434667 1.194667-16.341333 5.546667l-0.298667 0.213333a72.149333 72.149333 0 0 1-17.706667 11.776c-22.613333 10.112-46.336 11.008-70.186666 5.504-23.466667-5.461333-38.954667-20.138667-44.032-43.904-7.893333-36.949333-0.981333-71.253333 23.168-100.565333 17.834667-21.76 41.813333-31.018667 69.205333-21.76 9.173333 3.072 17.322667 9.386667 25.344 15.616 2.261333 1.749333 4.522667 3.498667 6.741333 5.12 7.210667 5.376 13.525333 5.546667 19.2-1.450667a23.338667 23.338667 0 0 0-1.962666-32.682666 87.381333 87.381333 0 0 0-58.410667-23.552c-48.128-1.194667-82.901333 21.888-106.24 62.677333-16.341333 28.458667-21.376 59.477333-16.938667 92.032 3.456 25.472 13.909333 47.232 34.133334 63.573333z" fill="#707070" p-id="4644"></path></svg> 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="https://gitee.com/green-citrus"
+        target="_blank"
+        
+        title="Gitee"
+        
+        rel="me"
+      >
+          <?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1762076613092" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2602" width="32" height="32" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M690.194 479.706H496.998v0.004c-9.275 0-16.798 7.518-16.8 16.795l-0.016 42h-0.004c-0.002 9.277 7.518 16.799 16.796 16.803h0.004l117.618-0.004c9.277 0 16.8 7.522 16.8 16.8v8.4c0 27.832-22.564 50.398-50.399 50.398h-159.61c-9.277 0-16.797-7.522-16.797-16.8l-0.004-159.597h-0.002c0-27.834 22.562-50.398 50.397-50.4h0.002l235.164 0.002v-0.011c9.275 0 16.794-7.516 16.8-16.789l0.037-41.999h0.011c0.006-9.277-7.512-16.804-16.79-16.81h-0.01l-235.195 0.01c-69.586 0-125.998 56.412-125.998 125.997L329 689.701c0 9.277 7.522 16.8 16.8 16.8h247.796c62.628 0 113.398-50.768 113.398-113.397v-96.599c0-9.277-7.522-16.799-16.8-16.799z" p-id="2603" fill="#515151"></path></svg> 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="https://github.com/Amarantos-Arrebol"
+        target="_blank"
+        
+        title="GitHub"
+        
+        rel="me"
+      >
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+ 
+      </a>
+    </li>
+    
+    <li>
+      <a
+        href="/index.xml"
+        target="_blank"
+        
+        title="RSS"
+        
+        rel="me"
+      >
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+ 
+      </a>
+    </li>
+    
+  </ol><ol class="menu" id="main-menu">
+      
+    <li >
+      <a
+        href="/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+ 
+        <span>主页</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/archives/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+ 
+        <span>归档</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/search/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+ 
+        <span>搜索</span>
+      </a>
+    </li>
+     
+    <li >
+      <a
+        href="/%E6%8A%80%E6%9C%AF%E9%93%BE%E6%8E%A5/"
+        
+      >
+           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+ 
+        <span>技术链接</span>
+      </a>
+    </li>
+    
+    <li class="menu-bottom-section">
+      <ol class="menu"> 
+        <li id="dark-mode-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+ <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+          <span>暗色模式</span>
+        </li>
+        
+      </ol>
+    </li>
+  </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#01软件测试概述">01软件测试概述</a>
+      <ul>
+        <li><a href="#11软件测试的定义">1.1软件测试的定义</a></li>
+        <li><a href="#12软件测试的目的">1.2软件测试的目的</a></li>
+        <li><a href="#13软件测试的对象">1.3软件测试的对象</a></li>
+        <li><a href="#14软件测试的原则">1.4软件测试的原则</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#02软件的生命周期">02软件的生命周期</a></li>
+    <li><a href="#03常见开发-测试模型">03常见开发-测试模型</a>
+      <ul>
+        <li><a href="#31瀑布模型">3.1瀑布模型</a></li>
+        <li><a href="#32v模型">3.2V模型</a></li>
+        <li><a href="#33w模型">3.3W模型</a></li>
+        <li><a href="#34敏捷开发模型-测试模型">3.4敏捷开发模型-测试模型</a></li>
+        <li><a href="#总结-1">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#04测试分类">04测试分类</a>
+      <ul>
+        <li><a href="#41按测试技术划分">4.1按测试技术划分</a></li>
+        <li><a href="#42按测试阶段划分">4.2按测试阶段划分</a></li>
+        <li><a href="#43被测试对象是否运行划分">4.3被测试对象是否运行划分</a></li>
+        <li><a href="#44按不同的测试手段划分">4.4按不同的测试手段划分</a></li>
+        <li><a href="#45按软件质量特性内容划分">4.5按软件质量特性内容划分</a></li>
+        <li><a href="#46其他测试">4.6其他测试</a></li>
+        <li><a href="#总结-2">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#05测试工作流程">05测试工作流程</a>
+      <ul>
+        <li><a href="#51软件测试工作流程">5.1软件测试工作流程</a></li>
+        <li><a href="#52需求评审阶段">5.2需求评审阶段</a></li>
+        <li><a href="#53测试计划阶段">5.3测试计划阶段</a></li>
+        <li><a href="#54测试设计阶段">5.4测试设计阶段</a></li>
+        <li><a href="#55测试执行阶段">5.5测试执行阶段</a></li>
+        <li><a href="#56测试评估阶段">5.6测试评估阶段</a></li>
+      </ul>
+    </li>
+    <li><a href="#06软件测试计划的编写">06软件测试计划的编写</a>
+      <ul>
+        <li><a href="#61测试计划概述">6.1测试计划概述</a></li>
+        <li><a href="#62制定测试计划的步骤">6.2制定测试计划的步骤</a></li>
+        <li><a href="#63测试计划核心内容">6.3测试计划核心内容</a></li>
+        <li><a href="#645w1h方法">6.45W1H方法</a></li>
+        <li><a href="#总结-3">总结</a></li>
+      </ul>
+    </li>
+    <li><a href="#07需求分析">07需求分析</a>
+      <ul>
+        <li><a href="#71软件测试需求分析的概述">7.1软件测试需求分析的概述</a></li>
+        <li><a href="#72项目需求分析实战演练">7.2项目需求分析实战演练</a></li>
+        <li><a href="#总结-4">总结</a></li>
+        <li><a href="#73用例设计方法-等价类">7.3用例设计方法-等价类</a></li>
+        <li><a href="#74用例分析项目实战">7.4用例分析项目实战</a></li>
+        <li><a href="#75用例设计方法-边界值">7.5用例设计方法-边界值</a></li>
+      </ul>
+    </li>
+    <li><a href="#08用例设计">08用例设计</a></li>
+    <li><a href="#09项目测试用例设计与评审">09项目测试用例设计与评审</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+        
+        
+        <div id="back-to-top">
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                <path d="M512 298.666667l-298.666667 310.912L283.52 682.666667 512 445.312 740.48 682.666667 810.666667 609.578667z"></path>
+            </svg>
+        </div>
+    </aside>
+
+
+
+<script>
+(function() {
+    const backToTopButton = document.getElementById('back-to-top');
+    if (!backToTopButton) return;
+    
+    
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    });
+    
+    
+    backToTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+})();
+</script>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/test-basic/">
+                <img src="/p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_fa221c6d03ef65ca.png"
+                        srcset="/p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_fa221c6d03ef65ca.png 800w, /p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C_hu_8194bf437844e31c.png 1600w"
+                        width="800" 
+                        height="450" 
+                        loading="lazy"
+                        alt="Featured image of post 【软件测试】01高级测试基础" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+  
+  <header class="article-category">
+    
+    <a
+      href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"
+      
+    >
+      软件测试
+    </a>
+    
+    <a
+      href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+      style="background-color: #B7A3E3; color: #fff;"
+    >
+      学习笔记
+    </a>
+    
+  </header>
+  
+
+  <div class="article-title-wrapper">
+    <h2 class="article-title">
+      <a href="/p/test-basic/">【软件测试】01高级测试基础</a>
+    </h2>
+    
+  </div>
+
+   
+   
+   
+  
+  <footer class="article-time">
+    
+    
+    <div class="article-time-item">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+      <time class="article-time--published">2026-01-18</time>
+    </div>
+
+    <span class="article-time-divider">|</span>
+    <div class="article-time-item"> 
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
+      <time>
+        2026-03-15
+      </time>
+    </div>
+    <span class="article-time-divider">|</span><div class="article-time-item">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
+      <span class="article-time--wordcount">12013 字 </span>
+    </div>
+     
+
+    
+    
+  </footer>
+   
+
+  
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <blockquote class="alert alert-tip">
+    <p>必修：</p>
+<ol>
+<li>
+<p>高级测试基础（文字性-面试时候）
+测试牵扯文档：需求文档、测试计划、测试用例、怎么提交bug、测试报告</p>
+<p>要求：细致、整洁、格式统一</p>
+</li>
+<li>
+<p>Web测试</p>
+</li>
+<li>
+<p>APP测试（adb命令、monkey测试、压力测试）</p>
+</li>
+<li>
+<p>接口测试（接口文档、postman）</p>
+</li>
+<li>
+<p>Fiddler抓包工具(没有接口文档)</p>
+</li>
+<li>
+<p>python开发编程基础</p>
+</li>
+<li>
+<p>Web自动化测试实战（(python+selenium+unittest)</p>
+</li>
+<li>
+<p>简历-面试实战与指导
+（公开课+模拟面试+简历指导）</p>
+</li>
+</ol>
+<p>选修：mysql、linux</p></blockquote>
+<h1 id="01软件测试概述">01软件测试概述
+</h1><blockquote>
+<p>软件分类</p>
+<ul>
+<li>应用软件（通过第三方应用平台去安装应用）</li>
+<li>系统软件（系统默认会安装的）</li>
+</ul>
+</blockquote>
+<h2 id="11软件测试的定义">1.1软件测试的定义
+</h2><p><strong>软件测试的经典定义</strong></p>
+<ul>
+<li>测试是为<span style="color: #FF0000;">发现错误</span>而执行程序的过程</li>
+<li>软件测试就是软件<span style="color: #FF0000;">在投入运行前</span>，对软件需求分析、设计规格说明和编码进行最终复审的活动</li>
+</ul>
+<p><strong>IEEE定义</strong></p>
+<ul>
+<li>使用<span style="color: #FF0000;">人工</span>或者<span style="color: #FF0000;">自动的手段</span>来运行或者是测量软件系统的过程，以<span style="color: #FF0000;">检验</span>软件系统<span style="color: #FF0000;">是否满足规定</span>的要求（需求文档），<span style="color: #FF0000;">并且找出与预期结果之间的差异</span></li>
+</ul>
+<h2 id="12软件测试的目的">1.2软件测试的目的
+</h2><p>1）完善程序，使系统更加符合用户的使用习惯，让系统上线后带给客户极高的用户体验</p>
+<ul>
+<li>
+<p>满足用户的使用习惯（行业的约束）</p>
+</li>
+<li>
+<p>满足需求文档</p>
+<blockquote>
+<p>Windows操作系统提供的窗口一般包含哪些元素？
+标题栏、菜单栏、工具栏、工作区、状态栏等</p>
+</blockquote>
+</li>
+</ul>
+<p>2）测试应致力于<span style="color: #FF0000;">发现至今为止未发现的错误</span></p>
+<p>3）从用户的角度出发，希望通过软件测试暴露软件中隐藏的错误和缺陷并减少软件上线后的问题，<span style="color: #FF0000;">使得产品更容易被接受</span>。</p>
+<blockquote>
+<p>软件和硬件的环境都要考虑</p>
+</blockquote>
+<p>4）从软件开发者出发，希望测试成为证明产品中不存在错误、<span style="color: #FF0000;">已正确的实现用户需求的过程</span></p>
+<h2 id="13软件测试的对象">1.3软件测试的对象
+</h2><p>软件测试不等同于程序测试，软件测试贯穿于软件定义和开发整个期间。</p>
+<p>软件测试的对象</p>
+<ul>
+<li><span style="color: #FF0000;">程序</span>：功能正确，性能良好</li>
+<li><span style="color: #FF0000;">文档</span>：包括用户手册和运维手册，内容完整正确 &ndash;帮助文档</li>
+<li><span style="color: #FF0000;">数据</span>：系统配置文件，符合国家规范</li>
+</ul>
+<h2 id="14软件测试的原则">1.4软件测试的原则
+</h2><p><strong>1）测试软件存在缺陷</strong></p>
+<blockquote>
+<ul>
+<li><span style="color: #FF0000;">测试只能证明软件中存在缺陷，但是不能证明软件中不存在缺陷</span></li>
+<li>软件测试是为了降低存在缺陷的可能性</li>
+</ul>
+</blockquote>
+<p><strong>2）穷尽测试是不可能的</strong></p>
+<blockquote>
+<p>测试人员可以根据风险和优先级来进行集中和高强度的测试，从而保证软件的质量。</p>
+<p>比如用户常用功能、关于金额的功能（发红包、提现等）</p>
+</blockquote>
+<p><strong>3）测试尽早介入</strong></p>
+<blockquote>
+<ul>
+<li>为了保证软件质量，降低风险和成本，测试应尽早介入。</li>
+<li>测试人员一般在需求阶段就开始介入，使缺陷在需求或设计阶段就被发现。</li>
+<li>缺陷发现越早，修复的成本就越小。</li>
+</ul>
+</blockquote>
+<p><strong>4）缺陷集群性（2/8原则）</strong></p>
+<blockquote>
+<ul>
+<li>一般认为，<span style="color: #FF0000;">百分之80的缺陷集中出现在百分之20的核心功能区域</span>。（一旦你再某个功能模块找到缺陷，相关附近功能多半也会存在问题）。</li>
+<li>主要从下面两点去发现问题
+<ul>
+<li><span style="color: #FF0000;">功能复杂度</span>：支付功能、新的功能</li>
+<li><span style="color: #FF0000;">开发的能力</span>：对这块需求懵懵懂懂</li>
+</ul>
+</li>
+<li>在写缺陷报告的时候，可以做横向对比，比对类似的功能，相近的模块，版本，机型。指定回归测试策略的时候也可以重点测试。</li>
+</ul>
+</blockquote>
+<p><strong>5）杀虫剂悖论（杀虫剂效应）</strong></p>
+<blockquote>
+<ul>
+<li>
+<p>如果一直使用相同的测试方法或手段，可能无法发现新的bug。</p>
+<p>可以进行<span style="color: #FF0000;">随机性测试、交叉测试</span>。</p>
+</li>
+<li>
+<p>测试用例应当定期修订和评审，增加新的或不同的测试用例，测试人员要不断提升测试方法以提高测试效率。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>6）测试活动依赖于测试内容</strong></p>
+<blockquote>
+<ul>
+<li>
+<p>软件：社交app、oa平台、娱乐项目（看视频、听音乐）等。</p>
+</li>
+<li>
+<p>根据业务的不同，软件测试内部也分为不同的行业。</p>
+<p>比如游戏、电商、金融等。</p>
+</li>
+<li>
+<p>不同的行业，测试活动的展开都有所不同。</p>
+<p>比如测试技术、测试工具的选择、测试流程等都不尽相同。</p>
+</li>
+<li>
+<p><span style="color: #FF0000;">软件测试的活动开展依赖于所测试的内容</span>。</p>
+<p>比如在金融公司测试，安全性就是第一位；电子商务测试，功能性就更重要。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>7）不存在缺陷的谬论</strong></p>
+<blockquote>
+<ul>
+<li>
+<p>软件测试不仅是找出缺陷，同时也需要<span style="color: #FF0000;">确认软件是否满足需求</span>。</p>
+</li>
+<li>
+<p>如果对错误的需求进行了彻底的测试，这样的软件也是不能使用的。</p>
+<p>比如需求是开发一个加法计算器，但是实际开发出来的是一个减法、乘法、除法功能都没问题的计算器。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="总结">总结
+</h2><p>软件测试的定义、目的、对象？</p>
+<ul>
+<li>
+<p>什么是软件测试？</p>
+<ul>
+<li>
+<p>IEEE：使用<strong>人工</strong>或<strong>自动化</strong>的手段，来运行或<strong>衡量软件系统质量</strong>的过程</p>
+</li>
+<li>
+<p>为什么要进行软件测试？</p>
+<p><strong>检验我们的软件是否满足要求</strong>（需求文档、站在用户的角度去思考）&ndash;期望结果</p>
+<p>检验之后得到的结果 &ndash;实际结果</p>
+<p>确定我们的期望结果和我们实践结果是否一致，是否有差异</p>
+</li>
+</ul>
+</li>
+<li>
+<p>软件测试的目的？</p>
+<ol>
+<li>一些用户的体验性以及需求相关</li>
+<li>测试期望发现我们目前为止没有发现问题</li>
+<li>从用户角度：站在用户使用的场景去进行测试，去发现一些问题</li>
+<li>从软件开发者的角度：能够正确地去满足我们的需求文档</li>
+</ol>
+</li>
+<li>
+<p>软件测试的对象？</p>
+<ul>
+<li>程序</li>
+<li>文档（用户操作手册 &ndash;对外开放）</li>
+<li>数据（基础数据 -城市（当前市场存在）、客户资料（以前一些数据，导入数据的操作））</li>
+</ul>
+</li>
+<li>
+<p>软件测试的原则？</p>
+<ol>
+<li>测试能证明软件是存在bug的，但是不能证明软件中不存在缺陷。</li>
+<li>穷尽测试是不可能的。例如计算器。</li>
+<li>测试需要尽早介入，因为能把成本降到最低。</li>
+<li>bug具有集群性。1.功能块难度系数比较大  2.开发自身的原因</li>
+<li>避免一直使用相同的测试的测试方法或手段。可以交叉测试，也可以及时更新我们的测试用例</li>
+<li>测试活动依赖于测试内容。（业务相关）</li>
+<li>不能说我们的系统没有bug。</li>
+</ol>
+</li>
+</ul>
+<h1 id="02软件的生命周期">02软件的生命周期
+</h1><p><strong>软件生命周期概念</strong></p>
+<p>软件生命周期是指软件<span style="color: #FF0000;">从开始研制到最终被废弃不用</span>的这一整个过程。</p>
+<p>软件生命周期包括<span style="color: #FF0000;">问题定义及规划</span>、<span style="color: #FF0000;">需求分析</span>、<span style="color: #FF0000;">系统设计</span>、<span style="color: #FF0000;">软件编程</span>、<span style="color: #FF0000;">软件测试</span>、<span style="color: #FF0000;">软件维护</span>等阶段</p>
+<blockquote>
+<p>计划阶段、需求分析阶段、软件设计阶段、软件编码、<span style="color: #FF0000;">测试阶段</span>、部署和维护阶段、升级和淘汰阶段</p>
+</blockquote>
+<p><img src="/p/test-basic/index.assets/downloaded-image.jpg"
+	width="2672"
+	height="1056"
+	
+	loading="lazy"
+	
+		alt="downloaded-image"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="253"
+		data-flex-basis="607px"
+	
+></p>
+<p><img src="/p/test-basic/index.assets/image-20260121235926027.png"
+	width="2528"
+	height="2064"
+	
+	loading="lazy"
+	
+		alt="image-20260121235926027"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="122"
+		data-flex-basis="293px"
+	
+></p>
+<h1 id="03常见开发-测试模型">03常见开发-测试模型
+</h1><p>软件开发模型是指软件开发全部过程、活动和任务的结构框架</p>
+<ul>
+<li>瀑布模型</li>
+<li>V模型</li>
+<li><span style="color: #FF0000;">W模型</span></li>
+<li><span style="color: #FF0000;">敏捷开发模型-测试模型</span></li>
+</ul>
+<h2 id="31瀑布模型">3.1瀑布模型
+</h2><p><strong>基本介绍</strong></p>
+<ul>
+<li>瀑布模型是<span style="color: #8080FF;">最早</span>出现的软件开发模型。</li>
+<li>开发过程是通过设计一系列阶段<span style="color: #8080FF;">顺序展开</span>的，从系统需求分析开始直到产品<span style="color: #8080FF;">发布和维护</span>，每个阶段都会产生<span style="color: #8080FF;">循环反馈</span>。</li>
+<li>如果有信息未被覆盖或者发现了问题，那么最好<span style="color: #8080FF;">“返回“上一个阶段</span>并进行<span style="color: #8080FF;">适当的修改</span>。</li>
+<li>项目开发进程从一个阶段“流动”到下一个阶段，这也是瀑布模型名称的由来。</li>
+</ul>
+<p><img src="/p/test-basic/index.assets/image-20260301145804700.png"
+	width="434"
+	height="281"
+	
+	loading="lazy"
+	
+		alt="image-20260301145804700"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="154"
+		data-flex-basis="370px"
+	
+></p>
+<p><strong>优点</strong></p>
+<p>1）为项目提供<span style="color: #8080FF;">按阶段划分</span>的检查点</p>
+<p>2）当前一阶段<span style="color: #8080FF;">完成后</span>，你只需要<span style="color: #8080FF;">关注后一阶段</span></p>
+<p>3）可<span style="color: #8080FF;">在迭代模型</span>中应用<span style="color: #8080FF;">瀑布模型</span></p>
+<p>4）提供一个<span style="color: #8080FF;">模板</span>，这个模板使得分析，设计，编码，测试和支持的方法可以在该模板下有一个共同的指导</p>
+<p><strong>缺点</strong></p>
+<p>1）各个阶段的<span style="color: #8080FF;">划分完全固定</span>，阶段之间产生大量的<span style="color: #8080FF;">文档</span>，极大地增加了<span style="color: #8080FF;">工作量</span>。</p>
+<p>2）由于开发模型是线性的，用户只有等到整个过程的末期才能见到开发成果，从而增加了<span style="color: #8080FF;">开发风险</span>。</p>
+<p>3）通过<span style="color: #8080FF;">过多</span>的<span style="color: #8080FF;">强制完成日期</span>和里程碑来跟踪<span style="color: #8080FF;">各个项目阶段</span>。</p>
+<p>4）瀑布模型的突出缺点是<span style="color: #FF0000;">不适应用户需求的变化</span>。</p>
+<h2 id="32v模型">3.2V模型
+</h2><p><strong>基本介绍</strong></p>
+<p>RAD（Rapid Application Development，快速应用开发）模型是软件开发过程中的一个重要模型，由于其模型构图形似字母V，所以又称<span style="color: #8080FF;">软件测试的V模型</span>。<img src="/p/test-basic/index.assets/image-20260301151947967.png"
+	width="856"
+	height="587"
+	
+	loading="lazy"
+	
+		alt="image-20260301151947967"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="145"
+		data-flex-basis="349px"
+	
+></p>
+<blockquote>
+<p>1）在需求分析后就可以写测试计划和编写测试用例；在概要设计后就可以写集成测试用例；在详细设计后就可以写单元测试用例</p>
+<p>2）给测试进行了分类：单元测试、集成测试、系统测试、验收测试</p>
+</blockquote>
+<p><strong>优点</strong></p>
+<p>1）V模型中的过程从左到右，描述了基本的开发过程和<span style="color: #8080FF;">测试行为</span>。</p>
+<p>2）它<span style="color: #FF0000;">非常明确</span>的表明了<span style="color: #FF0000;">测试过程中存在不同的级别</span>，大体划分为以下几个不同的阶段步骤：客户需求分析、软件需求分析、概要设计、详细设计、软件编码、<span style="color: #FF0000;">单元测试、集成测试、系统测试、验收测试</span>。</p>
+<p>3）能够清楚的描述这些测试阶段和开发过程期间各阶段的对应关系。</p>
+<p><strong>缺点</strong></p>
+<p>1）V模型仅仅把<span style="color: #FF8000;">测试过程</span>作为在需求分析、系统设计及编码<span style="color: #FF8000;">之后的一个阶段</span>，忽视了测试对需求分析,系统设计的验证，需求的满足情况<span style="color: #FF8000;">一直到后期</span>的<span style="color: #FF8000;">验收测试才被验证</span></p>
+<p>2）因此<span style="color: #FF8000;">需求变更较大，所以返工量大</span></p>
+<h2 id="33w模型">3.3W模型
+</h2><p><strong>基本介绍</strong></p>
+<p>W模型，由Evolutif公司提出，相对于V模型，W模型增加了<span style="color: #FF8000;">软件开发各阶段中</span><span style="color: #8080FF;">同步进行的验证和确认活动</span>。</p>
+<p><img src="/p/test-basic/index.assets/image-20260301153921939.png"
+	width="1417"
+	height="622"
+	
+	loading="lazy"
+	
+		alt="image-20260301153921939"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="227"
+		data-flex-basis="546px"
+	
+></p>
+<p>如上图所示，由两个V字型模型组成，分别代表测试与开发过程，图中明确表示出了测试与开发的并行关系。</p>
+<p><strong>优点</strong></p>
+<p>1）<span style="color: #FF8000;">测试的活动</span>与<span style="color: #FF8000;">软件开发同步进行</span></p>
+<p>2）测试的对象不仅仅是<span style="color: #FF8000;">程序</span>，还包括<span style="color: #FF8000;">需求和设计</span></p>
+<p>3）尽早发现软件缺陷可降低软件开发的成本</p>
+<p><strong>缺点</strong></p>
+<p>1）W模型存在局限性。</p>
+<p>在W模型中，需求、设计、编码等活动被视为串行的，并且测试和开发保持着一种线性的前后关系，上阶段完全结束，才能正式开始下阶段工作。</p>
+<p>2）<span style="color: #FF0000;">无法支持迭代的开发模型</span>。</p>
+<p>对于当前<span style="color: #FF8000;">软件开发复杂多变的情况</span>，W模型并不能解除<span style="color: #FF8000;">测试管理面临的困惑</span>。</p>
+<h2 id="34敏捷开发模型-测试模型">3.4敏捷开发模型-测试模型
+</h2><p><strong>基本介绍</strong></p>
+<ul>
+<li>
+<p>是一种以<span style="color: #FF0000;">用户需求</span>进化为核心（<span style="color: #FF0000;">强调沟通、弱化文档</span>）、迭代、循序渐进的开发方法。</p>
+</li>
+<li>
+<p>强调<span style="color: #FF0000;">以人为本</span>，专注于交付对客户有价值的软件，是一个<span style="color: #FF8000;">用于开发和维持复杂产品的框架</span>。</p>
+</li>
+<li>
+<p>就是把<span style="color: #FF8000;">一个大项目</span>分为<span style="color: #FF8000;">多个相互联系</span>，但也可以<span style="color: #FF8000;">独立运行的小项目</span>，并<span style="color: #FF8000;">分别完成</span>，在此过程中软件<span style="color: #FF8000;">一直处于可使用状态</span>。</p>
+</li>
+</ul>
+<p><img src="/p/test-basic/index.assets/image-20260301161329700.png"
+	width="1482"
+	height="1032"
+	
+	loading="lazy"
+	
+		alt="image-20260301161329700"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="143"
+		data-flex-basis="344px"
+	
+></p>
+<p><strong>敏捷开发原则</strong></p>
+<p>1.快速迭代
+2.让<span style="color: #FF8000;">测试人员</span>和开发者参与<span style="color: #FF8000;">需求讨论</span>：<span style="color: #FF8000;">开发什么时候</span>做完这个版本、<span style="color: #FF8000;">提测</span>
+3.编写可测试的<span style="color: #FF8000;">需求文档</span>
+4.<span style="color: #FF8000;">多沟通</span>，尽量减少文档
+5.<span style="color: #FF8000;">做好产品原型</span>
+6.及早考虑测试</p>
+<p><strong>优点</strong></p>
+<p>1）通过快速、持续地交付有用的软件来满足客户的需求</p>
+<p>2）强调的是人和互动，而不是过程和工具。客户、开发人员和测试人员不断地相互作</p>
+<p>3）工作软件经常交付(周而不是月)</p>
+<p>4）业务人员和开发人员之间的密切日常合作，面对面交谈是最好的交流方式5）持续关注卓越的技术和良好的设计，定期适应变化的环境</p>
+<p><strong>缺点</strong></p>
+<p>1）<span style="color: #FF8000;">快速敏捷软件开发和软件测试</span></p>
+<p>2）<span style="color: #FF8000;">不是特别大的团队开发</span>，因为交流成本大，比较适合<span style="color: #FF8000;">一个组的团队使用</span></p>
+<h2 id="总结-1">总结
+</h2><ul>
+<li>瀑布模型
+<ul>
+<li>不断循环，当一个节点出现问题，就返回到上一个阶段做适当修改</li>
+</ul>
+</li>
+<li>V模型
+<ul>
+<li>从左往右依次进行</li>
+<li>提出了测试有阶段之分：单元测试、集成测试、系统测试、验收测试</li>
+</ul>
+</li>
+<li>W模型
+<ul>
+<li>开发和测试节点一一对应</li>
+<li>体现了测试的对象除了程序，还有文档、数据</li>
+</ul>
+</li>
+<li>敏捷开发-测试模型
+<ul>
+<li>把一个大项目分成很多小项目，能让产品更快速地进行迭代，让用户更快地看见需求</li>
+</ul>
+</li>
+</ul>
+<h1 id="04测试分类">04测试分类
+</h1><ul>
+<li>按测试技术划分
+<ul>
+<li>白盒测试、<span style="color: #FF0000;">黑盒测试</span>、灰盒测试</li>
+</ul>
+</li>
+<li>按测试阶段划分
+<ul>
+<li>单元测试、集成测试、系统测试、验收测试（正式验收测试、Apha测试、Beta测试)</li>
+</ul>
+</li>
+<li>被测试对象是否运行划分
+<ul>
+<li>动态测试、静态测试（文档检查、代码走查、界面检查）</li>
+</ul>
+</li>
+<li>按不同的测试手段划分
+<ul>
+<li>手工测试、自动化测试</li>
+</ul>
+</li>
+<li>按软件质量特性内容划分
+<ul>
+<li>功能测试（界面测试）、可靠性测试、易用性测试、性能测试（负载测试、压力测试、并发测试、稳定性测试）、兼容性测试</li>
+</ul>
+</li>
+<li>其他测试
+<ul>
+<li>冒烟测试、回归测试、探索性测试(测试思维)</li>
+</ul>
+</li>
+</ul>
+<h2 id="41按测试技术划分">4.1按测试技术划分
+</h2><p>白盒测试、黑盒测试、灰盒测试</p>
+<p><span style="color: #FF0000;">黑盒测试</span>：（<span style="color: #8080FF;">功能测试</span>）不关心<span style="color: #FF8000;">软件内部</span>，只关心<span style="color: #FF8000;">输入输出</span>，主要测试依据是<span style="color: #FF8000;">需求文档</span>。&ndash;测试人员</p>
+<p><span style="color: #FF0000;">白盒测试</span>：关心软件内部设计和程序实现，主要测试依据是<span style="color: #FF8000;">设计文档</span>。&ndash;开发人员</p>
+<img src="index.assets/image-20260304173653677.png" alt="image-20260304173653677" style="zoom:67%;" /> 
+<p><span style="color: #FF0000;">灰盒测试</span>介于白盒测试与黑盒测之间的测试。（接口测试）</p>
+<p>灰盒测试关注输出对于输入的正确性；同时也关注内部表现，但这种关注不像白盒测试那样详细、完整，只是通过一些表征性的现象、事件、标志来判新内部的运行状态。</p>
+<p>灰盒测试结合了白盒测试和黑盒测试的要素。</p>
+<h2 id="42按测试阶段划分">4.2按测试阶段划分
+</h2><p><span style="color: #FF0000;">单元测试、集成测试、系统测试、验收测试</span>是“从小到大”、“由内至外”、“循序渐进”的测试过程，体现了“分而治之”的思想。</p>
+<p><img src="/p/test-basic/index.assets/image-20260304174738234.png"
+	width="724"
+	height="313"
+	
+	loading="lazy"
+	
+		alt="image-20260304174738234"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="231"
+		data-flex-basis="555px"
+	
+></p>
+<blockquote>
+<p>确认测试就是在系统测试之前进行二次确认。</p>
+</blockquote>
+<p><span style="color: #FF0000;"><strong>单元测试</strong></span>是<span style="color: #FF8000;">开发者编写</span>的一小段代码，用于检验<span style="color: #FF8000;">被测代码</span>的一个很小的、很明确的功能是否正确。通常而言，一个单元测试是用于判断某个特定条件（或者场景）下某个特定<span style="color: #FF8000;">函数</span>的行为。</p>
+<p><span style="color: #FF0000;"><strong>集成测试</strong></span>是单元测试的逻辑扩展。它的最简单的形式是：<span style="color: #8080FF;">两个已经测试过的单元组合成一个组件，并且测试它们之间的接口</span>。</p>
+<p><span style="color: #FF0000;"><strong>系统测试</strong></span>是将经过测试的<span style="color: #8080FF;">子系统装配成</span>一个<span style="color: #8080FF;">完整系统</span>来测试。它是检验系统是否确实能提供<span style="color: #8080FF;">系统方案说明书</span>中指定功能的有效方法。系统测试的目的是对最终软件系统进行<span style="color: #FF8000;">全面的测试</span>，确保最终<span style="color: #FF8000;">软件系统满足</span>产品需求并且遵循系统设计。</p>
+<blockquote>
+<p>测试通过和不通过：为什么不通过？&ndash;还有bug &ndash;修改bug &ndash;（回归测试：当测试出现问题的时候，开发进行修复并且给到新的安装包，测试人员进行验证并且没有发现新问题，直至没有新问题产生）</p>
+</blockquote>
+<p><span style="color: #FF0000;"><strong>验收测试</strong></span>是部署软件之前的<span style="color: #8080FF;">最后一个测试操作</span>。验收测试是向未来的用户表明系统能够像<span style="color: #FF8000;">预定要求</span>（需求文档）那样工作。包括<span style="color: #FF0000;">正式验收测试、alpha测试、beta测试</span>三种测试</p>
+<ul>
+<li><span style="color: #FF0000;">Beta testing (β测试)</span>
+<ul>
+<li>测试是软件的多个用户在一个或多个<span style="color: #FF8000;">用户的实际使用环境</span>下进行的测试。开发者通常不在测试现场。因而，β测试是在开发者无法控制的环境下进行的软件现场应用。  &ndash;预生产环境、灰度测试、白名单</li>
+</ul>
+</li>
+<li><span style="color: #FF0000;">Alpha testing (α测试)</span>
+<ul>
+<li>是由一个用户在<span style="color: #FF8000;">开发环境下</span>进行的测试，也可以是<span style="color: #8080FF;">公司内部</span>的用户在模拟实际操作环境下进行的<span style="color: #8080FF;">受控测试</span>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="43被测试对象是否运行划分">4.3被测试对象是否运行划分
+</h2><p>动态测试、静态测试（文档检查、代码走查、界面检查）</p>
+<p><span style="color: #FF0000;"><strong>静态测试 (static testing)</strong></span>就是<span style="color: #8080FF;">不实际运行被测软件</span>，而只是静态地检查<span style="color: #8080FF;">程序代码、界面或文档</span>中可能存在的<span style="color: #8080FF;">错误的过程</span>。如：检查代码、界面和文档</p>
+<p><span style="color: #FF0000;"><strong>动态测试 (dynamic testing)</strong></span>指的是<span style="color: #8080FF;">实际运行被测程序</span>，输入相应的测试数据（操作），检查<span style="color: #FF8000;">实际输出结果</span>和<span style="color: #FF8000;">预期结果</span>是否相符的过程。</p>
+<p>所以判断一个测试属于动态测试还是静态的，唯一的标准就是看<span style="color: #FF8000;">是否运行程序</span>。</p>
+<h2 id="44按不同的测试手段划分">4.4按不同的测试手段划分
+</h2><p>手工测试、自动化测试</p>
+ <img src="index.assets/image-20260304184032172.png" alt="image-20260304184032172" style="zoom:67%;" /> 
+<h2 id="45按软件质量特性内容划分">4.5按软件质量特性内容划分
+</h2><p>功能测试（界面测试）、可靠性测试、易用性测试、性能测试（负载测试、压力测试、并发测试、稳定性测试）、兼容性测试</p>
+<blockquote>
+<p>软件质量是<span style="color: #8080FF;">许多质量属性</span>的综合体现，各种质量属性反映了<span style="color: #8080FF;">软件质量</span>的方方面面。通过改善软件的各种<span style="color: #8080FF;">质量属性</span>，从而进一步提高软件的<span style="color: #8080FF;">整体质量</span>。</p>
+<p>ISO9126质量模型：<span style="color: #FF0000;">软件质量模型的6大特性</span>和27个子特性。</p>
+<img src="index.assets/image-20260304184716410.png" alt="image-20260304184716410" style="zoom: 50%;" /> 
+<p>功能性、可靠性、易用性、效率、维护性、可移植性</p>
+</blockquote>
+<p><span style="color: #FF0000;"><strong>功能测试</strong></span>：功能测试时根据产品的需求规格说明书，和测试需求列表，验证产品的功能实现是否符合产品的需求规格</p>
+<ol>
+<li>适合性：是否提供了相应的功能</li>
+<li>准确性：是不是正确 (是不是满足用户需要的)</li>
+<li>互操作性：产品与产品之间交互数据的能力。案例：微信：发朋友圈-照片 (拍照，相册)</li>
+<li>保密安全性：允许经过授权的用户和系统能够正常的访问相应的数据和信息，禁止未授权的用户访问.….</li>
+<li>功能性的依从性：国际/国家/行业/企业<span style="color: #FF8000;">标准规范一致性</span></li>
+</ol>
+<p><span style="color: #FF0000;"><strong>可靠性测试</strong></span>：可靠性测试就是为了评估产品在规定的寿命期间内，在预期的使用、运输或储存等所有环境下，保持功能可靠性而进行的活动</p>
+<ol>
+<li>成熟性：防止内部错误导致软件失效的能力</li>
+<li>客容错性：软件出现敌障（包含外部错误），自我处理能力（能否自行解决）。</li>
+<li>易恢复性：失效情况下的恢复能力，能否恢复到出错之前的应用</li>
+<li>可靠性的依从性</li>
+</ol>
+<p><span style="color: #FF0000;"><strong>易用性测试</strong></span>：是指用户使用软件时是否感觉方便，比如是否最多点击鼠标三次就可以达到用户的目的。易用性和可用性存在一定的区别，可用性是指是否可以使用，而易用性是指是否方便使用。易理解性（是不是容易被用户理解)</p>
+<ol>
+<li>易学性 (是不是容易学习)</li>
+<li>易操作性 (好不好操作)</li>
+<li>吸引性 (是不是吸引用户)</li>
+<li>易用性的依从性</li>
+</ol>
+<p><span style="color: #FF0000;"><strong>性能测试</strong></span>：就是用来测试软件在集成系统中的运行性能的。
+性能测试又包括：<span style="color: #FF0000;">负载测试（不断的去压榨，看你最大的承受能力）、压力测试（不断的去压榨，看你什么时候奔溃）、并发测试
+（同一时间多个数据进行发送，看服务器能否正常处理）、稳定性测试（长时间的运行，看系统是否稳定）</span></p>
+<ol>
+<li>时间特性：平均事务响应时间，吞吐率，TPS（每秒事务数）&ndash;对事物的处理能力好不好，反应快不快，相同的时间内能够处理多少数据，每一次能够处理多少个请求。</li>
+<li>资源利用性：软件运行的时候，占用服务器的资源有多少（主要是对CPU、内存、磁盘、IO、网络带宽队列、共享内存的占用），如果占用资源很大，会影响到用户其他的软件使用，不容易接受。</li>
+<li>效率依从性</li>
+</ol>
+<p>维护性：“四规&quot;，在规定条件下，规定的时间内，使用规定的工具或方法修复规定功能的能力</p>
+<ol>
+<li>易分析性：分析定位问题的难易程度 (是否容易对问题进行分析和定位)</li>
+<li>易改变性：软件产品使指定的修改可以被实现的能力 (是不是容易被修改，添加一些可实现的功能)</li>
+<li>稳定性：防止意外修改导致程序失效（能不能够防止一些误操作导致程序失效）。</li>
+<li>易测试性：使已修改软件能被确认的能力(已经修改的软件功能，好不好检测及确认正确与否)</li>
+<li>维护性的依从性</li>
+</ol>
+<p>前台 &ndash; 面向用户    &ndash;数据（从数据库里面拿到的）</p>
+<p>后台管理系统 &ndash;管理人员去使用 &ndash;操作-新建商品 -放到数据库</p>
+<p><span style="color: #FF0000;"><strong>兼容性测试</strong></span>：兼容性测试验证被测对象与其他软件之间的兼容情况。不同的浏览器，不同的设备、不同的操作系统之间的兼容</p>
+<ol>
+<li>适应性：适应不同平台（能不能适应不同的操作系统OS，linux、mac、windows等)</li>
+<li>易安装性：被安装的能力 (软件是不是容易被安装)</li>
+<li><span style="color: #8080FF;">共存性</span>(与其他的软件能否共存，如果安装了这个软件，其他的软件就使用不了，势必会被淘汰)</li>
+<li>易替换性 (软件是不是容易被其他的产品替代，不易替换更好)</li>
+<li>可移植性的依从性</li>
+</ol>
+<h2 id="46其他测试">4.6其他测试
+</h2><p>冒烟测试、回归测试、探索性测试(测试思维)</p>
+<p><strong>冒烟测试</strong>：是<span style="color: #FF8000;">在正规测试一个新版本</span>之前，投入较少的人力和时间验证<span style="color: #FF8000;">基本功能</span>，通过则测试准入，冒烟测试目的是确认软件<span style="color: #FF8000;">基本功能正常</span>。</p>
+<p>冒烟测试的测试用例是从系统·测试提取部分出来</p>
+<ul>
+<li>执行者：<span style="color: #FF8000;">版本编译人员</span>或者<span style="color: #FF8000;">测试人员</span></li>
+<li>开发-版本-自测（基本功能OK）-提交测试（冒烟测试-通过/不通过-通过系统测试）</li>
+</ul>
+<p><strong>回归测试</strong>：回归测试是指修改了旧代码后，重新进行测试以确认修改没有引入新的错误或导致其他代码产生错误。自动回归测试将大幅降低系统测试、维护升级等阶段的成本。</p>
+<p>在整个软件测试过程中占有很大的工作量比重，软件开发的各个阶段都会进行多次回归测试。</p>
+<p>执行者：测试人员</p>
+<p>任务：
+1：验证提交bug<span style="color: #FF8000;">是否有修改</span>;
+2：验证修改bug之后有没有<span style="color: #FF8000;">引入新的bug</span> ;</p>
+<p>形式：
+1：部分公司直接发布版本，进行专门的<span style="color: #FF8000;">回归测试</span>;
+2：部分公司在每个版本正式测试之前<span style="color: #FF8000;">先进行回归测试</span>，再进行<span style="color: #FF8000;">正式测试</span></p>
+<p><strong>探索性测试</strong>：探索性测试可以说是一种<span style="color: #8080FF;">测试思维技术</span>。强调测试人员的主观能动性，抛弃繁杂的测试计划和测试用例设计过程，强调在碰到问题时及时<span style="color: #8080FF;">改变测试策略</span>。</p>
+<ul>
+<li>执行者：测试人员</li>
+<li>测试后期，<span style="color: #8080FF;">测试时间比较充裕</span>的情况下</li>
+</ul>
+<h2 id="总结-2">总结
+</h2><p><img src="/p/test-basic/index.assets/image-20260306110841426.png"
+	width="1771"
+	height="1858"
+	
+	loading="lazy"
+	
+		alt="image-20260306110841426"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="95"
+		data-flex-basis="228px"
+	
+></p>
+<h1 id="05测试工作流程">05测试工作流程
+</h1><p>软件的生命周期：计划阶段、需求分析阶段、软件设计阶段、软件编码、<span style="color: #FF0000;">测试阶段</span>、部署和维护阶段、升级和淘汰阶段</p>
+<h2 id="51软件测试工作流程">5.1软件测试工作流程
+</h2><p>软件测试是个复杂的过程，其涉及着大量的<span style="color: #FF8000;">人员安排</span>、资源准备、<span style="color: #FF8000;">工作活动分配</span>、<span style="color: #FF8000;">工作活动实施</span>、工作进度监控等。稍有疏漏就会<span style="color: #FF8000;">影响测试工作的开展</span>，进而影响到整个项目进度和产品质量的<span style="color: #FF8000;">检测</span>。那真正规范的测试流程到底是怎样的呢？</p>
+<p>规范的测试流程阶段划分：</p>
+<ol>
+<li><span style="color: #FF0000;">需求评审阶段</span></li>
+<li><span style="color: #FF0000;">测试计划阶段</span></li>
+<li><span style="color: #FF0000;">测试设计阶段</span></li>
+<li><span style="color: #FF0000;">测试执行阶段</span></li>
+<li><span style="color: #FF0000;">测试评估阶段</span></li>
+</ol>
+<blockquote>
+<p>你上家公司测试流程是什么样的？用白话串起来说</p>
+<p>我上家公司的流程，首先是我们的产品经理会把我们的需求给。把需求提出来之后呢，他会得到一个需求规格说明书，那拿到这个需求规格说明书之后，我们的开发和我们的测试会去参加我们的需求分析，在需求分析的过程当中，我们可能评审会议当中，我们可能会提出对应的一些问题啊，或者建议，这时候我们产品如果说。对我们提出的建议或者意见，他已收纳了，那这个时候我们就他会把这个需求文档啊，这个需求文档去进行更新，更新完了之后我们拿到一个确认版本的一个需文档啊。已经确认的一个文档，那拿到这个文档之后呢？开发那边他会根据我们的文档去写，我们的开发计划，那我们测试这一边就会根据我们这个文档和结合我们的开发这一边的文档。去写我们的测试计划，当我们测试计划去写出来了之后，是我由我们的测试组长写出来的，写完了之后，我们每一个测试人员，就会对自己的分配的任务去进行一个了解，那什么时候该做什么事情，那我们都是会非常的清楚那。那在这个测试计划的当中，可能会有一些安排不妥当的地方，那我们会在这个时候给他提出来，那如果说没有问题的话，那我们就会进入到下一个阶段。</p>
+<p>那下一个阶段就是大家针对自己在测试计划当中表露出的一些内容，比如说写测试用例啊啊，测试环境的一些准备啊，以及我们测试的一些数据的准备啊。。。。</p>
+</blockquote>
+<p><img src="/p/test-basic/index.assets/image-20260308152915312.png"
+	width="2755"
+	height="4374"
+	
+	loading="lazy"
+	
+		alt="image-20260308152915312"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="62"
+		data-flex-basis="151px"
+	
+></p>
+<h2 id="52需求评审阶段">5.2需求评审阶段
+</h2><p><strong>1.需求评审阶段</strong></p>
+<ul>
+<li>
+<p>评审软件需求，提出需求中存在的问题或建议</p>
+</li>
+<li>
+<p>参考文档：<span style="color: #FF8000;">软件需求规格说明书</span></p>
+</li>
+<li>
+<p>任务：<span style="color: #FF8000;">评审软件需求</span></p>
+</li>
+<li>
+<p>责任人：测试经理或组长或资深测试工程师</p>
+</li>
+<li>
+<p>目的：评审软件需求规格说明书，提出文档中的问题</p>
+</li>
+<li>
+<p>工作描述：项目经理、开发、测试等团队派代表参与软件需求评审，站在自身的角度提出需求中存在的问题或建议，产品如果采纳进行修复，修复后的软件需求规格说明书将做为开发和测试的参考。</p>
+</li>
+</ul>
+<h2 id="53测试计划阶段">5.3测试计划阶段
+</h2><p><strong>2.测试计划阶段</strong></p>
+<ul>
+<li>
+<p>主要任务是编写测试计划，内容包括测试范围、进度的安排，人力物力的分配，整体测试策略的指定，和风险的评估与规避措施有一个指定</p>
+</li>
+<li>
+<p>参考文档：软件需求规格说明书、项目总体计划、项目开发进度表</p>
+</li>
+<li>
+<p>任务：编写测试计划</p>
+</li>
+<li>
+<p>责任人：测试经理或组长或资深测试工程师</p>
+</li>
+<li>
+<p>目的：通过计划指导后续测试活动有序进行</p>
+</li>
+<li>
+<p>工作描述：编写测试计划明确测试范围、测试资源准备（硬件、测试工具等）、团队工作安排和进度、交付物</p>
+</li>
+</ul>
+<h2 id="54测试设计阶段">5.4测试设计阶段
+</h2><ul>
+<li>主要任务是对负责内容进行需求分析、用例设计、用例评审、用例修改等工作</li>
+<li>参考文档：产品需求文档（原型图）、概要设计、详细信息设计、数据库设计等文档，有不明确的也会及时和开发、产品经理沟通</li>
+</ul>
+<p>任务1：需求分析</p>
+<ul>
+<li>责任人：测试工程师</li>
+<li>目的：获取测试需求，确定测试项、测试子项</li>
+<li>工作描述：根据软件需求、软件设计等研发类文档，从功能、性能、接口等多维度分析测试项、测试子项。</li>
+</ul>
+<p>任务2：用例设计、用例评审、用例修改</p>
+<ul>
+<li>责任人：测试工程师</li>
+<li>目的：设计测试用例指导测试执行，参与用例评审，负责用例修改</li>
+<li>工作描述：测试人员运用合适的用例设计方法，进行测试用例的设计和编写工作，完成所有被测试系统的测试用例工作。参与团队用例评审，提出意见或建议，对用例进行维护和修改的工作</li>
+</ul>
+<h2 id="55测试执行阶段">5.5测试执行阶段
+</h2><p><strong>4.测试执行阶段</strong></p>
+<ul>
+<li>主要任务是搭建测试环境、执行测试用例和提交缺陷报告的工作</li>
+<li>参考文档：测试环境搭建指导文档、测试用例、缺陷规范</li>
+</ul>
+<p>任务1：搭建测试环境</p>
+<ul>
+<li>责任人：测试工程师</li>
+<li>目的：准备测试环境，为执行测试做准备</li>
+<li>工作描述：测试人员根据开发人员提供的《软件安装指导书》，完成测试环境搭建。测试人员搭建测试环境同时，要完成《软件安装指导书》的测试验证。</li>
+</ul>
+<p>任务2：执行测试用例</p>
+<ul>
+<li>责任人：测试工程师</li>
+<li>目的：测试执行</li>
+<li>工作描述：测试人员执行自己负责模块的测试用例，执行同时要标记每个测试用例的执行结果。</li>
+</ul>
+<p>任务3：提交缺陷单报告</p>
+<ul>
+<li>责任人：测试工程师</li>
+<li>目的：提交缺陷信息给开发人员</li>
+<li>工作描述：测试人员执行测试用例时，如果发现缺陷，需要按照标准格式编写缺陷单，并跟踪缺陷解决情况和进度。</li>
+</ul>
+<p>任务4：回归测试</p>
+<ul>
+<li>责任人：测试工程师</li>
+<li>目的：确认缺陷是否解决</li>
+<li>工作描述：开发解决完缺陷后，提交新的软件版本，测试人员要确认提交的缺陷是否得到了有效解决，并确认未引入新的缺陷。</li>
+</ul>
+<p>任务5：优化测试用例</p>
+<ul>
+<li>责任人：测试工程师</li>
+<li>目的：根据执行反馈调整测试用例</li>
+<li>工作描述：在执行了测试过程中，可能会发现测试用例有部分冗余、不合适、缺少的，利用版本间歇期优化测试用例。</li>
+</ul>
+<h2 id="56测试评估阶段">5.6测试评估阶段
+</h2><p><strong>5.测试评估阶段</strong></p>
+<ul>
+<li>出测试报告，对整个测试的过程和版本质量做一个详细的评估，确认是否可以上线。</li>
+<li>参考文档：测试用例执行结果、缺陷总表单</li>
+</ul>
+<p>任务：测试报告</p>
+<ul>
+<li>责任人：测试经理或测试组长</li>
+<li>目的：对整个测试总结和结果的评估</li>
+<li>工作描述：在整个测试结束后，需要对整个测试工作和软件质量进行总结。测试报告主要包含：实际测试环境、测试过程数据的总结和分析、测试遗留缺陷处理、软件版本质量的评估、后续测试建议、测试结论。</li>
+</ul>
+<h1 id="06软件测试计划的编写">06软件测试计划的编写
+</h1><h2 id="61测试计划概述">6.1测试计划概述
+</h2><p><strong>定义</strong></p>
+<p>测试计划是一个<span style="color: #8080FF;">叙述了预定的测试活动的范围</span>、途径、资源及进度安排的<span style="color: #FF8000;">文档（word、excel）</span>。它确认了测试项、被测特征、测试任务、人员安排，以及任何<span style="color: #FF8000;">偶发事件的风险</span>。测试计划可以有效<span style="color: #FF8000;">预防计划的风险</span>，顺利实施。</p>
+<p><strong>目的</strong></p>
+<ul>
+<li>了解<span style="color: #FF8000;">项目</span>和<span style="color: #FF8000;">测试活动</span>的整体情况</li>
+<li>明确<span style="color: #FF8000;">职责分工</span>，便于<span style="color: #FF8000;">沟通</span>和协作</li>
+<li>明确测试活动的对象、范围、方法、<span style="color: #FF8000;">进度</span>和预期结果<span style="color: #FF8000;">等资源统筹配置</span>，以保证其可获得性、有效性。</li>
+<li>明确自身和团队的测试任务以及测试成功的标准、<span style="color: #FF8000;">要实现的目标</span></li>
+<li>风险管控和消除可能存在的<span style="color: #FF8000;">风险</span>，降低由<span style="color: #FF8000;">不可能消除的风险</span>所<span style="color: #FF8000;">带来的损失</span>。</li>
+<li>有利于对项目和测试活动进行<span style="color: #FF8000;">宏观调控</span></li>
+</ul>
+<h2 id="62制定测试计划的步骤">6.2制定测试计划的步骤
+</h2><p><strong>1.任务到达</strong></p>
+<ul>
+<li>测试负责人接到软件测试任务书和被测软件的需求说明，开发的进度表</li>
+</ul>
+<p><strong>2.分析测试任务</strong></p>
+<ul>
+<li>充分理解被测试软件的需求</li>
+<li>评估被测软件的进度、状态、复杂度和潜在风险</li>
+</ul>
+<p><strong>3.资源规划和配置</strong></p>
+<ul>
+<li>组建测试团队</li>
+<li>准备各种非人力资源</li>
+</ul>
+<p><strong>4.制定测试计划</strong></p>
+<ul>
+<li>研究确定测试计划的各项内容</li>
+</ul>
+<p><strong>5.评审测试计划</strong></p>
+<ul>
+<li>测试团队共同参与评审测试计划</li>
+</ul>
+<h2 id="63测试计划核心内容">6.3测试计划核心内容
+</h2><p><img src="/p/test-basic/index.assets/image-20260308183551215.png"
+	width="816"
+	height="198"
+	
+	loading="lazy"
+	
+		alt="image-20260308183551215"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="412"
+		data-flex-basis="989px"
+	
+></p>
+<p>确定测试范围和风险，明确测试目标</p>
+<p>确定总体的测试方法</p>
+<p>确定测试什么？测试由什么角色来执行？如何测试？</p>
+<p>为测试的设计、实施和评估安排时间进度</p>
+<p>为确定的测试活动分配资源</p>
+<h2 id="645w1h方法">6.45W1H方法
+</h2><p><strong>1.WHAT ——对象</strong></p>
+<ul>
+<li>测试什么？</li>
+<li>做什么类型的测试？</li>
+<li>被测软件的特点是什么?</li>
+<li>在什么环境下测试?</li>
+</ul>
+<p><strong>2.WHY ——原因</strong></p>
+<ul>
+<li>为什么要做性能测试？</li>
+<li>为什么重点测试这个部分？</li>
+</ul>
+<p><strong>3.WHO ——参与人</strong></p>
+<ul>
+<li>软件的最终用户是谁？</li>
+<li>谁来设计测试用例?</li>
+<li>谁来执行测试用例?</li>
+</ul>
+<p><strong>4.WHEN ——时间</strong></p>
+<ul>
+<li>什么时候开始测试?</li>
+<li>什么时候提交缺陷报告?</li>
+<li>什么时候结束测试?</li>
+</ul>
+<p><strong>5.WHERE ——场所</strong></p>
+<ul>
+<li>在哪里进行测试？</li>
+<li>测试软件的哪个版本?</li>
+<li>测试到哪里算是完成？</li>
+</ul>
+<p><strong>6.HOW ——方式</strong></p>
+<ul>
+<li>如何进行测试？</li>
+<li>如何管控风险?</li>
+<li>如何控制项目进度？</li>
+</ul>
+<h2 id="总结-3">总结
+</h2><p><strong>步骤：</strong></p>
+<p>写计划之前：</p>
+<p>1.拿到需求（A,B,C）-任务到达</p>
+<p>2.分析测试任务：A - &hellip; B - &hellip; C - &hellip;</p>
+<p>3.计划需要哪些东西？资源规划和配置</p>
+<p>4.制定测试计划（word、excel）</p>
+<p>5.评审测试计划</p>
+<p><strong>内容：</strong></p>
+<p>测试项（测试范围）、被测特征、测试任务、谁执行任务、各种可能的风险</p>
+<p>5W1H</p>
+<ul>
+<li>WHAT -什么：测试哪些方面、不同任务的工作内容、做什么类型类型的测试？在什环境进行测试？ -对象</li>
+<li>WHY -为什么：为什么要做这些测试－原因</li>
+<li>WHO -谁：参与人：谁用、谁来测试用例、执行测试用例、项目团队的其它人</li>
+<li>WHEN -当什么时候去做呢？ 测试不同阶段的起止时间</li>
+<li>WHERE-在哪里做？bug 写哪里？ 测试环境是哪里？</li>
+<li>HOW -如何去做 &ndash;比如测试策略、风险把控、</li>
+</ul>
+<p><img src="/p/test-basic/index.assets/image-20260308205338764.png"
+	width="1792"
+	height="1540"
+	
+	loading="lazy"
+	
+		alt="image-20260308205338764"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="116"
+		data-flex-basis="279px"
+	
+></p>
+<blockquote>
+<p>UAT绝大多数做的是系统测试，UAT完成后，用户到我们开发环境进行验收，即alpha测试。用户测试也没有问题了，就可以投入到预生产环境中做beta测试</p>
+</blockquote>
+<h1 id="07需求分析">07需求分析
+</h1><h2 id="71软件测试需求分析的概述">7.1软件测试需求分析的概述
+</h2><p><strong>什么是需求？</strong></p>
+<p>需求是<span style="color: #FF0000;">产品必须完成的事</span>以及必须具备的品质。需求包括：功能性需求、非功能性需求和限制条件.</p>
+<ul>
+<li>
+<p><strong><span style="color: #FF0000;">功能性需求</span></strong>：功能性需求是产品必须完成的那些事，要求<span style="color: #FF8000;">一定</span>的功能和品质。</p>
+<ul>
+<li>案例：微信可以给好友发消息、发红包、发语音和视频等操作 &ndash; <span style="color: #FF0000;">产品考虑的一些点，必须完成这些功能</span></li>
+</ul>
+</li>
+<li>
+<p><strong><span style="color: #FF0000;">非功能性需求</span></strong>：非功能性需求是产品必须<u>具备的属性或品质</u>。诸如观感、可用性、安全性和<u>法律限制</u>等。</p>
+<ul>
+<li>
+<p>例子：×平台<span style="color: #FF0000;">用户数为5万</span>人，每天登录用户数<span style="color: #FF0000;">为1万左右</span>，网络的带宽为<span style="color: #FF0000;">100M带宽</span>。在工作时间根据资料名称条件进行搜索，可以<span style="color: #FF0000;">在3秒内得到搜索结果</span>。&ndash;性能数据</p>
+</li>
+<li>
+<p>2021年天猫活动的订单<span style="color: #FF0000;">处理峰值达高于58.3万笔/秒</span>，要求订单<span style="color: #FF0000;">成功率为100%</span></p>
+</li>
+<li>
+<p>注意：在项目中一般优先分析<span style="color: #FF0000;">功能性需求（满足需求）</span>，<span style="color: #8080FF;">产品的功能确定之后</span>再分析<span style="color: #FF0000;">非功能性需求</span>。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><span style="color: #8080FF;">限制条件</span></strong>：在需求分析中需要考虑一些条件约束，规则等，比如<span style="color: #FF8000;">客户的约束</span>，<span style="color: #FF8000;">行业的约束，法律的约束</span>以及自己的约束。</p>
+<ul>
+<li>例如：客户需求：x平台必须在2021年开学的第一学期上线</li>
+</ul>
+</li>
+</ul>
+<p><strong>需求分析的重要性</strong></p>
+<ul>
+<li>符合<span style="color: #FF0000;">尽早介入测试</span>、<span style="color: #FF8000;">文档</span>也需要测试原则</li>
+</ul>
+<ul>
+<li>
+<p>是<span style="color: #FF0000;">设计测试用例的重要依据</span>，有助于保证测试的质量和进度</p>
+</li>
+<li>
+<p>是衡量<span style="color: #FF0000;">测试覆盖率</span>的重要指标。</p>
+</li>
+<li>
+<p>测试覆盖率：覆盖需求文档中描述的所有<span style="color: #FF8000;">功能点的正确与否</span></p>
+<ul>
+<li>比如：需求10个功能点：正确流程、错误流程&ndash;100%</li>
+<li>需求10个功能点：正确流程&ndash;50%</li>
+<li>需求10个功能点：100个用例，包含9个功能点，正确流程、错误流程&ndash;90%</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><span style="color: #FF8000;">怎么提高你测试用例的覆盖率？</span></p>
+<p>1.需要熟悉需求，读懂需求，并根据需求把所有功能点正确与否都要考虑到位</p>
+<p>2.写完测试用例后，要评审用例</p>
+</blockquote>
+<p><strong>如何进行需求分析</strong></p>
+<p>测试需求分析的主要目的：根据需求文档<span style="color: #FF0000;">提取测试点</span>，根据测试点来编写测试用例。</p>
+<p>需求分析步骤：</p>
+<ol>
+<li>
+<p>熟悉需求背景及商业目标</p>
+</li>
+<li>
+<p>找出功能性需求与约束：</p>
+<ul>
+<li>
+<p>单个功能，如能否登录，等否发送信息;</p>
+</li>
+<li>
+<p>功能交互;</p>
+</li>
+<li>
+<p>业务流程，如登录成功-给好友发送红包-好友领取红包</p>
+</li>
+</ul>
+</li>
+<li>
+<p>找出非功能性需求与约束:</p>
+<ul>
+<li>UI、性能、网络、兼容性、易用性、特殊情况</li>
+</ul>
+</li>
+</ol>
+<h2 id="72项目需求分析实战演练">7.2项目需求分析实战演练
+</h2><p><strong>案例1-根据需求文档提取测试需求点</strong></p>
+<p>即时贴功能描述需求分析
+<img src="/p/test-basic/index.assets/image-20260315111314341.png"
+	width="2907"
+	height="1713"
+	
+	loading="lazy"
+	
+		alt="image-20260315111314341"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="169"
+		data-flex-basis="407px"
+	
+></p>
+<p><strong>案例2-没有需求文档时提取测试需求点</strong></p>
+<p>电商商城注册功能需求分析</p>
+<p><img src="/p/test-basic/index.assets/image-20260315111348746.png"
+	width="361"
+	height="371"
+	
+	loading="lazy"
+	
+		alt="image-20260315111348746"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="97"
+		data-flex-basis="233px"
+	
+></p>
+<p><strong>案例3</strong></p>
+<p>生活物品测试需求分析，如：杯子、笔、桌子</p>
+<p>面试题：怎么对杯子、笔、桌子进行测试？讲出测试的思维？测试点?</p>
+<p>软件测试六大特性:</p>
+<ul>
+<li>功能性&ndash;需求：正确场景、异常场景</li>
+<li>易用性&ndash;用户角度：删除是否提示</li>
+<li>安全性&ndash; 密码的安全性</li>
+<li>兼容性&ndash;是否OK</li>
+<li>效率性&ndash;性能相关、应用性</li>
+<li>可维护性</li>
+</ul>
+<h2 id="总结-4">总结
+</h2><ul>
+<li>
+<p><strong>什么是需求？</strong></p>
+<ul>
+<li>需求是产品必须完成的事以及必须具备的品质</li>
+</ul>
+</li>
+<li>
+<p><strong>需求包含的内容？</strong></p>
+<ul>
+<li>三部分：功能性需求、非功能性需求、限制条件</li>
+</ul>
+</li>
+<li>
+<p>需求分析 - xmind</p>
+</li>
+<li>
+<p><strong>需求分析的步骤</strong></p>
+<ol>
+<li>熟悉需求背景和商业目标？&ndash;用户去使用&ndash;社交APP、电商平台（注册、登录、选商品、下单、发货、收货&hellip;）－-竞品</li>
+<li>找出功能性需求和约束
+<ul>
+<li>单个功能：登录、注册、个人中心、主页</li>
+<li>功能交互：注册完的用户进行登录</li>
+<li>业务流程：整个业务流程去进行分析</li>
+</ul>
+</li>
+<li>做一些非功能需求
+<ul>
+<li>UI（设计图）、性能、网络（弱网测试）、兼容性测试（web：不同操作系统、不同的浏览器；app：不同ios版本、安卓版本；不同的系统及安卓版本）</li>
+<li>易用性（站在用户的角度去发现是不是好用）、其它情况</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>需求分析</p>
+<ul>
+<li>有文档、没有文档</li>
+</ul>
+</li>
+</ul>
+<h2 id="73用例设计方法-等价类">7.3用例设计方法-等价类
+</h2><h2 id="74用例分析项目实战">7.4用例分析项目实战
+</h2><h2 id="75用例设计方法-边界值">7.5用例设计方法-边界值
+</h2><h1 id="08用例设计">08用例设计
+</h1><p>用例设计方法-等价类
+用例分析项目实战
+用例设计方法-边界值</p>
+<h1 id="09项目测试用例设计与评审">09项目测试用例设计与评审
+</h1>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA&#43;%E5%AE%9E%E8%B7%B5/">测试理论&#43;实践</a>
+        
+    </section>
+
+
+    
+</footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/test-theory-and-practice/">
+        
+        
+            <div class="article-image">
+                <img src="/p/test-theory-and-practice/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.5b49cc3b94595099b38dbc27c72871a9_hu_624ce564250aa11a.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【软件测试】1.测试理论&#43;实践"
+                        data-key="test-theory-and-practice" 
+                        data-hash="md5-W0nMO5RZUJmzjbwnxyhxqQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【软件测试】1.测试理论&#43;实践</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/unity-basic/">
+        
+        
+            <div class="article-image">
+                <img src="/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.f2ec07a5b8880b3816561fa0a6ba6180_hu_29627e58e8a4ce76.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【unity3d游戏开发】Unity入门"
+                        data-key="unity-basic" 
+                        data-hash="md5-8uwHpbiICzgWVh&#43;gprphgA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【unity3d游戏开发】Unity入门</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/stl-review/">
+        
+        
+            <div class="article-image">
+                <img src="/p/stl-review/mountains-1412683_1920.8378a36e3da3b9927eb7b8236dbbd8d6_hu_48b37e9a25a869a4.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;初阶】容器复习"
+                        data-key="stl-review" 
+                        data-hash="md5-g3ijbj2juZJ&#43;t7gjbbvY1g==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;初阶】容器复习</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/network/">
+        
+        
+            <div class="article-image">
+                <img src="/p/network/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91AI%E9%A3%8E%E6%99%AF-%E5%85%89%E5%BD%B1%E9%A3%8E%E6%99%AF.0e4d713511fda100cc58bfb66dac6b98_hu_dd4faa0b4cf852b3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【Linux网络编程】02Socket编程UDP"
+                        data-key="network" 
+                        data-hash="md5-Dk1xNRH9oQDMWL&#43;2baxrmA==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【Linux网络编程】02Socket编程UDP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/auto_ptr/">
+        
+        
+            <div class="article-image">
+                <img src="/p/auto_ptr/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.2e0edf8a3459053f94729b109ccbe96d_hu_d2bc7ea603350a82.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy"
+                        alt="Featured image of post 【C&#43;&#43;进阶】13智能指针的使用及其原理"
+                        data-key="auto_ptr" 
+                        data-hash="md5-Lg7fijRZBT&#43;UcpsQnMvpbQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【C&#43;&#43;进阶】13智能指针的使用及其原理</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2025 - 
+        
+        2026 PursUnre
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.31.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.9c1a6570230d4822a0bae7b9729a4d803a1d6e81a2ebc4dbb042dd1c2902034a.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script>
+  
+
+  const live2d_path = "https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.6/dist/";
+  const cssPath = "https://Amarantos-Arrebol.github.io/waifu/waifu.css"
+  const waifuTipsJsonPath = "https://Amarantos-Arrebol.github.io/waifu/waifu-tips.json"
+
+  function loadExternalResource(url, type) {
+    return new Promise((resolve, reject) => {
+      let tag;
+      if (type === "css") {
+        tag = document.createElement("link");
+        tag.rel = "stylesheet";
+        tag.href = url;
+      } else if (type === "js") {
+        tag = document.createElement("script");
+        tag.type = "module";
+        tag.src = url;
+      }
+      if (tag) {
+        tag.onload = () => resolve(url);
+        tag.onerror = () => reject(url);
+        document.head.appendChild(tag);
+      }
+    });
+  }
+
+  (async () => {
+    const OriginalImage = window.Image;
+    window.Image = function (...args) {
+      const img = new OriginalImage(...args);
+      img.crossOrigin = "anonymous";
+      return img;
+    };
+    window.Image.prototype = OriginalImage.prototype;
+    await Promise.all([
+      loadExternalResource(cssPath, "css"),
+      loadExternalResource(live2d_path + "waifu-tips.js", "js"),
+    ]);
+    initWidget({
+      waifuPath: waifuTipsJsonPath,
+      cubism2Path: live2d_path + "live2d.min.js",
+      cubism5Path: "https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js",
+      tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"],
+      logLevel: "warn",
+      drag: false,
+    });
+  })();
+
+  
+  function initTocActive精准() {
+    
+    const tocContainer = document.querySelector("#TableOfContents");
+    const articleTitles = document.querySelectorAll("article h1, article h2, article h3, article h4, article h5, article h6");
+    if (!tocContainer || !articleTitles.length) return;
+
+    
+    const titleTocMap = new Map();
+    tocContainer.querySelectorAll("a").forEach(tocLink => {
+      const href = tocLink.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        const targetId = href.slice(1); 
+        const targetTitle = document.getElementById(targetId);
+        if (targetTitle) {
+          titleTocMap.set(targetTitle, tocLink.parentElement); 
+        }
+      }
+    });
+
+    
+    function handleTocFold() {
+      
+      let openUl = document.querySelectorAll(".open");
+      if (openUl.length > 0) {
+        openUl.forEach((ul) => {
+          ul.classList.remove("open");
+        });
+      }
+      
+      let currentLi = document.querySelector(".active-class");
+      if (!currentLi) return;
+      
+      if (currentLi.children.length > 1) {
+        currentLi.children[1].classList.add("open");
+      }
+      
+      let ul = currentLi.parentElement;
+      do {
+        ul.classList.add("open");
+        ul = ul.parentElement?.parentElement;
+      } while (ul !== undefined && (ul.localName === 'ul' || ul.localName === 'ol'));
+    }
+
+    
+    function updateActiveToc() {
+      
+      tocContainer.querySelectorAll(".active-class").forEach(li => {
+        li.classList.remove("active-class");
+      });
+
+      let currentActiveTitle = null;
+      const scrollTop = window.scrollY + 100; 
+
+      
+      articleTitles.forEach(title => {
+        const titleTop = title.getBoundingClientRect().top + window.scrollY;
+        if (titleTop <= scrollTop) {
+          currentActiveTitle = title;
+        }
+      });
+
+      
+      if (currentActiveTitle && titleTocMap.has(currentActiveTitle)) {
+        const activeLi = titleTocMap.get(currentActiveTitle);
+        activeLi.classList.add("active-class");
+      }
+
+      
+      handleTocFold();
+    }
+
+    
+    function throttle(fn, delay = 100) {
+      let timer = null;
+      return () => {
+        if (!timer) {
+          timer = setTimeout(() => {
+            fn();
+            timer = null;
+          }, delay);
+        }
+      };
+    }
+
+    
+    window.addEventListener("scroll", throttle(updateActiveToc));
+    updateActiveToc(); 
+  }
+
+  
+  document.addEventListener("DOMContentLoaded", initTocActive精准);
+</script>
+
+
+<style>
+   
+  #TableOfContents,
+  #TableOfContents ul,
+  #TableOfContents ol {
+    list-style: none !important;  
+    padding-left: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+
+   
+  #TableOfContents > ul ul,
+  #TableOfContents > ul ol,
+  #TableOfContents > ol ul,
+  #TableOfContents > ol ol {
+    display: none !important;  
+  }
+  #TableOfContents .open {
+    display: block !important;  
+  }
+
+   
+  #TableOfContents ul ul,
+  #TableOfContents ol ol {
+    padding-left: 16px !important;
+  }
+
+   
+  #TableOfContents * {
+    font-weight: normal !important;
+    font-weight: 400 !important;
+  }
+
+   
+  #TableOfContents .active-class > a {
+    color: #3ed1c2 !important;
+    font-weight: normal !important;
+  }
+
+   
+  #TableOfContents strong,
+  #TableOfContents b,
+  #TableOfContents a strong {
+    font-weight: normal !important;
+  }
+</style>
+
+
+
+
+
+
+<div id="particles-js"></div>
+
+<script src=https://Amarantos-Arrebol.github.io/background/particles.min.js></script>
+<script>
+  particlesJS.load('particles-js', "https://Amarantos-Arrebol.github.io/background/particlesjs-config.json", function() {
+    console.log('particles.js loaded - callback');
+  });
+</script>
+
+<style>
+  #particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+</style>
+
+    </body>
+</html>

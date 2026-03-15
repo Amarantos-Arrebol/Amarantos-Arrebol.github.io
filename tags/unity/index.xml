@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Thu, 18 Dec 2025 20:50:16 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/unity/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 15 Mar 2026 18:20:05 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/unity/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【unity3d游戏开发】Unity入门</title>
         <link>https://Amarantos-Arrebol.github.io/p/unity-basic/</link>
         <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
@@ -2835,7 +2835,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;123创建子弹&#34;&gt;1.2.3创建子弹(小球)
-&lt;/h3&gt;&lt;p&gt;做成预制体&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;把子弹做成预制体&lt;/p&gt;
 &lt;p&gt;当我们按下鼠标左键时，才创建子弹&lt;/p&gt;
 &lt;p&gt;相机相当于是我们的主角&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/unity-basic/index.assets/1764904106043-1174e3da-7c6d-4d6c-a0f6-a6d6cdcf6c96.png&#34;
@@ -3047,35 +3047,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;脚本基本规则&#34;&gt;脚本基本规则
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/unity-basic/index.assets/1765075214283-a508f619-f1d3-4337-b888-2459a707a1a9.png&#34;
-	width=&#34;1145&#34;
-	height=&#34;189&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;img&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;605&#34;
-		data-flex-basis=&#34;1453px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/unity-basic/index.assets/1765075237481-86a766c4-9a55-477c-af6a-afd8868b8e3b.png&#34;
-	width=&#34;569&#34;
-	height=&#34;703&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;img&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;80&#34;
-		data-flex-basis=&#34;194px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;blockquote&gt;
+&lt;/h3&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;设置编程工具：edit-&amp;gt;preferences-&amp;gt;external tools&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/unity-basic/index.assets/1765073433970-7e6b2a59-f15f-4514-8d3c-eb964f938eba.png&#34;
 	width=&#34;540&#34;
@@ -3123,15 +3095,15 @@
 		data-flex-basis=&#34;339px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;3）类名和文件名必须一致，不然不能挂载（因为反射机制创建对象，会通过文件名去找Type)&lt;/p&gt;
+&lt;p&gt;3）&lt;span style=&#34;color: #8080FF;&#34;&gt;类名和文件名必须一致&lt;/span&gt;，不然不能挂载（因为反射机制创建对象，会通过文件名去找Type)&lt;/p&gt;
 &lt;p&gt;4）建议不要使用中文名命名&lt;/p&gt;
 &lt;p&gt;5）没有特殊需求不用管命名空间&lt;/p&gt;
-&lt;p&gt;6）创建的脚本默认继承MonoBehavior，继承了MonoBehavior就能挂载到场景中的对象上&lt;/p&gt;
+&lt;p&gt;6）&lt;span style=&#34;color: #8080FF;&#34;&gt;创建的脚本默认继承MonoBehavior&lt;/span&gt;，&lt;span style=&#34;color: #FF8000;&#34;&gt;继承了MonoBehavior就能挂载到场景中的对象上&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;MonoBehavior基类&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;1）创建的脚本默认都继承MonoBehaviour，继承了它才能够挂载在GameObject上&lt;/p&gt;
-&lt;p&gt;2）继承了MonoBehavior的脚本不能new只能挂&lt;/p&gt;
-&lt;p&gt;3）继承了MonnBehavior的脚本不要去写构造函数，因为我们不会去new它，写构造函数没有任何意义&lt;/p&gt;
-&lt;p&gt;4）继承了MonoBehavior的脚本可以在一个对象上挂多个（如果没有加DisallowMultipleComponent特性)&lt;/p&gt;
+&lt;p&gt;1）创建的脚本默认都继承MonoBehaviour，&lt;span style=&#34;color: #8080FF;&#34;&gt;继承了MonoBehaviour才能够挂载在GameObject上&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;2）继承了MonoBehavior的脚本&lt;span style=&#34;color: #8080FF;&#34;&gt;不能new只能挂&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;3）继承了MonnBehavior的脚本不要去写构造函数，因为我们不会去new它，&lt;span style=&#34;color: #8080FF;&#34;&gt;写构造函数没有任何意义&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;4）继承了MonoBehavior的脚本&lt;span style=&#34;color: #8080FF;&#34;&gt;可以在一个对象上挂多个&lt;/span&gt;（如果没有加DisallowMultipleComponent特性)&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/unity-basic/index.assets/1765074533553-f9d4f374-3653-404c-a205-fdd10355222a.png&#34;
 	width=&#34;853&#34;
 	height=&#34;770&#34;
@@ -3148,11 +3120,25 @@
 &gt;&lt;/p&gt;
 &lt;p&gt;5）继承MonoBehavior的类也可以再次被继承，遵循面向对象继承多态的规则&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;不继承MonoBehavior的类&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;1）不继承Mono的类 不能挂载在GameObject上&lt;/p&gt;
-&lt;p&gt;2）不继承Mono的类想怎么写怎么写如果要使用需要自己new&lt;/p&gt;
+&lt;p&gt;1）&lt;span style=&#34;color: #8080FF;&#34;&gt;没有继承MonoBehavior的类 不能挂载在GameObject上&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;2）没有继承MonoBehavior的类想怎么写怎么写如果要使用&lt;span style=&#34;color: #8080FF;&#34;&gt;需要自己new&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;可以在继承MonoBehavior的类中去new它&lt;/p&gt;
-&lt;p&gt;3）不继承Mono的类一般是单例模式的类（用于管理模块）或者数据结松类 (用于存储数据)&lt;/p&gt;
-&lt;p&gt;4）不继承Mono的类不用保留默认出现的几个函数（start和update）&lt;/p&gt;
+&lt;p&gt;3）没有继承MonoBehavior的类一般是单例模式的类（&lt;span style=&#34;color: #8080FF;&#34;&gt;用于管理模块&lt;/span&gt;）或者数据结松类 (用于存储数据)&lt;/p&gt;
+&lt;p&gt;4）没有继承MonoBehavior的类&lt;span style=&#34;color: #8080FF;&#34;&gt;不用保留默认出现的几个函数&lt;/span&gt;（start和update）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/unity-basic/index.assets/1765075214283-a508f619-f1d3-4337-b888-2459a707a1a9.png&#34;
+	width=&#34;1145&#34;
+	height=&#34;189&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;img&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;605&#34;
+		data-flex-basis=&#34;1453px&#34;
+	
+&gt;&lt;/p&gt;
 &lt;h3 id=&#34;生命周期函数&#34;&gt;生命周期函数
 &lt;/h3&gt;&lt;p&gt;游戏的本质就是一个死循环，每一次循环处理游戏逻辑就会更新一次画面，之所以能看到画面在动，是因为切换画面的速度到达一定时，人眼就认为画面是流畅的，一帧就是执行一次循环&lt;/p&gt;
 &lt;p&gt;fps (Frames Per Second) ：即每秒钟帧数&lt;/p&gt;

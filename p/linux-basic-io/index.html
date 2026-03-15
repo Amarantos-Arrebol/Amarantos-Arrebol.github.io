@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.文件的理解 基本介绍\n1）文件是在磁盘上的，磁盘是永久性存储介质，因此文件在磁盘上可以持久化存储\n2）磁盘本质是外设，所以我们对文件的操作，本质上就是对外设进行I/O操作\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='基础IO' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-12-18T20:06:59&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='基础IO' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T18:20:05&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux系统编程】05基础IO">
 <meta name="twitter:description" content="1.文件的理解 基本介绍\n1）文件是在磁盘上的，磁盘是永久性存储介质，因此文件在磁盘上可以持久化存储\n2）磁盘本质是外设，所以我们对文件的操作，本质上就是对外设进行I/O操作\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1379,6 +1379,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="#44dup2系统调用">4.4dup2系统调用</a></li>
       </ul>
     </li>
+    <li><a href="#5理解一切皆文件">5.理解一切皆文件</a></li>
+    <li><a href="#6缓冲区">6.缓冲区</a></li>
   </ul>
 </nav>
         </div>
@@ -1490,12 +1492,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2025-12-18
+        2026-03-15
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">4915 字 </span>
+      <span class="article-time--wordcount">5191 字 </span>
     </div>
      
 
@@ -2722,7 +2724,66 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div><h1 id="5理解一切皆文件">5.理解一切皆文件
+</h1><p>一切皆文件是通过VFS虚拟文件系统实现的，我们用到的struct file是属于虚拟文件系统，VFS中有文件相关的基本属性，未来能帮我们找到文件的相关属性、一些操作、缓冲区，其中struct_file里面包含函数指针，可以指向底层不同设备/资源的读写方法，屏蔽底层差异。</p>
+<p><img src="/p/linux-basic-io/index.assets/image-20260101212126527.png"
+	width="1628"
+	height="624"
+	
+	loading="lazy"
+	
+		alt="image-20260101212126527"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="260"
+		data-flex-basis="626px"
+	
+></p>
+<p><img src="/p/linux-basic-io/index.assets/image-20260101212341313.png"
+	width="1211"
+	height="482"
+	
+	loading="lazy"
+	
+		alt="image-20260101212341313"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="251"
+		data-flex-basis="602px"
+	
+></p>
+<h1 id="6缓冲区">6.缓冲区
+</h1><p><strong>什么是缓冲区</strong></p>
+<p>缓冲区就是内存的一段空间</p>
+<p><strong>为什么需要缓冲区</strong></p>
+<p>提高效率</p>
+<blockquote>
+<p>类比菜鸟驿站，有了菜鸟驿站，送快递的人不需要跟用户直接打交道，而是跟驿站打交道，用户也不需要在快递到的时候立刻去取，而是可以等自己空闲的时候直接到楼下的菜鸟驿站取即可。</p>
+</blockquote>
+<p><strong>我们口中的缓冲区，究竟是什么</strong></p>
+<ol>
+<li></li>
+</ol>
+<p><img src="/p/linux-basic-io/index.assets/image-20260101220216633.png"
+	width="1401"
+	height="576"
+	
+	loading="lazy"
+	
+		alt="image-20260101220216633"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="243"
+		data-flex-basis="583px"
+	
+></p>
+<ol start="2">
+<li></li>
+</ol>
+
 </section>
 
 
@@ -2886,7 +2947,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <section class="copyright">
         &copy; 
         
-        2025 PursUnre
+            2025 - 
+        
+        2026 PursUnre
     </section>
     
     <section class="powerby">

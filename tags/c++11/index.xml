@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Fri, 26 Dec 2025 09:17:28 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/c++11/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 15 Mar 2026 18:20:05 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/c++11/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【C&#43;&#43;初阶】11C&#43;&#43;11</title>
         <link>https://Amarantos-Arrebol.github.io/p/c-11/</link>
         <pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate>
@@ -2384,7 +2384,7 @@
 &lt;p&gt;&lt;code&gt;template &amp;lt;class... Args&amp;gt; void emplace_back (Args&amp;amp;&amp;amp;... args);&lt;/code&gt;
 &lt;code&gt;template &amp;lt;class... Args&amp;gt; iterator emplace (const_iterator position,Args&amp;amp;&amp;amp;... args);&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;emplace比原先的插入接口更高效，但是多参数的时候不能使用{}来插入&lt;/p&gt;
-&lt;p&gt;**注意：**传递参数包过程中，如果是 Args&amp;amp;&amp;amp;&amp;hellip; args 的参数包，要用完美转发参数包，方式如下&lt;code&gt;std::forward\&amp;lt;Args&amp;gt;(args)...&lt;/code&gt;，否则编译时包扩展后右值弓l用变量表达式就变成了左值&lt;/p&gt;
+&lt;p&gt;**注意：**传递参数包过程中，如果是 Args&amp;amp;&amp;amp;&amp;hellip; args 的参数包，要用完美转发参数包，方式如下&lt;code&gt;std::forward\&amp;lt;Args&amp;gt;(args)...&lt;/code&gt;，否则编译时包扩展后右值引用变量表达式就变成了左值&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;新增的emplace系列接口和原先的插入接口（insert、push_back 等）的区别：&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;1）emplace系列的接口均为&lt;strong&gt;模板&lt;/strong&gt;可变参数，而原先的插入接口是&lt;strong&gt;普通函数&lt;/strong&gt;（不是通过参数推演，类模版实例化，value_type就实例化）&lt;/p&gt;
 &lt;p&gt;2）原先的插入接口要么插入左值，要么插入右值，而emplace系列接口用的是&lt;strong&gt;万能引用&lt;/strong&gt;，可以接收任意类型的参数&lt;/p&gt;

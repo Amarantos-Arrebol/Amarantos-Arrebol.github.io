@@ -10,7 +10,7 @@
 <meta property='og:description' content="链表容器的使用与实现，对比 vector 的差异">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/list/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;初阶' /><meta property='article:tag' content='STL' /><meta property='article:tag' content='list容器' /><meta property='article:tag' content='链表' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-05T11:28:40&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;初阶' /><meta property='article:tag' content='STL' /><meta property='article:tag' content='list容器' /><meta property='article:tag' content='链表' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
 <meta name="twitter:title" content="【C++初阶】09list">
 <meta name="twitter:description" content="链表容器的使用与实现，对比 vector 的差异"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/list/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1496,12 +1496,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2025-11-05
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">5645 字 </span>
+      <span class="article-time--wordcount">5711 字 </span>
     </div>
      
 
@@ -2300,7 +2300,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <h3 id="insert">insert
-</h3><p>insert在pos位置之前插入数据</p>
+</h3><p>insert在pos位置之前插入数据，返回新插入元素的迭代器</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2339,7 +2339,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="erase失效">erase失效
+</div><p>迭代器不会失效，而vector因为插入会扩容，所以会迭代器失效</p>
+<h3 id="erase失效">erase失效
 </h3><p>erase有迭代器失效</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2628,20 +2629,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>重载-&gt;</strong></p>
-<p><img src="/p/list/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91list.assets/image-20251007115432579.png"
-	width="589"
-	height="831"
-	
-	loading="lazy"
-	
-		alt="image-20251007115432579"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="70"
-		data-flex-basis="170px"
-	
-></p>
+<img src="【C++初阶】list.assets/image-20251007115432579.png" alt="image-20251007115432579" style="zoom:50%;" /> 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2729,18 +2717,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="222-迭代器的设计思想">2.2.2 <strong>迭代器的设计思想</strong>
-</h3><p><img src="/p/list/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%91list.assets/20250719153321589.png"
-	width="462"
-	height="207"
-	
-	loading="lazy"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="223"
-		data-flex-basis="535px"
-	
-></p>
+</h3><img src="【C++初阶】list.assets/20250719153321589.png" style="zoom: 67%;" /> 
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2762,13 +2739,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><p>容器迭代器设计思路体现了封装</p>
 <p>屏蔽底层实现细节，屏蔽各容器结构的差异，<span style="color: #8080FF;">本质封装底层细节和差异，提供统一的访问方式</span></p>
 <blockquote>
-<p>封装就是把底层的细节屏蔽，想给你看到的给你，不想给你看到的就屏蔽起来，</p>
-<p>并且提供统一的访问方式，简单的封装是什么样的，复杂的封装是什么样的(比如迭代器)</p>
-<p>比如网银支付，像支付宝/微信这类的软件就是需要和各大银行对接，然后我们可以支付宝等软件上</p>
-<p>轻松使用自己其它银行卡里的钱进行付款</p>
+<p>封装就是把底层的细节屏蔽，想给你看到的给你，不想给你看到的就屏蔽起来，并且提供统一的访问方式，简单的封装是什么样的，复杂的封装是什么样的(比如迭代器)</p>
+<p>比如网银支付，像支付宝/微信这类的软件就是需要和各大银行对接，然后我们可以支付宝等软件上轻松使用自己其它银行卡里的钱进行付款</p>
 </blockquote>
 <h3 id="223const迭代器"><strong>2.2.3const迭代器</strong>
-</h3><p>我们希望迭代器本身可以改变，但是迭代器指向的内容不能改变</p>
+</h3><p>我们希望迭代器本身可以改变（++/&ndash;），但是迭代器指向的内容不能改变</p>
 <p>这种写法是错的：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3518,7 +3493,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="完整代码">完整代码
+</div><blockquote>
+<p>类里面可以不写模版参数</p>
+<img src="index.assets/image-20260413155554766.png" alt="image-20260413155554766" style="zoom: 67%;" /> 
+</blockquote>
+<h2 id="完整代码">完整代码
 </h2><p>iterator.h中</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

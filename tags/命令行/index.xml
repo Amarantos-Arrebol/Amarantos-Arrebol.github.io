@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Sun, 15 Mar 2026 18:20:05 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 06 May 2026 20:20:04 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【Linux系统编程】01初始Linux&#43;基础指令</title>
         <link>https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -2549,20 +2549,7 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;w对于目录？有无权限在指定目录内部，新建文件，删除，修改文件名等修改文件操作，都不行&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&amp;#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731409870346.png&#34;
-	width=&#34;923&#34;
-	height=&#34;78&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;73140987034&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;1183&#34;
-		data-flex-basis=&#34;2840px&#34;
-	
-&gt;&lt;/p&gt;
+ &lt;img src=&#34;01初始Linux+基础指令.assets/1731409870346.png&#34; alt=&#34;73140987034&#34; style=&#34;zoom:50%;&#34; /&gt; 
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;2-缺省权限&#34;&gt;2. 缺省权限
@@ -2582,20 +2569,7 @@
 &lt;p&gt;结论：&lt;/p&gt;
 &lt;p&gt;==最终权限（默认）= 起始权限 &amp;amp; （~umask）==&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&amp;#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731412144933.png&#34;
-	width=&#34;576&#34;
-	height=&#34;72&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;73141214493&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;800&#34;
-		data-flex-basis=&#34;1920px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;img src=&#34;01初始Linux+基础指令.assets/1731412144933.png&#34; alt=&#34;73141214493&#34; style=&#34;zoom:50%;&#34; /&gt; 
 &lt;p&gt;只看后3位，实际是000 000 010&lt;/p&gt;
 &lt;p&gt;修改权限掩码，达到修改Linux文件缺省权限的问题&lt;/p&gt;
 &lt;ul&gt;
@@ -2604,58 +2578,19 @@
 &lt;p&gt;结果都为0。那么默认创建的文件权限是全是&lt;code&gt;-&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;修改成0&lt;code&gt;umask 0&lt;/code&gt;那么此时umask按位取反结果为全1,任何数和1按位与结果都是&lt;/p&gt;
+&lt;p&gt;修改成0&lt;code&gt;umask 0&lt;/code&gt;那么此时umask按位取反结果为全1，任何数和1按位与结果都是&lt;/p&gt;
 &lt;p&gt;它本身。此时创建文件的默认权限就是666和777&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;3沾滞位&#34;&gt;3.沾滞位
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;1. Linux多用户下，对于文件的访问，是隔离的&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&amp;#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731414901863.png&#34;
-	width=&#34;1057&#34;
-	height=&#34;153&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;73141490186&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;690&#34;
-		data-flex-basis=&#34;1658px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;img src=&#34;01初始Linux+基础指令.assets/1731414901863.png&#34; alt=&#34;73141490186&#34; style=&#34;zoom:50%;&#34; /&gt; 
 &lt;p&gt;&lt;strong&gt;2. 需求：我们想让Linux下不同的账号用户，共享文件呢？&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;共享文件不能在任何一个普通账号的家目录里面，只能在其它目录下，比如根目录下&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&amp;#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415214884.png&#34;
-	width=&#34;903&#34;
-	height=&#34;76&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;73141521488&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;1188&#34;
-		data-flex-basis=&#34;2851px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;img src=&#34;01初始Linux+基础指令.assets/1731415214884.png&#34; alt=&#34;73141521488&#34; style=&#34;zoom:50%;&#34; /&gt; 
 &lt;p&gt;但是根目录也是一个目录，所以新建时需要以超级用户身份来创建&lt;code&gt;sudo&lt;/code&gt;，或者root用户来新建&lt;/p&gt;
 &lt;p&gt;默认下other是没有创建文件的权限的，所以需要&lt;code&gt;sudo&lt;/code&gt;添加w&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/linux-basic-instruction/01%E5%88%9D%E5%A7%8BLinux&amp;#43;%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4.assets/1731415670182.png&#34;
-	width=&#34;963&#34;
-	height=&#34;43&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;73141567018&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;2239&#34;
-		data-flex-basis=&#34;5374px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;img src=&#34;01初始Linux+基础指令.assets/1731415670182.png&#34; alt=&#34;73141567018&#34; style=&#34;zoom:50%;&#34; /&gt; 
 &lt;p&gt;&lt;strong&gt;3. 问题：我们想既共享文件，同时other不能随便删除这个文件&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;我们想共享文件，也就是需要让在根目录下建的目录的other的w权限放开，&lt;/p&gt;
 &lt;p&gt;这样other就可以在这个共享目录中新建文件了，我们可以修改共享目录文件中新建的文件的属性也就是可以让拥有者和所属组的权限是可读可写可执行，other是不能读不能写不能执行&lt;/p&gt;

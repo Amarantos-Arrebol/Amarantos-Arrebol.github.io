@@ -10,7 +10,7 @@
 <meta property='og:description' content="模板特化与分离编译，深入理解泛型机制">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/template-advancement/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;初阶' /><meta property='article:tag' content='模板编程' /><meta property='article:tag' content='模板特化' /><meta property='article:tag' content='分离编译' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-05T11:28:40&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/template-advancement/02.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;初阶' /><meta property='article:tag' content='模板编程' /><meta property='article:tag' content='模板特化' /><meta property='article:tag' content='分离编译' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/template-advancement/02.png' />
 <meta name="twitter:title" content="【C++初阶】11模版进阶">
 <meta name="twitter:description" content="模板特化与分离编译，深入理解泛型机制"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/template-advancement/02.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1358,19 +1358,19 @@ document.addEventListener('DOMContentLoaded', function() {
           <ul>
             <li><a href="#231全特化">2.3.1全特化</a></li>
             <li><a href="#232偏特化">2.3.2偏特化</a></li>
-            <li><a href="#233类模版特化应用示例">2.3.3类模版特化应用示例</a></li>
+            <li><a href="#233例子">2.3.3例子</a></li>
           </ul>
         </li>
       </ul>
     </li>
     <li><a href="#3模版分离编译">3.模版分离编译</a>
       <ul>
-        <li><a href="#31什么是分离编译">3.1什么是分离编译</a></li>
+        <li><a href="#31分离编译模式">3.1分离编译模式</a></li>
         <li><a href="#32模版的分离编译">3.2模版的分离编译</a></li>
         <li><a href="#33解决方法">3.3解决方法</a></li>
       </ul>
     </li>
-    <li><a href="#4模版总结">4.模版总结</a></li>
+    <li><a href="#4模版优缺点总结">4.模版优缺点总结</a></li>
   </ul>
 </nav>
         </div>
@@ -1484,12 +1484,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2025-11-05
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">1946 字 </span>
+      <span class="article-time--wordcount">2305 字 </span>
     </div>
      
 
@@ -1607,20 +1607,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </h2><ul>
 <li>C++11增加了一个容器 array ，array就是一个静态数组，但不会初始化</li>
 </ul>
-<p><img src="/p/template-advancement/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%9111%E6%A8%A1%E7%89%88%E8%BF%9B%E9%98%B6.assets/image-20251016104640619.png"
-	width="554"
-	height="92"
-	
-	loading="lazy"
-	
-		alt="image-20251016104640619"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="602"
-		data-flex-basis="1445px"
-	
-></p>
+<img src="【C++初阶】11模版进阶.assets/image-20251016104640619.png" alt="image-20251016104640619" style="zoom: 80%;" /> 
 <p>array定义静态数组和直接定义数组的好处是，array是对静态数组进行了封装，检查时更严格(比如越界时一定会报错)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1665,24 +1652,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><ul>
 <li>容器 bitset 位图</li>
 </ul>
-<p><img src="/p/template-advancement/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%9111%E6%A8%A1%E7%89%88%E8%BF%9B%E9%98%B6.assets/image-20251016105315755.png"
-	width="405"
-	height="89"
-	
-	loading="lazy"
-	
-		alt="image-20251016105315755"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="455"
-		data-flex-basis="1092px"
-	
-></p>
+<img src="【C++初阶】11模版进阶.assets/image-20251016105315755.png" alt="image-20251016105315755" style="zoom: 80%;" /> 
 <h1 id="2模版的特化">2.模版的特化
 </h1><h2 id="21基本介绍">2.1基本介绍
-</h2><p>特化就是特殊化处理</p>
-<p>通常情况下，使用模板可以实现一些与类型无关的代码，但是在某些场景下，对于一些特殊的类型我们需要做特殊处理</p>
+</h2><blockquote>
+<p>特化就是特殊化处理。通常情况下，使用模板可以实现一些与类型无关的代码，但是在某些场景下，对于一些特殊的类型我们需要做特殊处理。</p>
+</blockquote>
 <h2 id="22函数模版特化">2.2函数模版特化
 </h2><p>函数模版不建议特化，容易写错</p>
 <div class="highlight"><div class="chroma">
@@ -1720,15 +1695,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//函数模版
 </span></span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Less</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Less</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span><span class="c1">//const 修饰的是引用本身
+</span></span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">//特化
 </span></span></span><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Less</span><span class="o">&lt;</span><span class="n">Date</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">Date</span><span class="o">*</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="n">Date</span><span class="o">*</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="n">Less</span><span class="o">&lt;</span><span class="n">Date</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">Date</span><span class="o">*</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">left</span><span class="p">,</span> <span class="n">Date</span><span class="o">*</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">right</span><span class="p">)</span> <span class="c1">//const在*之后修饰的才是指针本身
+</span></span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">*</span><span class="n">left</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1779,7 +1754,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="23类模版特化">2.3类模版特化
-</h2><h3 id="231全特化">2.3.1全特化
+</h2><p>函数模版如果我们需要特殊处理，可以写成函数重载，用普通函数去匹配。</p>
+<p>但是对于类模版，如果我们需要对某个类的某些类型进行特殊处理的时候，就只能用全特化、偏特化（部分参数特化、对类型的进一步限制）</p>
+<h3 id="231全特化">2.3.1全特化
 </h3><p>全特化：<strong>所有参数都特殊化处理</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1988,9 +1965,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>可以用  typeid(T1).name() 查看模版的类型</p>
+<p>可以用  <code>typeid(对象或类型).name()</code> 查看一个对象或类型的真实类型</p>
+<img src="index.assets/image-20260428093338235.png" alt="image-20260428093338235" style="zoom:50%;" /> 
 </blockquote>
-<h3 id="233类模版特化应用示例">2.3.3类模版特化应用示例
+<h3 id="233例子">2.3.3例子
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2005,25 +1983,73 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">10
 </span><span class="lnt">11
 </span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">// 对Less类模板按照指针方式特化
-</span></span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">dyy</span>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="c1">//...
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">dyy</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="k">template</span><span class="o">&lt;&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="nc">Less</span><span class="o">&lt;</span><span class="n">Date</span><span class="o">*&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">bool</span> <span class="nf">operator</span><span class="p">()(</span><span class="n">Date</span><span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">Date</span><span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="k">const</span>
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">*</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">y</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//对Less类模板进行特殊化处理
+</span></span></span><span class="line"><span class="cl">	<span class="k">template</span><span class="o">&lt;&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">struct</span> <span class="nc">less</span><span class="o">&lt;</span><span class="n">Date</span><span class="o">*&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//const修饰引用本身
+</span></span></span><span class="line"><span class="cl">		<span class="kt">bool</span> <span class="nf">operator</span><span class="p">()(</span><span class="n">Date</span><span class="o">*</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="n">Date</span><span class="o">*</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="k">const</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="o">*</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//dyy::priority_queue&lt;Date*, vector&lt;Date*&gt;, DateLess&gt; q1;
+</span></span></span><span class="line"><span class="cl">	<span class="n">dyy</span><span class="o">::</span><span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">Date</span><span class="o">*&gt;</span> <span class="n">q1</span><span class="p">;</span> <span class="c1">// 走特化版本的less
+</span></span></span><span class="line"><span class="cl">	<span class="n">q1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="k">new</span> <span class="n">Date</span><span class="p">{</span> <span class="mi">2026</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">28</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">	<span class="n">q1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="k">new</span> <span class="n">Date</span><span class="p">{</span> <span class="mi">2026</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">27</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">	<span class="n">q1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="k">new</span> <span class="n">Date</span><span class="p">{</span> <span class="mi">2026</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">q1</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">q1</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">q1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="3模版分离编译">3.模版分离编译
-</h1><h2 id="31什么是分离编译">3.1什么是分离编译
-</h2><p>a.h</p>
+</h1><p>模版不能声明和定义分离开在 .h 和 .cpp 两个文件，否则会编译报错</p>
+<h2 id="31分离编译模式">3.1分离编译模式
+</h2><blockquote>
+<p>一个程序（项目）由若干个源文件共同实现，而每个源文件单独编译生成目标文件，最后将所有目标文件链接起来形成单一的可执行文件的过程称为分离编译模式。</p>
+</blockquote>
+<h2 id="32模版的分离编译">3.2模版的分离编译
+</h2><p>如果模版在头文件中声明，在源文件中定义：</p>
+<p>a.h</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2108,13 +2134,14 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>a.h a.cpp test.cpp  —预处理—&gt;a.i test.i—编译—&gt;a.s test.s—汇编—&gt;a.o test.o—链接—&gt;a.out</p>
+</div><blockquote>
+<p>a.h a.cpp test.cpp  —预处理—&gt;a.i test.i—编译—&gt;a.s test.s—汇编—&gt;a.o test.o—链接—&gt;a.out</p>
 <p>预处理：头文件展开，条件编译，宏替换，去注释</p>
 <p>编译：检查语法，生成汇编代码</p>
 <p>汇编：汇编代码转换成二进制的机器码</p>
 <p>链接：合并在一起，并且没有确定地址的函数，要确定地址等工作</p>
-<h2 id="32模版的分离编译">3.2模版的分离编译
-</h2><p><img src="/p/template-advancement/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%9111%E6%A8%A1%E7%89%88%E8%BF%9B%E9%98%B6.assets/image-20251019135321052.png"
+</blockquote>
+<p><img src="/p/template-advancement/%E3%80%90C&#43;&#43;%E5%88%9D%E9%98%B6%E3%80%9111%E6%A8%A1%E7%89%88%E8%BF%9B%E9%98%B6.assets/image-20251019135321052.png"
 	width="1246"
 	height="403"
 	
@@ -2128,6 +2155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="742px"
 	
 ></p>
+<p>分析：</p>
 <p>链接时，Func可以链接成功，Add无法链接成功</p>
 <p>test.i中知道Add需要实例化成int和double各一份Add函数，但是他只有声明没有定义</p>
 <p>a.i中有Add的定义，但是不知道要实例化模版成什么类型</p>
@@ -2164,12 +2192,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>**解决方案二：**不要声明和定义分离到两个文件，直接在.h中定义</p>
-<h1 id="4模版总结">4.模版总结
+<h1 id="4模版优缺点总结">4.模版优缺点总结
 </h1><blockquote>
-<p>【优点】
+<p>优点
 1.模板复用了代码，节省资源，更快的迭代开发，C++的标准模板库(STL)因此而产生
 2.增强了代码的灵活性</p>
-<p>【缺陷】
+<p>缺陷
 1.模板会导致代码膨胀问题，也会导致编译时间变长
 2.出现模板编译错误时，错误信息非常凌乱，不易定位错误</p>
 </blockquote>

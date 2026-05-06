@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Mon, 24 Nov 2025 21:33:53 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E8%99%9A%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 06 May 2026 20:20:04 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/%E8%99%9A%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【C&#43;&#43;进阶】02多态</title>
         <link>https://Amarantos-Arrebol.github.io/p/c-polymorphic/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -19,8 +19,8 @@
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;编译时多态&lt;/strong&gt;，比如 函数重载，函数模版 就体现多态&lt;/p&gt;
-&lt;p&gt;它们&lt;span style=&#34;color: #8080FF;&#34;&gt;传不同类型的参数&lt;/span&gt;就可以&lt;span style=&#34;color: #8080FF;&#34;&gt;调用不同的函数&lt;/span&gt;，&lt;span style=&#34;color: #FF8000;&#34;&gt;通过参数不同达到多种形态&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;之所以叫编译时多态，是因为他们&lt;span style=&#34;color: #FF8000;&#34;&gt;实参传给形参的参数匹配是在编译时完成的&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;它们&lt;span style=&#34;color: #8080FF;&#34;&gt;传不同类型的参数&lt;/span&gt;就可以&lt;span style=&#34;color: #8080FF;&#34;&gt;调用不同的函数&lt;/span&gt;，&lt;span style=&#34;color: #FF8000;&#34;&gt;&lt;strong&gt;通过参数不同达到多种形态&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;之所以叫编译时多态，是因为他们&lt;span style=&#34;color: #FF8000;&#34;&gt;&lt;strong&gt;实参传给形参的参数匹配是在编译时完成的&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;我们把编译时一般归为静态，运行时归为动态。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -37,7 +37,7 @@
 &lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;运行时多态&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;具体点就是完成某个行为(函数)，可以&lt;span style=&#34;color: #8080FF;&#34;&gt;传不同的对象就会完成不同的行为&lt;/span&gt;，就达到多种形态&lt;/p&gt;
+&lt;p&gt;具体点就是完成某个行为(函数)，可以&lt;span style=&#34;color: #8080FF;&#34;&gt;&lt;strong&gt;传不同的对象就会完成不同的行为&lt;/strong&gt;&lt;/span&gt;，就达到多种形态&lt;/p&gt;
 &lt;p&gt;比如买票这个行为，当普通人买票时，是全价买票；学生买票时，是优惠买票(5折或75折)；军人买票时是优先买票&lt;/p&gt;
 &lt;p&gt;再比如，同样是动物叫的一个行为(函数)，传猫对象过去，就是”(&gt;\^w^&lt;)&amp;ldquo;喵“，传狗对象过去，就是&amp;quot;汪汪&amp;rdquo;&lt;/p&gt;
 &lt;/li&gt;
@@ -46,6 +46,9 @@
 &lt;p&gt;1）对象之间存在&lt;span style=&#34;color: #8080FF;&#34;&gt;继承&lt;/span&gt;关系&lt;/p&gt;
 &lt;p&gt;2）子类必须对父类的&lt;span style=&#34;color: #FF0000;&#34;&gt;虚函数完成重写/覆盖&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;3）&lt;span style=&#34;color: #FF0000;&#34;&gt;必须是父类的指针或者引用调用虚函数&lt;/span&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为只有父类的指针或引用，才能既可以指向父类对象，也可以指向子类对象&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h1 id=&#34;2虚函数&#34;&gt;2.虚函数
 &lt;/h1&gt;&lt;h2 id=&#34;21虚函数的基本介绍&#34;&gt;2.1虚函数的基本介绍
 &lt;/h2&gt;&lt;p&gt;在类的&lt;strong&gt;非静态成员函数&lt;/strong&gt;前面加 virtual 修饰，那么这个成员函数就被称为虚函数&lt;/p&gt;

@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.C#入门 .NET框架\n1.1基础语法(上) 1.1.1第一个C#程序 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 using System; using System.Collections.Generic; using System.Linq; using System.Text; using System.Threading.Tasks; namespace Test { class Program { static void Main(string[] args) { Console.WriteLine(&#34;Hello C#&#34;); } } } 1.1.2输入输出语句 输入\n1、Console.ReadLine()：读取一行的内容（可以有空格），直到遇到换行符。返回string对象\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/unity-csharp-basic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C#基础' /><meta property='article:published_time' content='2025-11-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T18:20:05&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/unity-csharp-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%95%86%E5%BA%97-%E5%A4%9C%E6%99%9A.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C#基础' /><meta property='article:published_time' content='2025-11-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/unity-csharp-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%95%86%E5%BA%97-%E5%A4%9C%E6%99%9A.png' />
 <meta name="twitter:title" content="【unity3d游戏开发】C#学习">
 <meta name="twitter:description" content="1.C#入门 .NET框架\n1.1基础语法(上) 1.1.1第一个C#程序 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 using System; using System.Collections.Generic; using System.Linq; using System.Text; using System.Threading.Tasks; namespace Test { class Program { static void Main(string[] args) { Console.WriteLine(&#34;Hello C#&#34;); } } } 1.1.2输入输出语句 输入\n1、Console.ReadLine()：读取一行的内容（可以有空格），直到遇到换行符。返回string对象\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/unity-csharp-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%95%86%E5%BA%97-%E5%A4%9C%E6%99%9A.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1346,7 +1346,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <ul>
     <li><a href="#1c入门">1.C#入门</a>
       <ul>
-        <li><a href="#11基础语法">1.1基础语法</a>
+        <li><a href="#11基础语法">1.1基础语法(上)</a>
           <ul>
             <li><a href="#111第一个c程序">1.1.1第一个C#程序</a></li>
             <li><a href="#112输入输出语句">1.1.2输入输出语句</a></li>
@@ -1381,7 +1381,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#6结束场景逻辑实现">6.结束场景逻辑实现</a></li>
           </ul>
         </li>
-        <li><a href="#13基础语法">1.3基础语法</a>
+        <li><a href="#13基础语法">1.3基础语法(下)</a>
           <ul>
             <li><a href="#131枚举和数组">1.3.1枚举和数组</a>
               <ul>
@@ -1399,6 +1399,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </li>
     <li><a href="#2类和对象">2.类和对象</a></li>
     <li><a href="#3常用接口">3.常用接口</a></li>
+    <li><a href="#4委托和事件">4.委托和事件</a>
+      <ul>
+        <li><a href="#41委托">4.1委托</a></li>
+        <li><a href="#42事件">4.2事件</a></li>
+        <li><a href="#43匿名函数">4.3匿名函数</a></li>
+        <li><a href="#44lambda表达式">4.4Lambda表达式</a></li>
+      </ul>
+    </li>
     <li><a href="#4协变">4.协变</a></li>
     <li><a href="#5多线程">5.多线程</a></li>
     <li><a href="#6预处理器指令">6.预处理器指令</a></li>
@@ -1521,12 +1529,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2026-03-15
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">10375 字 </span>
+      <span class="article-time--wordcount">11466 字 </span>
     </div>
      
 
@@ -4016,7 +4024,305 @@ AA攻击力为8~12之间的一个值，小怪兽防御为10，血量为20
 </h3><h2 id="14实践小项目2--飞行棋">1.4实践小项目2 -飞行棋
 </h2><h1 id="2类和对象">2.类和对象
 </h1><h1 id="3常用接口">3.常用接口
-</h1><h1 id="4协变">4.协变
+</h1><h1 id="4委托和事件">4.委托和事件
+</h1><h2 id="41委托">4.1委托
+</h2><p><strong>委托基本介绍</strong></p>
+<p><span style="color: #FF0000;">委托就是专门用来装载函数的容器</span></p>
+<ul>
+<li>委托是<span style="color: #FF8000;">存储/传递函数的容器</span>。
+<ul>
+<li>可以理解为<span style="color: #FF8000;">表示函数（方法）的变量类型</span></li>
+</ul>
+</li>
+<li>委托可以用来存储、传递函数（方法）</li>
+<li>委托的本质是一个类，用来定义函数（方法）的类型（返回值和参数的类型）</li>
+<li>不同的函数（方法）必须对应和各自&quot;格式“一致的委托</li>
+</ul>
+<p><strong>委托的基本使用</strong></p>
+<p>基本语法：<code>访问修饰符 delegate 返回值 委托名(参数列表)</code></p>
+<blockquote>
+<p>简单记忆委托语法：函数声明语法前面加一个delegate关键字</p>
+</blockquote>
+<p>委托可以写在哪里？</p>
+<ul>
+<li>可以声明在namespace 和 class 语句块中</li>
+<li>但我们更多的写在namespace中</li>
+</ul>
+<p><strong>定义自定义委托</strong></p>
+<blockquote>
+<p>说明：访问修饰符默认不写，就是public，在别的命名空间中也能使用</p>
+<p>用private ，则其它命名空间不能用</p>
+<p>我们一般使用public</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//声明了一个可以用来存储无参无返回值函数的容器</span>
+</span></span><span class="line"><span class="cl"><span class="k">delegate</span> <span class="k">void</span> <span class="n">MyFun</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//表示用来装载或传递 返回值为int，有一个参数为int的函数 的委托容器规则</span>
+</span></span><span class="line"><span class="cl"><span class="k">delegate</span> <span class="kt">int</span> <span class="n">MyFun2</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：在同一语句块中，委托规则的声明是不能重名的</p>
+<p><strong>使用委托</strong></p>
+<p>委托变量是函数的容器</p>
+<p>委托常用在：</p>
+<ol>
+<li>
+<p>作为类的成员</p>
+</li>
+<li>
+<p>作为函数的参数</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//声明了一个可以用来存储无参无返回值函数的容器</span>
+</span></span><span class="line"><span class="cl"><span class="k">delegate</span> <span class="k">void</span> <span class="n">MyFun</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Program</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">//委托就是专门用来装载函数的容器</span>
+</span></span><span class="line"><span class="cl">       <span class="c1">//方式一:</span>
+</span></span><span class="line"><span class="cl">       <span class="n">MyFun</span> <span class="n">f</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MyFun</span><span class="p">(</span><span class="n">Fun</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">       <span class="c1">//...</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">       <span class="c1">//执行委托装载的函数</span>
+</span></span><span class="line"><span class="cl">       <span class="n">f</span><span class="p">.</span><span class="n">Invoke</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">//方式二:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MyFun</span> <span class="n">f2</span> <span class="p">=</span> <span class="n">Fun</span><span class="p">;</span><span class="c1">//注意只用写函数名</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">//...</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">//执行委托装载的函数</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="k">void</span> <span class="n">Fun</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;123123&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一般我们会怎么使用委托</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//委托的声明</span>
+</span></span><span class="line"><span class="cl"><span class="k">delegate</span> <span class="k">void</span> <span class="n">MyFun</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">delegate</span> <span class="kt">int</span> <span class="n">MyFun2</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Test</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//声明两个委托成员变量, 默认是空</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">MyFun</span> <span class="n">fun</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">MyFun2</span> <span class="n">fun2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">TestFun</span><span class="p">(</span><span class="n">MyFun</span> <span class="n">fun</span><span class="p">,</span> <span class="n">MyFun2</span> <span class="n">fun2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//先处理一些的别的逻辑，当这些逻辑处理完了，再执行传入的函数</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">i</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//...</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">//fun();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//fun2(i);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//先存起来，一会儿再执行</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="n">fun</span> <span class="p">=</span> <span class="n">fun</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="n">fun2</span> <span class="p">=</span> <span class="n">fun2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="k">void</span> <span class="n">AddFun</span><span class="p">(</span><span class="n">MyFun</span> <span class="n">fun</span><span class="p">,</span> <span class="n">MyFun2</span> <span class="n">fun2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="n">fun</span> <span class="p">+=</span> <span class="n">fun</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="n">fun</span> <span class="p">+=</span> <span class="n">fun2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Program</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Test</span> <span class="n">t</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Test</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="p">.</span><span class="n">TestFun</span><span class="p">(</span><span class="n">Fun</span><span class="p">,</span> <span class="n">Fun2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="k">void</span> <span class="n">Fun</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;123123&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kt">int</span> <span class="n">Fun2</span><span class="p">(</span><span class="kt">int</span> <span class="k">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>委托和变量的规则是一样的，只不过它是用来装函数的</p>
+</blockquote>
+<p><strong>委托变量可以存储多个函数</strong></p>
+<p>委托的作用：可以在我们处理逻辑的时候，先处理一些逻辑后，再批量处理一些别人想做的事</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//委托的声明</span>
+</span></span><span class="line"><span class="cl"><span class="k">delegate</span> <span class="k">void</span> <span class="n">MyFun</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Program</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//用委托存储多个函数</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MyFun</span> <span class="n">ff</span> <span class="p">=</span> <span class="n">Fun</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ff</span> <span class="p">+=</span> <span class="n">Fun3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ff</span><span class="p">();</span> <span class="c1">// Fun会被调用两次</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="k">void</span> <span class="n">Fun</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;张三做什么&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="k">void</span> <span class="n">Fun3</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;李四做什么&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kt">int</span> <span class="n">Fun2</span><span class="p">(</span><span class="kt">int</span> <span class="k">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>系统定义好的委托</strong></p>
+<h2 id="42事件">4.2事件
+</h2><h2 id="43匿名函数">4.3匿名函数
+</h2><h2 id="44lambda表达式">4.4Lambda表达式
+</h2><h1 id="4协变">4.协变
 </h1><h1 id="5多线程">5.多线程
 </h1><h1 id="6预处理器指令">6.预处理器指令
 </h1><h1 id="7反射">7.反射

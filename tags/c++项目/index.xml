@@ -7,20 +7,286 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Thu, 18 Dec 2025 20:06:59 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/c++%E9%A1%B9%E7%9B%AE/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>【项目】基于多设计模式下的同步&amp;异步日志系统</title>
-        <link>https://Amarantos-Arrebol.github.io/p/abnormal/</link>
+        <lastBuildDate>Wed, 06 May 2026 20:20:04 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/c++%E9%A1%B9%E7%9B%AE/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>【C&#43;&#43;项目】Boost搜索引擎</title>
+        <link>https://Amarantos-Arrebol.github.io/p/c-boost-search/</link>
+        <pubDate>Thu, 23 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/p/c-boost-search/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/c-boost-search/09.jpg" alt="Featured image of post 【C&#43;&#43;项目】Boost搜索引擎" /&gt;&lt;h1 id=&#34;1项目介绍&#34;&gt;1.项目介绍
+&lt;/h1&gt;&lt;h2 id=&#34;11项目背景&#34;&gt;1.1项目背景
+&lt;/h2&gt;&lt;p&gt;目前市面上有很多公司已经做了搜索引擎，比如现在有百度搜索、搜狗搜索、360搜索等，但是要我们自己实现一个完整的搜索引擎，基本是不可能的。&lt;/p&gt;
+&lt;p&gt;不过，我们可以做一个简单的搜索引擎，比如类似于&lt;a class=&#34;link&#34; href=&#34;![image-20260423112447504]%28index.assets/image-20260423112447504.png%29&#34; &gt;cplusplus&lt;/a&gt;网站的&lt;strong&gt;站内搜索引擎&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;站内搜索引擎和百度、360、搜狗这样的大公司做的搜索引擎最大的不同就是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;站内搜索搜索的数据更垂直（也就是搜索的相关内容都有很强的相关性）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数据量更小。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通过观察大公司的搜索引擎，我们可以发现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;搜索引擎搜索出来的结果核心内容分三块：网页的title标题，网页内容的摘要描述，即将跳转到的网址url。搜索后，点击网页的标题就可以跳转到目标网址&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-boost-search/index.assets/image-20260423113507641.png&#34;
+	width=&#34;1089&#34;
+	height=&#34;510&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260423113507641&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;213&#34;
+		data-flex-basis=&#34;512px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;大部分商业公司，尤其是以搜索引擎起家的公司，他们的盈利方式基本上是采用竞价排名的方式去获利的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-boost-search/index.assets/image-20260423201451986.png&#34;
+	width=&#34;1468&#34;
+	height=&#34;698&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260423201451986&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;210&#34;
+		data-flex-basis=&#34;504px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;12搜索引擎的相关宏观原理&#34;&gt;1.2搜索引擎的相关宏观原理
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;1）浏览器通过GET方式，上传搜索关键字，http请求的方式，进行搜索任务。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2）服务器的searcher服务进行&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;去标签&amp;amp;&amp;amp;数据清洗&lt;/li&gt;
+&lt;li&gt;建立索引&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以加速到数据库中查找的速度&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过爬虫程序爬取全网的网页数据，放到数据库中。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;3）服务器的searcher服务检索索引得到相关的html&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4）拼接多个网页的 title+desc+url，构建一个新的网页，返回给用户&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/c-boost-search/index.assets/image-20260423144853125.png&#34;
+	width=&#34;2145&#34;
+	height=&#34;952&#34;
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20260423144853125&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;225&#34;
+		data-flex-basis=&#34;540px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;2核心技术与项目环境&#34;&gt;2.核心技术与项目环境
+&lt;/h1&gt;&lt;p&gt;核心技术：C/C++，C++11，STL，标准库Boost，Jsoncpp（浏览器和服务器之间进行数据交换），cppjieba（将搜索关键字进行切分），cpphttplib（借助开源库构建HTTP服务器），html5，css，js，jQuery，Ajax&lt;/p&gt;
+&lt;p&gt;项目环境：Centos7云服务器，vim/gcc(g++)/Makefile，vscode&lt;/p&gt;
+&lt;h1 id=&#34;3相关技术知识&#34;&gt;3.相关技术知识
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;搜索引擎具体原理：正排索引 vs 倒排索引&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;假如我们现在有下面两个文档：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文档1：【雷军买了四斤小米】&lt;/li&gt;
+&lt;li&gt;文档2：【雷军发布了小米手机】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;1.正排索引，就是从文档ID&lt;mark&gt;找到文档内容&lt;/mark&gt;（文档内的关键字）&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;文档ID&lt;/th&gt;
+          &lt;th&gt;文档内容&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;雷军买了四斤小米&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;雷军发不了小米手机&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;目标文档进行分词，目的是为了方便建立倒排索引和查找&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文档1：【雷军买了四斤小米】：雷军/买/了四斤/小米&lt;/li&gt;
+&lt;li&gt;文档2：【雷军发布了小米手机】：雷军/发布了/小米手机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;停止词：就是像 &lt;code&gt;了&lt;/code&gt;，&lt;code&gt;的&lt;/code&gt;，&lt;code&gt;吗&lt;/code&gt;，&lt;code&gt;a&lt;/code&gt;，&lt;code&gt;the&lt;/code&gt;等这样的词，我们一般在分词的时候不考虑&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.倒排索引，就是根据文档内容，进行分词，并整理不重复的各个关键字，对应&lt;mark&gt;联系到文档ID&lt;/mark&gt;的方案&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;关键字（具有唯一性）&lt;/th&gt;
+          &lt;th&gt;文档ID, weight(权重)&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;雷军&lt;/td&gt;
+          &lt;td&gt;文档1，文档2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;买&lt;/td&gt;
+          &lt;td&gt;文档1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;四斤&lt;/td&gt;
+          &lt;td&gt;文档1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;小米&lt;/td&gt;
+          &lt;td&gt;文档1，文档2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;四斤小米&lt;/td&gt;
+          &lt;td&gt;文档1&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;发布&lt;/td&gt;
+          &lt;td&gt;文档2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;小米手机&lt;/td&gt;
+          &lt;td&gt;文档2&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;文档1和文档2都有关键字&lt;code&gt;小米&lt;/code&gt;，那么显示的时候是先显示文档1还是先显示文档2，就需要根据权值等其它条件了，比如权值高的排前面，权值低的排后面。文档和关键字之间的相关性&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;模拟一次查找的过程：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;用户输入&lt;code&gt;小米&lt;/code&gt;，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我们就拿着关键字&lt;code&gt;小米&lt;/code&gt;到倒排索引中查找，提取出文档ID &lt;code&gt;1&lt;/code&gt;和&lt;code&gt; 2&lt;/code&gt;，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;拿到文档ID后，我们就可以根据正排索引，找到文档内容，&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我们可以得到文档内容中的 title+content(desc)+url，然后将两个搜索出来的文档结果进行摘要，构建响应结果。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;4项目实现&#34;&gt;4.项目实现
+&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;拿到文档后，&lt;/p&gt;
+&lt;p&gt;1.对我们要搜索的网页信息进行基本的去标签，或者说做基本的数据清洗&lt;/p&gt;
+&lt;p&gt;2.基于HTTP服务器以及内置的搜索引擎服务这样的程序要启动起来，因为我们现在用的是云服务器，启动之后，我们可以在浏览器访问我们云服务器&lt;/p&gt;
+&lt;p&gt;3.要搜索，一定要用户提供关键字，同时服务端也要有一整套的资源供我们去搜索，所以我们服务器在启动的时候，需要基于我们想搜索的网页来构建索引&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;41数据去标签与数据清洗&#34;&gt;4.1数据去标签与数据清洗
+&lt;/h2&gt;&lt;p&gt;boost官网：https://www.boost.org/&lt;/p&gt;
+&lt;h2 id=&#34;42建立索引&#34;&gt;4.2建立索引
+&lt;/h2&gt;&lt;h2 id=&#34;43搜索引擎&#34;&gt;4.3搜索引擎
+&lt;/h2&gt;&lt;h2 id=&#34;44http_server&#34;&gt;4.4http_server
+&lt;/h2&gt;&lt;h1 id=&#34;5完整代码&#34;&gt;5.完整代码
+&lt;/h1&gt;</description>
+        </item>
+        <item>
+        <title>【C&#43;&#43;项目】实现 C&#43;&#43; AI 大模型接入 SDK</title>
+        <link>https://Amarantos-Arrebol.github.io/post/c&#43;&#43;%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0-c&#43;&#43;-ai-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%85%A5-sdk/</link>
+        <pubDate>Mon, 20 Apr 2026 00:00:00 +0000</pubDate>
+        
+        <guid>https://Amarantos-Arrebol.github.io/post/c&#43;&#43;%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0-c&#43;&#43;-ai-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%85%A5-sdk/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/post/c&#43;&#43;%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0-c&#43;&#43;-ai-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%85%A5-sdk/09.jpg" alt="Featured image of post 【C&#43;&#43;项目】实现 C&#43;&#43; AI 大模型接入 SDK" /&gt;&lt;blockquote class=&#34;alert alert-note&#34;&gt;
+    &lt;p&gt;&lt;strong&gt;C++在人工智能领域的定位&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;C++更偏向于实现人工智能底层基础的搭建工作，包括实现人工智能算法的开发&amp;hellip;&lt;/p&gt;
+&lt;img src=&#34;index.assets/image-20260326194942801.png&#34; alt=&#34;image-20260326194942801&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/blockquote&gt;
+&lt;h1 id=&#34;1项目简介&#34;&gt;1.项目简介
+&lt;/h1&gt;&lt;h2 id=&#34;1项目背景&#34;&gt;1.项目背景
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Transformer&lt;/li&gt;
+&lt;li&gt;openai：GPT系列&lt;/li&gt;
+&lt;li&gt;google：gemini系列&lt;/li&gt;
+&lt;li&gt;深度求索：deepseek系列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;刚开始模型只能处理文本的单模态，到后来模型不单纯可以文本，也可以生成图片、音频、视频等多模态。我们作为程序员，不应该只停留在大模型级别的产品，而应该积极去学习大模型应用背后的相关技术，将模型接入到我们的程序中，让AI为自己服务。&lt;/p&gt;
+&lt;p&gt;项目目标&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;掌握大模型相关的一些基础知识&lt;/li&gt;
+&lt;li&gt;掌握官网提供大模型的API接口的学习&lt;/li&gt;
+&lt;li&gt;掌握C++下远程接入大模型思路及技术实现&lt;/li&gt;
+&lt;li&gt;掌握C++下本地接入大模型的思路及技术实现&lt;/li&gt;
+&lt;li&gt;开发一套语言聊天大模型应用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2名词解释&#34;&gt;2.名词解释
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;模型 - Model&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;AI领域的模型，可以简单理解成一个从大量数据中学习规律、用于进行预测的数学函数，只是该函数参数巨多、无比复杂。&lt;/p&gt;
+&lt;p&gt;类比一个正在学说话的小孩，小孩通过学习模仿周围人的语言、行为等，建立起自己的语言规则&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;大模型 - Large Model&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;大模型的参数非常多，懂的知识非常多，既能看懂图片，又能听懂你的指令，还能用文字回答。大模型的大体现在：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;参数海量&lt;/li&gt;
+&lt;li&gt;训练数据恐怖&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;大语言模型 - Large Language Model - LLM&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;学习了整个互联网的文本，专门处理人类语言。&lt;/p&gt;
+&lt;p&gt;将整个互联网的数据喂给大模型后，大模型会通过神经网络分析词语之间的关系，但是它并不理解，当人类在提问的时候它会推测出最可能得回答。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提示词 - Prompt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;给AI任务说明书，告诉AI要做什么，怎么做的指令。&lt;/p&gt;
+&lt;p&gt;提示词设计三要素&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;角色设定&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;你是一个具有十年以上C++后端开发的架构师，请帮我设计类似微信的聊天软件&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;任务描述&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;用200字总结导致拖延症原因&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;格式约束&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;请按要点分条列出，每条不超过15字&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;上下文 - Content&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;AI在对话或任务中临时记住的信息。模型不会记住所有上下文信息，超出部分会被丢弃&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;token&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;token是模型用来表示自然语言文本的基本单位，可直观理解为“字”或“词”；通常1个中文词语、1 个英文单词、1 个数字或 1 个符号计为 1 个 token。&lt;/p&gt;
+&lt;h2 id=&#34;3deepseekchatgptgemini使用&#34;&gt;3.DeepSeek、ChatGPT、Gemini使用
+&lt;/h2&gt;&lt;p&gt;DeepSeek、ChatGPT、Gemini并不是大模型，而是基于某个大模型开发出来的大模型应用产品。&lt;/p&gt;
+&lt;h1 id=&#34;2ai基础知识&#34;&gt;2.AI基础知识
+&lt;/h1&gt;&lt;h1 id=&#34;3环境搭建&#34;&gt;3.环境搭建
+&lt;/h1&gt;&lt;h1 id=&#34;4chatsdk&#34;&gt;4.ChatSDK
+&lt;/h1&gt;&lt;h1 id=&#34;5基于chatsdk实现的智能聊天助手&#34;&gt;5.基于ChatSDK实现的智能聊天助手
+&lt;/h1&gt;&lt;h1 id=&#34;6项目扩展&#34;&gt;6.项目扩展
+&lt;/h1&gt;</description>
+        </item>
+        <item>
+        <title>【C&#43;&#43;项目】基于多设计模式下的同步&amp;异步日志系统</title>
+        <link>https://Amarantos-Arrebol.github.io/p/log-system/</link>
         <pubDate>Thu, 04 Dec 2025 00:00:00 +0000</pubDate>
         
-        <guid>https://Amarantos-Arrebol.github.io/p/abnormal/</guid>
-        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/abnormal/09.jpg" alt="Featured image of post 【项目】基于多设计模式下的同步&amp;异步日志系统" /&gt;&lt;h1 id=&#34;1项目介绍&#34;&gt;1.项目介绍
+        <guid>https://Amarantos-Arrebol.github.io/p/log-system/</guid>
+        <description>&lt;img src="https://Amarantos-Arrebol.github.io/p/log-system/09.jpg" alt="Featured image of post 【C&#43;&#43;项目】基于多设计模式下的同步&amp;异步日志系统" /&gt;&lt;h1 id=&#34;1项目介绍&#34;&gt;1.项目介绍
 &lt;/h1&gt;&lt;p&gt;&lt;strong&gt;日志系统&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;日志：程序运行过程中所记录的程序运行状态信息&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;作用：记录了程序运行状态信息，以便于程序员能够随时根据状态信息，对系统的运行状态进行分析&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;作用：记录了程序运行状态信息，以便于程序员能够随时根据状态信息，对系统的运行状态进行分析&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;功能：能够让用户非常简便地进行日志的输出及控制&lt;/p&gt;
@@ -34,13 +300,13 @@
 &lt;li&gt;
 &lt;p&gt;本日志系统将日志分成不同等级&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;如：调试级日志、提示级日志、警告级日志、错误级日志、致命级日志等&lt;/p&gt;
+&lt;p&gt;如：调试级、提示级、警告级、错误级、致命级日志等&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;不同级别的日志可以应对不同场景&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;如：可以设置一个限制输出级别，当我们在调试时，将输出级别设置成调试级别，让级别大于调试级别的日志都输出；当我们要线上发布时，将输出级别设置成错误，那么低于错误级别的日志就不会输出了，只会输出高于错误级别的日志&lt;/p&gt;
+&lt;p&gt;如：可以设置一个限制输出级别，当我们在调试时，将输出级别设置成调试级别，让级别大于调试级别的日志都输出；当我们要线上发布时，将输出级别设置成错误，那么低于错误级别的日志就不会输出了，只输出高于错误级别的日志&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -48,8 +314,8 @@
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;支持同步日志和异步日志&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;同步日志：将日志写入到文件/数据库这个操作，由业务线程自己来完成&lt;/li&gt;
-&lt;li&gt;异步日志：将日志放到内存中，由其它工作线程来专门负责对日志的实际输出&lt;/li&gt;
+&lt;li&gt;同步日志：将日志写入到文件/数据库这个操作，&lt;span style=&#34;color: #8080FF;&#34;&gt;由业务线程自己来完成&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;异步日志：将日志放到内存中，由&lt;span style=&#34;color: #8080FF;&#34;&gt;其它工作线程&lt;/span&gt;来专门负责对日志的实际输出&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -64,7 +330,7 @@
 &lt;li&gt;
 &lt;p&gt;支持文件切换输入&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;比如我们可以按文件大小来切换，通过限制输出日志文件大小，如果一个文件已经超过我们限制的大小，就换下一个文件进行写入；我们还可以按照日期来切换，一天一个日志文件，然后给系统设置定时任务，定时清理日志文件&lt;/p&gt;
+&lt;p&gt;比如：我们可以按文件大小来切换，通过限制输出日志文件大小，如果一个文件已经超过我们限制的大小，就换下一个文件进行写入；我们还可以按照日期来切换，一天一个日志文件，然后给系统设置定时任务，定时清理日志文件&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -101,9 +367,9 @@
 &lt;/h1&gt;&lt;h2 id=&#34;51为什么需要日志系统&#34;&gt;5.1为什么需要日志系统
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;保证生产环境产品的安全性&lt;/p&gt;
+&lt;p&gt;保证生产环境产品的稳定性及安全性&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;为了保证生产环境产品的安全性，开发人员不能通过附加调试器去解决问题&lt;/p&gt;
+&lt;p&gt;开发人员不能通过附加调试器去解决问题，而是可以借助日志系统来打印日志帮助开发人员解决问题&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -113,19 +379,182 @@
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
+&lt;p&gt;解决排查问题效率低下的问题&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;对于一些高频操作（如定时器、心跳包）在少量调试次数下可能无法触发我们想要的行为，通过断点的暂停方式，我们不得不重复操作几十次、上百次甚至更多，导致排查问题效率是非常低下，可以借助打印日志的方式查问题&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;在分布式、多线程/多进程代码中，出现bug比较难以定位，可以借助日志系统打印log帮助定位bug&lt;/p&gt;
+&lt;p&gt;在分布式、多线程/多进程代码中，可以借助日志系统打印 log 帮助定位 bug&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;帮助首次接触项目代码的新开发人员理解代码的运行流程&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;52日志系统的实现&#34;&gt;5.2日志系统的实现
-&lt;/h2&gt;&lt;h1 id=&#34;6相关技术知识&#34;&gt;6.相关技术知识
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;日志系统的技术实现主要包括三种类型：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;利用printf、std::out等输出函数将日志打印到控制台&lt;/li&gt;
+&lt;li&gt;将日志输出到文件或数据库系统
+&lt;ul&gt;
+&lt;li&gt;同步写日志&lt;/li&gt;
+&lt;li&gt;异步写日志&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;同步写日志&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;日志输出语句与程序的业务逻辑语句将在同一个线程运行&lt;/p&gt;
+&lt;p&gt;1）输出日志时，必须等日志输出语句执行完毕后，才能执行后面的业务逻辑&lt;/p&gt;
+&lt;p&gt;2）每次调用一次打印日志API就对应一次系统调用write写日志文件&lt;/p&gt;
+&lt;p&gt;缺陷：在高并发场景下，随着日志数量不断增加，同步日志系统容易产生系统瓶颈&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;大量的日志打印陷入等量的write系统调用，有一定系统开销&lt;/li&gt;
+&lt;li&gt;打印日志的进程附带了大量同步的磁盘IO，影响程序性能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;异步写日志&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;日志输出语句与业务逻辑语句不是在同一个线程中运行，而是有专门的线程进行日志输出。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;业务线程只需要将日志放到一个内存缓冲区中不用等待即可继续执行后续业务逻辑（作为日志的生产者），而日志的落地操作交给单独的日志线程去完成（作为日志的消费者），这是一个典型的生产-消费模型。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这样做的好处是即使日志没有真的地完成输出也不会影响程序的主业务，可以提高程序的性能：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;主线程调用日志打印接口成为非阻塞操作&lt;/li&gt;
+&lt;li&gt;同步的磁盘10从主线程中剥离出来交给单独的线程完成&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;6相关技术知识&#34;&gt;6.相关技术知识
 &lt;/h1&gt;&lt;h2 id=&#34;61不定参函数&#34;&gt;6.1不定参函数
-&lt;/h2&gt;&lt;h2 id=&#34;62设计模式&#34;&gt;6.2设计模式
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;不定参宏函数基本使用&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;不定参函数：一个函数的参数个数是不固定的，比如printf函数&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;//__FILE__ 源文件，__LINE__ 行号
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;[%s:%d] %s-%d&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;__FILE__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;__LINE__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;红楼梦&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;666&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果每次进行日志输出时，都需要我们自己输入 _&lt;em&gt;FILE&lt;/em&gt;_ 和 __LINE__ ，很麻烦，我们可以定义宏。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#define LOG(fmt, ...) printf(&amp;#34;[%s:%d]&amp;#34; fmt, __FILE__, __LINE__, ##__VA_ARGS__)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;LOG&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;%s-%d&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;水浒传&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;888&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;LOG&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;红楼梦&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 不定参参数为空
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;...&lt;/code&gt; 表示不定参&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;__VA_ARGS__ &lt;/code&gt;：使用不定参&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;##__VA_ARGS__&lt;/code&gt;：表示如果不定参为空，就取消前面的逗号&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;C语言不定参宏函数的使用&lt;/strong&gt;&lt;/p&gt;
+&lt;img src=&#34;index.assets/image-20260319182714829.png&#34; alt=&#34;image-20260319182714829&#34; style=&#34;zoom: 67%;&#34; /&gt; 
+&lt;ul&gt;
+&lt;li&gt;va_start：表示获取 last参数之后的第一个不定参的起始地址&lt;/li&gt;
+&lt;li&gt;va_arg：从参数列表开始，获取一个 type类型的参数&lt;/li&gt;
+&lt;li&gt;va_end：将 ap指针置空&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;例子：打印数字&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#include&lt;/span&gt; &lt;span class=&#34;cpf&#34;&gt;&amp;lt;stdarg.h&amp;gt;&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;printNum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;...)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 打印数字
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;//1.通过va_start 获取第一个不定参参数的地址
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;va_list&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;va_start&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// 表示获取count参数之后的第一个不定参的起始地址
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;//2.通过va_args 获取里面的数据
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;va_arg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//从参数列表开始，获取一个int类型的参数
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     &lt;span class=&#34;nf&#34;&gt;printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;param[%d]:%d&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;num&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;c1&#34;&gt;//3.将ap指针置空
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;va_end&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nf&#34;&gt;printNum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;55&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;img src=&#34;index.assets/image-20260420173459249.png&#34; alt=&#34;image-20260420173459249&#34; style=&#34;zoom:50%;&#34; /&gt; 
+&lt;p&gt;&lt;strong&gt;例子2：模拟实现printf&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;vasprintf函数&lt;/p&gt;
+&lt;img src=&#34;index.assets/image-20260420174850502.png&#34; alt=&#34;image-20260420174850502&#34; style=&#34;zoom:67%;&#34; /&gt; 
+&lt;ul&gt;
+&lt;li&gt;我们传一个一级指针的地址strp，函数内部会申请空间进行组织，根据fmt里面字符串格式，格式化字符，来从参数列表中取出一个一个的参数，来进行数据组织，组织好后放入它申请的空间中，但是strp这块空间不要忘记使用 free 来进行释放。&lt;/li&gt;
+&lt;li&gt;如果发生错误，返回-1；如果成功，返回组织好的字符串长度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;C++不定参宏函数的使用&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;62设计模式&#34;&gt;6.2设计模式
 &lt;/h2&gt;</description>
         </item>
         

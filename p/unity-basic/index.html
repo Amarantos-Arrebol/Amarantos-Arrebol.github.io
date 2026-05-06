@@ -10,7 +10,7 @@
 <meta property='og:description' content="0前言👋 官方教程:\nlearn.unity.com\nhttps://learn.unity.com/course/roll-a-ball?version=2022.3\n0.1UnityHub的相关设置 默认项目创建的位置、安装的Editor、下载位置 都是在C盘，建议改\n添加模块\n0.2关于版本 LTS（LongTerm Support）长期支持版本\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/unity-basic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Unity' /><meta property='article:published_time' content='2025-12-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T18:20:05&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Unity' /><meta property='article:published_time' content='2025-12-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.png' />
 <meta name="twitter:title" content="【unity3d游戏开发】Unity入门">
 <meta name="twitter:description" content="0前言👋 官方教程:\nlearn.unity.com\nhttps://learn.unity.com/course/roll-a-ball?version=2022.3\n0.1UnityHub的相关设置 默认项目创建的位置、安装的Editor、下载位置 都是在C盘，建议改\n添加模块\n0.2关于版本 LTS（LongTerm Support）长期支持版本\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/unity-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%914K-%E5%8A%A8%E6%BC%AB-%E6%B5%B7%E8%BE%B9%E6%9D%91%E5%BA%84.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1413,26 +1413,47 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="#121搭建环境">1.2.1搭建环境</a></li>
             <li><a href="#122控制相机左右移动">1.2.2控制相机左右移动</a></li>
             <li><a href="#补充fixedupdate">补充：FixedUpdate</a></li>
-            <li><a href="#123创建子弹">1.2.3创建子弹</a></li>
+            <li><a href="#123创建子弹">1.2.3创建子弹(小球)</a></li>
+            <li><a href="#124智慧城市">1.2.4智慧城市</a></li>
           </ul>
         </li>
       </ul>
     </li>
     <li><a href="#02入门">02入门🌈</a>
       <ul>
-        <li><a href="#1入门知识">1.入门知识</a>
+        <li><a href="#21入门知识">2.1入门知识</a>
           <ul>
+            <li><a href="#211游戏场景">2.1.1游戏场景</a></li>
+            <li><a href="#212预制体和资源包的导入导出">2.1.2预制体和资源包的导入导出</a></li>
+            <li><a href="#213脚本基本规则">2.1.3脚本基本规则</a></li>
+            <li><a href="#214生命周期函数">2.1.4生命周期函数</a></li>
+            <li><a href="#215窗口可编辑变量">2.1.5窗口可编辑变量</a></li>
+            <li><a href="#216monobehavior中的重要内容">2.1.6MonoBehavior中的重要内容</a></li>
             <li><a href="#反射机制">反射机制</a></li>
-            <li><a href="#游戏场景">游戏场景</a></li>
-            <li><a href="#预制体和资源包的导入导出">预制体和资源包的导入导出</a></li>
-            <li><a href="#脚本基本规则">脚本基本规则</a></li>
-            <li><a href="#生命周期函数">生命周期函数</a></li>
             <li><a href="#协同程序简称协程"><strong>协同程序简称协程</strong></a>
               <ul>
                 <li><a href="#协同程序和线程的区别"><strong>协同程序和线程的区别</strong></a></li>
                 <li><a href="#协程的使用"><strong>协程的使用</strong></a></li>
               </ul>
             </li>
+          </ul>
+        </li>
+        <li><a href="#22实践小项目">2.2实践小项目</a>
+          <ul>
+            <li><a href="#221必备知识点">2.2.1必备知识点</a>
+              <ul>
+                <li><a href="#必备知识点1场景切换和游戏退出">必备知识点1：场景切换和游戏退出</a></li>
+                <li><a href="#必备知识点2鼠标隐藏锁定相关">必备知识点2：鼠标隐藏锁定相关</a></li>
+                <li><a href="#必备知识点3随机数和unity自带委托相关">必备知识点3：随机数和Unity自带委托相关</a></li>
+                <li><a href="#必备知识点4模型资源的导入">必备知识点4：模型资源的导入</a></li>
+              </ul>
+            </li>
+            <li><a href="#222需求分析">2.2.2需求分析</a></li>
+            <li><a href="#223代码和资源导入">2.2.3代码和资源导入</a></li>
+            <li><a href="#224开始场景">2.2.4开始场景</a></li>
+            <li><a href="#225开始场景">2.2.5开始场景</a></li>
+            <li><a href="#226游戏场景">2.2.6游戏场景</a></li>
+            <li><a href="#227结束界面">2.2.7结束界面</a></li>
           </ul>
         </li>
       </ul>
@@ -1555,12 +1576,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2026-03-15
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">10072 字 </span>
+      <span class="article-time--wordcount">14000 字 </span>
     </div>
      
 
@@ -1894,107 +1915,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="07初识unity">0.7初识Unity
 </h2><h3 id="061创建代码和场景"><strong>0.6.1创建代码和场景</strong>
 </h3><h4 id="创建c脚本">创建C#脚本
-</h4><p><img src="/p/unity-basic/index.assets/1757733695817-be8edf55-8da3-42d1-9373-513d9e32a1ac.png"
-	width="538"
-	height="525"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="102"
-		data-flex-basis="245px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1757733812652-e4e059f5-dac6-4ad1-8fcf-c4ab51c9f48c.png"
-	width="917"
-	height="849"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="108"
-		data-flex-basis="259px"
-	
-></p>
+</h4><img src="index.assets/1757733695817-be8edf55-8da3-42d1-9373-513d9e32a1ac.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1757733812652-e4e059f5-dac6-4ad1-8fcf-c4ab51c9f48c.png" alt="img" style="zoom:50%;" /> 
 <p>我们这里取名为Hello</p>
-<p><img src="/p/unity-basic/index.assets/1757734045160-06056021-852f-448f-9119-b3a9357eb421.png"
-	width="424"
-	height="137"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="309"
-		data-flex-basis="742px"
-	
-></p>
+<img src="index.assets/1757734045160-06056021-852f-448f-9119-b3a9357eb421.png" alt="img" style="zoom:50%;" /> 
 <p>创建好后，我们可以看到在Assets目录下多了两个文件</p>
-<p><img src="/p/unity-basic/index.assets/1757734002543-7d2549f4-f531-4839-8e6e-103a197ba975.png"
-	width="777"
-	height="374"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="207"
-		data-flex-basis="498px"
-	
-></p>
+<img src="index.assets/1757734002543-7d2549f4-f531-4839-8e6e-103a197ba975.png" alt="img" style="zoom:50%;" /> 
 <h4 id="创建场景">创建场景
-</h4><p><img src="/p/unity-basic/index.assets/1757735199101-0fd0cb7e-f10d-4a06-9108-387a680adcc0.png"
-	width="411"
-	height="293"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="140"
-		data-flex-basis="336px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1757735228666-170f2334-97f1-451d-a404-2dafe850392f.png"
-	width="916"
-	height="737"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="124"
-		data-flex-basis="298px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1757735292080-5e7dbeb8-c9d4-472a-a920-435222429cff.png"
-	width="401"
-	height="243"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="165"
-		data-flex-basis="396px"
-	
-></p>
+</h4><img src="index.assets/1757735199101-0fd0cb7e-f10d-4a06-9108-387a680adcc0.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1757735228666-170f2334-97f1-451d-a404-2dafe850392f.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1757735292080-5e7dbeb8-c9d4-472a-a920-435222429cff.png" alt="img" style="zoom:50%;" /> 
 <h3 id="062五个窗口面板的作用">0.6.2五个窗口面板的作用
 </h3><blockquote>
 <p><strong>总结</strong></p>
@@ -2021,36 +1951,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <p>修改完后可以保存布局</p>
-<p><img src="/p/unity-basic/index.assets/1757735506792-f46e8492-9ee6-4a1d-8c82-290c3f3fecb6.png"
-	width="416"
-	height="435"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="95"
-		data-flex-basis="229px"
-	
-></p>
+<img src="index.assets/1757735506792-f46e8492-9ee6-4a1d-8c82-290c3f3fecb6.png" alt="img" style="zoom:50%;" /> 
 <h4 id="1project窗口"><strong>1）Project窗口</strong>
 </h4><p>Project窗口主要用来管理资源脚本文件，所有游戏资源都会显示在该窗口中</p>
-<p><img src="/p/unity-basic/index.assets/1758025579298-80bfbda6-011a-470a-92fc-6190a015aba9.png"
-	width="497"
-	height="633"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="78"
-		data-flex-basis="188px"
-	
-></p>
+<img src="index.assets/1758025579298-80bfbda6-011a-470a-92fc-6190a015aba9.png" alt="img" style="zoom:50%;" /> 
 <ul>
 <li>
 <p>Assets存放场景相关的文件</p>
@@ -2066,217 +1970,35 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 <p><strong>创建一些资源</strong></p>
 <p>方式一：点上面的加号</p>
-<p><img src="/p/unity-basic/index.assets/1760619581364-35bce4cf-b7dd-47cb-b07f-930c56a3c8ff.png"
-	width="334"
-	height="232"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="143"
-		data-flex-basis="345px"
-	
-></p>
+<img src="index.assets/1760619581364-35bce4cf-b7dd-47cb-b07f-930c56a3c8ff.png" alt="img" style="zoom:50%;" /> 
 <p>比如—&gt;</p>
-<p><img src="/p/unity-basic/index.assets/1760619634274-2485a8cd-453b-435e-81ce-6ab10b1690ff.png"
-	width="391"
-	height="221"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="176"
-		data-flex-basis="424px"
-	
-></p>
+<img src="index.assets/1760619634274-2485a8cd-453b-435e-81ce-6ab10b1690ff.png" alt="img" style="zoom:50%;" /> 
 <p>方式二：直接在一个文件夹上右键新建</p>
-<p><img src="/p/unity-basic/index.assets/1760619816095-0c05f435-f85e-4e1e-b655-d758329ee3a5.png"
-	width="871"
-	height="295"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="295"
-		data-flex-basis="708px"
-	
-></p>
+<img src="index.assets/1760619816095-0c05f435-f85e-4e1e-b655-d758329ee3a5.png" alt="img" style="zoom:50%;" /> 
 <p>在文件浏览器中显示资源</p>
-<p><img src="/p/unity-basic/index.assets/1760619867364-ed6d2eca-89ef-46b4-a1d3-d14855b7bd30.png"
-	width="344"
-	height="183"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="187"
-		data-flex-basis="451px"
-	
-></p>
+<img src="index.assets/1760619867364-ed6d2eca-89ef-46b4-a1d3-d14855b7bd30.png" alt="img" style="zoom:50%;" /> 
 <p><strong>查找</strong></p>
-<p><img src="/p/unity-basic/index.assets/1760619988063-d325c6c8-c2ec-47da-974a-f42519c550e4.png"
-	width="439"
-	height="504"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="87"
-		data-flex-basis="209px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1760620145672-fa6faf8a-f033-4f45-bbb7-3f1f54f7365b.png"
-	width="448"
-	height="356"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="125"
-		data-flex-basis="302px"
-	
-></p>
+<img src="index.assets/1760619988063-d325c6c8-c2ec-47da-974a-f42519c550e4.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1760620145672-fa6faf8a-f033-4f45-bbb7-3f1f54f7365b.png" alt="img" style="zoom:50%;" /> 
 <h4 id="2hierachy层级面板"><strong>2）Hierachy（层级面板）</strong>
 </h4><p>显示当前场景有哪些东西</p>
-<p><img src="/p/unity-basic/index.assets/1758025736926-717de4cb-2ebf-4eac-877c-83a7e69e75c7.png"
-	width="504"
-	height="667"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="75"
-		data-flex-basis="181px"
-	
-></p>
+<img src="index.assets/1758025736926-717de4cb-2ebf-4eac-877c-83a7e69e75c7.png" alt="img" style="zoom:50%;" />  
 <p>默认层级面板会有一个灯光和一个相机</p>
-<p><img src="/p/unity-basic/index.assets/1758025849397-9da36e9d-cfe1-4106-9039-653b9ffa424a.png"
-	width="505"
-	height="233"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="216"
-		data-flex-basis="520px"
-	
-></p>
+<img src="index.assets/1758025849397-9da36e9d-cfe1-4106-9039-653b9ffa424a.png" alt="img" style="zoom:50%;" />  
 <p>我们在层级面板的空白处双击就可以创建一些物品，比如我们可以创建一个正方形：</p>
-<p><img src="/p/unity-basic/index.assets/1758025925057-4d1881b2-ba15-434e-88b6-5f67288bac62.png"
-	width="809"
-	height="1289"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="62"
-		data-flex-basis="150px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1758026213602-5da45cd3-d25e-4ce8-805d-9a5bcb2cd045.png"
-	width="524"
-	height="283"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="185"
-		data-flex-basis="444px"
-	
-></p>
+<img src="index.assets/1758025925057-4d1881b2-ba15-434e-88b6-5f67288bac62.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1758026213602-5da45cd3-d25e-4ce8-805d-9a5bcb2cd045.png" alt="img" style="zoom:50%;" />  
 <p>场景没有保存时会出现一个星号：</p>
-<p><img src="/p/unity-basic/index.assets/1758026082106-8aa943c5-ad58-4fe1-9a79-5aa9bad599d2.png"
-	width="386"
-	height="220"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="175"
-		data-flex-basis="421px"
-	
-></p>
+<img src="index.assets/1758026082106-8aa943c5-ad58-4fe1-9a79-5aa9bad599d2.png" alt="img" style="zoom:50%;" /> 
 <h4 id="3检视面板属性面板"><strong>3）检视面板（属性面板）</strong>
 </h4><p>显示当前对象(物体)有哪些组件(脚本)</p>
-<p><img src="/p/unity-basic/index.assets/1758026570543-65bc24ed-c0e2-4160-9eee-96356e17d637.png"
-	width="925"
-	height="501"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="184"
-		data-flex-basis="443px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1765444837913-1ef48880-d72e-46f3-8f3f-0bd2fd8f1543.png"
-	width="477"
-	height="730"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="65"
-		data-flex-basis="156px"
-	
-></p>
+<img src="index.assets/1758026570543-65bc24ed-c0e2-4160-9eee-96356e17d637.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1765444837913-1ef48880-d72e-46f3-8f3f-0bd2fd8f1543.png" alt="img" style="zoom:50%;" />  
 <p>红色部分：游戏对象基本设置</p>
 <p>蓝色部分：关联的C#脚本</p>
 <p>绿色部分：脚本的公共成员变量</p>
 <p>只要是出现在场景中的物体，就会有一个位置信息</p>
-<p><img src="/p/unity-basic/index.assets/1764580499984-e3c7c2dd-5593-48ed-a1f9-9c97d76e1f10.png"
-	width="430"
-	height="319"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="134"
-		data-flex-basis="323px"
-	
-></p>
+<img src="index.assets/1764580499984-e3c7c2dd-5593-48ed-a1f9-9c97d76e1f10.png" alt="img" style="zoom:50%;" />  
 <h4 id="4scene面板场景面板">4）scene面板（场景面板）
 </h4><p>显示当前场景，编辑当前场景</p>
 <p><img src="/p/unity-basic/index.assets/1758026764515-f35eaf58-0b13-4784-a4db-c3ab317a2b7a.png"
@@ -2322,86 +2044,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="242px"
 	
 ></p>
-<p><img src="/p/unity-basic/index.assets/1759840046620-f9d9dccc-f2d5-4fcc-b3f6-71221f510f4b.png"
-	width="1413"
-	height="361"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="391"
-		data-flex-basis="939px"
-	
-></p>
+<img src="index.assets/1759840046620-f9d9dccc-f2d5-4fcc-b3f6-71221f510f4b.png" alt="img" style="zoom:50%;" /> 
 <ul>
 <li><strong>Global和Local</strong></li>
 </ul>
-<p><img src="/p/unity-basic/index.assets/1758244142497-2549308f-faf4-4e8d-bd25-6e42b530b4bf.png"
-	width="699"
-	height="358"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="195"
-		data-flex-basis="468px"
-	
-></p>
+<img src="index.assets/1758244142497-2549308f-faf4-4e8d-bd25-6e42b530b4bf.png" alt="img" style="zoom:50%;" /> 
 <p>local是顺着物体自身的坐标系</p>
 <ul>
 <li><strong>qwer</strong></li>
 </ul>
-<p><img src="/p/unity-basic/index.assets/1758247194163-44259184-7237-47de-aa53-26d80e9fa954.png"
-	width="348"
-	height="456"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="76"
-		data-flex-basis="183px"
-	
-></p>
+<img src="index.assets/1758247194163-44259184-7237-47de-aa53-26d80e9fa954.png" alt="img" style="zoom:50%;" /> 
 <ul>
 <li><strong>碰撞器和同时调出qwer</strong></li>
 </ul>
-<p><img src="/p/unity-basic/index.assets/1758247625660-5fd58a1e-8c07-43b2-bf0b-b76bcdc7d323.png"
-	width="427"
-	height="478"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="89"
-		data-flex-basis="214px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1758247809261-e4348cab-407a-4779-a6a2-e484cf6ce143.png"
-	width="842"
-	height="889"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="94"
-		data-flex-basis="227px"
-	
-></p>
+<img src="index.assets/1758247625660-5fd58a1e-8c07-43b2-bf0b-b76bcdc7d323.png" alt="img" style="zoom: 50%;" /> 
+<img src="index.assets/1758247809261-e4348cab-407a-4779-a6a2-e484cf6ce143.png" alt="img" style="zoom:50%;" /> 
 <h4 id="5game面板游戏面板">5）game面板（游戏面板）
 </h4><p>显示场游戏运行起来时候的样子</p>
 <p><img src="/p/unity-basic/index.assets/1758026878335-b87b1a75-2526-455c-b28d-ec3c33fa157b.png"
@@ -2465,69 +2122,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 ></p>
 <h3 id="064unity中的基本模型和场景操作">0.6.4Unity中的基本模型和场景操作
-</h3><p><img src="/p/unity-basic/index.assets/1758200580422-c70128dc-a995-4ed8-82db-189cbbac742b.png"
-	width="690"
-	height="827"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="83"
-		data-flex-basis="200px"
-	
-></p>
+</h3><img src="index.assets/1758200580422-c70128dc-a995-4ed8-82db-189cbbac742b.png" alt="img" style="zoom:50%;" /> 
 <p><strong>透视视野和平行视野的切换</strong></p>
 <ul>
 <li>Persp 透视视野：远近切换后，物体会放大或缩小</li>
 <li>Iso 平行视野：远近切换后，物体大小不变，一般做2D游戏时常用</li>
 </ul>
-<p><img src="/p/unity-basic/index.assets/1758200912761-2893fb33-af0a-423a-afc1-44128b05c104.png"
-	width="950"
-	height="423"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="224"
-		data-flex-basis="539px"
-	
-></p>
+<img src="index.assets/1758200912761-2893fb33-af0a-423a-afc1-44128b05c104.png" alt="img" style="zoom:50%;" /> 
 <h3 id="064世界坐标系和局部坐标系">0.6.4世界坐标系和局部坐标系
-</h3><p><img src="/p/unity-basic/index.assets/1759839759850-e00da5ef-5f14-4f5c-9473-c0bc5b7c819c.png"
-	width="1500"
-	height="620"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="241"
-		data-flex-basis="580px"
-	
-></p>
+</h3><img src="index.assets/1759839759850-e00da5ef-5f14-4f5c-9473-c0bc5b7c819c.png" alt="img" style="zoom:50%;" /> 
 <p>0,0,0世界坐标系原点</p>
-<p><img src="/p/unity-basic/index.assets/1758241885033-e50bcbfa-5542-42e7-ba87-5fae5d6c534e.png"
-	width="556"
-	height="163"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="341"
-		data-flex-basis="818px"
-	
-></p>
+<img src="index.assets/1758241885033-e50bcbfa-5542-42e7-ba87-5fae5d6c534e.png" alt="img" style="zoom:50%;" /> 
 <p><strong>局部坐标系</strong></p>
 <p>当一个物体称为另一个物体的子集时，坐标为局部坐标，该物体的坐标原点就是它父物体的坐标</p>
 <p>Unity中的物体以米为单位，可以参考1<em>1</em>1*1的正方体来调整其它物体的大小</p>
@@ -2575,82 +2180,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="221px"
 	
 ></p>
-<p><img src="/p/unity-basic/index.assets/1758248601817-10c4f731-1519-4a68-9616-97a5db406e2c.png"
-	width="253"
-	height="416"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="60"
-		data-flex-basis="145px"
-	
-></p>
+<img src="index.assets/1758248601817-10c4f731-1519-4a68-9616-97a5db406e2c.png" alt="img" style="zoom:50%;" /> 
 <h3 id="066切换工具和步移工具">0.6.6切换工具和步移工具
 </h3><p>在全局模式下，可以使用步移工具，即可以1米1米地移动物体</p>
-<p><img src="/p/unity-basic/index.assets/1758248734905-9e4fb2b5-e1ff-41c0-b0c1-95bce78eaff5.png"
-	width="694"
-	height="474"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="146"
-		data-flex-basis="351px"
-	
-></p>
+<img src="index.assets/1758248734905-9e4fb2b5-e1ff-41c0-b0c1-95bce78eaff5.png" alt="img" style="zoom:50%;" /> 
 <p>或者按住ctrl移动，但是ctrl每一步只移动0.25米</p>
 <h3 id="067创建地面-控制地面颜色">0.6.7创建地面-控制地面颜色
 </h3><p><strong>1）创建一个平面并调大小</strong></p>
-<p><img src="/p/unity-basic/index.assets/1758250568624-6d5c3f81-d519-4ae8-9981-a0fd1ac0437e.png"
-	width="726"
-	height="828"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="87"
-		data-flex-basis="210px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1758250396939-ae2ad8f0-a82e-46b2-a5ce-e6a6c0b5b7dd.png"
-	width="595"
-	height="196"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="303"
-		data-flex-basis="728px"
-	
-></p>
+<img src="index.assets/1758250568624-6d5c3f81-d519-4ae8-9981-a0fd1ac0437e.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1758250396939-ae2ad8f0-a82e-46b2-a5ce-e6a6c0b5b7dd.png" alt="img" style="zoom:50%;" /> 
 <p><strong>2）新建一个材质</strong></p>
-<p><img src="/p/unity-basic/index.assets/1758250487950-576ee16e-59f3-4788-8656-2cd396039b66.png"
-	width="895"
-	height="563"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="158"
-		data-flex-basis="381px"
-	
-></p>
+<img src="index.assets/1758250487950-576ee16e-59f3-4788-8656-2cd396039b66.png" alt="img" style="zoom:50%;" /> 
 <p><strong>3）修改颜色</strong></p>
 <p><img src="/p/unity-basic/index.assets/1758251287657-d8af2f9c-6a76-4743-8f4b-41470ebf0423.png"
 	width="993"
@@ -2680,20 +2220,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="396px"
 	
 ></p>
-<p><img src="/p/unity-basic/index.assets/1758251127025-707a5d11-d055-4915-a0f4-e8621f9f6a8a.png"
-	width="642"
-	height="773"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="83"
-		data-flex-basis="199px"
-	
-></p>
+<img src="index.assets/1758251127025-707a5d11-d055-4915-a0f4-e8621f9f6a8a.png" alt="img" style="zoom:50%;" /> 
 <p>着色器 shader</p>
 <h3 id="068游戏物体的基本组件和渲染模型和碰撞模型">0.6.8游戏物体的基本组件和渲染模型和碰撞模型
 </h3><p>smoothness可以调整粗糙度</p>
@@ -2711,34 +2238,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="206px"
 	
 ></p>
-<p><img src="/p/unity-basic/index.assets/1758510039098-0db67412-72ae-4dc1-ac30-716a785652f8.png"
-	width="642"
-	height="584"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="109"
-		data-flex-basis="263px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1758510086807-d163cb57-4491-4eb4-ae23-e813b1d444bf.png"
-	width="641"
-	height="267"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="240"
-		data-flex-basis="576px"
-	
-></p>
+<img src="index.assets/1758510039098-0db67412-72ae-4dc1-ac30-716a785652f8.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1758510086807-d163cb57-4491-4eb4-ae23-e813b1d444bf.png" alt="img" style="zoom:50%;" /> 
 <h3 id="069游戏引擎的作用">0.6.9游戏引擎的作用
 </h3><p>渲染计算，openGL移动端的渲染，dx是pc端的渲染</p>
 <p>碰撞检测</p>
@@ -4415,48 +3916,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="168px"
 	
 ></p>
-<h1 id="02入门">02入门🌈
-</h1><h2 id="1入门知识">1.入门知识
-</h2><h3 id="反射机制">反射机制
-</h3><p><strong>反射</strong></p>
-<p>程序正在运行时，可以查看其它程序集或者自身的元数据</p>
-<p>运行的程序查看本身或者其它程序的元数据的行为就叫做反射</p>
-<p>在程序运行时，通过反射可以得到其它程序集或者自己程序集中</p>
-<p>代码的各种信息，比如类，函数，变量，对象等等</p>
-<p>我们可以实例化它们，执行它们，操作它们</p>
-<p><strong>Unity中的反射机制</strong></p>
-<p>Unity引擎本质是一个软件，使用它时是处于运行中的</p>
-<p>我们是在一个运行中的软件里制作游戏的Unity开发的本质就是，</p>
-<p>在Unity引擎的基础上，利用反射和引擎提供的各种功能进行的拓展开发</p>
-<p><strong>场景中对象的本质是什么</strong></p>
-<p>GameObject类对象是Unity引擎提供给我们的，作为场景中所有对象的根本，</p>
-<p>在游戏场景中出现一个对象，不管是图片、模型、音效、摄像机等等都是依附于GameObject对象的</p>
-<p>拟人化记忆：GameObject就是没有剧本的演员</p>
-<p><strong>Transform是什么</strong></p>
-<p>GameObject对象作为一个出现在舞台（3D场景）中的演员必须有一个表示自己所在位置的信息。Transform就是一个必不可少的剧本，它的本质就是发了一本表示位置的剧本给演员（相当于就是用一个Transform类对象和GameObject类对象进行关联）用于设置和得到演员在世界中的位置角度缩放等信息</p>
-<p><strong>反射机制的体现</strong></p>
-<p>除了Transform这个表示位置的标配剧本外，我们可以为这个演员（GameObject）关联各种剧本（C#脚本让它按照我们剧本中（代码逻辑中）的命令来处理事情，而为演员添加剧本的这个过程，就是在利用反射new一个新的剧本对象和演员（GameObject）对象进行关联，让其按我们的命令做事)</p>
-<p><img src="/p/unity-basic/index.assets/1765070654635-bde254bf-14d6-4c05-8c08-2dded065d9a6.png"
-	width="1342"
-	height="418"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="321"
-		data-flex-basis="770px"
-	
-></p>
-<p><strong>举例体现</strong></p>
-<p>前提：Unity帮助我们实现了对象查找和关联</p>
-<p>1.修改lnspector面板中Transform的内容</p>
-<p>利用反射：已知对象，类名，变量名，通过反射为该对象设置变量值</p>
-<p>2.新建一个脚本后，添加给一个指定的GameObject对象</p>
-<p>利用反射：已知类名，可以获取所有公共成员，故可以在lnspector面板上创建各公共字段信息</p>
-<h3 id="游戏场景">游戏场景
+<h3 id="124智慧城市">1.2.4智慧城市
+</h3><h1 id="02入门">02入门🌈
+</h1><h2 id="21入门知识">2.1入门知识
+</h2><h3 id="211游戏场景">2.1.1游戏场景
 </h3><p><strong>新建场景</strong></p>
 <p><img src="/p/unity-basic/index.assets/1765071118642-9f29e3cf-6498-4750-8ec0-7e2c4b1d58e1.png"
 	width="366"
@@ -4507,7 +3970,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>Unity有一套自己识别处理它的机制，但是本质就是把场景对象相关信息读取出来通过反射来创建各个对象关联各个脚本对象</p>
 <p>Unity的工作机制，本质就是利用反射，动态的创建GameObject对象并且关联各种C#脚本对象在其上，让不同的GameObject对象各司其职扮演好自己的角色根据Unity提供以及我们书写的剧本（C#脚本）呈现一出游戏戏剧。</p>
 <p>其中对于一个演员来说，GameObject和Transform是必不可少的关键因素</p>
-<h3 id="预制体和资源包的导入导出">预制体和资源包的导入导出
+<h3 id="212预制体和资源包的导入导出">2.1.2预制体和资源包的导入导出
 </h3><p><img src="/p/unity-basic/index.assets/1765072412672-943a02e3-7b60-48a6-86fe-a40cea9203b0.png"
 	width="446"
 	height="422"
@@ -4609,37 +4072,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="1025px"
 	
 ></p>
-<h3 id="脚本基本规则">脚本基本规则
+<h3 id="213脚本基本规则">2.1.3脚本基本规则
 </h3><blockquote>
 <p><strong>设置编程工具：edit-&gt;preferences-&gt;external tools</strong></p>
-<p><img src="/p/unity-basic/index.assets/1765073433970-7e6b2a59-f15f-4514-8d3c-eb964f938eba.png"
-	width="540"
-	height="1060"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="50"
-		data-flex-basis="122px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1765073491209-51e84e43-724d-4d83-8447-41ce33e79711.png"
-	width="1107"
-	height="747"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="148"
-		data-flex-basis="355px"
-	
-></p>
+<img src="index.assets/1765073433970-7e6b2a59-f15f-4514-8d3c-eb964f938eba.png" alt="img" style="zoom: 50%;" /> 
+<img src="index.assets/1765073491209-51e84e43-724d-4d83-8447-41ce33e79711.png" alt="img" style="zoom:50%;" /> 
 </blockquote>
 <p><strong>创建规则</strong></p>
 <p>1）不在VS中创建脚本了</p>
@@ -4687,7 +4124,49 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>2）没有继承MonoBehavior的类想怎么写怎么写如果要使用<span style="color: #8080FF;">需要自己new</span></p>
 <p>可以在继承MonoBehavior的类中去new它</p>
 <p>3）没有继承MonoBehavior的类一般是单例模式的类（<span style="color: #8080FF;">用于管理模块</span>）或者数据结松类 (用于存储数据)</p>
-<p>4）没有继承MonoBehavior的类<span style="color: #8080FF;">不用保留默认出现的几个函数</span>（start和update）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//玩家信息类</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">PlayerInfo</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">string</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">bool</span> <span class="n">sex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kt">int</span> <span class="n">atk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">def</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">hp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">maxHp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//怪物管理类</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">MonsterMgr</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">static</span> <span class="n">MonsterMgr</span> <span class="n">instance</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MonsterMgr</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="kd">public</span> <span class="kd">static</span> <span class="n">MonsterMgr</span> <span class="n">Instance</span> <span class="p">=&gt;</span> <span class="n">instance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>4）没有继承MonoBehavior的类<span style="color: #8080FF;">不用保留默认出现的几个函数</span>（start和update）</p>
 <p><img src="/p/unity-basic/index.assets/1765075214283-a508f619-f1d3-4337-b888-2459a707a1a9.png"
 	width="1145"
 	height="189"
@@ -4702,28 +4181,36 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="1453px"
 	
 ></p>
-<h3 id="生命周期函数">生命周期函数
-</h3><p>游戏的本质就是一个死循环，每一次循环处理游戏逻辑就会更新一次画面，之所以能看到画面在动，是因为切换画面的速度到达一定时，人眼就认为画面是流畅的，一帧就是执行一次循环</p>
-<p>fps (Frames Per Second) ：即每秒钟帧数</p>
-<p>一般我们说的60帧30帧，意思是1秒更新60次、30次画面</p>
+<h3 id="214生命周期函数">2.1.4生命周期函数
+</h3><blockquote>
+<p>游戏的本质就是一个<span style="color: #FF0000;">死循环</span>，每一次循环处理游戏逻辑就会<span style="color: #FF0000;">更新一次画面</span>，之所以能看到画面在动，是因为切换画面的速度到达一定时，人眼就认为画面是流畅的，一帧就是执行一次循环</p>
+</blockquote>
+<p>fps (Frames Per Second) ：每秒钟帧数</p>
+<blockquote>
+<p>一般我们说的60帧、30帧，意思是1秒更新60次、30次画面</p>
 <p>1s = 1000ms</p>
 <p>60帧：1帧为1000ms/60=16.66ms</p>
 <p>30帧：1帧为1000ms/30=33.33ms</p>
+</blockquote>
 <p>人眼放松时可视帧数是每秒24帧</p>
-<p>游戏卡顿的原因：跑1帧游戏逻辑中的计算量过大，或者CPU不给力，不能在一帧的时间内处理完所有游戏逻辑</p>
-<p>​    <strong>一、了解帧的概念</strong></p>
-<p>​    Unity底层已经帮助我们做好了死循环</p>
-<p>​    我们需要学习unity的生命周期函数</p>
-<p>​    利用它做好的规则来执行我们的游戏逻辑就行</p>
-<p>​    <strong>二、生命周期函数的概念</strong></p>
-<p>​    所有继承MonoBehavior的脚本最终都会挂载到Gameobject游戏对象上</p>
-<p>​    生命周期函数就是该脚本对象依附的Gameobject对象从出生到消亡整个生命周期中//会通过反射自动调用的一些特殊函数</p>
-<p>​    unity帮助我们记录了一个Gameobject对象依附了哪些脚本</p>
-<p>​    会自动的得到这些对象，通过反射去执行一些固定名字的函数</p>
-<p>​    <strong>三、生命周期函数</strong></p>
-<p>​    注意：</p>
-<p>​    生命周期函数的访问修饰符一般为private和protected</p>
-<p>​    因为不需要再外部自己调用生命周期函数都是unity自己帮助我们调用的</p>
+<p>游戏卡顿的原因：</p>
+<ul>
+<li>跑1帧游戏逻辑中的计算量过大</li>
+<li>CPU不给力，不能在一帧的时间内处理完所有游戏逻辑</li>
+</ul>
+<p><strong>一、了解帧的概念</strong></p>
+<p>Unity底层已经帮我们做好了死循环，我们之后只需要学习unity的生命周期函数，利用它做好的规则来执行我们的游戏逻辑就行</p>
+<p><strong>二、生命周期函数的概念</strong></p>
+<blockquote>
+<p>所有继承MonoBehavior的脚本最终都会挂载到Gameobject游戏对象上。</p>
+<p>生命周期函数就是该脚本对象依附的Gameobject对象从出生到消亡整个生命周期中会通过反射自动调用的一些特殊函数</p>
+<p>unity帮助我们<span style="color: #8080FF;">记录了一个<strong>Gameobject</strong>对象依附了哪些脚本</span>，<span style="color: #FF8000;">会自动的得到这些对象，通过反射去执行一些固定名字的函数</span></p>
+</blockquote>
+<p><strong>三、生命周期函数</strong></p>
+<p>注意：生命周期函数的访问修饰符一般为<span style="color: #FF8000;">private</span>和<span style="color: #FF8000;">protected</span></p>
+<blockquote>
+<p>因为不需要再外部自己调用生命周期函数都是unity自己帮助我们调用的</p>
+</blockquote>
 <p><img src="/p/unity-basic/index.assets/1765085223000-8aa5a158-81c7-457c-9f1a-bc1dacd2f61d.jpeg"
 	width="1387"
 	height="1931"
@@ -4738,28 +4225,17 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="172px"
 	
 ></p>
-<blockquote>
-<p>说明：</p>
+<blockquote class="alert alert-tip">
+    <p>说明：</p>
 <ul>
 <li>蓝色的只会调用一次</li>
 <li>粉色的是激活、失活时都会调用</li>
 <li>绿色的是每一次循环都会去调用</li>
-</ul>
+</ul></blockquote>
+<blockquote>
+<p>Start函数从自己被创建出来后，第一次帧更新之前调用一个对象只会调用一次。</p>
+<p>主要作用还是用于初始化信息的，但是它相对Awake来说，要晚一点，因为它是在对象进行第一次帧更新之前才会执行的</p>
 </blockquote>
-<p><img src="/p/unity-basic/index.assets/1765081061196-ddca161f-92eb-4ff2-b9ab-2ac3a39c2185.png"
-	width="1482"
-	height="531"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="279"
-		data-flex-basis="669px"
-	
-></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4896,9 +4372,454 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/p/unity-basic/index.assets/1765081964942-33455443-665c-4964-a6fc-4293197855f8.png"
-	width="526"
-	height="1128"
+</div><blockquote class="alert alert-note">
+    <p><strong>在Unity中打印信息的两种方式：</strong></p>
+<ol>
+<li>
+<p>没有继承MonoBehavior类的时候
+Debug.Log("123");
+Debug.LogError("出错了！！！");
+Debug.LogWarning("警告！！！");</p>
+<img src="index.assets/image-20260317092557948.png" alt="image-20260317092557948" style="zoom: 67%;" /> 
+</li>
+<li>
+<p>继承了MonoBehavior，有现成的方法可以使用
+print("Awake");</p>
+</li>
+</ol></blockquote>
+<p>FixedUpdate的间隔时间设置</p>
+<img src="index.assets/1765081964942-33455443-665c-4964-a6fc-4293197855f8.png" alt="img" style="zoom:50%;" /> 
+<img src="index.assets/1765082128091-fa6d4e62-be59-4024-a4c8-29acf8070ca2.png" alt="img" style="zoom: 67%;" /> 
+<img src="index.assets/1765083357287-7419445c-4f25-488d-ad9a-2982482f614f.png" alt="img" style="zoom:67%;" /> 
+<p><strong>四、生命周期函数支持继承多态</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Lesson01</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//当对象(自己这个类对象)创建时，才会调用该生命周期函数</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//类似构造函数的存在，我们可以在一个类对象刚创建时，进行一些操作</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="k">virtual</span> <span class="k">void</span> <span class="n">Awake</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//在Unity中打印信息的两种方式</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//1.没有继承MonoBehavior类的时候</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Debug.Log(&#34;123&#34;);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Debug.LogError(&#34;出错了！！！&#34;);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//Debug.LogWarning(&#34;警告！！！&#34;);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//2.继承了MonoBehavior，有现成的方法可以使用</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;Awake&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Lesson01Son</span> <span class="p">:</span> <span class="n">Lesson01</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">protected</span> <span class="kd">override</span> <span class="k">void</span> <span class="n">Awake</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">base</span><span class="p">.</span><span class="n">Awake</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="s">&#34;子类的Awake&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>注意</strong></p>
+<p>1.如果不打算写生命周期函数中的逻辑，就不要写这些生命周期函数</p>
+<p>2.如果对象默认一开始就是失活的，那么生命周期函数不会执行</p>
+<blockquote>
+<p><strong>生命周期函数并不是基类中的成员，为什么Unity可以自动的执行这些特殊的函数？</strong></p>
+<p>Unity帮助我们记录了场景上的所有GameObject对象以及各个关联的脚本对象，在游戏执行的特定时机（对象创建时，失活激活时，帧更新时）它会通过函数名<strong>反射</strong>得到脚本对象中对应的生命周期函数然后再这些特定时机执行他们</p>
+</blockquote>
+<h3 id="215窗口可编辑变量">2.1.5窗口可编辑变量
+</h3><p>Inspector显示的可编辑内容就是脚本的成员变量。</p>
+<p><strong>1）私有和保护的成员变量是无法显示编辑的。</strong></p>
+<p><strong>2）私有和保护的成员变量加上强制序列化字段特性<span style="color: #8080FF;"> [Serializefield] </span>后，也可以被显示。</strong></p>
+<blockquote>
+<p>所谓序列化就是把一个对象保存到一个文件或数据库字段中去</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[SerializeField]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kt">int</span> <span class="n">privateInt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="na">[SerializeField]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">protected</span> <span class="kt">string</span> <span class="n">protectedStr</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260317105747133.png" alt="image-20260317105747133" style="zoom: 67%;" /> 
+<p><strong>3）公共变量可以显示编辑</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">pubicint</span> <span class="p">=</span> <span class="m">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">bool</span> <span class="n">publicbool</span> <span class="p">=</span> <span class="kt">bool</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>4）在公共变量前加上<span style="color: #8080FF;"> [HideInInspector]</span>特性，不能显示编辑</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[HideInInspector]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">publicint2</span> <span class="p">=</span> <span class="m">50</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>5）大部分类型都能显示编辑</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span><span class="p">[]</span> <span class="n">array</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">E_TestEnum</span> <span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">GameObject</span> <span class="n">gameObj</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260317111735146.png" alt="image-20260317111735146" style="zoom:50%;" /> 
+<blockquote>
+<p>字典、自定义类型不能被Inspector窗口显示</p>
+</blockquote>
+<p><strong>6）自定义类型加上序列化特性<span style="color: #8080FF;">[System.Serializable]</span>就可以被访问</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[System.Serializable]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">struct</span> <span class="nc">MyStruct</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">bool</span> <span class="n">sex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="na">
+</span></span></span><span class="line"><span class="cl"><span class="na">[System.Serializable]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">MyClass</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">bool</span> <span class="n">sex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>7）一些辅助特性</strong></p>
+<ul>
+<li>
+<p>Header 特性，为成员分组：<code>[Header(&quot;分组说明&quot;)]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[Header(&#34;基础属性&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">bool</span> <span class="n">sex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="na">[Header(&#34;战斗属性&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">atk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">def</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260317115828797.png" alt="image-20260317115828797" style="zoom:50%;" /> 
+</li>
+<li>
+<p>悬停注释 Tooltip，为变量添加说明：<code>[Tooltip(&quot;说明内容&quot;)]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[Tooltip(&#34;闪避&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">miss</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260324084259530.png" alt="image-20260324084259530" style="zoom:50%;" /> 
+</li>
+<li>
+<p>间隔特性 Space()，让两个字段间出现间隔：<code>[Space()]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[Space()]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">crit</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260324084606997.png" alt="image-20260324084606997" style="zoom:50%;" /> 
+</li>
+<li>
+<p>修饰数值的滑条范围Range：<code>[Range(最大值, 最小值)]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[Range(0, 10)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">float</span> <span class="n">luck</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260324084854971.png" alt="image-20260324084854971" style="zoom:50%;" /> 
+</li>
+<li>
+<p>多行显示字符串，默认不写参数显示3行，写参数就是对应行：<code>[Multiline(4)]</code></p>
+<img src="index.assets/image-20260324085114783.png" alt="image-20260324085114783" style="zoom: 50%;" /> 
+</li>
+<li>
+<p>滚动条显示字符串，默认不写参数就是超过3行显示滚动条：<code>[TextArea(最少显示行数,最多显示行数)]</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[TextArea(3, 4)]</span> <span class="c1">// 最少显示3行，最多4行，超过4行就显示滚动条</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">string</span> <span class="n">myLife</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260324085531649.png" alt="image-20260324085531649" style="zoom:50%;" /> 
+</li>
+<li>
+<p>为变量添加快捷键方法 ContextMenuItem：<code>[ContextMenuItem(&quot;显示按钮名&quot;, &quot;方法名&quot;)]</code></p>
+<p>作用：让一个变量有一个方法可以执行，一般就是重置这个变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[ContextMenuItem(&#34;重置钱&#34;, &#34;Test&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">int</span> <span class="n">money</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">void</span> <span class="n">Test</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">money</span> <span class="p">=</span> <span class="m">99</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="index.assets/image-20260324090032643.png" alt="image-20260324090032643" style="zoom:50%;" /> 
+</li>
+<li>
+<p>为方法添加特性能够在Inspectoe中执行：<code>[ContextMenu(&quot;测试函数&quot;)]</code></p>
+<p>作用：让我们在编辑状态下也能执行测试方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="na">[ContextMenu(&#34;哈哈哈哈&#34;)]</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="k">void</span> <span class="n">TestFun</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s">&#34;测试方法&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>​	<img src="index.assets/image-20260324090925146.png" alt="image-20260324090925146" style="zoom:50%;" /></p>
+</li>
+</ul>
+<p><strong>注意：</strong></p>
+<ol>
+<li>Inspector窗口中的变量关联的就是对象的成员变量，运行时改变他们就是在改变成员变量</li>
+<li><span style="color: #8080FF;">拖曳到Gameobject对象后，再改变脚本中变量默认值，界面上不会改变</span></li>
+<li>运行中修改的信息不会保存</li>
+</ol>
+<blockquote class="alert alert-note">
+    <p>为什么加不同的特性，在lnspector窗口上会有不同的效果，请说出你的理解。</p>
+<p>因为Unity中是通过反射得到类的信息然后在lnspector窗口中显示字段信息Unity内部通过反射获取字段的特性，当具有一些特殊特性时，便会做对应的处理</p></blockquote>
+<h3 id="216monobehavior中的重要内容">2.1.6MonoBehavior中的重要内容
+</h3><blockquote>
+<p>F12 导航到定义</p>
+</blockquote>
+<p><strong>（1）重要成员</strong></p>
+<ol>
+<li>
+<p>获取依附的Gameobject</p>
+<p>继承了MonoBehavior类的脚本，最终都会把这个脚本挂载到场景上的某个对象上</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>获取依附的Gameobject的位置信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">);</span> <span class="c1">// 位置</span>
+</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">eulerAngles</span><span class="p">);</span> <span class="c1">// 角度</span>
+</span></span><span class="line"><span class="cl"><span class="n">print</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">lossyScale</span><span class="p">);</span> <span class="c1">// 缩放大小</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//这种写法和上面是一样的效果，都是得到依附的对象的位置信息</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//this.gameObject.transform</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>获取脚本是否激活</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">System.Collections.Generic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="k">class</span> <span class="nc">Lesson03</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Lesson03</span> <span class="n">otherLesson3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">void</span> <span class="n">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="p">.</span><span class="n">enabled</span> <span class="p">=</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">// 设置脚本为失活</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//获取别的脚本对象，依附的gameobject和tranform位置信息</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="n">otherLesson3</span><span class="p">.</span><span class="n">gameObject</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">print</span><span class="p">(</span><span class="n">otherLesson3</span><span class="p">.</span><span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<p><strong>（2）重要方法</strong></p>
+<p>得到依附对象上挂载的其它脚本</p>
+<ul>
+<li>
+<p>得到自己挂载的单个脚本</p>
+<ul>
+<li>根据脚本名获取</li>
+<li>根据Type获取</li>
+<li>根据泛型获取，建议使用泛型获取，因为不用二次转换</li>
+</ul>
+</li>
+<li>
+<p>得到自己挂载的多个脚本</p>
+</li>
+<li>
+<p>得到子对象挂载的脚本</p>
+</li>
+<li>
+<p>得到父对象挂载的脚本</p>
+</li>
+<li>
+<p>尝试获取脚本</p>
+</li>
+</ul>
+<h3 id="反射机制">反射机制
+</h3><p><strong>反射</strong></p>
+<p>程序正在运行时，可以查看其它程序集或者自身的元数据</p>
+<p>运行的程序查看本身或者其它程序的元数据的行为就叫做反射</p>
+<p>在程序运行时，通过反射可以得到其它程序集或者自己程序集中</p>
+<p>代码的各种信息，比如类，函数，变量，对象等等</p>
+<p>我们可以实例化它们，执行它们，操作它们</p>
+<p><strong>Unity中的反射机制</strong></p>
+<p>Unity引擎本质是一个软件，使用它时是处于运行中的</p>
+<p>我们是在一个运行中的软件里制作游戏的Unity开发的本质就是，</p>
+<p>在Unity引擎的基础上，利用反射和引擎提供的各种功能进行的拓展开发</p>
+<p><strong>场景中对象的本质是什么</strong></p>
+<p>GameObject类对象是Unity引擎提供给我们的，作为场景中所有对象的根本，</p>
+<p>在游戏场景中出现一个对象，不管是图片、模型、音效、摄像机等等都是依附于GameObject对象的</p>
+<p>拟人化记忆：GameObject就是没有剧本的演员</p>
+<p><strong>Transform是什么</strong></p>
+<p>GameObject对象作为一个出现在舞台（3D场景）中的演员必须有一个表示自己所在位置的信息。Transform就是一个必不可少的剧本，它的本质就是发了一本表示位置的剧本给演员（相当于就是用一个Transform类对象和GameObject类对象进行关联）用于设置和得到演员在世界中的位置角度缩放等信息</p>
+<p><strong>反射机制的体现</strong></p>
+<p>除了Transform这个表示位置的标配剧本外，我们可以为这个演员（GameObject）关联各种剧本（C#脚本让它按照我们剧本中（代码逻辑中）的命令来处理事情，而为演员添加剧本的这个过程，就是在利用反射new一个新的剧本对象和演员（GameObject）对象进行关联，让其按我们的命令做事)</p>
+<p><img src="/p/unity-basic/index.assets/1765070654635-bde254bf-14d6-4c05-8c08-2dded065d9a6.png"
+	width="1342"
+	height="418"
 	
 	loading="lazy"
 	
@@ -4906,38 +4827,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	
 		class="gallery-image" 
-		data-flex-grow="46"
-		data-flex-basis="111px"
+		data-flex-grow="321"
+		data-flex-basis="770px"
 	
 ></p>
-<p><img src="/p/unity-basic/index.assets/1765082128091-fa6d4e62-be59-4024-a4c8-29acf8070ca2.png"
-	width="963"
-	height="747"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="128"
-		data-flex-basis="309px"
-	
-></p>
-<p><img src="/p/unity-basic/index.assets/1765083357287-7419445c-4f25-488d-ad9a-2982482f614f.png"
-	width="1005"
-	height="756"
-	
-	loading="lazy"
-	
-		alt="img"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="132"
-		data-flex-basis="319px"
-	
-></p>
+<p><strong>举例体现</strong></p>
+<p>前提：Unity帮助我们实现了对象查找和关联</p>
+<p>1.修改lnspector面板中Transform的内容</p>
+<p>利用反射：已知对象，类名，变量名，通过反射为该对象设置变量值</p>
+<p>2.新建一个脚本后，添加给一个指定的GameObject对象</p>
+<p>利用反射：已知类名，可以获取所有公共成员，故可以在lnspector面板上创建各公共字段信息</p>
 <h3 id="协同程序简称协程"><strong>协同程序简称协程</strong>
 </h3><p>它是“假”的多线程，它不是多线程</p>
 <p>它的主要作用是将代码分时执行，不卡主线程</p>
@@ -5014,7 +4913,326 @@ document.addEventListener('DOMContentLoaded', function() {
 </div><p><strong>第三步：关闭协程</strong></p>
 <p>关闭所有协程</p>
 <p>关闭指定协程</p>
-<h1 id="03基础">03基础🔥
+<h2 id="22实践小项目">2.2实践小项目
+</h2><h3 id="221必备知识点">2.2.1必备知识点
+</h3><h4 id="必备知识点1场景切换和游戏退出">必备知识点1：场景切换和游戏退出
+</h4><p><strong>1.场景切换</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">using</span> <span class="nn">UnityEngine.SceneManagement</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="n">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Space</span><span class="p">))</span><span class="c1">//按下空格键</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//切换到场景Test2</span>
+</span></span><span class="line"><span class="cl">        <span class="n">SceneManager</span><span class="p">.</span><span class="n">LoadScene</span><span class="p">(</span><span class="s">&#34;Test2&#34;</span><span class="p">);</span><span class="c1">//传场景名字进行切换</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>alt+回车，可以引入命名空间</p>
+<p><strong>需要把脚本挂载到场景中，才能起作用</strong></p>
+</blockquote>
+<p>注意：直接写代码切换场景，可能会报错，因为没有把该场景加载到场景列表中</p>
+<ol>
+<li>
+<p>File——&gt;Build Settings</p>
+<img src="index.assets/image-20260421090659138.png" alt="image-20260421090659138" style="zoom:50%;" /> 
+</li>
+<li>
+<p>Scenes in Build 场景列表，点击Add Open Scene</p>
+</li>
+<li>
+<p>把我们需要切换的场景拖到场景列表中</p>
+<img src="index.assets/image-20260421090807245.png" alt="image-20260421090807245" style="zoom:50%;" /> 
+</li>
+<li>
+<p>注意顺序，运行时默认会进入第一个场景</p>
+</li>
+</ol>
+<p><strong>2.游戏退出</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Update</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">Input</span><span class="p">.</span><span class="n">GetKeyDown</span><span class="p">(</span><span class="n">KeyCode</span><span class="p">.</span><span class="n">Escape</span><span class="p">))</span><span class="c1">//按下Esc键</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//退出游戏</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Application</span><span class="p">.</span><span class="n">Quit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：退出游戏在编辑模式下没有用，一定是发布游戏后才有用</p>
+<h4 id="必备知识点2鼠标隐藏锁定相关">必备知识点2：鼠标隐藏锁定相关
+</h4><blockquote class="alert alert-tip">
+    <p>注意：只在有鼠标的设备上有用</p></blockquote>
+<p><strong>1.设置鼠标是否隐藏 - Cursor.visible</strong></p>
+<p>应用场景：第一人称射击游戏，不需要看见鼠标</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Cursor.visible = false;//隐藏鼠标</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Cursor</span><span class="p">.</span><span class="n">visible</span> <span class="p">=</span> <span class="kc">true</span><span class="p">;</span><span class="c1">//显示鼠标</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2.设置鼠标是否锁定 - Cursor.lockState</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//锁定鼠标</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//None 不锁定</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//Locked 锁定，鼠标会被限制在屏幕的中心点，不仅会被锁定，还会被隐藏，可以通过ESC键，拜托编辑模式下的锁定</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//Confined 限制在窗口范围内</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Cursor</span><span class="p">.</span><span class="n">lockState</span> <span class="p">=</span> <span class="n">CursorLockMode</span><span class="p">.</span><span class="n">Confined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>3.设置鼠标图片 - Cursor.SetCursor</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Texture2D</span> <span class="n">tex</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">void</span> <span class="n">Start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//SetCursor(Texture2D texture, Vector2 hotspot, CursorMode cursorMode)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//参数1：光标图片</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//参数2：偏移位置，相对图片左上角</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//参数3：平台支持的光标模式（硬件或软件），一般用CursorMode.Auto</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Cursor</span><span class="p">.</span><span class="n">SetCursor</span><span class="p">(</span><span class="n">tex</span><span class="p">,</span> <span class="n">Vector2</span><span class="p">.</span><span class="n">zero</span><span class="p">,</span> <span class="n">CursorMode</span><span class="p">.</span><span class="n">Auto</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：</p>
+<ol>
+<li>
+<p>如果希望鼠标图片不变形，那么图片的宽高一定要一样</p>
+</li>
+<li>
+<p>如果图片不是半透明的，那么一定要在Texture Type图片类型中选择 Cursor，然后再点击应用</p>
+<img src="index.assets/image-20260421095142137.png" alt="image-20260421095142137" style="zoom:50%;" /> 
+</li>
+</ol>
+<h4 id="必备知识点3随机数和unity自带委托相关">必备知识点3：随机数和Unity自带委托相关
+</h4><p><strong>1.随机数</strong></p>
+<p>1）Unity中的随机数 Random.Range。</p>
+<p>Unity中有一个专门的Random类，是在UnityEngine命名空间中的</p>
+<ul>
+<li>
+<p>int重载 规则是左闭右开</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">randomNum</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">100</span><span class="p">);</span><span class="c1">//[0,100)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>float重载 规则是左闭右闭</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="kt">float</span> <span class="n">randomeNumF</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="n">Range</span><span class="p">(</span><span class="m">1.1f</span><span class="p">,</span> <span class="m">99.9f</span><span class="p">);</span> <span class="c1">// [1.1, 99.9]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>2）C#中的随机数，需要带System命名空间</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="n">Random</span> <span class="n">r</span> <span class="p">=</span> <span class="k">new</span> <span class="n">System</span><span class="p">.</span><span class="n">Random</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">100</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>2.委托</strong></p>
+<p>C#自带的委托</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//声明一个无参无返回的C#自带委托</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="n">Action</span> <span class="n">ac</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="s">&#34;123&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//泛型委托</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="n">Action</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="p">&gt;</span> <span class="n">ac2</span> <span class="p">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//有返回值的</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="n">Func</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">fun1</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="m">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//传int参数，返回值是string</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="p">.</span><span class="n">Func</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="n">fun2</span> <span class="p">=</span> <span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;haha&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Unity自带的委托</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c#" data-lang="c#"><span class="line"><span class="cl"><span class="c1">//Unity自带的委托</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//和C#自带的委托 Action 非常相似</span>
+</span></span><span class="line"><span class="cl"><span class="n">UnityAction</span> <span class="n">uac</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">UnityAction</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;</span> <span class="n">uac1</span> <span class="p">=</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="p">=&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>总结：如果需要使用有返回值的委托，可以使用C#自带的Func；如果只需要无参没有返回值或有参没有返回值的话，建议使用UnityAction</p>
+<h4 id="必备知识点4模型资源的导入">必备知识点4：模型资源的导入
+</h4><p>1.模型由什么构成</p>
+<p>2.Unity支持的模型格式</p>
+<p>3.如何指导美术同学导出模型</p>
+<p>4.学习阶段在哪里获取模型资源</p>
+<p><strong>1.模型由什么构成</strong></p>
+<ul>
+<li>骨 (骨骼) ——非必须，有动作的模型才需要</li>
+<li>肉 （网格面片) ——必须，决定了模型的轮廓</li>
+<li>皮 (贴图）一一必须，决定了模型的颜色效果</li>
+</ul>
+<p><strong>2.Unity支持的模型格式</strong></p>
+<p>官方推荐使用 FBX 格式的模型文件其它格式虽然支持，但是不推荐</p>
+<ul>
+<li>.fbx</li>
+</ul>
+<ul>
+<li>.dae</li>
+<li>.3ds</li>
+<li>.dxf</li>
+<li>.obj</li>
+</ul>
+<p><strong>3.如何指导美术同学导出模型</strong></p>
+<p>Unity官网
+有指导手册
+让美术同学查看手册按步骤导出即可
+<a class="link" href="https://docs.unity.cn/cn/2019.4/Manual/CreatingDCCAssets.html"  target="_blank" rel="noopener"
+    >https://docs.unity.cn/cn/2019.4/Manual/CreatingDCCAssets.html</a></p>
+<p>重点规则：</p>
+<ul>
+<li>Unity中模型面朝向朝模型坐标系的Z轴</li>
+<li>缩放大小单位要注意</li>
+</ul>
+<p><strong>4.学习阶段在哪里获取模型资源</strong></p>
+<h3 id="222需求分析">2.2.2需求分析
+</h3><h3 id="223代码和资源导入">2.2.3代码和资源导入
+</h3><h3 id="224开始场景">2.2.4开始场景
+</h3><h3 id="225开始场景">2.2.5开始场景
+</h3><h3 id="226游戏场景">2.2.6游戏场景
+</h3><h3 id="227结束界面">2.2.7结束界面
+</h3><h1 id="03基础">03基础🔥
 </h1><h1 id="总结">总结
 </h1><h2 id="1快捷键">1.快捷键
 </h2><ol>

@@ -10,7 +10,7 @@
 <meta property='og:description' content="从vim到gcc再到make与gdb构建 Linux 开发环境">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux基础' /><meta property='article:tag' content='vim编辑器' /><meta property='article:tag' content='gcc编译' /><meta property='article:tag' content='开发工具' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-24T13:04:31&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux基础' /><meta property='article:tag' content='vim编辑器' /><meta property='article:tag' content='gcc编译' /><meta property='article:tag' content='开发工具' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux系统编程】02基础权限开发工具">
 <meta name="twitter:description" content="从vim到gcc再到make与gdb构建 Linux 开发环境"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-basic-permission-development-tool/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1575,12 +1575,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2025-11-24
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">10612 字 </span>
+      <span class="article-time--wordcount">10626 字 </span>
     </div>
      
 
@@ -2137,7 +2137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>!+指令，比如!ls，就可以执行ls命令，然后按任意键回去</p>
 </li>
 <li>
-<p><code>%s/把什么/替换成什么/g</code>   例如：:%s/code/proc/g</p>
+<p><code>%s/把什么/替换成什么/g</code>   例如：:%s/code/proc/g 表示把code替换成proc</p>
 </li>
 <li>
 <p>vs xxx可以实现分屏，例如在vim code.c中输入vs code.h就可以实现下面的效果</p>
@@ -2315,8 +2315,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>-c表示开始进行程序的翻译，编译做完，形成汇编，就停下来</p>
 </li>
 <li>
-<p><strong>连接（生成可执行文件或库文件)</strong></p>
-<p>将我们的.o文件和库文件进行连接，形成可执行文件</p>
+<p><strong>链接（生成可执行文件或库文件)</strong></p>
+<p>将我们的.o文件和库文件进行链接，形成可执行文件</p>
 <p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731831866674.png"
 	width="846"
 	height="37"
@@ -3442,143 +3442,26 @@ document.addEventListener('DOMContentLoaded', function() {
 </h3><p>git是开源的</p>
 <h3 id="63git的操作">6.3Git的操作
 </h3><h4 id="1新建仓库">1.新建仓库
-</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/image-20250906160302516.png"
-	width="1743"
-	height="1162"
-	
-	loading="lazy"
-	
-		alt="image-20250906160302516"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="150"
-		data-flex-basis="360px"
-	
-></p>
+</h4><img src="02基础权限开发工具.assets/image-20250906160302516.png" alt="image-20250906160302516" style="zoom:50%;" />  
 <h4 id="2将远端仓库拉取到本地">2.将远端仓库拉取到本地
-</h4><p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364779607.png"
-	width="1250"
-	height="400"
-	
-	loading="lazy"
-	
-		alt="73536477960"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="312"
-		data-flex-basis="750px"
-	
-></p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735364757744.png"
-	width="1031"
-	height="264"
-	
-	loading="lazy"
-	
-		alt="73536475774"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="390"
-		data-flex-basis="937px"
-	
-></p>
+</h4><img src="02基础权限开发工具.assets/1735364779607.png" alt="73536477960" style="zoom:50%;" /> 
+<img src="02基础权限开发工具.assets/1735364757744.png" alt="73536475774" style="zoom:50%;" /> 
 <p>在本地先新建一个目录，然后在目录里执行<span style="color: #FF0000;"> git clone 加刚刚复制的HTTPS地址</span></p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365192934.png"
-	width="1318"
-	height="388"
-	
-	loading="lazy"
-	
-		alt="73536519293"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="339"
-		data-flex-basis="815px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735365192934.png" alt="73536519293" style="zoom:50%;" />  
 <p>我们就拉取到了远端的文件</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365317281.png"
-	width="878"
-	height="305"
-	
-	loading="lazy"
-	
-		alt="73536531728"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="287"
-		data-flex-basis="690px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735365317281.png" alt="73536531728" style="zoom:50%;" /> 
 <p>ls -al就可以看到隐藏文件.git，我们把<code>.git</code>称为隐藏的仓库</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365416971.png"
-	width="921"
-	height="314"
-	
-	loading="lazy"
-	
-		alt="73536541697"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="293"
-		data-flex-basis="703px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735365416971.png" alt="73536541697" style="zoom:50%;" /> 
 <p>我们可以 <span style="color: #8080FF;">tree .git</span> ，.git里面是历史上我们每次修改的记录</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735365647438.png"
-	width="627"
-	height="40"
-	
-	loading="lazy"
-	
-		alt="73536564743"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1567"
-		data-flex-basis="3762px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735365647438.png" alt="73536564743" style="zoom:50%;" /> 
 <p><mark>git提交的时候，只会提交变化的部分</mark></p>
 <h4 id="3-将我们的文件添加到git里的暂存区">3. 将我们的文件添加到.git里的暂存区
 </h4><p>.git所在的目录：当前工作区</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367375104.png"
-	width="638"
-	height="85"
-	
-	loading="lazy"
-	
-		alt="73536737510"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="750"
-		data-flex-basis="1801px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735367375104.png" alt="73536737510" style="zoom: 50%;" /> 
 <ul>
 <li>
 <p><span style="color: #FF0000;">git add .</span> 默认把当前工作路径下所有的陌生文件全部添加到.git仓库中</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735367732395.png"
-	width="619"
-	height="42"
-	
-	loading="lazy"
-	
-		alt="73536773239"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1473"
-		data-flex-basis="3537px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735367732395.png" alt="73536773239" style="zoom:50%;" /> 
 </li>
 <li>
 <p>或者如果确定了要添加的文件，也可以<span style="color: #FF0000;"> git add 文件名</span></p>
@@ -3588,71 +3471,19 @@ document.addEventListener('DOMContentLoaded', function() {
 </li>
 </ul>
 <p>但是执行了这个操作，实际上并不算完全添加到仓库里了，而是先添加到.git里的暂存区</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368115979.png"
-	width="603"
-	height="424"
-	
-	loading="lazy"
-	
-		alt="73536811597"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="142"
-		data-flex-basis="341px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735368115979.png" alt="73536811597" style="zoom:50%;" /> 
 <p>有了暂存区，git就让我们可以在本地多次add，一次提交到git仓库里</p>
 <h4 id="4将暂存区里的文件提交到git本地仓库">4.将暂存区里的文件提交到git本地仓库
 </h4><p>先查看当前的状态：<span style="color: #FF0000;">git status</span></p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368434247.png"
-	width="819"
-	height="305"
-	
-	loading="lazy"
-	
-		alt="73536843424"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="268"
-		data-flex-basis="644px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735368434247.png" alt="73536843424" style="zoom:50%;" /> 
 <p>如果不想要提交某个文件了，可以使用<span style="color: #FF0000;"> git reset HEAD 文件名</span> 来将它删掉</p>
 <p>使用<span style="color: #FF0000;"> git commit -m &ldquo;日志信息&rdquo; </span>才能真正将文件添加到本地仓库</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735368758373.png"
-	width="969"
-	height="57"
-	
-	loading="lazy"
-	
-		alt="73536875837"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1700"
-		data-flex-basis="4080px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735368758373.png" alt="73536875837" style="zoom:50%;" /> 
 <p><span style="color: #8080FF;">git log</span>可以查看提交记录</p>
 <h4 id="5将本地仓库和远端仓库同步">5.将本地仓库和远端仓库同步
 </h4><p><span style="color: #FF0000;">git push</span></p>
 <p>如果将本地目录全删掉了，但是想获得我历史上的提交信息，</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735551720786.png"
-	width="1003"
-	height="334"
-	
-	loading="lazy"
-	
-		alt="73555172078"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="300"
-		data-flex-basis="720px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735551720786.png" alt="73555172078" style="zoom:50%;" /> 
 <p>复制链接，然后执行以下命令就可以将之前的记录重新拉取下来</p>
 <p><span style="color: #8080FF;">git clone 复制的链接</span></p>
 <h4 id="总结">总结
@@ -3684,35 +3515,9 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>查看当前是否已经安装了：<code>git --version </code>和 <code>which git</code></p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552551878.png"
-	width="699"
-	height="156"
-	
-	loading="lazy"
-	
-		alt="73555255187"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="448"
-		data-flex-basis="1075px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735552551878.png" alt="73555255187" style="zoom:50%;" />  
 <p><strong>2.首次使用：git输入username，email</strong></p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1735552732692.png"
-	width="1194"
-	height="429"
-	
-	loading="lazy"
-	
-		alt="73555273269"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="278"
-		data-flex-basis="667px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1735552732692.png" alt="73555273269" style="zoom:50%;" /> 
 <p><span style="color: #FF0000;"><strong>3.git版本管理，只进行管理源文件</strong></span></p>
 <p><span style="color: #8080FF;"><code>.gitignore</code>进行本地文件后缀过滤的</span>，如果某些特定后缀的文件在这个配置信息里，</p>
 <p>那么在add，commit，push时就不会被提交</p>
@@ -3757,70 +3562,18 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="补充sudo无法执行">补充：sudo无法执行
 </h2><ol>
 <li>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907047779.png"
-	width="718"
-	height="41"
-	
-	loading="lazy"
-	
-		alt="73190704777"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1751"
-		data-flex-basis="4202px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1731907047779.png" alt="73190704777" style="zoom:50%;" /> 
 </li>
 <li>
 <p>切换到超级用户</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907115790.png"
-	width="455"
-	height="72"
-	
-	loading="lazy"
-	
-		alt="73190711579"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="631"
-		data-flex-basis="1516px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1731907115790.png" alt="73190711579" style="zoom:50%;" /> 
 </li>
 <li>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907174880.png"
-	width="716"
-	height="43"
-	
-	loading="lazy"
-	
-		alt="73190717488"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="1665"
-		data-flex-basis="3996px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1731907174880.png" alt="73190717488" style="zoom:50%;" /> 
 </li>
 <li>
 <p>添加配置，yy+p</p>
-<p><img src="/p/linux-basic-permission-development-tool/02%E5%9F%BA%E7%A1%80%E6%9D%83%E9%99%90%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7.assets/1731907541466.png"
-	width="825"
-	height="188"
-	
-	loading="lazy"
-	
-		alt="73190754146"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="438"
-		data-flex-basis="1053px"
-	
-></p>
+<img src="02基础权限开发工具.assets/1731907541466.png" alt="73190754146" style="zoom:50%;" /> 
 </li>
 <li>
 <p>切换到底行模式执行<code>wq!</code>保存并退出</p>

@@ -10,7 +10,7 @@
 <meta property='og:description' content="1.文件的理解 基本介绍\n1）文件是在磁盘上的，磁盘是永久性存储介质，因此文件在磁盘上可以持久化存储\n2）磁盘本质是外设，所以我们对文件的操作，本质上就是对外设进行I/O操作\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='基础IO' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T18:20:05&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Linux进阶' /><meta property='article:tag' content='基础IO' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' />
 <meta name="twitter:title" content="【Linux系统编程】05基础IO">
 <meta name="twitter:description" content="1.文件的理解 基本介绍\n1）文件是在磁盘上的，磁盘是永久性存储介质，因此文件在磁盘上可以持久化存储\n2）磁盘本质是外设，所以我们对文件的操作，本质上就是对外设进行I/O操作\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/linux-basic-io/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%9F%8E%E5%B8%82-%E5%A4%95%E9%98%B3.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1492,12 +1492,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2026-03-15
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">5191 字 </span>
+      <span class="article-time--wordcount">5290 字 </span>
     </div>
      
 
@@ -1578,7 +1578,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		data-flex-basis="669px"
 	
 ></p>
-<p><strong>w</strong>：如果指定文件不存在，会新建一个文件；如果指定文件存在，会先清空文件里的内容</p>
+<p><strong>w</strong>：如果指定文件不存在，会新建一个文件；如果指定文件存在，<span style="color: #8080FF;">默认会先清空文件里的内容</span></p>
 <p><strong>a</strong>：如果指定文件不存在，会新建一个文件；如果指定文件存在，会以追加的方式往文件里写入</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1625,7 +1625,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>输出重定向本质就是以w的形式打开文件，清空文件后再向文件里写入</p>
+<p><span style="color: #FF8000;">输出重定向本质就是以w的形式打开文件</span>，清空文件后再向文件里写入</p>
 <p>追加重定向的本质就是以a的方式打开文件，然后再写</p>
 <p><img src="/p/linux-basic-io/index.assets/image-20251203102206995.png"
 	width="1011"
@@ -1734,20 +1734,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/p/linux-basic-io/index.assets/image-20251203085703993.png"
-	width="874"
-	height="419"
-	
-	loading="lazy"
-	
-		alt="image-20251203085703993"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="208"
-		data-flex-basis="500px"
-	
-></p>
+</div><img src="index.assets/image-20251203085703993.png" alt="image-20251203085703993" style="zoom:50%;" /> 
 <h2 id="23读文件">2.3读文件
 </h2><p><strong>fread</strong></p>
 <div class="highlight"><div class="chroma">
@@ -1850,34 +1837,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 </div><h2 id="24输出信息到显示器">2.4输出信息到显示器
 </h2><p>输出信息到显示器，有如下方法：</p>
-<p><img src="/p/linux-basic-io/index.assets/image-20251209203405205.png"
-	width="1138"
-	height="319"
-	
-	loading="lazy"
-	
-		alt="image-20251209203405205"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="356"
-		data-flex-basis="856px"
-	
-></p>
-<p><img src="/p/linux-basic-io/index.assets/image-20251203095747273.png"
-	width="1069"
-	height="160"
-	
-	loading="lazy"
-	
-		alt="image-20251203095747273"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="668"
-		data-flex-basis="1603px"
-	
-></p>
+<img src="index.assets/image-20251209203405205.png" alt="image-20251209203405205" style="zoom:50%;" />  
+<img src="index.assets/image-20251203095747273.png" alt="image-20251203095747273" style="zoom:50%;" /> 
 <ul>
 <li>**fread：**从流里面读取count个，大小为size的数据，放到ptr指向的空间。返回成功读取的大小为size的元素个数</li>
 <li>**fwrite：**把ptr指向空间里，count个大小为size的数据，写到流里面</li>
@@ -1930,23 +1891,13 @@ document.addEventListener('DOMContentLoaded', function() {
 <li>stdout 标准输出 - 显示器文件</li>
 <li>stderr 标准错误 - 显示器文件</li>
 </ul>
-<p><img src="/p/linux-basic-io/index.assets/image-20251203095647971.png"
-	width="883"
-	height="355"
-	
-	loading="lazy"
-	
-		alt="image-20251203095647971"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="248"
-		data-flex-basis="596px"
-	
-></p>
+<img src="index.assets/image-20251203095647971.png" alt="image-20251203095647971" style="zoom:50%;" /> 
 <blockquote>
 <p>为什么会默认打开这几个流呢？</p>
-<p>因为程序是做数据处理的，程序跑起来，需要有默认的方式让程序获取数据，也得有默认的方式将程序处理后的结果展示出来，所以程序默认打开标准输入标准输出，其实是为了给我们提供默认的数据源和处理结果</p>
+<p>因为程序是做数据处理的，程序跑起来，需要有默认的方式让程序获取数据，也得有默认的方式将程序处理后的结果展示出来，所以程序默认打开标准输入标准输出，其实是为了给我们提供默认的数据源和处理结果。</p>
+</blockquote>
+<blockquote>
+<p>C++默认会打开：cin、cout、cerr</p>
 </blockquote>
 <h1 id="3系统调用常用文件接口">3.系统调用常用文件接口
 </h1><h2 id="31回顾如何给函数传递标志位">3.1回顾：如何给函数传递标志位
@@ -2040,37 +1991,11 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/p/linux-basic-io/index.assets/image-20251210143653687.png"
-	width="916"
-	height="659"
-	
-	loading="lazy"
-	
-		alt="image-20251210143653687"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="138"
-		data-flex-basis="333px"
-	
-></p>
+</div><img src="index.assets/image-20251210143653687.png" alt="image-20251210143653687" style="zoom:50%;" /> 
 <h2 id="32打开关闭文件">3.2打开/关闭文件
 </h2><h3 id="open打开文件">open打开文件
 </h3><p>打开一个可能要创建的文件或设备</p>
-<p><img src="/p/linux-basic-io/index.assets/image-20251203111755206.png"
-	width="1102"
-	height="470"
-	
-	loading="lazy"
-	
-		alt="image-20251203111755206"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="234"
-		data-flex-basis="562px"
-	
-></p>
+<img src="index.assets/image-20251203111755206.png" alt="image-20251203111755206" style="zoom:50%;" /> 
 <ul>
 <li>
 <p>**pathname：**带路径的文件名；如果不带路径，就在当前路径下创建</p>
@@ -2099,7 +2024,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li>
-<p><strong>mode权限</strong></p>
+<p><strong>mode权限</strong>：如果要新建一个文件，必须把权限带上</p>
 <ul>
 <li>
 <p>O_APPEND：追加写</p>
@@ -2126,11 +2051,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 <li>
-<p>**返回值：**成功，返回新打开的文件描述符；失败，返回-1，并设置错误码</p>
+<p>**返回值：**成功，返回新打开的文件描述符；失败，返回-1，错误码会被设置</p>
 </li>
 </ul>
 <h3 id="close关闭文件">close关闭文件
-</h3><div class="highlight"><div class="chroma">
+</h3><img src="index.assets/image-20260427173142338.png" alt="image-20260427173142338" style="zoom:50%;" /> 
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -2191,20 +2117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/p/linux-basic-io/index.assets/image-20251210150827047.png"
-	width="984"
-	height="227"
-	
-	loading="lazy"
-	
-		alt="image-20251210150827047"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="433"
-		data-flex-basis="1040px"
-	
-></p>
+</div><img src="index.assets/image-20251210150827047.png" alt="image-20251210150827047" style="zoom:50%;" /> 
 <h2 id="33读写文件">3.3读/写文件
 </h2><h3 id="write写文件">write写文件
 </h3><div class="highlight"><div class="chroma">
@@ -2218,10 +2131,20 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
+<ul>
+<li>
 <p>第一个形参：向哪个文件描述符（open函数的返回值）中写</p>
+</li>
+<li>
 <p>第二个形参：我们要写入的buffer</p>
+</li>
+<li>
 <p>第三个形参：我们要向文件写入的长度</p>
+</li>
+<li>
 <p>返回值：实际写入的字节数，失败返回-1</p>
+</li>
+</ul>
 </blockquote>
 <p>**细节：**默认open打开文件后的写操作不会先清空；如果希望清空写，open打开文件时带上O_TRUNC</p>
 <div class="highlight"><div class="chroma">
@@ -2272,10 +2195,10 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> <span class="c1">// 设置权限掩码为全0
-</span></span></span><span class="line"><span class="cl">    <span class="c1">//如果不存在就新建，以只写方式，清空文件内容
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//O_WRONLY | O_TRUNC ：清空并写入
 </span></span></span><span class="line"><span class="cl">   <span class="c1">//int fd = open(&#34;log.txt&#34;, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 </span></span></span><span class="line"><span class="cl">   
-</span></span><span class="line"><span class="cl">   <span class="c1">//以追加的方式写入
+</span></span><span class="line"><span class="cl">   <span class="c1">//O_WRONLY | O_APPEND：以追加的方式写入
 </span></span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_APPEND</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">   <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">   <span class="p">{</span>
@@ -2398,8 +2321,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>从特定文件描述符里，读数据到buffer，读取count字节。</p>
-<p>如果成功，返回实际读到的字节数；如果返回0，表示读到文件结尾；如果小于0，读取失败</p>
+<p>参数：</p>
+<ul>
+<li>从特定文件描述符里</li>
+<li>读数据到buffer</li>
+<li>读取count字节。</li>
+</ul>
+<p>返回值：</p>
+<ul>
+<li>如果成功，返回实际读到的字节数；</li>
+<li>如果返回0，表示读到文件结尾；如果小于0，读取失败</li>
+</ul>
 </blockquote>
 <blockquote>
 <p>细节：</p>
@@ -2531,20 +2463,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img src="/p/linux-basic-io/index.assets/image-20251215173217385.png"
-	width="916"
-	height="154"
-	
-	loading="lazy"
-	
-		alt="image-20251215173217385"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="594"
-		data-flex-basis="1427px"
-	
-></p>
+</div><img src="index.assets/image-20251215173217385.png" alt="image-20251215173217385" style="zoom:50%;" /> 
 <p>FILE*是语言层面的，在OS接口层面，只认fd，即文件描述符。</p>
 <p>语言层面对系统调用接口做了封装，可以让我们写出具有可移植性的程序。</p>
 <blockquote>
@@ -2596,6 +2515,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <h2 id="43重定向的原理">4.3重定向的原理
 </h2><p>文件描述符的分配原则：在files_struct数组中，找到当前没有被使用的最小的一个下标，作为新的文件描述符。</p>
 <p>先看一段代码：</p>
+<p>在我们打开 log.txt这个文件时，我们先将值为1的文件描述符给关了。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2614,6 +2534,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
@@ -2627,6 +2548,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">umask</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;log.txt&#34;</span><span class="p">,</span> <span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">O_WRONLY</span> <span class="o">|</span> <span class="n">O_TRUNC</span><span class="p">,</span> <span class="mo">0666</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;fd: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">fd</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    
@@ -2634,7 +2556,21 @@ document.addEventListener('DOMContentLoaded', function() {
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>在我们打开 log.txt这个文件时，我们先将值为1的文件描述符给关了。运行程序后，发现控制台并没有输出。</p>
+</div><p>运行程序后，我们发现控制台并没有打印。而当我们查看log.txt文件的内容时，发现本该向控制台打印的信息出现在了log.txt文件中。</p>
+<p><img src="/p/linux-basic-io/index.assets/image-20260429090549920.png"
+	width="1204"
+	height="698"
+	
+	loading="lazy"
+	
+		alt="image-20260429090549920"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="172"
+		data-flex-basis="413px"
+	
+></p>
 <blockquote>
 <p>当我把值为1的文件描述符关掉后，1就不再指向标准输出了，下次新建文件的时候，，在file_struct数组中，会找到当前没有被使用的最小的一个下标，作为新的文件描述符，所以当我们打开log.txt这个文件后，其实分配给它的文件描述符是1。</p>
 <p>而printf默认是往stdout里打印的，stdout封装了文件描述符1，但是此时值为1的文件描述符已经不在指向标准输出了，而是指向log.txt这个文件，所以打印的时候就往log.txt这个文件里打印了。</p>
@@ -2659,7 +2595,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </blockquote>
 <h2 id="44dup2系统调用">4.4dup2系统调用
 </h2><p>我们重定向要修改的是进程的file_struct 内核级数据结构，所以只能通过系统调用来修改。</p>
-<p>重定向是要用新打开文件的地址覆盖另一个文件的地址</p>
+<p>重定向是要用<span style="color: #8080FF;">新打开文件的地址</span><span style="color: #FF8000;">覆盖</span><span style="color: #8080FF;">另一个文件的地址</span></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2672,7 +2608,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>作用：让 newfd 作为 oldfd 的一份拷贝</p>
 <p>返回值：成功返回新文件的地址，失败返回-1</p>
 </blockquote>
-<p><strong>重定向：打开文件的方式+dup2</strong></p>
+<p><strong>重定向的原理：打开文件的方式+dup2</strong></p>
 <p><strong>追加重定向</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

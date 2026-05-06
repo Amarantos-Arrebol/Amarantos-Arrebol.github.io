@@ -10,7 +10,7 @@
 <meta property='og:description' content="从虚函数到抽象类，理解多态的核心原理">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/c-polymorphic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='面向对象' /><meta property='article:tag' content='多态' /><meta property='article:tag' content='虚函数' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-11-24T21:33:53&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='C&#43;&#43;进阶' /><meta property='article:tag' content='面向对象' /><meta property='article:tag' content='多态' /><meta property='article:tag' content='虚函数' /><meta property='article:published_time' content='2025-11-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1.png' />
 <meta name="twitter:title" content="【C++进阶】02多态">
 <meta name="twitter:description" content="从虚函数到抽象类，理解多态的核心原理"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/c-polymorphic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%8A%A8%E6%BC%AB%E5%A5%B3%E5%AD%A9-%E5%8F%AF%E7%88%B1.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1480,12 +1480,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2025-11-24
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">4646 字 </span>
+      <span class="article-time--wordcount">4680 字 </span>
     </div>
      
 
@@ -1507,8 +1507,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <ul>
 <li>
 <p><strong>编译时多态</strong>，比如 函数重载，函数模版 就体现多态</p>
-<p>它们<span style="color: #8080FF;">传不同类型的参数</span>就可以<span style="color: #8080FF;">调用不同的函数</span>，<span style="color: #FF8000;">通过参数不同达到多种形态</span></p>
-<p>之所以叫编译时多态，是因为他们<span style="color: #FF8000;">实参传给形参的参数匹配是在编译时完成的</span></p>
+<p>它们<span style="color: #8080FF;">传不同类型的参数</span>就可以<span style="color: #8080FF;">调用不同的函数</span>，<span style="color: #FF8000;"><strong>通过参数不同达到多种形态</strong></span></p>
+<p>之所以叫编译时多态，是因为他们<span style="color: #FF8000;"><strong>实参传给形参的参数匹配是在编译时完成的</strong></span></p>
 <p>我们把编译时一般归为静态，运行时归为动态。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1525,7 +1525,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </div></li>
 <li>
 <p><strong>运行时多态</strong></p>
-<p>具体点就是完成某个行为(函数)，可以<span style="color: #8080FF;">传不同的对象就会完成不同的行为</span>，就达到多种形态</p>
+<p>具体点就是完成某个行为(函数)，可以<span style="color: #8080FF;"><strong>传不同的对象就会完成不同的行为</strong></span>，就达到多种形态</p>
 <p>比如买票这个行为，当普通人买票时，是全价买票；学生买票时，是优惠买票(5折或75折)；军人买票时是优先买票</p>
 <p>再比如，同样是动物叫的一个行为(函数)，传猫对象过去，就是”(>\^w^<)&ldquo;喵“，传狗对象过去，就是&quot;汪汪&rdquo;</p>
 </li>
@@ -1534,6 +1534,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>1）对象之间存在<span style="color: #8080FF;">继承</span>关系</p>
 <p>2）子类必须对父类的<span style="color: #FF0000;">虚函数完成重写/覆盖</span></p>
 <p>3）<span style="color: #FF0000;">必须是父类的指针或者引用调用虚函数</span></p>
+<blockquote>
+<p>因为只有父类的指针或引用，才能既可以指向父类对象，也可以指向子类对象</p>
+</blockquote>
 <h1 id="2虚函数">2.虚函数
 </h1><h2 id="21虚函数的基本介绍">2.1虚函数的基本介绍
 </h2><p>在类的<strong>非静态成员函数</strong>前面加 virtual 修饰，那么这个成员函数就被称为虚函数</p>
@@ -2383,13 +2386,13 @@ A.编译报错    B.运行报错   C.8    D.12</p>
         
         
             <div class="article-image">
-                <img src="/p/abnormal/09.2fe82299e0dd40ef039c8e19bbf498cd_hu_cdaeba472cddbfb9.jpg" 
+                <img src="/p/abnormal/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E4%B9%A6%E6%9E%B6-%E4%B9%A6%E6%A1%8C%E6%96%87%E5%85%B7.2e0edf8a3459053f94729b109ccbe96d_hu_d2bc7ea603350a82.png" 
                         width="250" 
                         height="150" 
                         loading="lazy"
                         alt="Featured image of post 【C&#43;&#43;进阶】12异常"
                         data-key="abnormal" 
-                        data-hash="md5-L&#43;gimeDdQO8DnI4Zu/SYzQ==">
+                        data-hash="md5-Lg7fijRZBT&#43;UcpsQnMvpbQ==">
                 
             </div>
         

@@ -10,7 +10,7 @@
 <meta property='og:description' content=" 必修：\n高级测试基础（文字性-面试时候） 测试牵扯文档：需求文档、测试计划、测试用例、怎么提交bug、测试报告\n要求：细致、整洁、格式统一\nWeb测试\nAPP测试（adb命令、monkey测试、压力测试）\n">
 <meta property='og:url' content='https://Amarantos-Arrebol.github.io/p/test-basic/'>
 <meta property='og:site_name' content='PursUnre的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:published_time' content='2026-01-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-03-15T18:20:05&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='测试理论&#43;实践' /><meta property='article:published_time' content='2026-01-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2026-05-06T20:20:04&#43;08:00'/><meta property='og:image' content='https://Amarantos-Arrebol.github.io/p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' />
 <meta name="twitter:title" content="【软件测试】01高级测试基础">
 <meta name="twitter:description" content=" 必修：\n高级测试基础（文字性-面试时候） 测试牵扯文档：需求文档、测试计划、测试用例、怎么提交bug、测试报告\n要求：细致、整洁、格式统一\nWeb测试\nAPP测试（adb命令、monkey测试、压力测试）\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://Amarantos-Arrebol.github.io/p/test-basic/%E3%80%90%E5%93%B2%E9%A3%8E%E5%A3%81%E7%BA%B8%E3%80%91%E5%80%92%E5%BD%B1-%E5%85%89%E5%BD%B1%E6%95%88%E6%9E%9C.png' /><link rel="stylesheet" href="/css/custom.min.css" />
@@ -1398,13 +1398,33 @@ document.addEventListener('DOMContentLoaded', function() {
         <li><a href="#71软件测试需求分析的概述">7.1软件测试需求分析的概述</a></li>
         <li><a href="#72项目需求分析实战演练">7.2项目需求分析实战演练</a></li>
         <li><a href="#总结-4">总结</a></li>
-        <li><a href="#73用例设计方法-等价类">7.3用例设计方法-等价类</a></li>
-        <li><a href="#74用例分析项目实战">7.4用例分析项目实战</a></li>
-        <li><a href="#75用例设计方法-边界值">7.5用例设计方法-边界值</a></li>
       </ul>
     </li>
-    <li><a href="#08用例设计">08用例设计</a></li>
-    <li><a href="#09项目测试用例设计与评审">09项目测试用例设计与评审</a></li>
+    <li><a href="#08用例设计方法">08用例设计方法</a>
+      <ul>
+        <li><a href="#81用例设计方法-等价类">8.1用例设计方法-等价类</a></li>
+        <li><a href="#84用例设计方法-边界值">8.4用例设计方法-边界值</a></li>
+        <li><a href="#总结-5">总结</a></li>
+        <li><a href="#85用例设计方法-因果图">8.5用例设计方法-因果图</a>
+          <ul>
+            <li><a href="#851基本介绍">8.5.1基本介绍</a></li>
+            <li><a href="#852条件和结果之间的关系">8.5.2条件和结果之间的关系</a></li>
+            <li><a href="#852条件与条件之间的关系">8.5.2条件与条件之间的关系</a></li>
+          </ul>
+        </li>
+        <li><a href="#85用例设计方法-判定表">8.5用例设计方法-判定表</a></li>
+        <li><a href="#总结-6">总结</a></li>
+        <li><a href="#86用例设计方法-状态图">8.6用例设计方法-状态图</a></li>
+        <li><a href="#87用例设计方法-场景法">8.7用例设计方法-场景法</a></li>
+      </ul>
+    </li>
+    <li><a href="#09项目测试用例设计与评审">09项目测试用例设计与评审</a>
+      <ul>
+        <li><a href="#测试用例的概述">测试用例的概述</a></li>
+        <li><a href="#编写测试用例项目实战">编写测试用例项目实战</a></li>
+        <li><a href="#用例评审">用例评审</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
         </div>
@@ -1470,7 +1490,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     <a
       href="/categories/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"
-      
+      style="background-color: #3DB6B1; color: #ffffff;"
     >
       软件测试
     </a>
@@ -1516,12 +1536,12 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="article-time-item"> 
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M10 18l5 -5a1.414 1.414 0 0 0 -2 -2l-5 5v2h2z" /></svg> 
       <time>
-        2026-03-15
+        2026-05-06
       </time>
     </div>
     <span class="article-time-divider">|</span><div class="article-time-item">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-word"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 12l1.333 5l1.667 -4l1.667 4l1.333 -5" /></svg>
-      <span class="article-time--wordcount">12013 字 </span>
+      <span class="article-time--wordcount">17874 字 </span>
     </div>
      
 
@@ -1639,7 +1659,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <p><strong>4）缺陷集群性（2/8原则）</strong></p>
 <blockquote>
 <ul>
-<li>一般认为，<span style="color: #FF0000;">百分之80的缺陷集中出现在百分之20的核心功能区域</span>。（一旦你再某个功能模块找到缺陷，相关附近功能多半也会存在问题）。</li>
+<li>一般认为，<span style="color: #FF0000;">百分之80的缺陷集中出现在百分之20的核心功能区域</span>。（一旦你在某个功能模块找到缺陷，相关附近功能多半也会存在问题）。</li>
 <li>主要从下面两点去发现问题
 <ul>
 <li><span style="color: #FF0000;">功能复杂度</span>：支付功能、新的功能</li>
@@ -2129,9 +2149,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <li><span style="color: #FF0000;">测试评估阶段</span></li>
 </ol>
 <blockquote>
-<p>你上家公司测试流程是什么样的？用白话串起来说</p>
-<p>我上家公司的流程，首先是我们的产品经理会把我们的需求给。把需求提出来之后呢，他会得到一个需求规格说明书，那拿到这个需求规格说明书之后，我们的开发和我们的测试会去参加我们的需求分析，在需求分析的过程当中，我们可能评审会议当中，我们可能会提出对应的一些问题啊，或者建议，这时候我们产品如果说。对我们提出的建议或者意见，他已收纳了，那这个时候我们就他会把这个需求文档啊，这个需求文档去进行更新，更新完了之后我们拿到一个确认版本的一个需文档啊。已经确认的一个文档，那拿到这个文档之后呢？开发那边他会根据我们的文档去写，我们的开发计划，那我们测试这一边就会根据我们这个文档和结合我们的开发这一边的文档。去写我们的测试计划，当我们测试计划去写出来了之后，是我由我们的测试组长写出来的，写完了之后，我们每一个测试人员，就会对自己的分配的任务去进行一个了解，那什么时候该做什么事情，那我们都是会非常的清楚那。那在这个测试计划的当中，可能会有一些安排不妥当的地方，那我们会在这个时候给他提出来，那如果说没有问题的话，那我们就会进入到下一个阶段。</p>
-<p>那下一个阶段就是大家针对自己在测试计划当中表露出的一些内容，比如说写测试用例啊啊，测试环境的一些准备啊，以及我们测试的一些数据的准备啊。。。。</p>
+<p>你上家公司测试流程是什么样的？</p>
+<p>我在上家公司是作为一名测试人员来开展我的工作的，首先测试组长会根据前期的需求评审阶段，给我们分配任务和并安排整体的进度表，然后我们根据需求文档，确定需要测试的项目以及子项，并编写测试用例，然后由测试团队进行一个用例的评审并对用例中出现的问题以及需要修改的地方提出意见，最后搭建测试环境，开始执行测试用例，并把测试过程中出现的bug 进行提交，并执行多次回归测试，最后根据测试过程中出现的反馈进行一个优化，并对整个测试的过程出一个详细的报告交由测试组长评估</p>
 </blockquote>
 <p><img src="/p/test-basic/index.assets/image-20260308152915312.png"
 	width="2755"
@@ -2558,15 +2577,649 @@ document.addEventListener('DOMContentLoaded', function() {
 </ul>
 </li>
 </ul>
-<h2 id="73用例设计方法-等价类">7.3用例设计方法-等价类
-</h2><h2 id="74用例分析项目实战">7.4用例分析项目实战
-</h2><h2 id="75用例设计方法-边界值">7.5用例设计方法-边界值
-</h2><h1 id="08用例设计">08用例设计
-</h1><p>用例设计方法-等价类
-用例分析项目实战
-用例设计方法-边界值</p>
-<h1 id="09项目测试用例设计与评审">09项目测试用例设计与评审
-</h1>
+<h1 id="08用例设计方法">08用例设计方法
+</h1><p><strong>测试用例设计方法</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>黑盒测试用例设计方法</th>
+          <th>白盒测试用例设计方法-开发基础</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>等价类划分法</td>
+          <td>语句覆盖</td>
+      </tr>
+      <tr>
+          <td>边界值分析法</td>
+          <td>判定覆盖</td>
+      </tr>
+      <tr>
+          <td>错误推测法<span style="color: #8080FF;">（根据经验之谈）</span></td>
+          <td>条件覆盖</td>
+      </tr>
+      <tr>
+          <td>因果图法</td>
+          <td>判定-条件覆盖</td>
+      </tr>
+      <tr>
+          <td>判定表法</td>
+          <td>基本路径覆盖</td>
+      </tr>
+      <tr>
+          <td>正交实验法</td>
+          <td>循环覆盖</td>
+      </tr>
+      <tr>
+          <td>状态迁移图法</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>场景法</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="81用例设计方法-等价类">8.1用例设计方法-等价类
+</h2><p><strong>黑盒测试</strong></p>
+<p>黑盒测试，也叫功能测试。测试的时候把软件当成一个黑盒子，不关心盒子内部结构是什么，只关心软件的输入数据与输出结果。</p>
+<p>主要测试依据是<span style="color: #FF0000;">需求文档、设计文档（UI设计文档）、用户手册</span></p>
+<ol>
+<li>业务能力</li>
+<li>测试策略（功能测试、UI测试、兼容性测试）</li>
+<li>设计用例</li>
+</ol>
+<p><strong>案例需求</strong></p>
+<p>两个整数加法计算器基本需求</p>
+<ul>
+<li>第一个数和第二个数都是必填的，而且只能输入-99到99之间的整数，包括-99和99</li>
+<li>对于输入的小于-99的数据或者大于99的数据，程序应给出明确提示</li>
+<li>对于输入的小数、字符等非法数据，程序应给出明确提示</li>
+</ul>
+<p><strong>黑盒测试产生的问题</strong></p>
+<p>穷尽测试是不可能的，我们必须将黑盒测试行为分类</p>
+<ul>
+<li>节约测试实施的时间和资源</li>
+<li>避免盲目测试、提高测试效率</li>
+<li>使测试的实施重点突出、目的更明确</li>
+</ul>
+<p><strong>等价类划分法</strong></p>
+<p>是一个典型的常用的<span style="color: #8080FF;">黑盒测试</span>方法。将全部输入的数据合理划分为若干等价类，在<span style="color: #8080FF;">每一个等价类中取一个数据作为测试的输入条件</span>，用少量有代表性的数据取得较好的测试结果。</p>
+<ul>
+<li>有效等价类：有效等价类是程序规格说明有意义，合理的输入数据</li>
+<li>无效等价类：无效等价类是程序规格说明无意义，不合理的输入数据</li>
+</ul>
+<blockquote>
+<p>测试某等价类的代表值就等于这一类其他值的测试</p>
+</blockquote>
+<p><strong>等价类划原则-1</strong>
+如果输入条件规定了<span style="color: #8080FF;">取值范围或值的个数</span>，则可以确定<span style="color: #8080FF;">一个有效等价类</span>和<span style="color: #8080FF;">两个无效等价类</span>。</p>
+<p>案例：成绩输入有效值：【0,100】，用户名：长度8个字符长度</p>
+<p>有效：【-99 99】，长度8个字符长度</p>
+<p>无效：&lt;-99  &gt;99，长度 &gt;8 或 &lt;8 的字符</p>
+<img src="index.assets/image-20260419164713613.png" alt="image-20260419164713613" style="zoom:50%;" /> 
+<ul>
+<li>有效等价类尽量覆盖多个</li>
+<li>无效用等价类一个用例只覆盖一个</li>
+</ul>
+<p><strong>等价类划原则-2</strong></p>
+<p>在规定了输入数据必须遵守的规则的情况下，可确立<span style="color: #8080FF;">一个有效等价类</span>（符合规则）和<span style="color: #8080FF;">若干个无效等价类</span>（从不同角度违反规则）。</p>
+<p>案例：输入数值必须是正整数</p>
+<ul>
+<li>有效等价类：正整数</li>
+<li>无效等价类：负数、小数、字符</li>
+<li>[-99,99]正整数</li>
+</ul>
+<p><strong>等价类划原则-3</strong></p>
+<p>在输入条件是一个布尔量(真假/1、0)的情况下，可确定一个有效等价类和一个无效等价类。</p>
+<p>案例：第一个数和第二个数必填</p>
+<img src="index.assets/image-20260419170512397.png" alt="image-20260419170512397" style="zoom:50%;" /> 
+<p><strong>等价类划原则-4</strong></p>
+<ul>
+<li>在规定了<span style="color: #8080FF;">输入数据的一组值</span>有效等价类和一个无效等价类（假定n个），并且程序要对每一个输入值分别处理的情况下，可<span style="color: #8080FF;">确立N个有效等价类</span>和<span style="color: #8080FF;">一个无效等价类（没有无效等价类）&ndash;是否必填项</span>。</li>
+<li>案例：密保问题选择 <span style="color: #8080FF;">* 必填项标识</span></li>
+</ul>
+<img src="index.assets/image-20260419170905234.png" alt="image-20260419170905234" style="zoom: 67%;" /> 
+<p><strong>等价类划原则-5</strong></p>
+<ul>
+<li>
+<p>如果我们确知，已划分的某个等价类的各元素，在<span style="color: #8080FF;">程序中的处理方式是不同</span>的，则应将此等价类进一步<span style="color: #8080FF;">划分成更小的等价类</span>。</p>
+</li>
+<li>
+<p>案例：分数：0-100，如果是81-100这个范围，则返回结果<span style="color: #FF8000;">优秀</span>，如果分数在71-80这个范围，则返回结果<span style="color: #FF8000;">良好</span>，如果在60-70这个范围，则返回结果<span style="color: #FF8000;">合格</span>，否则的话返回结果<span style="color: #FF8000;">不及格</span></p>
+<blockquote>
+<p>分数：0-100（区间）</p>
+<p>有效等价类：0-100     无效等价类：&lt;0   &gt;100</p>
+<p>有效等价类：81-100，优秀</p>
+<p>有效等价类：71-80，良好</p>
+<p>有效等价类：60-70，合格</p>
+<p>有效等价类：&lt;60，不及格</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>等价类分析步骤</strong></p>
+<ol>
+<li>
+<p>为每个输入划分等价类，得到等价类列表，为每个等价类规定一个唯一编号</p>
+<img src="index.assets/image-20260419172257583.png" alt="image-20260419172257583" style="zoom:50%;" /> 
+</li>
+<li>
+<p>设计一个测试用例，使其<span style="color: #8080FF;"> 尽可能多</span> 的覆盖所有的<span style="color: #8080FF;"> 有效等价类</span>。重复这一步骤，使得所有有效等价类均被测试用例覆盖到</p>
+</li>
+<li>
+<p>设计一个测试用例，使其<span style="color: #8080FF;"> 只覆盖一个无效等价类</span>。重复这一步骤，使得所有无效等价类均被覆盖</p>
+</li>
+</ol>
+<h2 id="84用例设计方法-边界值">8.4用例设计方法-边界值
+</h2><ul>
+<li>边界值分析法的理论基础，是假设大多数的错误是发生在各种<span style="color: #FF8000;">输入条件的边界上</span>，如果在边界上的取值不会导致程序出错，那边其他的取值导致程序错误的可能性也很小。</li>
+<li>是对等价类划分法的一种补充。边界值的分析基本思想： <span style="color: #FF8000;">正好等于、刚刚大于、刚刚小于边界</span>的值作为测试数据。</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>输入条件明确了一个值的取值范围，或是规定了值的个数</li>
+<li>输入条件明确了一个有序集合</li>
+</ul>
+<blockquote>
+<p>例子：[-99, 99]</p>
+<p>正好等于(-99, 99)，刚刚大于(-98, 100)，刚刚小于边界(-100, 98)</p>
+<p>有效等价类：-99 99 -98 98</p>
+<p>无效等价类：-100 100</p>
+</blockquote>
+<p><strong>分析1：等价类+边界值</strong></p>
+<p><img src="/p/test-basic/index.assets/image-20260419185554483.png"
+	width="1145"
+	height="451"
+	
+	loading="lazy"
+	
+		alt="image-20260419185554483"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="253"
+		data-flex-basis="609px"
+	
+></p>
+<p><strong>分析2：测试用例</strong></p>
+<p><img src="/p/test-basic/index.assets/image-20260419185654906.png"
+	width="1152"
+	height="487"
+	
+	loading="lazy"
+	
+		alt="image-20260419185654906"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="236"
+		data-flex-basis="567px"
+	
+></p>
+<h2 id="总结-5">总结
+</h2><p>1）等价类：将输入数据划分为若干等价类，在每一个等价类中取一个数据作为测试的输入条件</p>
+<p>有效等价类：输入对应的数据，系统有正确的响应，并且进入到下一步的操作</p>
+<p>无效等价类：输入对应的数据，系统提示错误信息，响应到进入下一步操作</p>
+<blockquote>
+<p>注册-用户手机注册：</p>
+<ul>
+<li>
+<p>有效：正确的手机号；</p>
+</li>
+<li>
+<p>无效：错误的手机号、失效手机号</p>
+</li>
+</ul>
+</blockquote>
+<p>2）边界值：数据取值的情况：刚刚等于  刚刚大于  刚刚小于</p>
+<blockquote>
+<p>注册-用户名(6~18字符)：5 6 7   17 18 19   有效：6 7 17 18  无效：5 19</p>
+</blockquote>
+<p>3）测试用例</p>
+<p>八大要素：用例编号、功能模块、测试标题、重要级别、预置条件（前置条件）、测试数据、操作步骤（步骤性，不要模棱两可：是否、能否）、预期结果（从需求得到）、实际结果（写用例不需要写，执行用例之后写）、执行人、执行结果、备注</p>
+<h2 id="85用例设计方法-因果图">8.5用例设计方法-因果图
+</h2><h3 id="851基本介绍">8.5.1基本介绍
+</h3><p>因果图：输入条件和输出条件之间的关系产生</p>
+<p>因果图是从需求中找出因（输入条件）和果（输出或程序状态的改变），通过分析输入条件之间的
+关系（组合关系、约束关系等）及输入和输出之间的<span style="color: #FF8000;">关系</span>绘制出因果图，再转化成判定表，从而设
+计出测试用例的方法。</p>
+<blockquote>
+<p>比如：需求“电量不足20%时，显示电量低于20%，请充电”</p>
+<ul>
+<li>包含一个原因“电量不足20%”，一个结果“显示电量低于20%，请充电”。</li>
+<li>该需求蕴含原因“电量不足20%”和结果“显示电量低于20%，请充电”之间的依赖关系。</li>
+</ul>
+</blockquote>
+<p>该方法主要适用于<span style="color: #8080FF;">各种输入条件之间</span>存在某种<span style="color: #8080FF;">相互制约关系</span>或<span style="color: #8080FF;">输出结果依赖于各种输入条件</span>的组合
+时的情况</p>
+<p>注意：</p>
+<ul>
+<li>所有的输入输出条件的相互制约关系以及组合关系</li>
+<li>输出结果对输入条件的<span style="color: #FF8000;">依赖</span>关系。也就是什么样的<span style="color: #FF8000;">输入组合</span>会产生怎样的输出结果，即“因果关系&quot;</li>
+</ul>
+<h3 id="852条件和结果之间的关系">8.5.2条件和结果之间的关系
+</h3><p>在如下图中，左结点表示输入状态即原因，右结点表示输出状态即结果</p>
+<p><img src="/p/test-basic/index.assets/image-20260420114130343.png"
+	width="1211"
+	height="529"
+	
+	loading="lazy"
+	
+		alt="image-20260420114130343"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="228"
+		data-flex-basis="549px"
+	
+></p>
+<p><strong>操作步骤：</strong></p>
+<blockquote class="alert alert-note">
+    <p>1.找出所有的因（输入条件）</p>
+<p>2.找出所有的果（输出条件）</p>
+<p>3.输入条件之间关系、输出条件之间关系、因与果之间的关系</p>
+<p>4.转成因果图</p>
+<p>5.转成判定表</p>
+<p>6.转成测试用例</p></blockquote>
+<p><strong>案例需求</strong></p>
+<p>某个软件规格说明书中规定：第一列字符必须是*或#，第二列字符必须是一个数字，在此情况下进行文件的修改，但如果第一列字符不正确，则给出信息M；如果第二列字符不正确，则给出信息N。</p>
+<blockquote>
+<p>1）找出所有的因和果（输入输出条件）</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>因（输入）</th>
+          <th>果（输出）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>C1第一列数 *</td>
+          <td>E1文件的修改</td>
+      </tr>
+      <tr>
+          <td>C2第一列数 #</td>
+          <td>E2信息M</td>
+      </tr>
+      <tr>
+          <td>C3第二列数是一个数字</td>
+          <td>E3信息N</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>2）转成因果图</p>
+<img src="index.assets/image-20260420145656805.png" alt="image-20260420145656805" style="zoom:50%;" />  
+<p>3）转成判定表和测试用例</p>
+<img src="index.assets/image-20260420145747844.png" alt="image-20260420145747844" style="zoom: 50%;" /> 
+</blockquote>
+<h3 id="852条件与条件之间的关系">8.5.2条件与条件之间的关系
+</h3><p><img src="/p/test-basic/index.assets/image-20260420150233861.png"
+	width="1224"
+	height="609"
+	
+	loading="lazy"
+	
+		alt="image-20260420150233861"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="200"
+		data-flex-basis="482px"
+	
+></p>
+<blockquote>
+<p>要求：比如选自动登录，自动就勾选记住密码了；但是选记住密码，不会自动勾选自动登录</p>
+<p>屏蔽：输入的账号正确，密码不一定是正确的；输入账号不正确，密码也不一定正确</p>
+</blockquote>
+<p><strong>案例需求</strong></p>
+<p>交通一卡通自动充值软件系统需求:</p>
+<ol>
+<li>系统只<span style="color: #8080FF;"> 接收50元或100元纸币</span>，一次充值只能使用一张纸币，一次<span style="color: #8080FF;"> 充值金额只能为50元或100元</span></li>
+<li>若输入50元纸币，并选择充值50元，完成充值后退卡，提示<span style="color: #FF8000;">充值成功</span>；</li>
+<li>若输入50元纸币，并选择充值100元，提示<span style="color: #FF8000;">输入金额不足，并退回50元</span>；</li>
+<li>若输入100元纸币，并选择充值50元，完成充值后退卡，提示<span style="color: #FF8000;">充值成功，并找零50元</span>；</li>
+<li>若输入100元纸币，并选择充值100元，完成<span style="color: #FF8000;">充值后退卡，提示充值成功</span>；</li>
+<li>若输入纸币后在规定时间内不选择充值按钮，<span style="color: #FF8000;">退回输入的纸币，提示错误</span>;</li>
+<li>若选择充值按钮后不输入纸币，提示<span style="color: #FF8000;"> 错误</span>。</li>
+</ol>
+<img src="index.assets/image-20260420152114751.png" alt="image-20260420152114751" style="zoom:50%;" /> 
+<blockquote>
+<p>1）找出条件和结果</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>因（输入）</th>
+          <th>果（输出）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>投入纸币：50元</td>
+          <td>充值成功</td>
+      </tr>
+      <tr>
+          <td>投入纸币：100元</td>
+          <td>输入金额不足，并退回50元</td>
+      </tr>
+      <tr>
+          <td>选择充值：50元</td>
+          <td>充值成功，并找零50元</td>
+      </tr>
+      <tr>
+          <td>选择充值：100元</td>
+          <td>退回输入的纸币，提示错误</td>
+      </tr>
+      <tr>
+          <td>投币后不充值</td>
+          <td>提示错误</td>
+      </tr>
+      <tr>
+          <td>选择充值不投币</td>
+          <td></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>50和100不可以同时投入  &ndash;互斥</p>
+<p>50和100不可以同时充值 &ndash;互斥</p>
+<p>2）转成因果图</p>
+<img src="index.assets/image-20260420153502441.png" alt="image-20260420153502441" style="zoom:50%;" /> 
+<p>3）得出判定表</p>
+<p>根据因果图得出判定表
+根据判定表编写用例，每一列写一条测试用例</p>
+<p><img src="/p/test-basic/index.assets/image-20260420154852147.png"
+	width="965"
+	height="483"
+	
+	loading="lazy"
+	
+		alt="image-20260420154852147"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="199"
+		data-flex-basis="479px"
+	
+></p>
+</blockquote>
+<h2 id="85用例设计方法-判定表">8.5用例设计方法-判定表
+</h2><p><strong>判定表</strong>又称为决策表，是一种呈表格状的图形工具，适用于描述处理<span style="color: #8080FF;">判断条件较多，各条件又相互组合、有多种决策方案的情况</span>。是把作为条件的所有输入的各种组合值以及对应输出值都罗列出来而形成的表格。它能够将复杂的问题按照各种可能的情况<span style="color: #8080FF;">全部列举出来</span>，简明并可以避免遗漏。因此利用判定表能够设计出<span style="color: #8080FF;">完整的测试用例集合</span>。</p>
+<p><strong>判定表的组成</strong></p>
+<ul>
+<li>条件桩——列出问题的所有条件</li>
+<li>条件项——针对条件桩给出的条件列出所有可能取值</li>
+<li>动作桩——列出问题规定的可能采取的操作（输出结果）</li>
+<li>动作项——指出在条件项的各组取值情况下应采取的动作</li>
+</ul>
+<p><strong>规则</strong>：条件项和动作项中的一列称为一条规则</p>
+<img src="index.assets/image-20260420155948728.png" alt="image-20260420155948728" style="zoom: 67%;" /> 
+<p><strong>判定表分析步骤</strong></p>
+<ol>
+<li>
+<p>分析需求，把条件列到条件桩中；把输出列到动作桩中;</p>
+</li>
+<li>
+<p>把所有的条件和条件之间的组合关系，列到条件项中，确定规则的个数</p>
+<p><code>N</code>个条件，每个条件2种取值，则有<code>2的N次方列</code></p>
+</li>
+<li>
+<p>根据需求，计算出动作的取值，并写到动作项中，得到初始的决策表;</p>
+</li>
+<li>
+<p><span style="color: #FF0000;">化简判定表(判定表合并)</span></p>
+</li>
+<li>
+<p>把判定表的每一列设计为一个测试用例 (每一规则写一条测试用例)</p>
+</li>
+</ol>
+<p><strong>化简判定表</strong></p>
+<p>对于多条件，条件多取值的决策表，对应的规则比较大时，可以对其进行简化。</p>
+<p>决策表的简化主要包括方面:</p>
+<p>1）首先，两个或多个条件项<span style="color: #8080FF;">产生的动作项是相同的</span></p>
+<p>2）规则项中对应的<span style="color: #8080FF;">每一行的值只有一个是不同的</span>，则可以将其合并。</p>
+<p>3）如果条件1的值是Y，则条件2中的值也是Y，如果条件1的值是N，则条件2中的值也是N；此时，条件2可以删除。</p>
+<p>4）如果条件1的值是Y，则条件2中的值是Y、N、-，称条件1包含条件2；此时，条件2可以删除。（后面的条件不会影响到动作桩的值，也就是条件1是包含条件2的，这时我们的条件二可以删除）</p>
+<p><strong>案例需求</strong></p>
+<p>1）工资分为年薪制NX，月薪制YX</p>
+<p>2）错误程度分为普通PT，严重YZ</p>
+<p>3）工资为NX的员工犯普通错误的扣工资2%(K1)，犯严重错误扣工资4% (K2)</p>
+<p>​		工资为YX的员工犯普通错误的扣工资4%(K3)，犯严重错误扣工资8% (K4)</p>
+<img src="index.assets/image-20260420162538190.png" alt="image-20260420162538190" style="zoom: 67%;" /> 
+<blockquote>
+<p>1）找出条件桩和动作桩</p>
+<img src="index.assets/image-20260420162706854.png" alt="image-20260420162706854" style="zoom:67%;" />
+<p>2）列出条件桩的所有组合</p>
+<p>4个条件，每个条件2种取值，也就是2^4^=16</p>
+<p><img src="/p/test-basic/index.assets/image-20260420162737784.png"
+	width="1211"
+	height="407"
+	
+	loading="lazy"
+	
+		alt="image-20260420162737784"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="297"
+		data-flex-basis="714px"
+	
+></p>
+<p>4）根据条件组合得出动作桩</p>
+<img src="index.assets/image-20260420162839742.png" alt="image-20260420162839742" style="zoom:67%;" /> 
+<p>5）化简判定表，得出测试用例</p>
+<img src="index.assets/image-20260420162904380.png" alt="image-20260420162904380" style="zoom: 67%;" /> 
+</blockquote>
+<h2 id="总结-6">总结
+</h2><p>1.边界值、等价类：针对单个输入条件去进行设计的</p>
+<p>2.因果图、判定表：是适用于<strong>各种输入条件之间存在某种关系</strong> 或 <strong>输出结果依赖于各种输入条件的组合</strong></p>
+<p><strong>条件 和 结果之间的关系</strong></p>
+<ol>
+<li>恒等
+<ul>
+<li>当条件是正确的，那么结果也是正确的：C1 1    E1 1</li>
+<li>当条件是错误的，那么结果也是错误的：C1 0    E1 0</li>
+</ul>
+</li>
+<li>非 ~
+<ul>
+<li>条件是不成立的，那么结果是成立的：C1 0   E1 1</li>
+<li>条件是成立的，那么结果是不成立的：C1 1   E1 0</li>
+</ul>
+</li>
+<li>或 V
+<ul>
+<li>多个条件，其中有一个成立，那么结果就是成立的</li>
+</ul>
+</li>
+<li>与 ^
+<ul>
+<li>多个条件必须都同时成立，才成功</li>
+</ul>
+</li>
+</ol>
+<p><strong>条件和条件之间，结果和结果之间的关系</strong></p>
+<ul>
+<li>互斥（E）：多个条件只可能有一个成立（下拉框）</li>
+<li>包含（I）：至少有一个成立（多选框）</li>
+<li>唯一（O）：多个原因中只有一个成立（性别）</li>
+<li>要求（R）：一个出现，另一个一定出现</li>
+<li>屏蔽（M）：a成立b不成立，a不成立b不一定成立</li>
+</ul>
+<p>步骤：</p>
+<p>1.找出所有的原因（因）</p>
+<p>2.找出所有的结果（果）</p>
+<p>3.找出对应的关系</p>
+<p>4.转成对应的因果图</p>
+<p>5.转成判定表</p>
+<p>6.通过判定表转成测试用例</p>
+<p><strong>判定表又称为决策表</strong></p>
+<p>组成：</p>
+<ul>
+<li>
+<p>条件桩</p>
+</li>
+<li>
+<p>条件项（因果图中的因）</p>
+</li>
+<li>
+<p>动作桩</p>
+</li>
+<li>
+<p>动作项（因果图里的果）</p>
+</li>
+</ul>
+<p>规则的个数：2^N（因的个数）</p>
+<p><strong>如何化简判定表？</strong></p>
+<p>首要条件：结果（动作项）必须相同</p>
+<h2 id="86用例设计方法-状态图">8.6用例设计方法-状态图
+</h2><h2 id="87用例设计方法-场景法">8.7用例设计方法-场景法
+</h2><h1 id="09项目测试用例设计与评审">09项目测试用例设计与评审
+</h1><h2 id="测试用例的概述">测试用例的概述
+</h2><p><strong>什么是测试用例</strong></p>
+<ul>
+<li>测试用例（TestCase）：是为项目需求而编制的一组<span style="color: #8080FF;">测试输入、执行条件以及预期结果</span>，以便测试
+某个程序是否满足客户需求。</li>
+<li>可以总结为：每一个测试点的数据设计和<span style="color: #FF8000;"><strong>步骤</strong></span>设计。</li>
+</ul>
+<p><strong>为什么要写测试用例</strong></p>
+<ol>
+<li>测试用例是软件测试的核心</li>
+<li><span style="color: #FF8000;">评估测试结果的基准</span>（测试用例的通过率达到98%)</li>
+<li>保证测试的时候<span style="color: #FF8000;"> 不遗漏测试功能点</span>。可以在测试人员疲累的时候起到一个牵引的作用</li>
+<li>在编写测试用例的过程，可以<span style="color: #FF8000;"> 熟悉需求</span>，对系统架构或者业务流程有一个整体的，深入的了解。</li>
+<li>好的测试用例不仅方便自己和<span style="color: #FF8000;">别人查看</span>，而且还能帮助设计的时候<span style="color: #FF8000;">考虑的更周全</span>，因此测试用例的写作和设计一样，也是非常重要的。</li>
+</ol>
+<p><strong>测试用例组成-8大要素</strong></p>
+<ol>
+<li>用例编号：产品名-测试阶段-测试项-xxx功能模块的首字母加数字</li>
+<li>功能模块：对应一个功能模块(细分功能)</li>
+<li>测试标题：直接<span style="color: #8080FF;">对测试点进行细化得出</span>，输入内容+结果，<span style="color: #8080FF;">同一功能模块标题不能重复</span></li>
+<li>重要级别（优先级别）：高、中、低</li>
+<li>预置条件：需要满足一些<span style="color: #8080FF;">前提条件</span>，否则用例无法执行</li>
+<li>测试数据：需要加工的输入信息，根据具体情况来设计(跟步骤结合起来一定要具有指导性意义)</li>
+<li>操作步骤：<span style="color: #8080FF;">明确给出每个步骤的描述</span>、执行人员可以根据该步骤完成执行工作</li>
+<li>预期结果：<span style="color: #8080FF;">根据预期输出对比实际结果</span>，来判断被测对象是否符合需求。(预期结果唯一，不能出现“是否或者”）</li>
+</ol>
+<blockquote>
+<p>面试题：你写过测试用例吗？测试用例包含哪些内容?</p>
+</blockquote>
+<p><strong>什么样的用例是好的用例？</strong></p>
+<ol>
+<li>准确性——测试用例的设计确实<span style="color: #8080FF;">符合测试需求</span>，并且必须<span style="color: #8080FF;"> 准确地说明测试的内容</span></li>
+<li>简洁性——测试用例的设计中必须包含完成测试<span style="color: #8080FF;">必要的步骤、要素</span>， 不需要加入多余的、可有可无
+的步骤、要素</li>
+<li>可重用性——测试用例的设计要求<span style="color: #8080FF;">测试是可控的</span>，它能够使任何人在任何时间进行测试<span style="color: #8080FF;">都能获得同
+样的结果</span></li>
+<li>适用性——测试用例对于当前的测试环境和测试者而言是可以执行的</li>
+<li>纯净性——不会因为执行该测试用例而影响其它测试用例的执行，用例中应说明如何将应用系统恢
+复到最初状态，而<span style="color: #8080FF;"> 不影响后续测试的进行</span>。</li>
+</ol>
+<p><strong>用例编写遵循原则</strong></p>
+<ol>
+<li>使用合理的语言</li>
+</ol>
+<ul>
+<li>避免含义混淆。方法：在<span style="color: #8080FF;"> 操作步骤</span>中采用<span style="color: #8080FF;">动词+名词</span>的结构，动词总是测试人员要做得事情，名词总是测试人员操作的对象、事物</li>
+</ul>
+<p>2.使用模板</p>
+<ul>
+<li>提供了标准，格式统一美观</li>
+</ul>
+<p>3.使用克隆（Cloning)</p>
+<ul>
+<li>模仿某个测试用例来写别的测试用例</li>
+<li>某些用户手册中的步骤、文字也可以被克隆</li>
+</ul>
+<h2 id="编写测试用例项目实战">编写测试用例项目实战
+</h2><p><strong>需求</strong></p>
+<p>两个整数加法计算器基本需求</p>
+<p>第一个数和第二个数都是只能输入-99到99之间的整数，且为必填项</p>
+<p>对于输入的小于-99的数据或者大于99的数据，程序应给出明确提示</p>
+<p>对于输入的小数、字符等非法数据，程序应给出明确提示</p>
+<img src="index.assets/image-20260420102923601.png" alt="image-20260420102923601" style="zoom:50%;" /> 
+<p><strong>分析1：等价类列表</strong></p>
+<p><img src="/p/test-basic/index.assets/image-20260420104900302.png"
+	width="1190"
+	height="473"
+	
+	loading="lazy"
+	
+		alt="image-20260420104900302"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="251"
+		data-flex-basis="603px"
+	
+></p>
+<p><strong>分析2：测试用例</strong></p>
+<p><img src="/p/test-basic/index.assets/image-20260420104925815.png"
+	width="1196"
+	height="513"
+	
+	loading="lazy"
+	
+		alt="image-20260420104925815"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="233"
+		data-flex-basis="559px"
+	
+></p>
+<p><strong>Excel记录测试用例</strong></p>
+<p><img src="/p/test-basic/index.assets/image-20260420105056423.png"
+	width="1212"
+	height="516"
+	
+	loading="lazy"
+	
+		alt="image-20260420105056423"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="234"
+		data-flex-basis="563px"
+	
+></p>
+<h2 id="用例评审">用例评审
+</h2><p><strong>什么是用例评审？</strong></p>
+<p>用例评审主要是<span style="color: #FF0000;">产品、开发和测试人员</span>针对<span style="color: #8080FF;">测试用例能否用于项目的测试</span>而做的工作。</p>
+<p><strong>为什么要做用例评审？</strong></p>
+<ul>
+<li>为了减少测试人员执行阶段做无效工作</li>
+<li>为了<span style="color: #FF8000;">避免三方需求理解不一致</span>;（测试觉得是问题，开发觉得不是问题）</li>
+<li>为了每个<span style="color: #8080FF;"> 测试人员的质量标准</span>与<span style="color: #8080FF;">项目要求标准达成一致</span></li>
+</ul>
+<p><strong>评审相关事宜</strong></p>
+<p>1．用例评审参加人员：主要是<span style="color: #FF0000;">产品、开发（客户端和后端）、测试、项目负责人、运营</span>。</p>
+<p>2．用例评审时间：对于敏捷开发项目，建议控制在半小时以内。或者对功能点划分优先级，优先评审<span style="color: #FF8000;"> 优先级高</span>的用例，再<span style="color: #FF8000;">针对疑问多</span>的用例评审，最后对于<span style="color: #FF8000;">功能简单的用例</span>可简单带过。</p>
+<p>3.用例评审形式：</p>
+<ul>
+<li>对照测试用例，从上而下，从左到右，逐条念;</li>
+<li>先对功能复杂，优先级高，疑问多的用例进行评审，再评审功能简单，优先级低的功能点；</li>
+</ul>
+<p><img src="/p/test-basic/index.assets/image-20260420112242561.png"
+	width="1522"
+	height="580"
+	
+	loading="lazy"
+	
+		alt="image-20260420112242561"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="262"
+		data-flex-basis="629px"
+	
+></p>
+<p><strong>评审后的事情</strong></p>
+<p>1.评审结束后，第一时间整理测试用例，把修正的内容重新整理补全。<span style="color: #FF8000;">修改的功能点用黄色标记</span>。</p>
+<p>2.会上未确定的内容，会后继续跟进，直到确定结果。<span style="color: #FF8000;">如果有遗漏的功能点，新增后用绿色标记</span>。</p>
+<p>3.没有任何有疑问的地方了，再做个简单的用例评审会议总结</p>
+<p>如修正了哪些功能点、补全了哪些、哪些模块功能有变动、哪些功能推迟到下一期做等</p>
+<p>4.这个总结是给自己整个用例评审工作总结，同时需同步给项目组其他成员，做好<span style="color: #FF8000;">信息共享</span>。</p>
+
 </section>
 
 

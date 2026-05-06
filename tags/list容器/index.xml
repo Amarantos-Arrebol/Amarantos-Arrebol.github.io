@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>PursUnre</copyright>
-        <lastBuildDate>Wed, 05 Nov 2025 11:28:40 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/list%E5%AE%B9%E5%99%A8/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 06 May 2026 20:20:04 +0800</lastBuildDate><atom:link href="https://Amarantos-Arrebol.github.io/tags/list%E5%AE%B9%E5%99%A8/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>【C&#43;&#43;初阶】09list</title>
         <link>https://Amarantos-Arrebol.github.io/p/list/</link>
         <pubDate>Sun, 02 Nov 2025 00:00:00 +0000</pubDate>
@@ -796,7 +796,7 @@
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;insert&#34;&gt;insert
-&lt;/h3&gt;&lt;p&gt;insert在pos位置之前插入数据&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;insert在pos位置之前插入数据，返回新插入元素的迭代器&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -835,7 +835,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;erase失效&#34;&gt;erase失效
+&lt;/div&gt;&lt;p&gt;迭代器不会失效，而vector因为插入会扩容，所以会迭代器失效&lt;/p&gt;
+&lt;h3 id=&#34;erase失效&#34;&gt;erase失效
 &lt;/h3&gt;&lt;p&gt;erase有迭代器失效&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1124,20 +1125,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;strong&gt;重载-&amp;gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/list/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91list.assets/image-20251007115432579.png&#34;
-	width=&#34;589&#34;
-	height=&#34;831&#34;
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20251007115432579&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;70&#34;
-		data-flex-basis=&#34;170px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;img src=&#34;【C++初阶】list.assets/image-20251007115432579.png&#34; alt=&#34;image-20251007115432579&#34; style=&#34;zoom:50%;&#34; /&gt; 
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -1225,18 +1213,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;222-迭代器的设计思想&#34;&gt;2.2.2 &lt;strong&gt;迭代器的设计思想&lt;/strong&gt;
-&lt;/h3&gt;&lt;p&gt;&lt;img src=&#34;https://Amarantos-Arrebol.github.io/p/list/%E3%80%90C&amp;#43;&amp;#43;%E5%88%9D%E9%98%B6%E3%80%91list.assets/20250719153321589.png&#34;
-	width=&#34;462&#34;
-	height=&#34;207&#34;
-	
-	loading=&#34;lazy&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;223&#34;
-		data-flex-basis=&#34;535px&#34;
-	
-&gt;&lt;/p&gt;
+&lt;/h3&gt;&lt;img src=&#34;【C++初阶】list.assets/20250719153321589.png&#34; style=&#34;zoom: 67%;&#34; /&gt; 
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -1258,13 +1235,11 @@
 &lt;/div&gt;&lt;p&gt;容器迭代器设计思路体现了封装&lt;/p&gt;
 &lt;p&gt;屏蔽底层实现细节，屏蔽各容器结构的差异，&lt;span style=&#34;color: #8080FF;&#34;&gt;本质封装底层细节和差异，提供统一的访问方式&lt;/span&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;封装就是把底层的细节屏蔽，想给你看到的给你，不想给你看到的就屏蔽起来，&lt;/p&gt;
-&lt;p&gt;并且提供统一的访问方式，简单的封装是什么样的，复杂的封装是什么样的(比如迭代器)&lt;/p&gt;
-&lt;p&gt;比如网银支付，像支付宝/微信这类的软件就是需要和各大银行对接，然后我们可以支付宝等软件上&lt;/p&gt;
-&lt;p&gt;轻松使用自己其它银行卡里的钱进行付款&lt;/p&gt;
+&lt;p&gt;封装就是把底层的细节屏蔽，想给你看到的给你，不想给你看到的就屏蔽起来，并且提供统一的访问方式，简单的封装是什么样的，复杂的封装是什么样的(比如迭代器)&lt;/p&gt;
+&lt;p&gt;比如网银支付，像支付宝/微信这类的软件就是需要和各大银行对接，然后我们可以支付宝等软件上轻松使用自己其它银行卡里的钱进行付款&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3 id=&#34;223const迭代器&#34;&gt;&lt;strong&gt;2.2.3const迭代器&lt;/strong&gt;
-&lt;/h3&gt;&lt;p&gt;我们希望迭代器本身可以改变，但是迭代器指向的内容不能改变&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;我们希望迭代器本身可以改变（++/&amp;ndash;），但是迭代器指向的内容不能改变&lt;/p&gt;
 &lt;p&gt;这种写法是错的：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2014,7 +1989,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;完整代码&#34;&gt;完整代码
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;类里面可以不写模版参数&lt;/p&gt;
+&lt;img src=&#34;index.assets/image-20260413155554766.png&#34; alt=&#34;image-20260413155554766&#34; style=&#34;zoom: 67%;&#34; /&gt; 
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;完整代码&#34;&gt;完整代码
 &lt;/h2&gt;&lt;p&gt;iterator.h中&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
